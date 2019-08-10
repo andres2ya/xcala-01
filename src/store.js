@@ -1,0 +1,58 @@
+import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
+import thunk from 'redux-thunk'
+import { reactReduxFirebase, firebaseReducer, getFirebase} from "react-redux-firebase";
+import { reduxFirestore, firestoreReducer, getFirestore} from "redux-firestore";
+import firebase from "firebase/app";
+import REjemplo from './ducks/DuckEjemplo'
+
+
+//1. Configurando firebase en la aplicacion
+const firebaseConfig = {
+    //TODO: Crear variables de entorno para estos datos
+    apiKey: "AIzaSyBZOHrSVxhH8B7D05Nfq9N2lvZmmx_khng",
+    authDomain: "xcala-01-2e539.firebaseapp.com",
+    databaseURL: "https://xcala-01-2e539.firebaseio.com",
+    projectId: "xcala-01-2e539",
+    storageBucket: "",
+    messagingSenderId: "454505833977",
+    appId: "1:454505833977:web:c5847b0cd3c39f5f"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+//2. Configurando react-redux-firebase
+const rrfConfig = {
+    userProfile: "users",
+    useFirestoreForProfile: true
+  };
+ 
+//3. Crear en enhacer del store con compose de redux y firebase
+const createStoreWithFirebase = compose(
+    reactReduxFirebase(firebase, rrfConfig),
+    reduxFirestore(firebase)
+  )(createStore);
+
+//4. Creando reducer unico 
+const rooReducer = combineReducers({
+    //reducers contectados con firebase y firestore
+    firebase: firebaseReducer,
+    firestore: firestoreReducer,
+    //los demas reducers necesarios para la app
+    ejemplo:REjemplo
+  });
+
+
+//5. Creando store con el reducer unico "rooReducer", la inicializacion del estado "initialState", y la composicion de middlewares "thunks, etc"
+const initialState ={};
+const store=createStoreWithFirebase(
+/**Primer Argumento: Reducers */rooReducer,/**Destructuring de todos los reducers, osea que creara el store con todos los reducers contenidos en docks*/
+/**Segund Arg: Estado inicial */initialState,
+/**Tercer Argume: Middlewares */compose(
+                                        applyMiddleware(thunk.withExtraArgument({getFirebase,getFirestore})),
+                                        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+                                        )
+)
+//withExtraArgument permite que a todos los thunk se les pase tambien un argumento adicional, en este caso, todos los servicios de firebase y firestore
+//De esta forma, del mismo thunk podremos obtener los servicios sin hacer import
+
+export default store;

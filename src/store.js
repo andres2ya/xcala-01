@@ -3,6 +3,8 @@ import thunk from 'redux-thunk'
 import { reactReduxFirebase, firebaseReducer, getFirebase} from "react-redux-firebase";
 import { reduxFirestore, firestoreReducer, getFirestore} from "redux-firestore";
 import firebase from "firebase/app";
+import "firebase/auth";//para habiolitar toda la autenticacion
+import "firebase/firestore";
 import REjemplo from './ducks/DuckEjemplo'
 
 //1. Configurando firebase en la aplicacion
@@ -45,11 +47,13 @@ const rooReducer = combineReducers({
 const initialState ={};
 const store=createStoreWithFirebase(
 /**Primer Argumento: Reducers */rooReducer,/**Destructuring de todos los reducers, osea que creara el store con todos los reducers contenidos en docks*/
-/**Segund Arg: Estado inicial */initialState,
-/**Tercer Argume: Middlewares */compose(
-                                        applyMiddleware(thunk.withExtraArgument({getFirebase,getFirestore})),
-                                        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-                                        )
+/**Segund Arg: Estado inicial */initialState,                            
+                                compose(
+                                    reactReduxFirebase(firebase),
+                                    applyMiddleware(thunk.withExtraArgument({getFirebase,getFirestore})
+                                    //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+                                    )
+                                )         
 )
 //withExtraArgument permite que a todos los thunk se les pase tambien un argumento adicional, en este caso, todos los servicios de firebase y firestore
 //De esta forma, del mismo thunk podremos obtener los servicios sin hacer import

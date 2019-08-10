@@ -1,10 +1,9 @@
 import React from 'react';
+import Producto from './components/Producto'
 
 function App() {
   return (
-    <div className="App">
-      Hola desde componente App
-    </div>
+    <Producto/>
   );
 }
 

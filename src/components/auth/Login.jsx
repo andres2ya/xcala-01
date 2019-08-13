@@ -1,18 +1,27 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signIn} from '../../ducks/authDuck'
+import {signIn,keepSesion,logOut} from '../../ducks/authDuck'
 
 class Login extends Component {
 
     state={
         email:'', 
-        password:''
+        password:'',
+        keep:'No'
     }
 
     leerDatos=(e)=>{
         this.setState({
             [e.target.name]:e.target.value
         })
+        console.log(this.state.keep)
+    }
+
+    go=(e)=>{
+        e.preventDefault()
+        const {keepSesion}=this.props
+        const {keep}=this.state
+        keepSesion(keep)
     }
 
     iniciarSesion=(e)=>{
@@ -25,6 +34,11 @@ class Login extends Component {
             email:'',
             password:''
         })
+    }
+
+    check=(e)=>{
+        e.preventDefault()
+        console.log(this.props.fire)
     }
 
     render() {
@@ -47,9 +61,12 @@ class Login extends Component {
                 </form>
 
                 <div>                     
-                    <button onSubmit={this.olvideContraseña} type="submit">Olivde la constraseña</button>
-                    <button onSubmit={this.mantenerIniciada} type="submit">mantener iniciada</button>
-                    <button onSubmit={this.cerrarSesion} type="submit">cerrar sesion</button>
+                    <button onClick={this.olvideContraseña}>Olivde la constraseña</button>
+                    
+                    <input type="text" name="keep" onChange={this.leerDatos}/>
+                    <button onClick={this.go} >go go go</button>
+                    <button onClick={this.props.logOut}>cerrar sesion</button>
+                    <button onClick={this.check}>check</button>
                 </div>
             </div>   
         )
@@ -57,11 +74,17 @@ class Login extends Component {
 }
 const mapStateToProps=(state)=>({
     authError:state.authReducer.authError,
-    authSuccess:state.authReducer.authSuccess
+    authSuccess:state.authReducer.authSuccess,
+    fire:state
 })
 
 const mapDispatchToProps=(dispatch)=>{
-    return {signIn:(creds)=>dispatch(signIn(creds))}
+    return {
+        signIn:(creds)=>dispatch(signIn(creds)),
+        // recoveryPassword:(data)=>dispatch(recoveryPassword(data)),
+        logOut:(data)=>dispatch(logOut(data)),
+        keepSesion:(option)=>dispatch(keepSesion(option))
+    }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login)

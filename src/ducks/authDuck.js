@@ -1,9 +1,22 @@
-//1. Actions types
+//1. ACTION TYPES 
 const LOGIN_SUCCESS='xcala/auth/SUCCESS'
 const LOGIN_ERROR='xcala/auth/ERROR'
+//----------------------------------------------------------------
+const RECOVERY_PASSWORD_SUCCESS='xcala/auth/RECOVERY_PASSWORD_SUCCESS'
+const RECOVERY_PASSWORD_ERROR='xcala/auth/RECOVERY_PASSWORD_ERROR'
+//----------------------------------------------------------------
+const LOGOUT_SUCCESS='xcala/auth/LOGOUT_SUCCESS'
+const LOGOUT_ERROR='xcala/auth/LOGOUT_ERROR'
+//----------------------------------------------------------------
+const KEEP_SESION_SUCCESS='xcala/auth/KEEP_SESION_SUCCESS'
+const KEEP_SESION_ERROR='xcala/auth/KEEP_SESION_ERROR'
 
 
-//2. Actions Thunks(Permiten retornar funciones)
+
+
+
+
+//2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
 export const signIn=(credentials)=>{
     return (dispatch,getState,{getFirebase})=>{
         const firebase=getFirebase();
@@ -19,9 +32,54 @@ export const signIn=(credentials)=>{
         })
     }
 }
+//----------------------------------------------------------------
+export const keepSesion=(option)=>{
+    return(dispatch,getState,{getFirebase})=>{
+        const firebase=getFirebase();
+
+        if(option==='Si'){
+            console.log('Persistence = LOCAL')
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                .then((res)=>{
+                    dispatch({type:KEEP_SESION_SUCCESS})
+                })
+                .catch((err)=>{
+                    dispatch({type:KEEP_SESION_ERROR,payload:err})
+                })
+        }else if(option==='No'){
+            console.log('Persistence = NONE')
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+                .then((res)=>{
+                    dispatch({type:KEEP_SESION_SUCCESS})
+                })
+                .catch((err)=>{
+                    dispatch({type:KEEP_SESION_ERROR,payload:err})
+                })
+        }else{
+            console.log('Persistence = NULL')
+        }
+    }
+}
+//----------------------------------------------------------------
+export const logOut=(data)=>{
+    return (dispatch,getState,{getFirebase})=>{
+        const firebase=getFirebase();
+        firebase.auth().signOut()
+        .then((res)=>{
+            dispatch({type:LOGOUT_SUCCESS,payload:res});
+        })
+        .catch((err)=>{
+            dispatch({type:LOGOUT_ERROR,payload:err})
+        })
+    }
+}
 
 
-//3. Reducer
+
+
+
+
+//3. REDUCER AUTH
 const initialState={
     authSuccess:null,
     authError:null,
@@ -43,6 +101,30 @@ const authReducer = (state=initialState, action)=>{
                 ...state,
                 authError:`Login error ${action.payload}`,
                 authSuccess:null
+            }
+        
+        case KEEP_SESION_SUCCESS:
+            console.log('local persistence ok')
+            return{
+                ...state
+            }
+        //-----------------------------------------------------------------
+        case KEEP_SESION_ERROR:
+            console.log('local persistence bad')
+            console.log(action.payload)
+            return{
+                ...state
+            }
+        //------------------------------------------------------------------
+        case LOGOUT_SUCCESS:
+            console.log('cerrada con exito')
+            return{
+                ...state
+            }
+        case LOGOUT_ERROR:
+            console.log('cerrada sin exito')
+            return{
+                ...state
             }
         default:
             console.log('login default')

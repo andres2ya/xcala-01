@@ -18,7 +18,7 @@ class Producto extends Component {
 }
 
 const mapStateToProps=(state,onwprops)=>({
-productos:state.firestore
+productos:state
 })
 
 const mapDispatchToProps=dispatch=>({
@@ -26,6 +26,6 @@ const mapDispatchToProps=dispatch=>({
 })
 
 export default compose(
-    firestoreConnect([{collection:'productos'}]),
-    connect(mapStateToProps,mapDispatchToProps)
+     firestoreConnect([{collection:'productos'}]),
+     connect(mapStateToProps,mapDispatchToProps)
 )(Producto)

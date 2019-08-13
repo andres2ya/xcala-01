@@ -3,9 +3,9 @@ import thunk from 'redux-thunk'
 import { reactReduxFirebase, firebaseReducer, getFirebase} from "react-redux-firebase";
 import { reduxFirestore, firestoreReducer, getFirestore} from "redux-firestore";
 import firebase from "firebase/app";
-import "firebase/auth";//para habiolitar toda la autenticacion
+import "firebase/auth";//para habilitar toda la autenticacion
 import "firebase/firestore";
-import REjemplo from './ducks/DuckEjemplo'
+import authDuck from './ducks/authDuck'
 
 //1. Configurando firebase en la aplicacion
 const firebaseConfig = {
@@ -38,7 +38,7 @@ const rooReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
     //los demas reducers necesarios para la app
-    ejemplo:REjemplo
+    authReducer:authDuck
   });
 
 

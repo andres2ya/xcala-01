@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signIn,keepSesion,logOut} from '../../ducks/authDuck'
+import {signIn,keepSesion,logOut,recoveryPassword} from '../../ducks/authDuck'
 
 class Login extends Component {
 
@@ -41,6 +41,11 @@ class Login extends Component {
         console.log(this.props.fire)
     }
 
+    resetPassword=(e)=>{
+        e.preventDefault()
+        this.props.recoveryPassword(this.state.email)
+    }
+
     render() {
         return (
             <div>
@@ -61,8 +66,9 @@ class Login extends Component {
                 </form>
 
                 <div>                     
-                    <button onClick={this.olvideContraseña}>Olivde la constraseña</button>
-                    
+                    <button onClick={this.resetPassword}>Olivde la constraseña</button>
+                    <br/>
+                    <br/>
                     <input type="text" name="keep" onChange={this.leerDatos}/>
                     <button onClick={this.go} >go go go</button>
                     <button onClick={this.props.logOut}>cerrar sesion</button>
@@ -81,8 +87,8 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch)=>{
     return {
         signIn:(creds)=>dispatch(signIn(creds)),
-        // recoveryPassword:(data)=>dispatch(recoveryPassword(data)),
-        logOut:(data)=>dispatch(logOut(data)),
+        recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
+        logOut:()=>dispatch(logOut()),
         keepSesion:(option)=>dispatch(keepSesion(option))
     }
 }

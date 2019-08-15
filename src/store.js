@@ -16,21 +16,21 @@ const firebaseConfig = {
     storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_APP_ID
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 //2. Configurando react-redux-firebase
 const rrfConfig = {
-    userProfile: "users",
-    useFirestoreForProfile: true
-  };
- 
+    userProfile: "users",//Indica la coleccion de firebase donde esta ubicada la informacion de los usuarios para
+    useFirestoreForProfile: true//luego poderla sincronizar con el ID en "firebase.auth.profile"
+};
+
 //3. Crear en enhacer del store con compose de redux y firebase
 const createStoreWithFirebase = compose(
     reactReduxFirebase(firebase, rrfConfig),
     reduxFirestore(firebase)
-  )(createStore);
+)(createStore);
 
 //4. Creando reducer unico 
 const rooReducer = combineReducers({
@@ -39,8 +39,7 @@ const rooReducer = combineReducers({
     firestore: firestoreReducer,
     //los demas reducers necesarios para la app
     authReducer:authDuck
-  });
-
+});
 
 //5. Creando store con el reducer unico "rooReducer", la inicializacion del estado "initialState", y la composicion de middlewares "thunks, etc"
 const initialState ={};
@@ -54,7 +53,7 @@ const store=createStoreWithFirebase(
                                     )
                                 )         
 )
+
 //withExtraArgument permite que a todos los thunk se les pase tambien un argumento adicional, en este caso, todos los servicios de firebase y firestore
 //De esta forma, del mismo thunk podremos obtener los servicios sin hacer import
-
 export default store;

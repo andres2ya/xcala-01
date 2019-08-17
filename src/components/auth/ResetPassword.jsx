@@ -42,9 +42,7 @@ class ResetPassword extends Component {
                 <button onClick={this.confirmarNewPass} >Confirmar</button></div> 
                 : null }
 
-                {this.props.mensage?
-                <p>{this.props.mensage}</p>
-                : null }
+                {this.props.mensage?   <p>{this.props.mensage}</p>   :   null }
             </div>
         )
     }

@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signIn,keepSesion,logOut,recoveryPassword} from '../../ducks/authDuck'
+import {signIn,keepSesion,logOut,recoveryPassword,changePassword,sendVerificationToChangeEmail} from '../../ducks/authDuck'
+
 
 class Login extends Component {
 
     state={
         email:'', 
         password:'',
-        keep:'No'
+        keep:'No',
+        newPassword:'',
+        newEmail:''
     }
+
 
     leerDatos=(e)=>{
         this.setState({
@@ -46,8 +50,19 @@ class Login extends Component {
         this.props.recoveryPassword(this.state.email)
     }
 
+    cambiarContraseña=(e)=>{
+        e.preventDefault()
+        this.props.changePassword(this.state.confirmCurrentPassword,this.state.newPassword)
+    }
+
+    cambiarEmail=(e)=>{
+        e.preventDefault()
+        this.props.sendVerificationToChangeEmail(this.state.newEmail)
+    }
+
     render() {
         return (
+            <div>
             <div>
                 <form onSubmit={this.iniciarSesion} >
                     <h1>Iniciar sesion</h1>
@@ -74,7 +89,18 @@ class Login extends Component {
                     <button onClick={this.props.logOut}>cerrar sesion</button>
                     <button onClick={this.check}>check</button>
                 </div>
-            </div>   
+            </div>
+            <div>
+                <h2>Cambiar contraseña</h2>
+                <input placeholder="Contraseña actual" onChange={this.leerDatos} name="confirmCurrentPassword" type="password"/>
+                <input placeholder="Nueva contraseña" onChange={this.leerDatos} name="newPassword" type="password"/>
+                <button onClick={this.cambiarContraseña} >Cambiar contraseña</button>
+
+                <h2>Cambiar email</h2>
+                <input onChange={this.leerDatos} name="newEmail" type="email"/>
+                <button onClick={this.cambiarEmail}>Cambiar email</button>
+            </div>
+            </div>
         )
     }
 }
@@ -89,7 +115,9 @@ const mapDispatchToProps=(dispatch)=>{
         signIn:(creds)=>dispatch(signIn(creds)),
         recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
         logOut:()=>dispatch(logOut()),
-        keepSesion:(option)=>dispatch(keepSesion(option))
+        keepSesion:(option)=>dispatch(keepSesion(option)),
+        changePassword:(confirmCurrentPassword,newPass)=>dispatch(changePassword(confirmCurrentPassword,newPass)),
+        sendVerificationToChangeEmail:(newEmail)=>dispatch(sendVerificationToChangeEmail(newEmail))
     }
 }
 

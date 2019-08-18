@@ -1,4 +1,4 @@
-//1. ACTION TYPES 
+//1. ACTION TYPES LOGIN
 const LOGIN_SUCCESS='xcala/auth/LOGIN_SUCCESS'
 const LOGIN_ERROR='xcala/auth/LOGIN_ERROR'
 //----------------------------------------------------------------

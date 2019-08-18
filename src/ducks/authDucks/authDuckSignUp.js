@@ -59,7 +59,7 @@ const initialState={
 const authSignUpReducer = (state=initialState, action)=>{
     switch(action.type){
         case SIGNUP_SUCCESS:
-            mensage='Usuario creado con exito'
+            var mensage='Usuario creado con exito'
             console.log(mensage)
             return{ 
                 ...state,

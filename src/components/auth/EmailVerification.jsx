@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {verifyEmail,changeEmail} from '../../ducks/authDuck'
+import {changeEmail} from '../../ducks/authDucks/authUpdatePassAndEmailDuck'
+import {verifyEmail} from '../../ducks/authDucks/authDuckSignUp'
 import {getParameterByName} from '../../helpers/getParameterByName'
 import {loadState} from '../../helpers/localStorage'
 

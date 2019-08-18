@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signIn,keepSesion,logOut,recoveryPassword,changePassword,sendVerificationToChangeEmail} from '../../ducks/authDuck'
+import {signIn,keepSesion,logOut} from '../../ducks/authDucks/authDuckLogin'
+import {recoveryPassword} from '../../ducks/authDucks/authDuckRecoveryPassword'
+import {changePassword,sendVerificationToChangeEmail} from '../../ducks/authDucks/authUpdatePassAndEmailDuck'
 
 
 class Login extends Component {

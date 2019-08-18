@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {resetPassword,confirmNewPassword} from '../../ducks/authDuck'
+import {resetPassword,confirmNewPassword} from '../../ducks/authDucks/authDuckRecoveryPassword'
 import {getParameterByName} from '../../helpers/getParameterByName'
 
 class ResetPassword extends Component {

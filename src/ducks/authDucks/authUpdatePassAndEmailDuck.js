@@ -1,4 +1,4 @@
-import {saveState} from '../helpers/localStorage'
+import {saveState} from '../../helpers/localStorage'
 //1. ACTION TYPES 
 const UPDATE_PASSWORD_SUCCESS='xcala/auth/UPDATE_PASSWORD_SUCCESS'
 const UPDATE_PASSWORD_ERROR='xcala/auth/UPDATE_PASSWORD_ERROR'
@@ -84,7 +84,7 @@ const initialState={
 const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
     switch(action.type){
         case UPDATE_PASSWORD_SUCCESS:
-            mensage='Se actualizo tu contraseña con exito' + action.payload
+            var mensage='Se actualizo tu contraseña con exito' + action.payload
             console.log(mensage)
             return{
                 ...state,

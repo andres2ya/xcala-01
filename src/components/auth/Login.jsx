@@ -107,8 +107,8 @@ class Login extends Component {
     }
 }
 const mapStateToProps=(state)=>({
-    authError:state.authReducer.authError,
-    authSuccess:state.authReducer.authSuccess,
+    authError:state.authLoginReducer.authError,
+    authSuccess:state.authLoginReducer.authSuccess,
     fire:state
 })
 

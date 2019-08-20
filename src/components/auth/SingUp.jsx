@@ -41,7 +41,7 @@ class SingUp extends Component {
 }
 
 const mapStateToProps=(state)=>({
-    mensaje:state.msg
+    mensaje:state.authSignUpReducer.msg
 })
 
 const mapDispatchToProps=(dispatch)=>{

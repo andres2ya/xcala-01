@@ -38,9 +38,9 @@ class EmailVerification extends Component {
 
 
 const mapStateToProps=(state)=>({
-mensaje:state.authReducer.msg,
-isAuth:state.authReducer.isAuth,
-newEmail:state.authReducer.newEmail
+mensaje:state.authRecoveryPasswordReducer.msg,
+isAuth:state.authUpdatePassAndEmailReducer.isAuth,
+newEmail:state.authUpdatePassAndEmailReducer.newEmail
 })
 
 const mapDispatchToProps=(dispatch)=>{

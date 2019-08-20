@@ -50,8 +50,8 @@ class ResetPassword extends Component {
 
 const mapStateToProps=(state)=>{
     return{
-        ShowFormNewPass:state.authReducer.ShowFormResetPassword,
-        mensage:state.authReducer.msg
+        ShowFormNewPass:state.authRecoveryPasswordReducer.ShowFormResetPassword,
+        mensage:state.authRecoveryPasswordReducer.msg
     }
 }
 

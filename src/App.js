@@ -1,7 +1,7 @@
 import React from 'react';
 import Producto from './components/Producto'
-import Login from './components/auth/Login'
-import SingUp from './components/auth/SingUp'
+import Login from './components/auth/Login/Login'
+import SignUp from './components/auth/SignUp/SignUp'
 import EmailVerification from './components/auth/EmailVerification'
 import ResetPassword from './components/auth/ResetPassword'
 import MainNavbar from './components/layout/MainNavbar/MainNavbar';
@@ -34,7 +34,7 @@ function App() {
       <Route exact path="/login" component={Login}/>
       <Route exact path="/producto" component={Producto}/>
       <Route exact path="/resetpassword" component={ResetPassword}/>
-      <Route exact path="/signup" component={SingUp}/>
+      <Route exact path="/signup" component={SignUp}/>
       <Route exact path="/emailVerification" component={EmailVerification}/>
       {/* <Route exact path="/productos" component={UserIsAuthenticated(Productos)}/>
       <Route exact path="/productos/producto/:id" component={UserIsAuthenticated(Producto)}/> */}

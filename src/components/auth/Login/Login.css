@@ -7,7 +7,6 @@
 .centerVertical{
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .subrayar {
@@ -34,6 +33,11 @@ button {
   color: white;
   width: 80%;
   height: 40px;
+}
+
+a{
+  color:white;
+  font-weight: 500;
 }
 
 button:hover {
@@ -63,9 +67,19 @@ input:focus {
   color: rgb(255, 255, 255, 0.7);
 }
 
+select{
+  background-color: rgb(255, 255, 255, 0);
+  border: 0px;
+  padding-left: 10px;
+  color: white;
+}
+
+select:focus {
+  outline: none;
+}
+
 .divider {
   border-bottom: 1.3px solid white;
-  width: 80%;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -73,20 +87,16 @@ input:focus {
 #seccionIngresar {
   margin-top: 40px;
   margin-bottom: 15px;
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #seccionIngresosExtra {
   font-weight: 400;
   margin-top: 100px;
   margin-bottom: 30px;
-}
-
-#inputEmail{
-    width: 80%
-}
-
-#inputPassword{
-    width: 80%
 }
 
 .icon{

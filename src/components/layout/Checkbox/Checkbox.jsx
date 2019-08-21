@@ -1,12 +1,15 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import '../Checkbox/Checkbox.css'
 
- export default function Checkbox() {
+ export default function Checkbox(props) {
         return (
-        <div className="box">
-            <input id="recordarme" type="checkbox"/>
-            <span className="check"></span>
-            <label htmlFor="recordarme">Recordarme</label>
+        <div className={props.styleBox}>
+            <input id={props.id} type="checkbox"/>
+            <span className={props.styleCheck}></span>
+            <label htmlFor={props.id}>
+                {props.text}{' '}<Link to={props.link}>{props.textLink}</Link>
+            </label>
         </div>
         )
 }

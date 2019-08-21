@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {signIn,keepSesion,logOut} from '../../ducks/authDucks/authDuckLogin'
-import {recoveryPassword} from '../../ducks/authDucks/authDuckRecoveryPassword'
-import {changePassword,sendVerificationToChangeEmail} from '../../ducks/authDucks/authUpdatePassAndEmailDuck'
-import logoXcala from '../../assets/logoXcala.png';
-import '../../styles/Login.css';
-import Checkbox from '../layout/Checkbox/Checkbox';
+import {signIn,keepSesion,logOut} from '../../../ducks/authDucks/authDuckLogin'
+import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
+import {changePassword,sendVerificationToChangeEmail} from '../../../ducks/authDucks/authUpdatePassAndEmailDuck'
+import logoXcala from '../../../assets/logoXcala.png';
+import './Login.css';
+import Checkbox from '../../../components/layout/Checkbox/Checkbox';
 
 
 
@@ -78,12 +78,12 @@ class Login extends Component {
 
                 <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
                 <div id="seccionIngresar">
-                    <div className=" centerVertical" id="inputEmail">
+                    <div className=" centerVertical centerHorizontal" id="inputEmail">
                         <i className="icon icon-arroba centerVertical"></i>
                         <input type="email" id="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
                     <div className="divider centerHorizontal"></div>
-                    <div className=" centerVertical" id="inputPassword">
+                    <div className=" centerVertical centerHorizontal" id="inputPassword">
                         <i className="icon icon-locked centerVertical "></i>
                         <input type="password" id="password"  placeholder="Contraseña" required autoComplete="off"/>
                     </div>
@@ -91,7 +91,7 @@ class Login extends Component {
                 <button  type="submit" className="button">Ingresar</button>
 
 
-                <Checkbox />
+                <Checkbox styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="textWhiteCenter centerHorizontal" to="/hola" > <span className="subrayar">Olvide mi contraseña</span> </Link>
                 
                 <div id="seccionIngresosExtra" >

@@ -1,0 +1,55 @@
+.signup-logo{
+    height:50px;
+    margin-top: 20px;
+}
+
+.seccionRegistro{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.seccionHeaderRegistro{
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.seccionDatosCuentaRegistro{
+    margin-bottom: 20px;
+}
+
+.subtituloRegistro{
+    color: white;
+    text-align: center;
+    margin-bottom: 4px;
+    margin-left:4px;
+}
+
+.labelDatos{
+    color:white;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 500;
+    height: 5px;
+    margin-bottom: 25px
+}
+
+.placeholder {
+    color: rgb(255, 255, 255, 0.7);
+    text-align: left;
+    margin-left:10px;
+    font-weight: 400;
+    line-height: 15px
+  }
+
+.seccionEnviarRegistro{
+    margin-top:10px;
+}
+
+.dividerSignUp {
+    border-bottom: 1px solid white;
+    margin-top: 5px;
+    margin-bottom:5px;
+}
+

@@ -10,8 +10,8 @@ import {Route, Switch, withRouter} from "react-router-dom"
 
 function App() {
   return (
-    <div>
-    {window.location.pathname==="/" ? '<Navbar/>' : '<NavbarDos/>'}
+    <div >
+    {window.location.pathname==="/login" ? null : '<NavbarDos/>'}
     <div className="container">
     <Switch>
       {/* <Route exact path="/" component={UserIsNotAuthenticated(Inicio)}/> */}

@@ -1,0 +1,10 @@
+.loginStyle{
+    background-image: linear-gradient( #080e6d66, #080e6d66),url("./assets/fondo.png");  
+    background-size: cover;
+    background-color:#000008;
+    background-repeat: no-repeat;
+    min-width:100%;
+}
+html{
+    height: 100%;
+}

@@ -1,0 +1,84 @@
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subrayar {
+  border-bottom: 1px solid white;
+}
+
+.textWhiteCenter {
+  color: white;
+  text-align: center;
+}
+
+.logo {
+  height: 55px;
+  margin-top: 45px;
+}
+
+button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1.5px solid white;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255, 0);
+  color: white;
+  width: 80%;
+  height: 40px;
+}
+
+button:hover {
+  background-color: rgb(255, 255, 255, 0.1);
+}
+
+button:active {
+  zoom: 0.98;
+}
+
+button:focus {
+  outline: none;
+}
+
+input {
+  background-color: rgb(255, 255, 255, 0);
+  border: 0px;
+  padding-left: 10px;
+  color: white;
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  color: rgb(255, 255, 255, 0.7);
+}
+
+.divider {
+  border-bottom: 1.5px solid white;
+  width: 70%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#seccionIngresar {
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+#seccionIngresosExtra {
+  font-weight: 400;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+#inputEmail{
+    width: 80%
+}
+
+#inputPassword{
+    width: 80%
+}

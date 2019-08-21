@@ -76,15 +76,15 @@ class Login extends Component {
         return (
             <div>
 
-                <img className="logo center" src={logoXcala} alt="Xcala Colombia"/>
+                <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
                 <div id="seccionIngresar">
-                    <div className="center" id="inputEmail">
-                        <i className="fas fa-at textWhiteCenter"></i>
+                    <div className=" centerVertical" id="inputEmail">
+                        <i className="icon icon-at centerVertical"></i>
                         <input type="email" id="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
-                    <div className="divider center"></div>
-                    <div className="center" id="inputPassword">
-                        <i className="fas fa-unlock-alt textWhiteCenter"></i>
+                    <div className="divider centerHorizontal"></div>
+                    <div className=" centerVertical" id="inputPassword">
+                        <i className="icon icon-lock centerVertical "></i>
                         <input type="password" id="password"  placeholder="Contraseña" required autoComplete="off"/>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ class Login extends Component {
 
 
                 <Checkbox />
-                <Link className="textWhiteCenter center" to="/hola" > <span className="subrayar">Olvide mi contraseña</span> </Link>
+                <Link className="textWhiteCenter centerHorizontal" to="/hola" > <span className="subrayar">Olvide mi contraseña</span> </Link>
                 
                 <div id="seccionIngresosExtra" >
                     <p className="textWhiteCenter">¿Deseas generar ingresos extra en tu tiempo libre?</p>

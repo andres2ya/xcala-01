@@ -96,7 +96,7 @@ class Login extends Component {
                 
                 <div id="seccionIngresosExtra" >
                     <p className="textWhiteCenter">¿Deseas generar ingresos extra en tu tiempo libre?</p>
-                    <button  type="button" className="button">Hazlo con Xcala</button>
+                    <Link to="/signup"><button  type="button" className="button">Hazlo con Xcala</button></Link>
                 </div>
             </div>
         )

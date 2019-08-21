@@ -28,13 +28,7 @@ class SingUp extends Component {
     render() {
         return (
             <div>
-                <input placeholder="email" name="email" onChange={this.leerDatos} type="text"/>
-                <input placeholder="password" name="password" onChange={this.leerDatos} type="password"/>
-                <input placeholder="nombre" name="nombre" onChange={this.leerDatos} type="text"/>
-                <input placeholder="apellido" name="apellido" onChange={this.leerDatos} type="text"/>
-                <input placeholder="cedula" name="cedula" onChange={this.leerDatos} type="number"/>
-                <button type="submit" onClick={this.crearUsuario}>Registrar</button>
-                <p>{this.props.mensaje}</p>
+                
             </div>
         )
     }

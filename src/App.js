@@ -4,6 +4,7 @@ import Login from './components/auth/Login'
 import SingUp from './components/auth/SingUp'
 import EmailVerification from './components/auth/EmailVerification'
 import ResetPassword from './components/auth/ResetPassword'
+import MainNavbar from './components/layout/MainNavbar/MainNavbar';
 import {Route, Switch, withRouter} from "react-router-dom"
 // import {UserIsAuthenticated,UserIsNotAuthenticated} from './helpers/auth'
 
@@ -12,9 +13,19 @@ function App() {
   return (
     <div >
     {
-      
-      window.location.pathname==="/login"  ? null : '<NavbarDos/>'
-      
+        (function(){
+          var NavBar;
+          switch(window.location.pathname){
+            case '/login':
+              NavBar=null
+              break;
+            case '/signup':
+              NavBar=null
+              break;
+            default:
+              NavBar=<MainNavbar text={'In other shit'} />}
+          return NavBar
+        })()
     }
     <div className="container">
     <Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {signUp} from '../../ducks/authDucks/authDuckSignUp'
+import logoXcala from '../../assets/logoXcala.png';
 
 class SingUp extends Component {
 
@@ -28,7 +29,7 @@ class SingUp extends Component {
     render() {
         return (
             <div>
-                
+                <img className="logo" src={logoXcala} alt="Xcala Colombia"/><span className="textWhiteCenter" >Registro</span>
             </div>
         )
     }

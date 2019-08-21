@@ -44,3 +44,12 @@
 .icon-lock:before {
   content: "\62";
 }
+.icon-arroba:before {
+  content: "\63";
+}
+.icon-locked:before {
+  content: "\64";
+}
+.icon-atlight:before {
+  content: "\65";
+}

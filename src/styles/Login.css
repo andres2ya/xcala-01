@@ -28,7 +28,7 @@ button {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: 1.5px solid white;
+  border: 1.3px solid white;
   border-radius: 15px;
   background-color: rgb(255, 255, 255, 0);
   color: white;
@@ -64,7 +64,7 @@ input:focus {
 }
 
 .divider {
-  border-bottom: 1.5px solid white;
+  border-bottom: 1.3px solid white;
   width: 80%;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -77,7 +77,7 @@ input:focus {
 
 #seccionIngresosExtra {
   font-weight: 400;
-  margin-top: 120px;
+  margin-top: 100px;
   margin-bottom: 30px;
 }
 
@@ -90,7 +90,7 @@ input:focus {
 }
 
 .icon{
-  font-size: 28px;
+  font-size: 25px;
   color:white;
   text-align: center;
 }

@@ -79,12 +79,12 @@ class Login extends Component {
                 <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
                 <div id="seccionIngresar">
                     <div className=" centerVertical" id="inputEmail">
-                        <i className="icon icon-at centerVertical"></i>
+                        <i className="icon icon-arroba centerVertical"></i>
                         <input type="email" id="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
                     <div className="divider centerHorizontal"></div>
                     <div className=" centerVertical" id="inputPassword">
-                        <i className="icon icon-lock centerVertical "></i>
+                        <i className="icon icon-locked centerVertical "></i>
                         <input type="password" id="password"  placeholder="Contraseña" required autoComplete="off"/>
                     </div>
                 </div>

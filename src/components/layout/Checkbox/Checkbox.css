@@ -1,6 +1,6 @@
 .box {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 25px;
+    margin-bottom: 0px;
     display: flex;
     align-items: center;
     width: 150px;
@@ -13,7 +13,7 @@
   .box label {
     color: white;
     position: absolute;
-    padding-left: 35px;
+    padding-left: 30px;
     cursor: pointer;
   }
   .box input {
@@ -65,6 +65,8 @@
   user-select: none;
   display: flex;
   align-items: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .boxSignUp label {

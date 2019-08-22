@@ -69,7 +69,7 @@ class SingUp extends Component {
                     </div>
                     <div className="dividerSignUp centerHorizontal"></div>
                     <div className=" centerVertical" >
-                            <div className="placeholder">Fecha de nacimiento</div>
+                            <div className="placeholder">Fecha nacimiento:</div>
                             <input type="date" id="fechaNacimientoUsuario" required autoComplete="off"/>
                     </div>
                     <div className="dividerSignUp centerHorizontal"></div>
@@ -79,8 +79,8 @@ class SingUp extends Component {
                     <div className="dividerSignUp centerHorizontal"></div>
                     <div className=" centerVertical" >
                             <select type="text" id="ciudadUsuario" placeholder="Ciudad de residencia" required autoComplete="off">
+                                <option value="" disabled selected>Ciudad de residencia</option>
                                 <option value="Bogota">Bogota</option>
-                                <option value="Cali">Cali</option>
                                 <option value="Cucuta">Cucuta</option>
                             </select>
                     </div>
@@ -90,7 +90,7 @@ class SingUp extends Component {
                     </div>
                 </div>
 
-                <div className="seccionEnviarRegistro">
+                <div className="seccionEnviarRegistro ">
                     <Checkbox styleBox={'boxSignUp'} styleCheck={'checkSignUp'} text={'Acepto los'} 
                     link={'/Terminos&condiciones'} textLink={'Terminos y condiciones'}  id={'aceptoRegistroCheck'}/>
                     <button>Registrar</button>

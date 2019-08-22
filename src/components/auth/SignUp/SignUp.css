@@ -40,8 +40,14 @@
     text-align: left;
     margin-left:10px;
     font-weight: 400;
-    line-height: 15px
+    line-height: 15px;
+    min-width: 150px;
   }
+
+#fechaNacimientoUsuario{
+    margin-left:-25px;
+    width: 145px;
+}
 
 .seccionEnviarRegistro{
     margin-top:10px;

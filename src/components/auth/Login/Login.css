@@ -71,11 +71,19 @@ select{
   background-color: rgb(255, 255, 255, 0);
   border: 0px;
   padding-left: 10px;
-  color: white;
+  color: rgb(255, 255, 255, 0.7);
+  margin-left:-4px;
+  font-weight: 400;
+  width: 350px;
 }
 
 select:focus {
   outline: none;
+}
+
+option{
+  background-color: rgb(255, 255, 255,0.0);
+  color:#000008;
 }
 
 .divider {

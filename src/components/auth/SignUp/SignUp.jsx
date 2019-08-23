@@ -92,7 +92,7 @@ class SingUp extends Component {
                 </div>
 
                 <div className="seccionEnviarRegistro ">
-                    <Checkbox styleBox={'boxSignUp'} styleCheck={'checkSignUp'} text={'Acepto los'} 
+                    <Checkbox mode={'acceptT&C'} styleBox={'boxSignUp'} styleCheck={'checkSignUp'} text={'Acepto los'} 
                     link={'/Terminos&condiciones'} textLink={'Terminos y condiciones'}  id={'aceptoRegistroCheck'}/>
                     <Link to="/emailverify"><button>Registrar</button></Link>
                 </div>

@@ -10,6 +10,7 @@ import EmailVerify from './components/auth/EmailVerify/EmailVerify';
 import PassForgot from './components/auth/PassForgot/PassForgot';
 import PassReset from './components/auth/PassReset/PassReset';
 import EmailConfirm from './components/auth/EmailConfirm/EmailConfirm';
+import MyAccount from './components/account/MyAccount';
 // import {UserIsAuthenticated,UserIsNotAuthenticated} from './helpers/auth'
 
 
@@ -20,7 +21,7 @@ function App() {
         (function(){
           var NavBar;
           switch(window.location.pathname){
-            case '/login':
+            case '/':
               NavBar=null
               break;
             case '/signup':
@@ -38,6 +39,9 @@ function App() {
             case '/passreset':
               NavBar=null
               break;
+            case '/myaccount':
+              NavBar=null
+              break;
             default:
               NavBar=<MainNavbar text={'In other shit'} />}
           return NavBar
@@ -47,8 +51,8 @@ function App() {
     <Switch>
       {/* <Route exact path="/" component={UserIsNotAuthenticated(Inicio)}/> */}
       {/* <Route exact path="/login" component={UserIsNotAuthenticated(Login)}/> */}
-      <Route exact path="/login" component={Login}/>
-      <Route exact path="/producto" component={Producto}/>
+      <Route exact path="/" component={Login}/>
+      <Route exact path="/myaccount" component={MyAccount}/>
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>
       <Route exact path="/signup" component={SignUp}/>

@@ -33,26 +33,24 @@ export const keepSesion=(option)=>{
     return(dispatch,getState,{getFirebase})=>{
         const firebase=getFirebase();
 
-        if(option==='Si'){
+        if(option===true){
             console.log('Persistence = LOCAL')
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
                 .then((res)=>{
-                    dispatch({type:KEEP_SESION_SUCCESS})
+                    dispatch({type:KEEP_SESION_SUCCESS,payload:res})
                 })
                 .catch((err)=>{
                     dispatch({type:KEEP_SESION_ERROR,payload:err})
                 })
-        }else if(option==='No'){
+        }else if(option===false){
             console.log('Persistence = NONE')
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
                 .then((res)=>{
-                    dispatch({type:KEEP_SESION_SUCCESS})
+                    dispatch({type:KEEP_SESION_SUCCESS,payload:res})
                 })
                 .catch((err)=>{
                     dispatch({type:KEEP_SESION_ERROR,payload:err})
                 })
-        }else{
-            console.log('Persistence = NULL')
         }
     }
 }
@@ -89,7 +87,7 @@ const authLoginReducer = (state=initialState, action)=>{
             console.log(action.payload)
             return {
                 ...state,
-                authSuccess:`Login success ${action.payload}`,
+                authSuccess:action.payload.code,
                 authError:null
             }
         //------------------------------------------------------------------
@@ -98,7 +96,7 @@ const authLoginReducer = (state=initialState, action)=>{
             console.log(action.payload)
             return {
                 ...state,
-                authError:`Login error ${action.payload}`,
+                authError:action.payload.code,
                 authSuccess:null
             }
         //------------------------------------------------------------------

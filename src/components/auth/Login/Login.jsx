@@ -1,47 +1,51 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {signIn,keepSesion,logOut} from '../../../ducks/authDucks/authDuckLogin'
+import {signIn} from '../../../ducks/authDucks/authDuckLogin'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
-import {changePassword,sendVerificationToChangeEmail} from '../../../ducks/authDucks/authUpdatePassAndEmailDuck'
 import logoXcala from '../../../assets/logoXcala.png';
 import './Login.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
 
 
-
-
 class Login extends Component {
     
+    state={
+        email:'', 
+        password:'',
+        tryLogin:false,
+        retry:false
+    }
+
     componentDidMount=()=>{
         document.body.className='loginStyle'
     }
 
-    state={
-        email:'', 
-        password:'',
-        keep:'No',
-        newPassword:'',
-        newEmail:''
+    componentDidUpdate=()=>{
+        console.log('from componentDidUpdate')
+        console.log(this.state.tryLogin)
+        console.log(this.state.retry)
+        const {tryLogin,retry}=this.state
+        if(retry===true && tryLogin===false){
+            console.log('removing...')
+            document.getElementById('authError').remove()
+            this.setState({retry:false})
+        }
     }
 
-
     leerDatos=(e)=>{
+        console.log('entrando a leer')
+        if(this.state.tryLogin===true){
+            this.setState({retry:true,tryLogin:false})
+        }
         this.setState({
             [e.target.name]:e.target.value
         })
-        console.log(this.state.keep)
-    }
-
-    go=(e)=>{
-        e.preventDefault()
-        const {keepSesion}=this.props
-        const {keep}=this.state
-        keepSesion(keep)
     }
 
     iniciarSesion=(e)=>{
         e.preventDefault()
+        this.setState({tryLogin:true})//aca de va a actualizar
         console.log('iniciar sesion')
         console.log(this.props.estado)
         const {signIn} = this.props
@@ -52,24 +56,14 @@ class Login extends Component {
         })
     }
 
-    check=(e)=>{
-        e.preventDefault()
-        console.log(this.props.fire)
-    }
-
     resetPassword=(e)=>{
         e.preventDefault()
         this.props.recoveryPassword(this.state.email)
     }
 
-    cambiarContraseña=(e)=>{
+    check=(e)=>{
         e.preventDefault()
-        this.props.changePassword(this.state.confirmCurrentPassword,this.state.newPassword)
-    }
-
-    cambiarEmail=(e)=>{
-        e.preventDefault()
-        this.props.sendVerificationToChangeEmail(this.state.newEmail)
+        console.log(this.props.fire)
     }
 
     render() {
@@ -80,23 +74,31 @@ class Login extends Component {
                 <div id="seccionIngresar">
                     <div className=" centerVertical centerHorizontal" id="inputEmail">
                         <i className="icon icon-arroba centerVertical"></i>
-                        <input type="email" id="email"  placeholder="Correo de usuario" required autoComplete="off"/>
+                        <input value={this.state.email} onChange={this.leerDatos} type="email" name="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
+
                     <div className="divider centerHorizontal"></div>
+
                     <div className=" centerVertical centerHorizontal" id="inputPassword">
                         <i className="icon icon-locked centerVertical "></i>
-                        <input type="password" id="password"  placeholder="Contraseña" required autoComplete="off"/>
+                        <input value={this.state.password} onChange={this.leerDatos} type="password" name="password"  placeholder="Contraseña" required autoComplete="off"/>
                     </div>
                 </div>
-                <button  type="submit" className="button">Ingresar</button>
+
+                <div id="authError" className="errorMsg centerHorizontal">
+                    <p>{this.props.authError}</p>
+                </div>
+
+                <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
 
 
-                <Checkbox link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
+                <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="textWhiteCenter centerHorizontal" to="/passforgot" > <span className="subrayar">Olvide mi contraseña</span> </Link>
                 
                 <div id="seccionIngresosExtra" >
                     <p className="textWhiteCenter">¿Deseas generar ingresos extra en tu tiempo libre?</p>
                     <Link to="/signup"><button  type="button" className="button">Hazlo con Xcala</button></Link>
+                    <button onClick={this.check}>check</button>
                 </div>
             </div>
         )
@@ -113,15 +115,9 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch)=>{
     return {
         signIn:(creds)=>dispatch(signIn(creds)),
-        recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
-        logOut:()=>dispatch(logOut()),
-        keepSesion:(option)=>dispatch(keepSesion(option)),
-        changePassword:(confirmCurrentPassword,newPass)=>dispatch(changePassword(confirmCurrentPassword,newPass)),
-        sendVerificationToChangeEmail:(newEmail)=>dispatch(sendVerificationToChangeEmail(newEmail))
+        recoveryPassword:(email)=>dispatch(recoveryPassword(email))
     }
 }
-
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Login)
 

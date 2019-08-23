@@ -91,8 +91,8 @@ class Login extends Component {
                 <button  type="submit" className="button">Ingresar</button>
 
 
-                <Checkbox styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
-                <Link className="textWhiteCenter centerHorizontal" to="/hola" > <span className="subrayar">Olvide mi contraseña</span> </Link>
+                <Checkbox link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
+                <Link className="textWhiteCenter centerHorizontal" to="/passforgot" > <span className="subrayar">Olvide mi contraseña</span> </Link>
                 
                 <div id="seccionIngresosExtra" >
                     <p className="textWhiteCenter">¿Deseas generar ingresos extra en tu tiempo libre?</p>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom';
 import {signUp} from '../../../ducks/authDucks/authDuckSignUp'
 import logoXcala from '../../../assets/logoXcala.png';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
@@ -93,7 +94,7 @@ class SingUp extends Component {
                 <div className="seccionEnviarRegistro ">
                     <Checkbox styleBox={'boxSignUp'} styleCheck={'checkSignUp'} text={'Acepto los'} 
                     link={'/Terminos&condiciones'} textLink={'Terminos y condiciones'}  id={'aceptoRegistroCheck'}/>
-                    <button>Registrar</button>
+                    <Link to="/emailverify"><button>Registrar</button></Link>
                 </div>
             </div>
         )

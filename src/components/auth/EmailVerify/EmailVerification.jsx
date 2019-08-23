@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {changeEmail} from '../../ducks/authDucks/authUpdatePassAndEmailDuck'
-import {verifyEmail} from '../../ducks/authDucks/authDuckSignUp'
-import {getParameterByName} from '../../helpers/getParameterByName'
-import {loadState} from '../../helpers/localStorage'
+import {changeEmail} from '../../../ducks/authDucks/authUpdatePassAndEmailDuck'
+import {verifyEmail} from '../../../ducks/authDucks/authDuckSignUp' 
+import {getParameterByName} from '../../../helpers/getParameterByName'
+import {loadState} from '../../../helpers/localStorage'
 
 class EmailVerification extends Component {
 

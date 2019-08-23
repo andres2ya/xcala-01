@@ -8,7 +8,8 @@ import '../Checkbox/Checkbox.css'
             <input id={props.id} type="checkbox"/>
             <span className={props.styleCheck}></span>
             <label htmlFor={props.id}>
-                {props.text}{' '}<Link to={props.link}>{props.textLink}</Link>
+                {props.text}{' '}
+                {props.link===null?'':<Link to={props.link}>{props.textLink}</Link>}
             </label>
         </div>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {resetPassword,confirmNewPassword} from '../../ducks/authDucks/authDuckRecoveryPassword'
-import {getParameterByName} from '../../helpers/getParameterByName'
+import {resetPassword,confirmNewPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
+import {getParameterByName} from  '../../../helpers/getParameterByName'
 
 class ResetPassword extends Component {
 
@@ -38,9 +38,11 @@ class ResetPassword extends Component {
                 <h1>Recuperar contraseña</h1>
 
                 {this.props.ShowFormNewPass? 
-                <div><input onChange={this.leerNewPass} type="password" placeholder="Nueva contraseña" /> 
-                <button onClick={this.confirmarNewPass} >Confirmar</button></div> 
-                : null }
+                    <div><input onChange={this.leerNewPass} type="password" placeholder="Nueva contraseña" /> 
+                    <button onClick={this.confirmarNewPass} >Confirmar</button></div> 
+                    : 
+                    null 
+                }
 
                 {this.props.mensage?   <p>{this.props.mensage}</p>   :   null }
             </div>

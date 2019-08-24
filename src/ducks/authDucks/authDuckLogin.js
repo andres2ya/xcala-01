@@ -7,12 +7,19 @@ const LOGOUT_ERROR='xcala/auth/LOGOUT_ERROR'
 //----------------------------------------------------------------
 const KEEP_SESION_SUCCESS='xcala/auth/KEEP_SESION_SUCCESS'
 const KEEP_SESION_ERROR='xcala/auth/KEEP_SESION_ERROR'
-
+//----------------------------------------------------------------
+const HANDLE_ERROR_MSG='xcala/auth/HANDLE_ERROR_MSG'
 
 
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
+export const handleErrorMsg=(retry,tryLogin)=>{
+    return {
+        type:HANDLE_ERROR_MSG,
+        payload:{retry:retry,tryLogin:tryLogin}
+    }
+}
 export const signIn=(credentials)=>{
     return (dispatch,getState,{getFirebase})=>{
         const firebase=getFirebase();
@@ -24,7 +31,8 @@ export const signIn=(credentials)=>{
             dispatch({type:LOGIN_SUCCESS,payload:res});
         })
         .catch((err)=>{
-            dispatch({type:LOGIN_ERROR,payload:err})
+            dispatch({type:LOGIN_ERROR,payload:err});
+            dispatch(handleErrorMsg(false,true));
         })
     }
 }
@@ -78,7 +86,10 @@ export const logOut=()=>{
 //3. REDUCER AUTH
 const initialState={
     authSuccess:null,
-    authError:null
+    authError:null,
+    errorBool:false,
+    retry:false,
+    tryLogin:false
 }
 const authLoginReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -87,8 +98,9 @@ const authLoginReducer = (state=initialState, action)=>{
             console.log(action.payload)
             return {
                 ...state,
-                authSuccess:action.payload.code,
-                authError:null
+                authSuccess:'Ingreso Exitoso',
+                authError:null,
+                errorBool:false
             }
         //------------------------------------------------------------------
         case LOGIN_ERROR:
@@ -97,7 +109,18 @@ const authLoginReducer = (state=initialState, action)=>{
             return {
                 ...state,
                 authError:action.payload.code,
-                authSuccess:null
+                authSuccess:null,
+                errorBool:true
+            }
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        
+        case HANDLE_ERROR_MSG:
+            return{
+                ...state,
+                retry:action.payload.retry,
+                tryLogin:action.payload.tryLogin
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

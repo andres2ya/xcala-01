@@ -1,45 +1,44 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {signIn} from '../../../ducks/authDucks/authDuckLogin'
+import {signIn,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import logoXcala from '../../../assets/logoXcala.png';
 import './Login.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
 
 
+
 class Login extends Component {
     
     state={
         email:'', 
-        password:'',
-        tryLogin:false,
-        retry:false,
-        showErrorMsg:true,
-        x:''
+        password:''
     }
 
     componentDidMount=()=>{
         document.body.className='loginStyle'
     }
 
-    componentDidUpdate=()=>{
-        console.log('from componentDidUpdate')
-        console.log(this.state.tryLogin)
-        console.log(this.state.retry)
-        const {authError,authSuccess} = this.props
-        console.log('succes:'+authSuccess)
-        console.log('error:'+authError)
-        const {tryLogin,retry}=this.state
+    componentDidUpdate=(prevProps)=>{
+        //5) TODO: traer retry y tryLogin desde el state map to props
+        const {tryLogin,retry,errorBool}=this.props
         if(retry===true && tryLogin===false){
-            this.setState({retry:false})
+            this.props.handleErrorMsg(false,false)
+        }
+        if(prevProps.errorBool!=errorBool){
+            this.setState({
+                 email:'',
+                 password:''
+            })
         }
     }
 
     leerDatos=(e)=>{
-        console.log('entrando a leer')
-        if(this.state.tryLogin===true){
-            this.setState({retry:true,tryLogin:false})
+        if(this.props.tryLogin===true){
+            //4) TODO: Despachar una accion que setea en el estado
+            //global "retry:true" y "tryLogin:false"
+            this.props.handleErrorMsg(true,false)
         }
         this.setState({
             [e.target.name]:e.target.value
@@ -48,13 +47,10 @@ class Login extends Component {
 
     iniciarSesion=(e)=>{
         e.preventDefault()
-        const {signIn,authError} = this.props
+        const {signIn} = this.props
         signIn(this.state)
-        if(authError===null){this.setState({tryLogin:true})}
-        this.setState({
-            email:'',
-            password:''
-        })
+        //3) TODO: Dentro del action creator signIn, si se obtiene error, entonces
+        //despachar otro action creator "handleErrorMsg" que setea "retry:false" y "tryLogin:true"
     }
 
     resetPassword=(e)=>{
@@ -87,7 +83,9 @@ class Login extends Component {
                 </div>
 
                 <div id="authError" className="errorMsg centerHorizontal">
-                    {this.state.tryLogin? <p>{this.props.authError}</p>:null}
+                    {/*3.1) TODO: Si tryLogin===true, entonces muestra el mensaje, 
+                    de lo contrario no muestra nada "null"*/}
+                    {this.props.tryLogin? <p>{this.props.authError}</p>:null}
                 </div>
 
                 <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
@@ -108,15 +106,21 @@ class Login extends Component {
 }
 
 const mapStateToProps=(state)=>({
+    //2) TODO: Vincular "retry" y "tryLogin" desde el estado glogal
     authError:state.authLoginReducer.authError,
     authSuccess:state.authLoginReducer.authSuccess,
+    retry:state.authLoginReducer.retry,
+    tryLogin:state.authLoginReducer.tryLogin,
+    errorBool:state.authLoginReducer.errorBool,
     fire:state
 })
 
 const mapDispatchToProps=(dispatch)=>{
     return {
         signIn:(creds)=>dispatch(signIn(creds)),
-        recoveryPassword:(email)=>dispatch(recoveryPassword(email))
+        recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
+        handleErrorMsg:(retry,tryLogin)=>dispatch(handleErrorMsg(retry,tryLogin))
+        //1) TODO: Llamar un action creator para setear "retry" y "tryLogin"
     }
 }
 

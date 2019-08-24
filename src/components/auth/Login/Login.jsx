@@ -14,7 +14,9 @@ class Login extends Component {
         email:'', 
         password:'',
         tryLogin:false,
-        retry:false
+        retry:false,
+        showErrorMsg:true,
+        x:''
     }
 
     componentDidMount=()=>{
@@ -25,10 +27,11 @@ class Login extends Component {
         console.log('from componentDidUpdate')
         console.log(this.state.tryLogin)
         console.log(this.state.retry)
+        const {authError,authSuccess} = this.props
+        console.log('succes:'+authSuccess)
+        console.log('error:'+authError)
         const {tryLogin,retry}=this.state
         if(retry===true && tryLogin===false){
-            console.log('removing...')
-            document.getElementById('authError').remove()
             this.setState({retry:false})
         }
     }
@@ -45,11 +48,9 @@ class Login extends Component {
 
     iniciarSesion=(e)=>{
         e.preventDefault()
-        this.setState({tryLogin:true})//aca de va a actualizar
-        console.log('iniciar sesion')
-        console.log(this.props.estado)
-        const {signIn} = this.props
+        const {signIn,authError} = this.props
         signIn(this.state)
+        if(authError===null){this.setState({tryLogin:true})}
         this.setState({
             email:'',
             password:''
@@ -86,7 +87,7 @@ class Login extends Component {
                 </div>
 
                 <div id="authError" className="errorMsg centerHorizontal">
-                    <p>{this.props.authError}</p>
+                    {this.state.tryLogin? <p>{this.props.authError}</p>:null}
                 </div>
 
                 <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>

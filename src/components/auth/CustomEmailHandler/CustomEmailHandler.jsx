@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {getParameterByName} from  '../../../helpers/getParameterByName'
-import Login from '../Login/Login'
+import PassReset from '../PassReset/PassReset'
+import EmailConfirm from '../EmailConfirm/EmailConfirm'
 import SignUp from '../SignUp/SignUp'
-import PassForgot from '../PassForgot/PassForgot'
 
 class CustomEmailHandler extends Component {
 
@@ -29,25 +29,22 @@ class CustomEmailHandler extends Component {
         const {mode,code,url}=this.state
         switch (mode) {
             case 'resetPassword':
+                    console.log(mode,code)
                     return (
-                        <Login/>
+                        <PassReset actionCode={code}/>
                     )
-                break;
             case 'recoverEmail':
                     return (
                         <SignUp/>
                     )
-                break;
             case 'verifyEmail':
                     return (
-                        <PassForgot/>
+                        <EmailConfirm/>
                     )
-                break;
             default:
                     return(
                         <div>Codigo de action invalido</div>
                     )
-                break;
         }      
     }
 }

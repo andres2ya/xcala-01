@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import logoXcala from '../../../assets/logoXcala.png'
+import {Link} from 'react-router-dom';
 
 class EmailConfirm extends Component {
     componentDidMount=()=>{
@@ -19,7 +20,7 @@ class EmailConfirm extends Component {
                 </div>
 
                 <div className="seccionBotonesEmailVerify centerHorizontal">
-                    <button>Ir a mi cuenta</button>
+                    <Link to="/"><button>Entrar a mi cuenta</button></Link>
                 </div>
             </div>
         )

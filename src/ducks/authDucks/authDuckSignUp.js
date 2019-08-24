@@ -17,7 +17,7 @@ export const signUp=(newUser)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
         const firebase=getFirebase()
         const firestore=getFirestore()
-        firebase.auth().createUserWithEmailAndPassword(newUser.email,newUser.password)
+        firebase.auth().createUserWithEmailAndPassword(newUser.emailSignUp,newUser.passwordSignUp)
         .then((res)=>{
             dispatch({type:SIGNUP_SUCCESS})
             const user =firebase.auth().currentUser
@@ -54,7 +54,8 @@ export const verifyEmail=(code)=>{
 
 //3. REDUCER AUTH
 const initialState={
-    msg:null
+    msg:null,
+    showEmailVerify:false
 }
 const authSignUpReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -63,7 +64,8 @@ const authSignUpReducer = (state=initialState, action)=>{
             console.log(mensage)
             return{ 
                 ...state,
-                msg:mensage
+                msg:mensage,
+                showEmailVerify:true
             }
         //------------------------------------------------------------------
         case SIGNUP_ERROR:
@@ -71,7 +73,8 @@ const authSignUpReducer = (state=initialState, action)=>{
             console.log(mensage)
             return{ 
                 ...state,
-                msg:mensage
+                msg:mensage,
+                showEmailVerify:false
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

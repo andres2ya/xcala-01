@@ -60,7 +60,8 @@ export const confirmNewPassword=(code,NewPass)=>{
 const initialState={
     ShowFormResetPassword:false,
     msg:null,
-    emailHasBeenSent:undefined
+    emailHasBeenSent:undefined,
+    passChanged:false
 }
 const authRecoveryPasswordReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -93,25 +94,25 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             console.log('No se pudo mostrar el form de reset password')
             return{ 
                 ...state,
-                ShowFormResetPassword:false
+                ShowFormResetPassword:false,
+                msg:'No ha sido posible confirmar el correo de recuperacion. Porfavor intenta nuevamente.'
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         case CONFIRM_RESET_PASSWORD_SUCCESS:
-            var mensage='Se confirmo el cambio de pass'
-            console.log(mensage)
+            console.log('Se confirmo el cambio de pass')
             return{ 
                 ...state,
-                msg:mensage
+                passChanged:true
             }
         //------------------------------------------------------------------
         case CONFIRM_RESET_PASSWORD_ERROR:
-            mensage='No se pudo cambiar la constraseña'
-            console.log(mensage)
+            console.log('No se pudo cambiar la constraseña:'+action.payload)
             return{ 
                 ...state,
-                msg:mensage
+                msg:action.payload,
+                passChanged:false
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

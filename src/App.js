@@ -3,7 +3,6 @@ import Producto from './components/Producto'
 import Login from './components/auth/Login/Login'
 import SignUp from './components/auth/SignUp/SignUp'
 import EmailVerification from './components/auth/EmailVerify/EmailVerification'
-import ResetPassword from './components/auth/PassReset/ResetPassword'
 import MainNavbar from './components/layout/MainNavbar/MainNavbar';
 import {Route, Switch, withRouter} from "react-router-dom"
 import EmailVerify from './components/auth/EmailVerify/EmailVerify';

@@ -1,8 +1,11 @@
+import {loadState} from '../../../helpers/localStorage';
 import React, { Component } from 'react'
 import logoXcala from '../../../assets/logoXcala.png'
 import {Link} from 'react-router-dom';
 
 class EmailConfirm extends Component {
+    state=loadState()
+    
     componentDidMount=()=>{
         document.body.className='loginStyle'
     }
@@ -15,8 +18,8 @@ class EmailConfirm extends Component {
                 </div>
 
                 <div className="seccionAUnPasoConXcala centerHorizontal">
-                    <p className="AUnPasoTitulo">¡Felicidades!, <span>{'this.props.nameUser'}</span> tu email ha sido confirmado.</p>
-                    <p className="AUnPasoParrafo">Ya puedes comenzar a generar dinero extra con Xcala. Vayamos a tu cuenta para empezar.</p>
+                    <p className="AUnPasoTitulo">¡Felicidades!, <span>{this.state.nombreUsuario}</span> tu email ha sido confirmado.</p>
+                    <p className="AUnPasoParrafo">Ya puedes comenzar a generar dinero extra con Xcala. Entra a tu cuenta para empezar.</p>
                 </div>
 
                 <div className="seccionBotonesEmailVerify centerHorizontal">

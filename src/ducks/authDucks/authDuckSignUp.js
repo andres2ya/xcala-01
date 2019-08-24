@@ -1,3 +1,4 @@
+import {saveState} from '../../helpers/localStorage';
 //1. ACTION TYPES 
 const SIGNUP_SUCCESS='xcala/auth/SIGNUP_SUCCESS'
 const SIGNUP_ERROR='xcala/auth/SIGNUP_ERROR'
@@ -23,6 +24,7 @@ export const signUp=(newUser)=>{
             const user =firebase.auth().currentUser
             user.sendEmailVerification()
             .then((res)=>{
+                saveState(newUser)
                 dispatch({type:EMAIL_VERIFICATION_SUCCESS})
             })
             .catch((err)=>{

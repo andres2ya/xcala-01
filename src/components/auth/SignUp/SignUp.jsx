@@ -42,7 +42,7 @@ class SingUp extends Component {
             
             <div>
                 {this.props.showEmailVerify?
-                    <EmailVerify/>
+                    <EmailVerify email={this.state.emailSignUp}/>
                 :
                 <div className="seccionRegistro">
                     <div className="seccionHeaderRegistro">

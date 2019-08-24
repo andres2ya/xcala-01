@@ -91,7 +91,6 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             }
         //------------------------------------------------------------------
         case RESET_PASSWORD_ERROR:
-            console.log('No se pudo mostrar el form de reset password')
             return{ 
                 ...state,
                 ShowFormResetPassword:false,
@@ -108,10 +107,9 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             }
         //------------------------------------------------------------------
         case CONFIRM_RESET_PASSWORD_ERROR:
-            console.log('No se pudo cambiar la constraseña:'+action.payload)
             return{ 
                 ...state,
-                msg:action.payload,
+                msg:'No se pudo cambiar la constraseña: '+action.payload,
                 passChanged:false
             }
         //------------------------------------------------------------------

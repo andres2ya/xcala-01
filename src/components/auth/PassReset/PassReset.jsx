@@ -60,6 +60,7 @@ class PassReset extends Component {
                                         <input value={this.state.newPassword} onChange={this.leerNewPass} type="password" id="newPassword"  placeholder="Nueva contraseña" required autoComplete="off"/>
                                     </div>
                                     <div className="divider"></div>
+                                    {this.props.msg!=null?<p className="AUnPasoParrafo">{this.props.msg}</p>:null}
                                     <div className="separadorBtn"/>
                                     <button onClick={this.confirmarNewPass} >Restablecer contraseña</button>
                                 </div>

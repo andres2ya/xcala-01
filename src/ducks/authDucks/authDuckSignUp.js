@@ -14,6 +14,20 @@ const VERY_EMAIL_ERROR='xcala/auth/VERY_EMAIL_ERROR'
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
+export const sendEmailVerify=(newUser)=>{
+    return(dispatch,{getFirebase})=>{
+        const firebase=getFirebase()
+        firebase.auth().currentUser.sendEmailVerification()
+        .then((res)=>{
+            saveState(newUser)
+            dispatch({type:EMAIL_VERIFICATION_SUCCESS})
+        })
+        .catch((err)=>{
+            dispatch({type:EMAIL_VERIFICATION_ERROR,payload:err})
+        })
+    }
+}
+//----------------------------------------------------------------
 export const signUp=(newUser)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
         const firebase=getFirebase()
@@ -21,15 +35,16 @@ export const signUp=(newUser)=>{
         firebase.auth().createUserWithEmailAndPassword(newUser.emailSignUp,newUser.passwordSignUp)
         .then((res)=>{
             dispatch({type:SIGNUP_SUCCESS})
-            const user =firebase.auth().currentUser
-            user.sendEmailVerification()
-            .then((res)=>{
-                saveState(newUser)
-                dispatch({type:EMAIL_VERIFICATION_SUCCESS})
-            })
-            .catch((err)=>{
-                dispatch({type:EMAIL_VERIFICATION_ERROR,payload:err})
-            })
+            dispatch(sendEmailVerify(newUser))
+            //const user =firebase.auth().currentUser
+            // user.sendEmailVerification()
+            // .then((res)=>{
+            //     saveState(newUser)
+            //     dispatch({type:EMAIL_VERIFICATION_SUCCESS})
+            // })
+            // .catch((err)=>{
+            //     dispatch({type:EMAIL_VERIFICATION_ERROR,payload:err})
+            // })
         })
         .catch((err)=>{
             dispatch({type:SIGNUP_ERROR,payload:err})

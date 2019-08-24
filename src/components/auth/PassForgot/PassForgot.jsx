@@ -51,12 +51,12 @@ class PassForgot extends Component {
                     {this.props.emailHasBeenSent?
                     null:
                     <div>
-                        <button onClick={this.sendEmailToResetPass} >Restablecer contraseña</button>
+                        <button onClick={this.sendEmailToResetPass}>Restablecer contraseña</button>
                     </div>} 
 
                     {this.props.emailHasBeenSent? 
                     <div>
-                        <button>Reenviar correo</button>
+                        <button onClick={this.sendEmailToResetPass}>Reenviar correo</button>
                     </div>
                     :null}
 

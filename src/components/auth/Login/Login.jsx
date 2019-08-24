@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {signIn,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin'
+import {signIn,keepSesion,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import logoXcala from '../../../assets/logoXcala.png';
 import './Login.css';
@@ -18,6 +18,13 @@ class Login extends Component {
 
     componentDidMount=()=>{
         document.body.className='loginStyle'
+    }
+
+    componentWillUnmount=()=>{
+        const {keep,keepSesion}=this.props
+        if(keep===undefined){
+            keepSesion(false)
+        }
     }
 
     componentDidUpdate=(prevProps)=>{
@@ -89,7 +96,7 @@ class Login extends Component {
                 </div>
 
                 <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
-
+                <Link to='/myaccount'>Go</Link>
 
                 <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="textWhiteCenter centerHorizontal" to="/passforgot" > <span className="subrayar">Olvide mi contraseña</span> </Link>
@@ -112,6 +119,7 @@ const mapStateToProps=(state)=>({
     retry:state.authLoginReducer.retry,
     tryLogin:state.authLoginReducer.tryLogin,
     errorBool:state.authLoginReducer.errorBool,
+    keep:state.authLoginReducer.keep,
     fire:state
 })
 
@@ -119,7 +127,8 @@ const mapDispatchToProps=(dispatch)=>{
     return {
         signIn:(creds)=>dispatch(signIn(creds)),
         recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
-        handleErrorMsg:(retry,tryLogin)=>dispatch(handleErrorMsg(retry,tryLogin))
+        handleErrorMsg:(retry,tryLogin)=>dispatch(handleErrorMsg(retry,tryLogin)),
+        keepSesion:(option)=>dispatch(keepSesion(option))
         //1) TODO: Llamar un action creator para setear "retry" y "tryLogin"
     }
 }

@@ -44,8 +44,8 @@ export const keepSesion=(option)=>{
         if(option===true){
             console.log('Persistence = LOCAL')
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-                .then((res)=>{
-                    dispatch({type:KEEP_SESION_SUCCESS,payload:res})
+                .then(()=>{
+                    dispatch({type:KEEP_SESION_SUCCESS,payload:option})
                 })
                 .catch((err)=>{
                     dispatch({type:KEEP_SESION_ERROR,payload:err})
@@ -53,8 +53,8 @@ export const keepSesion=(option)=>{
         }else if(option===false){
             console.log('Persistence = NONE')
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-                .then((res)=>{
-                    dispatch({type:KEEP_SESION_SUCCESS,payload:res})
+                .then(()=>{
+                    dispatch({type:KEEP_SESION_SUCCESS,payload:option})
                 })
                 .catch((err)=>{
                     dispatch({type:KEEP_SESION_ERROR,payload:err})
@@ -89,7 +89,8 @@ const initialState={
     authError:null,
     errorBool:false,
     retry:false,
-    tryLogin:false
+    tryLogin:false,
+    keep:undefined
 }
 const authLoginReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -128,7 +129,8 @@ const authLoginReducer = (state=initialState, action)=>{
         case KEEP_SESION_SUCCESS:
             console.log('local persistence ok')
             return{
-                ...state
+                ...state,
+                keep:action.payload
             }
         //-----------------------------------------------------------------
         case KEEP_SESION_ERROR:

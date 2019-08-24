@@ -59,20 +59,25 @@ export const confirmNewPassword=(code,NewPass)=>{
 //3. REDUCER AUTH
 const initialState={
     ShowFormResetPassword:false,
-    msg:null
+    msg:null,
+    emailHasBeenSent:undefined
 }
 const authRecoveryPasswordReducer = (state=initialState, action)=>{
     switch(action.type){
         case RECOVERY_PASSWORD_SUCCESS:
             console.log(`Email enviado:Porfavor revisar email con instrucciones. ${action.payload}`)
             return{
-                ...state
+                ...state,
+                emailHasBeenSent:true,
+                msg:'¡Email enviado! Revisa tu bandeja de entrada o spam.'
             }
         //------------------------------------------------------------------
         case RECOVERY_PASSWORD_ERROR:
             console.log(`No ha sido posible enviar email de seteo. ${action.payload}`)
             return{
-                ...state
+                ...state,
+                emailHasBeenSent:false,
+                msg:'Email incorrecto. Intenta nuevamente.'
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

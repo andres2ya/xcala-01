@@ -11,6 +11,7 @@ import PassForgot from './components/auth/PassForgot/PassForgot';
 import PassReset from './components/auth/PassReset/PassReset';
 import EmailConfirm from './components/auth/EmailConfirm/EmailConfirm';
 import MyAccount from './components/account/MyAccount';
+import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
 // import {UserIsAuthenticated,UserIsNotAuthenticated} from './helpers/auth'
 
 
@@ -42,6 +43,9 @@ function App() {
             case '/myaccount':
               NavBar=null
               break;
+            case '/customemailhandler':
+              NavBar=null
+              break;
             default:
               NavBar=<MainNavbar text={'In other shit'} />}
           return NavBar
@@ -52,6 +56,7 @@ function App() {
       {/* <Route exact path="/" component={UserIsNotAuthenticated(Inicio)}/> */}
       {/* <Route exact path="/login" component={UserIsNotAuthenticated(Login)}/> */}
       <Route exact path="/" component={Login}/>
+      <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/myaccount" component={MyAccount}/>
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>

@@ -1,19 +1,19 @@
-export  const loadState=()=>{
+export  const loadFromLocalStorage=(key)=>{
     try{
-        const serializedState=localStorage.getItem('state');
-        if(serializedState===null){
+        const serializedData=localStorage.getItem(key);
+        if(serializedData===null){
             return undefined
         }
-        return JSON.parse(serializedState);
+        return JSON.parse(serializedData);
         }catch (err){
             return undefined
         }
     }
 
-export const saveState =(state)=>{
+export const saveInLocalStorage =(key,data)=>{
     try{
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem('state',serializedState);
+        const serializedData = JSON.stringify(data);
+        localStorage.setItem(key,serializedData);
     }
     catch(err){
         console.log(err)

@@ -24,7 +24,7 @@ class EmailVerify extends Component {
 
                 <div className="seccionAUnPasoConXcala centerHorizontal">
                     <p className="AUnPasoTitulo">Estas a un paso de comenzar a generar ingresos adicionales con Xcala</p>
-                    <p className="AUnPasoParrafo">Un correo de confirmacion ha sido enviado a: <span className="email">{this.props.newUser.email}</span>. Porfavor revisa tu bandeja de entrada o correo no deseado y confirma mediante el enlace enviado.</p>
+                    <p className="AUnPasoParrafo">Un correo de confirmacion ha sido enviado a: <span className="email">{this.props.newUser.emailSignUp}</span>. Porfavor revisa tu bandeja de entrada o correo no deseado y confirma mediante el enlace enviado.</p>
                 </div>
 
                 <div className="seccionBotonesEmailVerify centerHorizontal">

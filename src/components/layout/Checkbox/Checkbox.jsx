@@ -2,25 +2,33 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
 import {keepSesion} from '../../../ducks/authDucks/authDuckLogin'
+import {acceptTermsCondition} from '../../../ducks/authDucks/authDuckSignUp'
 import '../Checkbox/Checkbox.css'
 
 class Checkbox extends Component  {
 
     state={
-        checked:false
-    }
-
-    toogleKeep=()=>{
-        this.setState({ checked: !this.state.checked });
-    }
-
+        checked:false,
+        acceptTermCondition:false
+    } 
+    
     componentDidUpdate=()=>{
         const {mode}=this.props
         if(mode==='keepSesion'){
             this.props.keepSesion(this.state.checked)
         }
         else if(mode==='acceptT&C'){
-            console.log('despachando action para aceptar terminos y condiciones')
+            this.props.acceptTermsCondition(this.state.acceptTermCondition)
+        }
+    }
+    
+    toogleKeep=()=>{
+        const {mode}=this.props
+        if(mode==='keepSesion'){
+            this.setState({ checked: !this.state.checked });
+        }
+        else if(mode==='acceptT&C'){
+            this.setState({ acceptTermCondition: !this.state.acceptTermCondition });
         }
     }
 
@@ -40,7 +48,8 @@ class Checkbox extends Component  {
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        keepSesion:(option)=>dispatch(keepSesion(option))
+        keepSesion:(option)=>dispatch(keepSesion(option)),
+        acceptTermsCondition:(option)=>dispatch(acceptTermsCondition(option))
     }
 }
 

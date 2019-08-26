@@ -102,7 +102,7 @@ class SingUp extends Component {
                     <div className="seccionEnviarRegistro ">
                         <Checkbox mode={'acceptT&C'} styleBox={'boxSignUp'} styleCheck={'checkSignUp'} text={'Acepto los'} 
                         link={'/Terminos&condiciones'} textLink={'Terminos y condiciones'}  id={'aceptoRegistroCheck'}/>
-                        <button onClick={this.crearUsuario}>Registrar</button>
+                        {this.props.showRegisterButton? <button onClick={this.crearUsuario}>Registrar</button>:null}
                     </div>
                 </div>
                 }
@@ -113,7 +113,8 @@ class SingUp extends Component {
 
 const mapStateToProps=(state)=>({
     msg:state.authSignUpReducer.msg,
-    showEmailVerify:state.authSignUpReducer.showEmailVerify
+    showEmailVerify:state.authSignUpReducer.showEmailVerify,
+    showRegisterButton:state.authSignUpReducer.showRegisterButton
 })
 
 const mapDispatchToProps=(dispatch)=>{

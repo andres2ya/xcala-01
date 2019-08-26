@@ -90,7 +90,8 @@ const initialState={
     errorBool:false,
     retry:false,
     tryLogin:false,
-    keep:undefined
+    keep:false,
+    isKeepOptionManuallySet:false
 }
 const authLoginReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -116,7 +117,6 @@ const authLoginReducer = (state=initialState, action)=>{
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         //------------------------------------------------------------------
-        
         case HANDLE_ERROR_MSG:
             return{
                 ...state,
@@ -130,7 +130,8 @@ const authLoginReducer = (state=initialState, action)=>{
             console.log('local persistence ok')
             return{
                 ...state,
-                keep:action.payload
+                keep:action.payload,
+                isKeepOptionManuallySet:true
             }
         //-----------------------------------------------------------------
         case KEEP_SESION_ERROR:
@@ -157,7 +158,6 @@ const authLoginReducer = (state=initialState, action)=>{
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         default:
-            console.log('login default')
             return state;
         }
     }

@@ -116,7 +116,6 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         default:
-            console.log('login default')
             return state;
     }
 }

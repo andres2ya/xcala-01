@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import {signIn,keepSesion,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import logoXcala from '../../../assets/logoXcala.png';
 import './Login.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
-
 
 
 class Login extends Component {
@@ -17,14 +16,7 @@ class Login extends Component {
     }
 
     componentDidMount=()=>{
-        document.body.className='loginStyle'
-    }
-
-    componentWillUnmount=()=>{
-        const {keep,keepSesion}=this.props
-        if(keep===undefined){
-            keepSesion(false)
-        }
+        document.body.className='loginStyle'     
     }
 
     componentDidUpdate=(prevProps)=>{
@@ -33,7 +25,7 @@ class Login extends Component {
         if(retry===true && tryLogin===false){
             this.props.handleErrorMsg(false,false)
         }
-        if(prevProps.errorBool!=errorBool){
+        if(prevProps.errorBool!==errorBool){
             this.setState({
                  email:'',
                  password:''
@@ -55,6 +47,9 @@ class Login extends Component {
     iniciarSesion=(e)=>{
         e.preventDefault()
         const {signIn} = this.props
+        if(this.props.isKeepOptionManuallySet===false){
+            this.props.keepSesion(false)
+        }
         signIn(this.state)
         //3) TODO: Dentro del action creator signIn, si se obtiene error, entonces
         //despachar otro action creator "handleErrorMsg" que setea "retry:false" y "tryLogin:true"
@@ -65,12 +60,11 @@ class Login extends Component {
         this.props.recoveryPassword(this.state.email)
     }
 
-    check=(e)=>{
-        e.preventDefault()
-        console.log(this.props.fire)
-    }
-
     render() {
+
+        if(this.props.isAuth)
+        return <Redirect to="/myaccount"/>
+
         return (
             <div>
 
@@ -96,7 +90,6 @@ class Login extends Component {
                 </div>
 
                 <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
-                <Link to='/myaccount'>Go</Link>
 
                 <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="textWhiteCenter centerHorizontal" to="/passforgot" > <span className="subrayar">Olvide mi contraseña</span> </Link>
@@ -104,7 +97,6 @@ class Login extends Component {
                 <div id="seccionIngresosExtra" >
                     <p className="textWhiteCenter">¿Deseas generar ingresos extra en tu tiempo libre?</p>
                     <Link to="/signup"><button  type="button" className="button">Hazlo con Xcala</button></Link>
-                    <button onClick={this.check}>check</button>
                 </div>
             </div>
         )
@@ -120,6 +112,8 @@ const mapStateToProps=(state)=>({
     tryLogin:state.authLoginReducer.tryLogin,
     errorBool:state.authLoginReducer.errorBool,
     keep:state.authLoginReducer.keep,
+    isAuth:state.firebase.auth.uid,
+    isKeepOptionManuallySet:state.authLoginReducer.isKeepOptionManuallySet,
     fire:state
 })
 

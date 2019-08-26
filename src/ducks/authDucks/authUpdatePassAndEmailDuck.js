@@ -1,4 +1,4 @@
-import {saveState} from '../../helpers/localStorage'
+import {saveInLocalStorage} from '../../helpers/localStorage'
 //1. ACTION TYPES 
 const UPDATE_PASSWORD_SUCCESS='xcala/auth/UPDATE_PASSWORD_SUCCESS'
 const UPDATE_PASSWORD_ERROR='xcala/auth/UPDATE_PASSWORD_ERROR'
@@ -128,7 +128,7 @@ const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
                     isAuth:action.isAuth,
                     newEmail:action.newEmail
                 }
-                saveState(newState)
+                saveInLocalStorage(newState)
             return newState
         //------------------------------------------------------------------    
         case SEND_VERIFY_EMAIL_ERROR:
@@ -142,7 +142,6 @@ const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         default:
-            console.log('login default')
             return state;
     }
 }

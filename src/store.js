@@ -26,8 +26,9 @@ firebase.initializeApp(firebaseConfig);
 //2. Configurando react-redux-firebase
 const rrfConfig = {
     userProfile: "users",//Indica la coleccion de firebase donde esta ubicada la informacion de los usuarios para
-    useFirestoreForProfile: true//luego poderla sincronizar con el ID en "firebase.auth.profile"
-    // ,logErrors: false
+    useFirestoreForProfile: true,//luego poderla sincronizar con el ID en "firebase.auth.profile"
+    attachAuthIsReady:true
+    // ,logErrors: false,
 };
 
 //3. Crear en enhacer del store con compose de redux y firebase

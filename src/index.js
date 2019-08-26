@@ -5,11 +5,14 @@ import { Provider } from "react-redux";
 import store from './store';
 import App from "./App";
 
-ReactDOM.render(
-  <Provider store={store} >
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("root")
-);
+store.firebaseAuthIsReady.then(()=>{
+  ReactDOM.render(
+    <Provider store={store} >
+      <Router>
+        <App />
+      </Router>
+    </Provider>,
+    document.getElementById("root")
+  );
+})
+

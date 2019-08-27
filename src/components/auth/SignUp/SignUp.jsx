@@ -59,9 +59,9 @@ class SingUp extends Component {
                     <div className="seccionHeaderRegistro">
                         <img className="signup-logo" src={logoXcala} alt="Xcala Colombia"/><span className="subtituloRegistro" >Registro</span>
                     </div>
-
+                <form id="registerForm">
                     <p className="labelDatos">Datos de la cuenta</p>
-                    <form className="seccionDatosCuentaRegistro">
+                    <div className="seccionDatosCuentaRegistro">
                         <div className=" centerVertical" >
                             <i className="icon icon-arroba centerVertical"></i>
                             <input onChange={this.leerDatos} type="email" name="emailSignUp"  placeholder="Correo de usuario *" required autoComplete="off"/>
@@ -76,10 +76,10 @@ class SingUp extends Component {
                             <i className="icon icon-locked centerVertical "></i>
                             <input onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" required autoComplete="off"/>
                         </div>
-                    </form>
+                    </div>
 
                     <p className="labelDatos">Datos personales</p>
-                    <form id="registerForm" className="seccionDatosPersonalesRegistro">
+                    <div id="registerForm" className="seccionDatosPersonalesRegistro">
                         <div className=" centerVertical" >
                                 <input onChange={this.leerDatos} type="text" name="nombreUsuario"  placeholder="Nombres *" required autoComplete="off"/>
                         </div>
@@ -115,7 +115,8 @@ class SingUp extends Component {
 
                             {this.props.showRegisterButton? <button type="submit" onClick={this.crearUsuario}>Registrar</button>:null}
                         </div>
-                    </form>
+                    </div>
+                </form>
                 </div>
                 }
             </div>

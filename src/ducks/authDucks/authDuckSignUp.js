@@ -17,9 +17,7 @@ const ACCEPT_TERMS_AND_CONDITION='xcala/auth/ACCEPT_TERMS_AND_CONDITION'
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
 export const acceptTermsCondition=(option)=>{
-    return(dispatch)=>{
-        dispatch({type:ACCEPT_TERMS_AND_CONDITION,payload:option})
-    }
+    return{type:ACCEPT_TERMS_AND_CONDITION,payload:option}
 }
 //----------------------------------------------------------------
 export const signUp=(newUser)=>{
@@ -81,6 +79,8 @@ const authSignUpReducer = (state=initialState, action)=>{
                 showRegisterButton:action.payload
             }
         //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
         case SIGNUP_SUCCESS:
             var mensage='Usuario creado con exito'
             console.log(mensage)
@@ -89,6 +89,8 @@ const authSignUpReducer = (state=initialState, action)=>{
                 msg:mensage,
                 showEmailVerify:true
             }
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
         //------------------------------------------------------------------
         case SIGNUP_ERROR:
             mensage='ocurrio un problema al crear el usuario' + action.payload
@@ -110,6 +112,8 @@ const authSignUpReducer = (state=initialState, action)=>{
                 msg:mensage
             }
         //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
         case EMAIL_VERIFICATION_ERROR:
             mensage='ocurrio un problema al enviar email de verificacion:' + action.payload
             console.log(mensage)
@@ -126,6 +130,8 @@ const authSignUpReducer = (state=initialState, action)=>{
                 ...state,
                 msg:mensage
             }
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
         //------------------------------------------------------------------
         case VERY_EMAIL_ERROR:
                 mensage='No se pudo verificar el email' + action.payload.message

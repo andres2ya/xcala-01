@@ -43,8 +43,8 @@
     min-width: 150px;
   }
 
-#fechaNacimientoUsuario{
-    margin-left:-25px;
+.fechaNacimientoUsuario{
+    margin-left:-20px;
     width: 145px;
 }
 

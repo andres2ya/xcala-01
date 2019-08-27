@@ -69,7 +69,7 @@ class Login extends Component {
             <div>
 
                 <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
-                <div id="seccionIngresar">
+                <form id="seccionIngresar">
                     <div className=" centerVertical centerHorizontal" id="inputEmail">
                         <i className="icon icon-arroba centerVertical"></i>
                         <input value={this.state.email} onChange={this.leerDatos} type="email" name="email"  placeholder="Correo de usuario" required autoComplete="off"/>
@@ -81,15 +81,15 @@ class Login extends Component {
                         <i className="icon icon-locked centerVertical "></i>
                         <input value={this.state.password} onChange={this.leerDatos} type="password" name="password"  placeholder="Contraseña" required autoComplete="off"/>
                     </div>
-                </div>
 
-                <div id="authError" className="errorMsg centerHorizontal">
-                    {/*3.1) TODO: Si tryLogin===true, entonces muestra el mensaje, 
-                    de lo contrario no muestra nada "null"*/}
-                    {this.props.tryLogin? <p>{this.props.authError}</p>:null}
-                </div>
+                    <div id="authError" className="errorMsg centerHorizontal">
+                        {/*3.1) TODO: Si tryLogin===true, entonces muestra el mensaje, 
+                        de lo contrario no muestra nada "null"*/}
+                        {this.props.tryLogin? <p>{this.props.authError}</p>:null}
+                    </div>
 
-                <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
+                    <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
+                </form>
 
                 <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="textWhiteCenter centerHorizontal" to="/passforgot" > <span className="subrayar">Olvide mi contraseña</span> </Link>

@@ -20,7 +20,6 @@ class Login extends Component {
     }
 
     componentDidUpdate=(prevProps)=>{
-        //5) TODO: traer retry y tryLogin desde el state map to props
         const {tryLogin,retry,errorBool}=this.props
         if(retry===true && tryLogin===false){
             this.props.handleErrorMsg(false,false)
@@ -35,8 +34,6 @@ class Login extends Component {
 
     leerDatos=(e)=>{
         if(this.props.tryLogin===true){
-            //4) TODO: Despachar una accion que setea en el estado
-            //global "retry:true" y "tryLogin:false"
             this.props.handleErrorMsg(true,false)
         }
         this.setState({
@@ -51,8 +48,6 @@ class Login extends Component {
             this.props.keepSesion(false)
         }
         signIn(this.state)
-        //3) TODO: Dentro del action creator signIn, si se obtiene error, entonces
-        //despachar otro action creator "handleErrorMsg" que setea "retry:false" y "tryLogin:true"
     }
 
     resetPassword=(e)=>{
@@ -62,7 +57,7 @@ class Login extends Component {
 
     render() {
 
-        if(this.props.isAuth)
+        if(this.props.isAuthWithEmailVerified)
         return <Redirect to="/myaccount"/>
 
         return (
@@ -83,9 +78,8 @@ class Login extends Component {
                     </div>
 
                     <div id="authError" className="errorMsg centerHorizontal">
-                        {/*3.1) TODO: Si tryLogin===true, entonces muestra el mensaje, 
-                        de lo contrario no muestra nada "null"*/}
                         {this.props.tryLogin? <p>{this.props.authError}</p>:null}
+                        {this.props.isAuthWithEmailVerified===true || this.props.isAuth===undefined?null:<p>Tu cuenta ha sido creada pero aun no ha sido verificada.</p>}
                     </div>
 
                     <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
@@ -105,7 +99,6 @@ class Login extends Component {
 }
 
 const mapStateToProps=(state)=>({
-    //2) TODO: Vincular "retry" y "tryLogin" desde el estado glogal
     authError:state.authLoginReducer.authError,
     authSuccess:state.authLoginReducer.authSuccess,
     retry:state.authLoginReducer.retry,
@@ -113,6 +106,7 @@ const mapStateToProps=(state)=>({
     errorBool:state.authLoginReducer.errorBool,
     keep:state.authLoginReducer.keep,
     isAuth:state.firebase.auth.uid,
+    isAuthWithEmailVerified:state.firebase.auth.emailVerified,
     isKeepOptionManuallySet:state.authLoginReducer.isKeepOptionManuallySet,
     fire:state
 })
@@ -123,7 +117,6 @@ const mapDispatchToProps=(dispatch)=>{
         recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
         handleErrorMsg:(retry,tryLogin)=>dispatch(handleErrorMsg(retry,tryLogin)),
         keepSesion:(option)=>dispatch(keepSesion(option))
-        //1) TODO: Llamar un action creator para setear "retry" y "tryLogin"
     }
 }
 

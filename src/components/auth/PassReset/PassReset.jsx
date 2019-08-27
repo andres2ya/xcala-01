@@ -30,6 +30,21 @@ class PassReset extends Component {
     }
 
     render() {
+        if(!this.props.successResetPassVerify)
+        return(
+            <div>
+                <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
+                <div className="seccionAUnPasoConXcala centerHorizontal">
+                    <div>
+                        <p className="AUnPasoTitulo">{this.props.msg}</p>
+                    </div>
+                </div>
+                <div className="seccionBtnInputPassReset centerHorizontal">
+                    <Link to="/"><button>Ir al inicio</button></Link>
+                </div>
+            </div>
+        )
+
         return (
             <div>
                 
@@ -52,7 +67,7 @@ class PassReset extends Component {
 
                         </div>
                             {this.props.passChanged?
-                                <Link to="/myaccount"><button>Ir a mi cuenta</button></Link>
+                                <Link to="/"><button>Entrar a mi cuenta</button></Link>
                             :
                                 <div className="seccionBtnInputPassReset centerHorizontal">
                                     <div className=" centerVertical centerHorizontal" id="inputPassword">
@@ -86,7 +101,8 @@ const mapStateToProps=(state)=>{
     return{
         ShowFormResetPassword:state.authRecoveryPasswordReducer.ShowFormResetPassword,
         msg:state.authRecoveryPasswordReducer.msg,
-        passChanged:state.authRecoveryPasswordReducer.passChanged
+        passChanged:state.authRecoveryPasswordReducer.passChanged,
+        successResetPassVerify:state.authRecoveryPasswordReducer.successResetPassVerify
     }
 }
 

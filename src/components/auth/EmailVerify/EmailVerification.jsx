@@ -21,7 +21,6 @@ class EmailVerification extends Component {
         }else{
             console.log('No estaba verificado.. mandando a verificar el correo... y luego si actualizar')
             this.props.verifyEmail(actionCode)
-            this.props.changeEmail(newEmail)
         }
     }
    

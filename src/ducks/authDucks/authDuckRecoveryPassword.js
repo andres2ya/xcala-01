@@ -61,7 +61,8 @@ const initialState={
     ShowFormResetPassword:false,
     msg:null,
     emailHasBeenSent:undefined,
-    passChanged:false
+    passChanged:false,
+    successResetPassVerify:true
 }
 const authRecoveryPasswordReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -87,14 +88,16 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             console.log('Mostrando form de reset password')
             return {
                 ...state,
-                ShowFormResetPassword:true
+                ShowFormResetPassword:true,
+                successResetPassVerify:true
             }
         //------------------------------------------------------------------
         case RESET_PASSWORD_ERROR:
             return{ 
                 ...state,
                 ShowFormResetPassword:false,
-                msg:'No ha sido posible confirmar el correo de recuperacion. Porfavor intenta nuevamente.'
+                msg:'No ha sido posible confirmar el correo de recuperacion. Porfavor intenta nuevamente.',
+                successResetPassVerify:false
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

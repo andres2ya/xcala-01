@@ -69,7 +69,8 @@ export const verifyEmail=(code)=>{
 const initialState={
     msg:null,
     showEmailVerify:false,
-    showRegisterButton:false
+    showRegisterButton:false,
+    successVerified:true
 }
 const authSignUpReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -128,7 +129,8 @@ const authSignUpReducer = (state=initialState, action)=>{
                 mensage='Email vericado con exito'
             return{
                 ...state,
-                msg:mensage
+                msg:mensage,
+                successVerified:true
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------
@@ -137,7 +139,8 @@ const authSignUpReducer = (state=initialState, action)=>{
                 mensage='No se pudo verificar el email' + action.payload.message
             return{
                 ...state,
-                msg:mensage
+                msg:mensage,
+                successVerified:false
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

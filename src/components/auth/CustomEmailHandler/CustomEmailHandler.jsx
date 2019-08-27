@@ -39,7 +39,7 @@ class CustomEmailHandler extends Component {
                     )
             case 'verifyEmail':
                     return (
-                        <EmailConfirm/>
+                        <EmailConfirm actionCode={code}/>
                     )
             default:
                     return(

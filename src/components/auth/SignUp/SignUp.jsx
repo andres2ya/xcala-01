@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {signUp} from '../../../ducks/authDucks/authDuckSignUp'
+import {keepSesion} from '../../../ducks/authDucks/authDuckLogin';
 import EmailVerify from '../EmailVerify/EmailVerify';
 import logoXcala from '../../../assets/logoXcala.png';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
@@ -38,8 +39,9 @@ class SingUp extends Component {
         var reportVal=form.reportValidity()
     
         if(this.state.passwordSignUp===this.state.repeatPasswordSignUp && reportVal===true){
-            const {signUp} =this.props
+            const {signUp,keepSesion} =this.props
             signUp(this.state)
+            keepSesion(true)
         }else{
             console.log('las contraseñas no coinciden')
             this.setState({
@@ -64,41 +66,41 @@ class SingUp extends Component {
                     <div className="seccionDatosCuentaRegistro">
                         <div className=" centerVertical" >
                             <i className="icon icon-arroba centerVertical"></i>
-                            <input onChange={this.leerDatos} type="email" name="emailSignUp"  placeholder="Correo de usuario *" required autoComplete="off"/>
+                            <input onChange={this.leerDatos} type="email" name="emailSignUp"  placeholder="Correo de usuario *" autoComplete="nope" required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
                             <i className="icon icon-locked centerVertical "></i>
-                            <input onChange={this.leerDatos} type="password" name="passwordSignUp"  placeholder="Contraseña *" required autoComplete="off"/>
+                            <input onChange={this.leerDatos} type="password" name="passwordSignUp"  placeholder="Contraseña *" autoComplete="nope"  required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
                             <i className="icon icon-locked centerVertical "></i>
-                            <input onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" required autoComplete="off"/>
+                            <input onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" autoComplete="nope"  required/>
                         </div>
                     </div>
 
                     <p className="labelDatos">Datos personales</p>
                     <div id="registerForm" className="seccionDatosPersonalesRegistro">
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="text" name="nombreUsuario"  placeholder="Nombres *" required autoComplete="off"/>
+                                <input onChange={this.leerDatos} type="text" name="nombreUsuario"  placeholder="Nombres *" autoComplete="nope"  required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="text" name="apellidosUsuario"  placeholder="Apellidos *" required autoComplete="off"/>
+                                <input onChange={this.leerDatos} type="text" name="apellidosUsuario"  placeholder="Apellidos *" autoComplete="nope"  required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
                                 <div className="placeholder">Fecha nacimiento *</div>
-                                <input className="fechaNacimientoUsuario" onChange={this.leerDatos} type="date" name="fechaNacimientoUsuario" required autoComplete="off"/>
+                                <input className="fechaNacimientoUsuario" onChange={this.leerDatos} type="date" autoComplete="nope"  name="fechaNacimientoUsuario"/>
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="number" name="cedulaUsuario" placeholder="Numero de cedula *" required autoComplete="off"/>
+                                <input onChange={this.leerDatos} type="number" name="cedulaUsuario" placeholder="Numero de cedula *" autoComplete="nope"  />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <select onChange={this.leerDatos} type="text" name="ciudadUsuario" placeholder="Ciudad de residencia *" required autoComplete="off">
+                                <select onChange={this.leerDatos} type="text" name="ciudadUsuario" placeholder="Ciudad de residencia *" autoComplete="nope"  required>
                                     <option value="" disabled selected>Ciudad de residencia *</option>
                                     <option value="Bogota">Bogota</option>
                                     <option value="Cucuta">Cucuta</option>
@@ -106,7 +108,7 @@ class SingUp extends Component {
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="number" name="celularUsuario" placeholder="Numero de celular *"  autoComplete="off" required/>
+                                <input onChange={this.leerDatos} type="number" name="celularUsuario" placeholder="Numero de celular *" autoComplete="nope"  required/>
                         </div>
 
                         <div className="seccionEnviarRegistro ">
@@ -132,7 +134,8 @@ const mapStateToProps=(state)=>({
 
 const mapDispatchToProps=(dispatch)=>{
     return{
-        signUp:(newUser)=>dispatch(signUp(newUser))
+        signUp:(newUser)=>dispatch(signUp(newUser)),
+        keepSesion:(option)=>dispatch(keepSesion(option))
     }
 }
 

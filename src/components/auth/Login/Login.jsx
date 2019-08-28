@@ -1,22 +1,35 @@
 import React, { Component } from 'react'
+import {loadFromLocalStorage} from '../../../helpers/localStorage';
 import {connect} from 'react-redux'
 import {Link,Redirect} from 'react-router-dom';
-import {signIn,keepSesion,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin'
+import {signIn,keepSesion,handleErrorMsg,logOut} from '../../../ducks/authDucks/authDuckLogin'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
+import {sendEmailVerify} from '../../../ducks/authDucks/authDuckSignUp';
 import logoXcala from '../../../assets/logoXcala.png';
 import './Login.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
+import EmailVerify from '../EmailVerify/EmailVerify';
 
 
 class Login extends Component {
     
     state={
         email:'', 
-        password:''
+        password:'',
+        isRetrySendEmailVerify:false,
+        newUser:''
     }
 
     componentDidMount=()=>{
-        document.body.className='loginStyle'     
+        document.body.className='loginStyle'
+        //En el caso que entre a login desde la pantalla de confirmacion de correo verificado, 
+        //entonces primero: hace signout, para luego permitir entrar a la cuenta y que el emailVerified cambie a true.
+        //como en EmailConfirm sea actualiza el successVerified cuando se confirma el codigo (ApplyActionCode) entonces aca 
+        //lo llamo para determinar cuando se esta mandando a renderizar el Login desde el EmailConfirm
+        const {successVerified,logOut}=this.props
+        if(successVerified){
+            logOut()
+        }
     }
 
     componentDidUpdate=(prevProps)=>{
@@ -55,14 +68,26 @@ class Login extends Component {
         this.props.recoveryPassword(this.state.email)
     }
 
+    retrySendEmailVerification=(e)=>{
+        e.preventDefault()
+        const {sendEmailVerify}=this.props
+        const newUser=loadFromLocalStorage('newUser')
+        sendEmailVerify(newUser)
+        this.setState({
+            isRetrySendEmailVerify:true,
+            newUser:newUser
+        })
+    }
+
     render() {
-
-        if(this.props.isAuthWithEmailVerified)
-        return <Redirect to="/myaccount"/>
-
+        if(this.state.isRetrySendEmailVerify===true){
+             return <EmailVerify newUser={this.state.newUser}/>
+        }else if(this.props.isAuthWithEmailVerified){
+             return <Redirect to="/myaccount"/>
+        }else{
+        
         return (
             <div>
-
                 <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
                 <form id="seccionIngresar">
                     <div className=" centerVertical centerHorizontal" id="inputEmail">
@@ -79,7 +104,14 @@ class Login extends Component {
 
                     <div id="authError" className="errorMsg centerHorizontal">
                         {this.props.tryLogin? <p>{this.props.authError}</p>:null}
-                        {this.props.isAuthWithEmailVerified===true || this.props.isAuth===undefined?null:<p>Tu cuenta ha sido creada pero aun no ha sido verificada.</p>}
+                        {this.props.isAuthWithEmailVerified===true || this.props.isAuth===undefined?
+                        null
+                        :
+                        <div onClick={this.retrySendEmailVerification}>
+                            <p id="linkReenviar">Tu cuenta ha sido creada pero aun no ha sido verificada.</p>
+                            <a>Haz click para reenviar correo de verificacion</a>
+                        </div>
+                        }
                     </div>
 
                     <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
@@ -94,6 +126,7 @@ class Login extends Component {
                 </div>
             </div>
         )
+        }
     }
 
 }
@@ -107,6 +140,7 @@ const mapStateToProps=(state)=>({
     keep:state.authLoginReducer.keep,
     isAuth:state.firebase.auth.uid,
     isAuthWithEmailVerified:state.firebase.auth.emailVerified,
+    successVerified:state.authSignUpReducer.successVerified,
     isKeepOptionManuallySet:state.authLoginReducer.isKeepOptionManuallySet,
     fire:state
 })
@@ -116,7 +150,9 @@ const mapDispatchToProps=(dispatch)=>{
         signIn:(creds)=>dispatch(signIn(creds)),
         recoveryPassword:(email)=>dispatch(recoveryPassword(email)),
         handleErrorMsg:(retry,tryLogin)=>dispatch(handleErrorMsg(retry,tryLogin)),
-        keepSesion:(option)=>dispatch(keepSesion(option))
+        keepSesion:(option)=>dispatch(keepSesion(option)),
+        sendEmailVerify:(newUser)=>dispatch(sendEmailVerify(newUser)),
+        logOut:()=>dispatch(logOut())
     }
 }
 

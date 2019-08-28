@@ -38,22 +38,29 @@ export const signUp=(newUser)=>{
 export const sendEmailVerify=(newUser)=>{
     return(dispatch,getState,{getFirebase})=>{
         const firebase=getFirebase()
-        firebase.auth().currentUser.sendEmailVerification()
-        .then((res)=>{
-            dispatch({type:EMAIL_VERIFICATION_SUCCESS,payload:newUser})
+        firebase.auth().onAuthStateChanged((user)=>{//forma correcta de usar current user
+            console.log(user)
+            if(user){
+                firebase.auth().currentUser.sendEmailVerification()
+                .then((res)=>{
+                    dispatch({type:EMAIL_VERIFICATION_SUCCESS,payload:newUser})
+                })
+                .catch((err)=>{
+                    dispatch({type:EMAIL_VERIFICATION_ERROR,payload:err})
+                })
+            }else{console.log('usuario no signed in')}
         })
-        .catch((err)=>{
-            dispatch({type:EMAIL_VERIFICATION_ERROR,payload:err})
-        })
+        
     }
 }
 //----------------------------------------------------------------
 export const verifyEmail=(code)=>{
     return(dispatch,getState,{getFirebase})=>{
+        const state=getState()
         const firebase = getFirebase()
         firebase.auth().applyActionCode(code)
         .then((res)=>{
-            dispatch({type:VERY_EMAIL_SUCCESS,payload:res}) 
+            dispatch({type:VERY_EMAIL_SUCCESS,payload:res})    
         })
         .catch((err)=>{
             dispatch({type:VERY_EMAIL_ERROR,payload:err}) 

@@ -22,11 +22,13 @@ class EmailConfirm extends Component {
                     <img className="signup-logo" src={logoXcala} alt="Xcala Colombia"/><span className="subtituloRegistro" >Registro</span>
                 </div>
                 <div className="seccionAUnPasoConXcala centerHorizontal">
-                    <p className="AUnPasoTitulo">Ha ocurrido un error al momento de verificar tu correo. Es posible que haya sido verificado. En caso contrario, porfavor intenta nuevamente.</p> 
+                    <p className="AUnPasoTitulo">Ha ocurrido un error al momento de verificar tu correo. Porfavor ten en cuenta lo siguiente:</p>
+                    <p className="AUnPasoParrafo">* Es posible que haya sido verificado. Por lo tanto te recomendamos ir al inicio de tu cuenta.</p>
+                    <p className="AUnPasoParrafo">* Es posible que haya trasncurrido mas de 30 minutos desde que se solicito la confirmacion del correo. En este caso, ve a la pantalla de inicio, ingresa tus datos de acceso y te enviaremos un correo con un nuevo link de verificacion.</p>
                 </div>
-                <div className="seccionBotonesEmailVerify centerHorizontal">
-                    <Link to="/"><button>Ir al inicio</button></Link>
-                </div>
+                
+                <Link to="/"><button>Ir al inicio</button></Link>
+                
             </div>
         )
 
@@ -37,7 +39,8 @@ class EmailConfirm extends Component {
                 </div>
 
                 <div className="seccionAUnPasoConXcala centerHorizontal">
-                    <p className="AUnPasoTitulo">¡Felicidades <span>{this.state.nombreUsuario}!,</span> tu email ha sido confirmado.</p>
+                    {/* TODO: Leer el dato de nombre desde el userProfile en lugar del localstorage para evitar errores */}
+                    <p className="AUnPasoTitulo">¡Felicidades <span>{'this.state.nombreUsuario'}!,</span> tu email ha sido confirmado.</p>
                     <p className="AUnPasoParrafo">Ya puedes comenzar a generar dinero extra con Xcala. Entra a tu cuenta para empezar.</p>
                 </div>
 
@@ -49,7 +52,8 @@ class EmailConfirm extends Component {
     }
 }
 const mapStateToProps=(state)=>({
-    successVerified:state.authSignUpReducer.successVerified
+    successVerified:state.authSignUpReducer.successVerified,
+    fire:state
 })
 
 const mapDispatchToProps=(dispatch)=>{

@@ -50,6 +50,7 @@ export const confirmNewPassword=(code,NewPass)=>{
         })
         .catch((err)=>{
             dispatch({type:CONFIRM_RESET_PASSWORD_ERROR,payload:err})
+            dispatch(handleErrorMsg(err))
         })
     }
 }
@@ -64,7 +65,8 @@ const initialState={
     msg:null,
     emailHasBeenSent:undefined,
     passChanged:false,
-    successResetPassVerify:true
+    successResetPassVerify:true,
+    erroWhenTryResetPassword:false
 }
 const authRecoveryPasswordReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -109,14 +111,16 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             console.log('Se confirmo el cambio de pass')
             return{ 
                 ...state,
-                passChanged:true
+                passChanged:true,
+                erroWhenTryResetPassword:false
             }
         //------------------------------------------------------------------
         case CONFIRM_RESET_PASSWORD_ERROR:
             return{ 
                 ...state,
                 msg:'No se pudo cambiar la constraseña: '+action.payload,
-                passChanged:false
+                passChanged:false,
+                erroWhenTryResetPassword:true
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

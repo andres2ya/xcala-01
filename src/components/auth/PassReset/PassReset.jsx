@@ -8,7 +8,8 @@ import './PassReset.css'
 class PassReset extends Component {
 
     state={
-        newPassword:''
+        newPassword:'',
+        tryResetPassword:false
     }
 
     componentDidMount=()=>{
@@ -17,15 +18,26 @@ class PassReset extends Component {
         resetPassword(actionCode)
     }
 
+    componentDidUpdate=()=>{
+        if(this.props.internetError){
+            this.setState({
+                tryResetPassword:false
+            })
+        }
+    }
+
     leerNewPass=(newPass)=>{
         this.setState({
-            newPassword:newPass.target.value
+            newPassword:newPass.target.value,
+            tryResetPassword:false
         })
-        console.log(this.state.newPassword)
     }
 
     confirmarNewPass=(e)=>{
         e.preventDefault()
+        this.setState({
+            tryResetPassword:true
+        })
         this.props.confirmNewPassword(this.props.actionCode,this.state.newPassword)
     }
 
@@ -74,9 +86,24 @@ class PassReset extends Component {
                                         <i className="icon icon-locked centerVertical "></i>
                                         <input value={this.state.newPassword} onChange={this.leerNewPass} type="password" id="newPassword"  placeholder="Nueva contraseña" required autoComplete="off"/>
                                     </div>
-                                    <div className="divider"></div>
-                                    {this.props.msg!=null?<p className="AUnPasoParrafo">{this.props.msg}</p>:null}
+                                    <div className="divider"/>
+
+                                    {this.state.tryResetPassword?
+                                        <div>
+                                            {this.props.erroWhenTryResetPassword?
+                                                <div id="authError" className="errorMsg centerHorizontal">
+                                                    {this.props.errorEspañol}
+                                                </div>
+                                            :    
+                                                <p className="AUnPasoParrafo">{this.props.msg}</p>
+                                            }
+                                        </div>
+                                    :
+                                        null
+                                    }
+                                    
                                     <div className="separadorBtn"/>
+
                                     <button onClick={this.confirmarNewPass} >Restablecer contraseña</button>
                                 </div>
                             }
@@ -102,7 +129,10 @@ const mapStateToProps=(state)=>{
         ShowFormResetPassword:state.authRecoveryPasswordReducer.ShowFormResetPassword,
         msg:state.authRecoveryPasswordReducer.msg,
         passChanged:state.authRecoveryPasswordReducer.passChanged,
-        successResetPassVerify:state.authRecoveryPasswordReducer.successResetPassVerify
+        successResetPassVerify:state.authRecoveryPasswordReducer.successResetPassVerify,
+        erroWhenTryResetPassword:state.authRecoveryPasswordReducer.erroWhenTryResetPassword,
+        errorEspañol:state.authLoginReducer.errorEspañol,
+        internetError:state.authLoginReducer.internetError
     }
 }
 

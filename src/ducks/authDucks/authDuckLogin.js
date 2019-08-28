@@ -1,3 +1,4 @@
+import {identifyAndReturnMsgError} from '../../helpers/errorsHandler';
 //1. ACTION TYPES LOGIN
 const LOGIN_SUCCESS='xcala/auth/LOGIN_SUCCESS'
 const LOGIN_ERROR='xcala/auth/LOGIN_ERROR'
@@ -14,12 +15,22 @@ const HANDLE_ERROR_MSG='xcala/auth/HANDLE_ERROR_MSG'
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
-export const handleErrorMsg=(retry,tryLogin)=>{
-    return {
-        type:HANDLE_ERROR_MSG,
-        payload:{retry:retry,tryLogin:tryLogin}
+export const handleErrorMsg=(error,retry,tryLogin,from)=>{
+    //Traductor de errores "identifyAndReturnMsgError"
+    const errorEspañol=identifyAndReturnMsgError(error.code)
+    if(from==='signIn'){
+        return {
+            type:HANDLE_ERROR_MSG,
+            payload:{errorEspañol:errorEspañol,retry:retry,tryLogin:tryLogin}
+        }
+    }else{
+        return {
+            type:HANDLE_ERROR_MSG,
+            payload:{errorEspañol:errorEspañol}
+        }
     }
 }
+//----------------------------------------------------------------
 export const signIn=(credentials)=>{
     return (dispatch,getState,{getFirebase})=>{
         const firebase=getFirebase();
@@ -32,7 +43,7 @@ export const signIn=(credentials)=>{
         })
         .catch((err)=>{
             dispatch({type:LOGIN_ERROR,payload:err});
-            dispatch(handleErrorMsg(false,true));
+            dispatch(handleErrorMsg(err,false,true,'signIn'));
         })
     }
 }
@@ -86,7 +97,7 @@ export const logOut=()=>{
 //3. REDUCER AUTH
 const initialState={
     authSuccess:null,
-    authError:null,
+    errorEspañol:null,
     errorBool:false,
     retry:false,
     tryLogin:false,
@@ -95,6 +106,16 @@ const initialState={
 }
 const authLoginReducer = (state=initialState, action)=>{
     switch(action.type){
+        case HANDLE_ERROR_MSG:
+            return{
+                ...state,
+                retry:action.payload.retry,
+                tryLogin:action.payload.tryLogin,
+                errorEspañol:action.payload.errorEspañol
+            }
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
         case LOGIN_SUCCESS:
             console.log('login success')
             console.log(action.payload)
@@ -110,18 +131,8 @@ const authLoginReducer = (state=initialState, action)=>{
             console.log(action.payload)
             return {
                 ...state,
-                authError:action.payload.code,
                 authSuccess:null,
                 errorBool:true
-            }
-        //------------------------------------------------------------------
-        //------------------------------------------------------------------
-        //------------------------------------------------------------------
-        case HANDLE_ERROR_MSG:
-            return{
-                ...state,
-                retry:action.payload.retry,
-                tryLogin:action.payload.tryLogin
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

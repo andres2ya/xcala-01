@@ -1,4 +1,5 @@
 import {saveInLocalStorage} from '../../helpers/localStorage';
+import {handleErrorMsg} from './authDuckLogin'
 //1. ACTION TYPES 
 const SIGNUP_SUCCESS='xcala/auth/SIGNUP_SUCCESS'
 const SIGNUP_ERROR='xcala/auth/SIGNUP_ERROR'
@@ -10,7 +11,8 @@ const VERY_EMAIL_SUCCESS='xcala/auth/VERY_EMAIL_SUCCESS'
 const VERY_EMAIL_ERROR='xcala/auth/VERY_EMAIL_ERROR'
 //----------------------------------------------------------------
 const ACCEPT_TERMS_AND_CONDITION='xcala/auth/ACCEPT_TERMS_AND_CONDITION'
-
+//----------------------------------------------------------------
+const SAVE_DATA_NEW_USER='xcala/auth/SAVE_DATA_NEW_USER'
 
 
 
@@ -20,17 +22,26 @@ export const acceptTermsCondition=(option)=>{
     return{type:ACCEPT_TERMS_AND_CONDITION,payload:option}
 }
 //----------------------------------------------------------------
+export const saveDataNewUser=(label,data)=>{
+    return{type:SAVE_DATA_NEW_USER,label:label,data:data}
+}
+//----------------------------------------------------------------
 export const signUp=(newUser)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
         const firebase=getFirebase()
         const firestore=getFirestore()
         firebase.auth().createUserWithEmailAndPassword(newUser.emailSignUp,newUser.passwordSignUp)
         .then((res)=>{
-            dispatch({type:SIGNUP_SUCCESS});
-            dispatch(sendEmailVerify(newUser));
+            firestore.collection('users').doc(res.user.uid).set(newUser)
+            .then((res)=>{
+                dispatch({type:SIGNUP_SUCCESS});
+                dispatch(sendEmailVerify(newUser));
+            })
         })
         .catch((err)=>{
+            console.log(err)
             dispatch({type:SIGNUP_ERROR,payload:err})
+            dispatch(handleErrorMsg(err))
         })
     }
 }
@@ -77,7 +88,18 @@ const initialState={
     msg:null,
     showEmailVerify:false,
     showRegisterButton:false,
-    successVerified:true
+    successVerified:false,
+    newUserData:{
+        emailSignUp:'',
+        passwordSignUp:'',
+        repeatPasswordSignUp:'',
+        nombreUsuario:'',
+        apellidosUsuario:'',
+        fechaNacimientoUsuario:'',
+        cedulaUsuario:'',
+        ciudadUsuario:'',
+        celularUsuario:'',
+    }
 }
 const authSignUpReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -85,6 +107,14 @@ const authSignUpReducer = (state=initialState, action)=>{
             return{
                 ...state,
                 showRegisterButton:action.payload
+            }
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        //------------------------------------------------------------------
+        case SAVE_DATA_NEW_USER:
+            return{
+                ...state,
+                newUserData:{...state.newUserData,[action.label]:action.data}
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------
@@ -102,10 +132,9 @@ const authSignUpReducer = (state=initialState, action)=>{
         //------------------------------------------------------------------
         case SIGNUP_ERROR:
             mensage='ocurrio un problema al crear el usuario' + action.payload
-            console.log(mensage)
+            console.log(mensage+' '+action.payload)
             return{ 
                 ...state,
-                msg:mensage,
                 showEmailVerify:false
             }
         //------------------------------------------------------------------

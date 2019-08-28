@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {signUp} from '../../../ducks/authDucks/authDuckSignUp'
-import {keepSesion} from '../../../ducks/authDucks/authDuckLogin';
+import {signUp,saveDataNewUser} from '../../../ducks/authDucks/authDuckSignUp'
+import {keepSesion,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin';
 import EmailVerify from '../EmailVerify/EmailVerify';
 import logoXcala from '../../../assets/logoXcala.png';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
@@ -14,49 +14,71 @@ class SingUp extends Component {
     }
 
     state={
-        emailSignUp:'',
-        passwordSignUp:'',
-        repeatPasswordSignUp:'',
-        nombreUsuario:'',
-        apellidosUsuario:'',
-        fechaNacimientoUsuario:'',
-        cedulaUsuario:'',
-        ciudadUsuario:'',
-        celularUsuario:'',
+        // emailSignUp:'',
+        // passwordSignUp:'',
+        // repeatPasswordSignUp:'',
+        // nombreUsuario:'',
+        // apellidosUsuario:'',
+        // fechaNacimientoUsuario:'',
+        // cedulaUsuario:'',
+        // ciudadUsuario:'',
+        // celularUsuario:'',
         incoherentEmail:false
     }
 
     leerDatos=(e)=>{
         e.preventDefault()
-        this.setState({
-            [e.target.name]:e.target.value
-        })
+        // this.setState({
+        //      [e.target.name]:e.target.value
+        // })
+        const {saveDataNewUser}=this.props
+        saveDataNewUser(e.target.name,e.target.value)
     }
 
     crearUsuario=(e)=>{
         e.preventDefault()
+        //Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
+        //es necesario indicarle al navegador que de todas formas haga la validacion de los campos
+        //en el formulario que contienen "required"
+        //Para eso, se usa reportValidity:
+        //1.)Se manda a seleccionar el formulario con un querySelector mediante su id
+        //2.)Al formulario seleccionado se le agrega la funcion reportValidity,
+        //la cual retorna true o false
+        //3.)Se Guarda la respuesta en una constante y se utiliza en un condicional para 
+        //dar paso a la funcion deseada , en este caso: signUp y keepSesion
         var form = document.querySelector('#registerForm')
         var reportVal=form.reportValidity()
     
-        if(this.state.passwordSignUp===this.state.repeatPasswordSignUp && reportVal===true){
-            const {signUp,keepSesion} =this.props
-            signUp(this.state)
-            keepSesion(true)
-        }else{
-            console.log('las contraseñas no coinciden')
-            this.setState({
-                incoherentEmail:true
-            })
+        const {signUp,keepSesion,newUserData,handleErrorMsg} =this.props
+        if(reportVal===true){
+            if(newUserData.passwordSignUp===newUserData.repeatPasswordSignUp){
+                signUp(newUserData)
+                keepSesion(true)
+            }else{
+                handleErrorMsg({code:'Las constraseñas no coinciden'})
+                this.setState({
+                    incoherentEmail:true
+                })
+            }
+        } else{
+            if(newUserData.passwordSignUp===newUserData.repeatPasswordSignUp){
+                handleErrorMsg({code:'No has completado todos los campos'})
+            }else{
+                handleErrorMsg({code:'Las constraseñas no coinciden'})
+            }
         }
     }
 
+    
     render() {
+        const {newUserData}=this.props
         return (
             
             <div>
                 {this.props.showEmailVerify?
-                    <EmailVerify newUser={this.state}/>
+                    <EmailVerify newUser={newUserData}/>
                 :
+                
                 <div className="seccionRegistro">
                     <div className="seccionHeaderRegistro">
                         <img className="signup-logo" src={logoXcala} alt="Xcala Colombia"/><span className="subtituloRegistro" >Registro</span>
@@ -66,41 +88,44 @@ class SingUp extends Component {
                     <div className="seccionDatosCuentaRegistro">
                         <div className=" centerVertical" >
                             <i className="icon icon-arroba centerVertical"></i>
-                            <input onChange={this.leerDatos} type="email" name="emailSignUp"  placeholder="Correo de usuario *" autoComplete="nope" required />
+                            <input value={newUserData.emailSignUp} onChange={this.leerDatos} type="email" name="emailSignUp"  placeholder="Correo de usuario *" autoComplete="nope" required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
                             <i className="icon icon-locked centerVertical "></i>
-                            <input onChange={this.leerDatos} type="password" name="passwordSignUp"  placeholder="Contraseña *" autoComplete="nope"  required />
+                            <input value={newUserData.passwordSignUp} onChange={this.leerDatos} type="password" name="passwordSignUp"  placeholder="Contraseña *" autoComplete="nope"  required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
                             <i className="icon icon-locked centerVertical "></i>
-                            <input onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" autoComplete="nope"  required/>
+                            <input value={newUserData.repeatPasswordSignUp} onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" autoComplete="nope"  required/>
+                        </div>
+                        <div id="authError" className="errorMsg centerHorizontal">
+                            {this.props.errorEspañol}   
                         </div>
                     </div>
 
                     <p className="labelDatos">Datos personales</p>
                     <div id="registerForm" className="seccionDatosPersonalesRegistro">
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="text" name="nombreUsuario"  placeholder="Nombres *" autoComplete="nope"  required />
+                                <input value={newUserData.nombreUsuario} onChange={this.leerDatos} type="text" name="nombreUsuario"  placeholder="Nombres *" autoComplete="nope"  required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="text" name="apellidosUsuario"  placeholder="Apellidos *" autoComplete="nope"  required />
+                                <input value={newUserData.apellidosUsuario} onChange={this.leerDatos} type="text" name="apellidosUsuario"  placeholder="Apellidos *" autoComplete="nope"  required />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
                                 <div className="placeholder">Fecha nacimiento *</div>
-                                <input className="fechaNacimientoUsuario" onChange={this.leerDatos} type="date" autoComplete="nope"  name="fechaNacimientoUsuario"/>
+                                <input value={newUserData.fechaNacimientoUsuario} className="fechaNacimientoUsuario" onChange={this.leerDatos} type="date" autoComplete="nope"  name="fechaNacimientoUsuario"/>
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="number" name="cedulaUsuario" placeholder="Numero de cedula *" autoComplete="nope"  />
+                                <input value={newUserData.cedulaUsuario} onChange={this.leerDatos} type="number" name="cedulaUsuario" placeholder="Numero de cedula *" autoComplete="nope"  />
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <select onChange={this.leerDatos} type="text" name="ciudadUsuario" placeholder="Ciudad de residencia *" autoComplete="nope"  required>
+                                <select value={newUserData.ciudadUsuario} onChange={this.leerDatos} type="text" name="ciudadUsuario" placeholder="Ciudad de residencia *" autoComplete="nope"  required>
                                     <option value="" disabled selected>Ciudad de residencia *</option>
                                     <option value="Bogota">Bogota</option>
                                     <option value="Cucuta">Cucuta</option>
@@ -108,7 +133,7 @@ class SingUp extends Component {
                         </div>
                         <div className="dividerSignUp centerHorizontal"></div>
                         <div className=" centerVertical" >
-                                <input onChange={this.leerDatos} type="number" name="celularUsuario" placeholder="Numero de celular *" autoComplete="nope"  required/>
+                                <input value={newUserData.celularUsuario} onChange={this.leerDatos} type="number" name="celularUsuario" placeholder="Numero de celular *" autoComplete="nope"  required/>
                         </div>
 
                         <div className="seccionEnviarRegistro ">
@@ -127,15 +152,18 @@ class SingUp extends Component {
 }
 
 const mapStateToProps=(state)=>({
-    msg:state.authSignUpReducer.msg,
+    errorEspañol:state.authLoginReducer.errorEspañol,
     showEmailVerify:state.authSignUpReducer.showEmailVerify,
-    showRegisterButton:state.authSignUpReducer.showRegisterButton
+    showRegisterButton:state.authSignUpReducer.showRegisterButton,
+    newUserData:state.authSignUpReducer.newUserData
 })
 
 const mapDispatchToProps=(dispatch)=>{
     return{
         signUp:(newUser)=>dispatch(signUp(newUser)),
-        keepSesion:(option)=>dispatch(keepSesion(option))
+        keepSesion:(option)=>dispatch(keepSesion(option)),
+        saveDataNewUser:(label,newUserData)=>dispatch(saveDataNewUser(label,newUserData)),
+        handleErrorMsg:(err)=>dispatch(handleErrorMsg(err))
     }
 }
 

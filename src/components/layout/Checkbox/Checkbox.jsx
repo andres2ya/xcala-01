@@ -10,7 +10,14 @@ class Checkbox extends Component  {
     state={
         checked:false,
         acceptTermCondition:false
-    } 
+    }
+
+    componentDidMount=()=>{
+        const {fromSignUp,newUser}=this.props
+        if(fromSignUp){
+            
+        }
+    }
     
     componentDidUpdate=()=>{
         const {mode}=this.props

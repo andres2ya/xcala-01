@@ -1,4 +1,3 @@
-import {loadFromLocalStorage} from '../../../helpers/localStorage';
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import logoXcala from '../../../assets/logoXcala.png'
@@ -6,8 +5,6 @@ import {Link} from 'react-router-dom';
 import {verifyEmail} from '../../../ducks/authDucks/authDuckSignUp';
 
 class EmailConfirm extends Component {
-
-    state=loadFromLocalStorage('newUser')
     
     componentDidMount=()=>{
         document.body.className='loginStyle'
@@ -40,7 +37,7 @@ class EmailConfirm extends Component {
 
                 <div className="seccionAUnPasoConXcala centerHorizontal">
                     {/* TODO: Leer el dato de nombre desde el userProfile en lugar del localstorage para evitar errores */}
-                    <p className="AUnPasoTitulo">¡Felicidades <span>{'this.state.nombreUsuario'}!,</span> tu email ha sido confirmado.</p>
+                    <p className="AUnPasoTitulo">¡Felicidades <span>{this.props.nombreUsuario}!,</span> tu email ha sido confirmado.</p>
                     <p className="AUnPasoParrafo">Ya puedes comenzar a generar dinero extra con Xcala. Entra a tu cuenta para empezar.</p>
                 </div>
 
@@ -53,7 +50,7 @@ class EmailConfirm extends Component {
 }
 const mapStateToProps=(state)=>({
     successVerified:state.authSignUpReducer.successVerified,
-    fire:state
+    nombreUsuario:state.firebase.profile.nombreUsuario
 })
 
 const mapDispatchToProps=(dispatch)=>{

@@ -17,7 +17,7 @@ class Login extends Component {
         email:'', 
         password:'',
         isRetrySendEmailVerify:false,
-        newUser:''
+        newUser:loadFromLocalStorage('newUser')
     }
 
     componentDidMount=()=>{
@@ -29,6 +29,9 @@ class Login extends Component {
         const {successVerified,logOut}=this.props
         if(successVerified){
             logOut()
+            this.setState({
+                email:this.state.newUser.emailSignUp
+            })
         }
     }
 
@@ -71,11 +74,9 @@ class Login extends Component {
     retrySendEmailVerification=(e)=>{
         e.preventDefault()
         const {sendEmailVerify}=this.props
-        const newUser=loadFromLocalStorage('newUser')
-        sendEmailVerify(newUser)
+        sendEmailVerify(this.state.newUser)
         this.setState({
-            isRetrySendEmailVerify:true,
-            newUser:newUser
+            isRetrySendEmailVerify:true
         })
     }
 
@@ -103,7 +104,7 @@ class Login extends Component {
                     </div>
 
                     <div id="authError" className="errorMsg centerHorizontal">
-                        {this.props.tryLogin? <p>{this.props.authError}</p>:null}
+                        {this.props.tryLogin? <p>{this.props.errorEspañol}</p>:null}
                         {this.props.isAuthWithEmailVerified===true || this.props.isAuth===undefined?
                         null
                         :
@@ -132,7 +133,7 @@ class Login extends Component {
 }
 
 const mapStateToProps=(state)=>({
-    authError:state.authLoginReducer.authError,
+    errorEspañol:state.authLoginReducer.errorEspañol,
     authSuccess:state.authLoginReducer.authSuccess,
     retry:state.authLoginReducer.retry,
     tryLogin:state.authLoginReducer.tryLogin,

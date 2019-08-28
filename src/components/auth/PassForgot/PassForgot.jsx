@@ -7,20 +7,34 @@ import './PassForgot.css'
 class PassForgot extends Component {
 
     state={
-        email:''
+        email:'',
+        trysendResetPasswordEmail:false
     }
 
     componentDidMount=()=>{
         document.body.className='loginStyle'
     }
 
+    componentDidUpdate=()=>{
+        if(this.props.internetError){
+            this.setState({
+                trysendResetPasswordEmail:false
+            })
+        }
+    }
+
     leerDatos=(e)=>{
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]:e.target.value,
+            trysendResetPasswordEmail:false
         })
     }
 
     sendEmailToResetPass=()=>{
+        this.setState({
+            trysendResetPasswordEmail:true
+        })
+        console.log(this.state)
         const {recoveryPassword}= this.props
         const {email}= this.state
         recoveryPassword(email)
@@ -43,22 +57,42 @@ class PassForgot extends Component {
                             <input value={this.state.email} onChange={this.leerDatos} name="email" type="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
                     <div className="dividerSignUp centerHorizontal"></div>
-                    <p className="AUnPasoParrafo">{this.props.msg}</p>
+
+
+                    {this.state.trysendResetPasswordEmail?
+                        <div>
+                            {this.props.errorWhenTrySendResetPassEmail?
+                                <div id="authError" className="errorMsg centerHorizontal">
+                                    {this.props.errorEspañol}
+                                </div>
+                            :    
+                                <p className="AUnPasoParrafo">{this.props.msg}</p>
+                            }
+                        </div>
+                    :
+                        null
+                    }
+
+
                 </div>
 
                 <div className="seccionBotonesEmailVerify centerHorizontal">
 
                     {this.props.emailHasBeenSent?
-                    null:
-                    <div>
-                        <button onClick={this.sendEmailToResetPass}>Restablecer contraseña</button>
-                    </div>} 
+                        null
+                    :
+                        <div>
+                            <button onClick={this.sendEmailToResetPass}>Restablecer contraseña</button>
+                        </div>
+                    } 
 
                     {this.props.emailHasBeenSent? 
-                    <div>
-                        <button onClick={this.sendEmailToResetPass}>Reenviar correo</button>
-                    </div>
-                    :null}
+                        <div>
+                            <button onClick={this.sendEmailToResetPass}>Reenviar correo</button>
+                        </div>
+                    :
+                        null
+                    }
 
                 </div>
             </div>
@@ -67,7 +101,10 @@ class PassForgot extends Component {
 }
 const mapStateToProps=(state)=>({
     emailHasBeenSent:state.authRecoveryPasswordReducer.emailHasBeenSent,
-    msg:state.authRecoveryPasswordReducer.msg   
+    msg:state.authRecoveryPasswordReducer.msg,
+    errorWhenTrySendResetPassEmail:state.authRecoveryPasswordReducer.errorWhenTrySendResetPassEmail,
+    errorEspañol:state.authLoginReducer.errorEspañol,
+    internetError:state.authLoginReducer.internetError
 })
 
 const mapDispatchToProps=(dispatch)=>{

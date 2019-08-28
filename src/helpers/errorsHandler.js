@@ -8,6 +8,8 @@ export const identifyAndReturnMsgError=(errorCode)=>{
             return 'El usuario que has introducido no existe'
         case 'auth/network-request-failed':
             return 'Tu conexion a internet es inestable. Porfavor vuelve a intentarlo.'
+        case 'auth/email-already-in-use':
+            return 'El email ya esta en uso. Porfavor introduce otro email.'
         case 'auth/weak-password':
             return 'Tu contraseña debe contener por lo menos 6 caracteres.'
         case 'Las constraseñas no coinciden':

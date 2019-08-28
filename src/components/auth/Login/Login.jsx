@@ -38,7 +38,7 @@ class Login extends Component {
     componentDidUpdate=(prevProps)=>{
         const {tryLogin,retry,errorBool}=this.props
         if(retry===true && tryLogin===false){
-            this.props.handleErrorMsg(false,false)
+            this.props.handleErrorMsg(null,false,false)
         }
         if(prevProps.errorBool!==errorBool){
             this.setState({

@@ -1,3 +1,4 @@
+import {handleErrorMsg} from './authDuckLogin'
 //1. ACTION TYPES 
 const RECOVERY_PASSWORD_SUCCESS='xcala/auth/RECOVERY_PASSWORD_SUCCESS'
 const RECOVERY_PASSWORD_ERROR='xcala/auth/RECOVERY_PASSWORD_ERROR'
@@ -22,6 +23,7 @@ export const recoveryPassword=(email)=>{
         })
         .catch((err)=>{
             dispatch({type:RECOVERY_PASSWORD_ERROR,payload:err})
+            dispatch(handleErrorMsg(err))
         })
     }
 }
@@ -71,7 +73,8 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             return{
                 ...state,
                 emailHasBeenSent:true,
-                msg:'¡Email enviado! Revisa tu bandeja de entrada o spam.'
+                msg:'¡Email enviado! Revisa tu bandeja de entrada o spam.',
+                errorWhenTrySendResetPassEmail:false
             }
         //------------------------------------------------------------------
         case RECOVERY_PASSWORD_ERROR:
@@ -79,7 +82,7 @@ const authRecoveryPasswordReducer = (state=initialState, action)=>{
             return{
                 ...state,
                 emailHasBeenSent:false,
-                msg:'Email incorrecto. Intenta nuevamente.'
+                errorWhenTrySendResetPassEmail:true
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------

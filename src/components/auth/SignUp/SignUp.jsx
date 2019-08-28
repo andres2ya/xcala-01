@@ -9,35 +9,30 @@ import './SignUp.css';
 
 class SingUp extends Component {
     
+    state={
+        incoherentEmail:false,
+        tryCreateUser:false
+    }
+
     componentDidMount=()=>{
         document.body.className='loginStyle'
     }
 
-    state={
-        // emailSignUp:'',
-        // passwordSignUp:'',
-        // repeatPasswordSignUp:'',
-        // nombreUsuario:'',
-        // apellidosUsuario:'',
-        // fechaNacimientoUsuario:'',
-        // cedulaUsuario:'',
-        // ciudadUsuario:'',
-        // celularUsuario:'',
-        incoherentEmail:false
-    }
-
     leerDatos=(e)=>{
         e.preventDefault()
-        // this.setState({
-        //      [e.target.name]:e.target.value
-        // })
         const {saveDataNewUser}=this.props
         saveDataNewUser(e.target.name,e.target.value)
+        this.setState({
+            tryCreateUser:false
+        })
     }
 
     crearUsuario=(e)=>{
         e.preventDefault()
-        //Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
+        this.setState({
+            tryCreateUser:true
+        })
+        const comentario_Explicacion=()=>{//Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
         //es necesario indicarle al navegador que de todas formas haga la validacion de los campos
         //en el formulario que contienen "required"
         //Para eso, se usa reportValidity:
@@ -46,6 +41,7 @@ class SingUp extends Component {
         //la cual retorna true o false
         //3.)Se Guarda la respuesta en una constante y se utiliza en un condicional para 
         //dar paso a la funcion deseada , en este caso: signUp y keepSesion
+    }
         var form = document.querySelector('#registerForm')
         var reportVal=form.reportValidity()
     
@@ -101,7 +97,7 @@ class SingUp extends Component {
                             <input value={newUserData.repeatPasswordSignUp} onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" autoComplete="nope"  required/>
                         </div>
                         <div id="authError" className="errorMsg centerHorizontal">
-                            {this.props.errorEspañol}   
+                            {this.state.tryCreateUser? this.props.errorEspañol:null}   
                         </div>
                     </div>
 

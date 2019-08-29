@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
 import {resetPassword,confirmNewPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import logoXcala from '../../../assets/logoXcala.png';
-import './PassReset.css'
 
 class PassReset extends Component {
 
@@ -44,82 +43,75 @@ class PassReset extends Component {
     render() {
         if(!this.props.successResetPassVerify)
         return(
-            <div>
-                <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
-                <div className="seccionAUnPasoConXcala centerHorizontal">
-                    <div>
-                        <p className="AUnPasoTitulo">{this.props.msg}</p>
-                    </div>
+            <div className="auth simpleFormScreen centerHorizontal">
+                <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
+                <div className="messageSimpleFormScreen">
+                    <p className="authTitle">{this.props.msg}</p>
                 </div>
-                <div className="seccionBtnInputPassReset centerHorizontal">
-                    <Link to="/"><button>Ir al inicio</button></Link>
-                </div>
+                
+                <Link to="/"><button>Ir al inicio</button></Link>
             </div>
         )
 
         return (
-            <div>
+            <div className="auth simpleFormScreen centerHorizontal">
                 
-                <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
+                <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
                 
                 {this.props.ShowFormResetPassword? 
                     <div>
-                        <div className="seccionAUnPasoConXcala centerHorizontal">
+                        <div className="messageSimpleFormScreen">
                             {this.props.passChanged? 
                                 <div>
-                                    <p className="AUnPasoTitulo">¡Tu contraseña ha sido cambiada con exito!</p>
-                                    <p className="AUnPasoParrafo">{null}</p>
+                                    <p className="authTitle">¡Tu contraseña ha sido cambiada con exito!</p>
                                 </div>
                             :   
                                 <div>
-                                    <p className="AUnPasoTitulo">Recupera tu contraseña</p>
-                                    <p className="AUnPasoParrafo">Porfavor introduce una nueva contraseña:</p>
+                                    <p className="authTitle">Recupera tu contraseña</p>
+                                    <p className="authParagraph">Porfavor introduce una nueva contraseña:</p>
                                 </div>
                             }
-
                         </div>
+
                             {this.props.passChanged?
                                 <Link to="/"><button>Entrar a mi cuenta</button></Link>
                             :
-                                <div className="seccionBtnInputPassReset centerHorizontal">
-                                    <div className=" centerVertical centerHorizontal" id="inputPassword">
+                            <div>
+                                <div className="simpleForm">
+                                    <div className=" centerVerticalAndHorizontal">
                                         <i className="icon icon-locked centerVertical "></i>
                                         <input value={this.state.newPassword} onChange={this.leerNewPass} type="password" id="newPassword"  placeholder="Nueva contraseña" required autoComplete="off"/>
                                     </div>
-                                    <div className="divider"/>
+                                    <div className="grossInputDivider"/>
 
                                     {this.state.tryResetPassword?
                                         <div>
                                             {this.props.erroWhenTryResetPassword?
-                                                <div id="authError" className="errorMsg centerHorizontal">
+                                                <div className="errorMsg centerHorizontal">
                                                     {this.props.errorEspañol}
                                                 </div>
                                             :    
-                                                <p className="AUnPasoParrafo">{this.props.msg}</p>
+                                                <p className="authParagraph">{this.props.msg}</p>
                                             }
                                         </div>
                                     :
                                         null
                                     }
-                                    
-                                    <div className="separadorBtn"/>
-
-                                    <button onClick={this.confirmarNewPass} >Restablecer contraseña</button>
+                                
                                 </div>
+
+                                <button onClick={this.confirmarNewPass} >Restablecer contraseña</button>
+                            </div>
                             }
                     </div>
                     
-                    :
+                :
 
-                    <div className="seccionAUnPasoConXcala centerHorizontal">
-                        <p className="AUnPasoTitulo">Recupera tu contraseña</p>
-                        <p className="AUnPasoParrafo">{this.props.msg}</p>
+                    <div className="messageSimpleFormScreen">
+                        <p className="authTitle">Recupera tu contraseña</p>
+                        <p className="authParagraph">{this.props.msg}</p>
                     </div>
-                }
-
-
-
-                
+                } 
             </div>
         )
     }

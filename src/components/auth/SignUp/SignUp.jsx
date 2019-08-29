@@ -5,7 +5,6 @@ import {keepSesion,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin'
 import EmailVerify from '../EmailVerify/EmailVerify';
 import logoXcala from '../../../assets/logoXcala.png';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
-import './SignUp.css';
 
 class SingUp extends Component {
     
@@ -32,7 +31,7 @@ class SingUp extends Component {
         this.setState({
             tryCreateUser:true
         })
-        const comentario_Explicacion=()=>{//Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
+        {//Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
         //es necesario indicarle al navegador que de todas formas haga la validacion de los campos
         //en el formulario que contienen "required"
         //Para eso, se usa reportValidity:
@@ -40,8 +39,7 @@ class SingUp extends Component {
         //2.)Al formulario seleccionado se le agrega la funcion reportValidity,
         //la cual retorna true o false
         //3.)Se Guarda la respuesta en una constante y se utiliza en un condicional para 
-        //dar paso a la funcion deseada , en este caso: signUp y keepSesion
-    }
+        /**dar paso a la funcion deseada , en este caso: signUp y keepSesion*/}
         var form = document.querySelector('#registerForm')
         var reportVal=form.reportValidity()
     
@@ -67,81 +65,76 @@ class SingUp extends Component {
 
     
     render() {
-        const {newUserData}=this.props
+        const {newUserData,showEmailVerify}=this.props
+        if(showEmailVerify)
+        return <EmailVerify newUser={newUserData}/>
+
         return (
-            
-            <div>
-                {this.props.showEmailVerify?
-                    <EmailVerify newUser={newUserData}/>
-                :
-                
-                <div className="seccionRegistro">
-                    <div className="seccionHeaderRegistro">
-                        <img className="signup-logo" src={logoXcala} alt="Xcala Colombia"/><span className="subtituloRegistro" >Registro</span>
-                    </div>
-                <form id="registerForm">
+            <div className="auth signUpScreen centerHorizontal">
+                <div className="logoWithSubtitle" >
+                    <img className="authLogoLeft" src={logoXcala} alt="Xcala Colombia"/>
+                    <span>Registro</span>
+                </div>
+                    
+                <form className="formSignUp" id="registerForm">
                     <p className="labelDatos">Datos de la cuenta</p>
-                    <div className="seccionDatosCuentaRegistro">
-                        <div className=" centerVertical" >
+                        <div className=" centerVerticalAndHorizontal" >
                             <i className="icon icon-arroba centerVertical"></i>
                             <input value={newUserData.emailSignUp} onChange={this.leerDatos} type="email" name="emailSignUp"  placeholder="Correo de usuario *" autoComplete="nope" required />
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                             <i className="icon icon-locked centerVertical "></i>
                             <input value={newUserData.passwordSignUp} onChange={this.leerDatos} type="password" name="passwordSignUp"  placeholder="Contraseña *" autoComplete="nope"  required />
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                             <i className="icon icon-locked centerVertical "></i>
                             <input value={newUserData.repeatPasswordSignUp} onChange={this.leerDatos} type="password" name="repeatPasswordSignUp"  placeholder="Repetir contraseña *" autoComplete="nope"  required/>
                         </div>
-                        <div id="authError" className="errorMsg centerHorizontal">
+                        <div className="errorMsg centerHorizontal">
                             {this.state.tryCreateUser? this.props.errorEspañol:null}   
                         </div>
-                    </div>
+                    
+                    
 
                     <p className="labelDatos">Datos personales</p>
-                    <div id="registerForm" className="seccionDatosPersonalesRegistro">
-                        <div className=" centerVertical" >
+                        <div className=" centerVerticalAndHorizontal" >
                                 <input value={newUserData.nombreUsuario} onChange={this.leerDatos} type="text" name="nombreUsuario"  placeholder="Nombres *" autoComplete="nope"  required />
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                                 <input value={newUserData.apellidosUsuario} onChange={this.leerDatos} type="text" name="apellidosUsuario"  placeholder="Apellidos *" autoComplete="nope"  required />
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                                 <div className="placeholder">Fecha nacimiento *</div>
                                 <input value={newUserData.fechaNacimientoUsuario} className="fechaNacimientoUsuario" onChange={this.leerDatos} type="date" autoComplete="nope"  name="fechaNacimientoUsuario"/>
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                                 <input value={newUserData.cedulaUsuario} onChange={this.leerDatos} type="number" name="cedulaUsuario" placeholder="Numero de cedula *" autoComplete="nope"  />
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                                 <select value={newUserData.ciudadUsuario} onChange={this.leerDatos} type="text" name="ciudadUsuario" placeholder="Ciudad de residencia *" autoComplete="nope"  required>
                                     <option value="" disabled selected>Ciudad de residencia *</option>
                                     <option value="Bogota">Bogota</option>
                                     <option value="Cucuta">Cucuta</option>
                                 </select>
                         </div>
-                        <div className="dividerSignUp centerHorizontal"></div>
-                        <div className=" centerVertical" >
+                        <div className="thinInputDivider centerHorizontal"></div>
+                        <div className=" centerVerticalAndHorizontal" >
                                 <input value={newUserData.celularUsuario} onChange={this.leerDatos} type="number" name="celularUsuario" placeholder="Numero de celular *" autoComplete="nope"  required/>
                         </div>
 
-                        <div className="seccionEnviarRegistro ">
+                        <div className="sendRegister ">
                             <Checkbox mode={'acceptT&C'} styleBox={'boxSignUp'} styleCheck={'checkSignUp'} text={'Acepto los'} 
                             link={'/Terminos&condiciones'} textLink={'Terminos y condiciones'}  id={'aceptoRegistroCheck'}/>
 
                             {this.props.showRegisterButton? <button type="submit" onClick={this.crearUsuario}>Registrar</button>:null}
                         </div>
-                    </div>
                 </form>
-                </div>
-                }
             </div>
         )
     }

@@ -46,7 +46,7 @@ class Checkbox extends Component  {
             <span className={this.props.styleCheck}></span>
             <label htmlFor={this.props.id}>
                 {this.props.text}{' '}
-                {this.props.link===null?'':<Link to={this.props.link}>{this.props.textLink}</Link>}
+                {this.props.link===null?'':<Link to={this.props.link}><span className="link">{this.props.textLink}</span></Link>}
             </label>
         </div>
         )

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import logoXcala from '../../../assets/logoXcala.png';
-import './PassForgot.css'
 
 class PassForgot extends Component {
 
@@ -42,22 +41,21 @@ class PassForgot extends Component {
 
     render() {
         return (
-            <div>
+            <div className="auth simpleFormScreen centerHorizontal">
+                <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
                 
-                <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
-                
-                <div className="seccionAUnPasoConXcala centerHorizontal">
-                    <p className="AUnPasoTitulo">Recupera tu contraseña</p>
-                    <p className="AUnPasoParrafo">¿Olvidaste tu contraseña? Introduce el correo electronico que utilizaste para el registro. Te enviaremos instrucciones para crear una nueva contraseña.</p>
+                <div className="messageSimpleFormScreen">
+                    <p className="authTitle">Recupera tu contraseña</p>
+                    <p className="authParagraph">¿Olvidaste tu contraseña? Introduce el correo electronico que utilizaste para el registro. Te enviaremos instrucciones para crear una nueva contraseña.</p>
                 </div>
 
-                <div className="seccionSendPassEmail centerHorizontal">
-                    <div className=" centerVertical" >
+                <div className="simpleForm">
+                    <div className=" centerVerticalAndHorizontal" >
                             <i className="icon icon-arroba centerVertical"></i>
                             <input value={this.state.email} onChange={this.leerDatos} name="email" type="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
-                    <div className="dividerSignUp centerHorizontal"></div>
 
+                    <div className="grossInputDivider centerHorizontal"/>
 
                     {this.state.trysendResetPasswordEmail?
                         <div>
@@ -66,35 +64,17 @@ class PassForgot extends Component {
                                     {this.props.errorEspañol}
                                 </div>
                             :    
-                                <p className="AUnPasoParrafo">{this.props.msg}</p>
+                                <p className="authParagraph">{this.props.msg}</p>
                             }
                         </div>
                     :
                         null
                     }
-
-
                 </div>
 
-                <div className="seccionBotonesEmailVerify centerHorizontal">
-
-                    {this.props.emailHasBeenSent?
-                        null
-                    :
-                        <div>
-                            <button onClick={this.sendEmailToResetPass}>Restablecer contraseña</button>
-                        </div>
-                    } 
-
-                    {this.props.emailHasBeenSent? 
-                        <div>
-                            <button onClick={this.sendEmailToResetPass}>Reenviar correo</button>
-                        </div>
-                    :
-                        null
-                    }
-
-                </div>
+                    {this.props.emailHasBeenSent?null:<button onClick={this.sendEmailToResetPass}>Restablecer contraseña</button>} 
+                    
+                    {this.props.emailHasBeenSent?<button onClick={this.sendEmailToResetPass}>Reenviar correo</button>:null}
             </div>
         )
     }

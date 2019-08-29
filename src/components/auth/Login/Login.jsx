@@ -6,7 +6,7 @@ import {signIn,keepSesion,handleErrorMsg,logOut} from '../../../ducks/authDucks/
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import {sendEmailVerify} from '../../../ducks/authDucks/authDuckSignUp';
 import logoXcala from '../../../assets/logoXcala.png';
-import './Login.css';
+import '../auth.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
 import EmailVerify from '../EmailVerify/EmailVerify';
 
@@ -88,41 +88,45 @@ class Login extends Component {
         }else{
         
         return (
-            <div>
-                <img className="logo centerHorizontal" src={logoXcala} alt="Xcala Colombia"/>
-                <form id="seccionIngresar">
-                    <div className=" centerVertical centerHorizontal" id="inputEmail">
+            <div className="auth loginScreen centerHorizontal">
+                <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
+                <form className="formLogin" id="seccionIngresar">
+                    <div className="centerVerticalAndHorizontal">
                         <i className="icon icon-arroba centerVertical"></i>
                         <input value={this.state.email} onChange={this.leerDatos} type="email" name="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
+                    
+                    <div className="grossInputDivider centerHorizontal"/>
 
-                    <div className="divider centerHorizontal"></div>
-
-                    <div className=" centerVertical centerHorizontal" id="inputPassword">
+                    <div className="centerVerticalAndHorizontal">
                         <i className="icon icon-locked centerVertical "></i>
                         <input value={this.state.password} onChange={this.leerDatos} type="password" name="password"  placeholder="Contraseña" required autoComplete="off"/>
                     </div>
+                    
 
-                    <div id="authError" className="errorMsg centerHorizontal">
-                        {this.props.tryLogin? <p>{this.props.errorEspañol}</p>:null}
+                    <div className="errorMsg centerHorizontal">
+                        {this.props.tryLogin? <p>{this.props.errorEspañol}</p>
+                        :
+                        null}
+                        
                         {this.props.isAuthWithEmailVerified===true || this.props.isAuth===undefined?
                         null
                         :
                         <div onClick={this.retrySendEmailVerification}>
                             <p id="linkReenviar">Tu cuenta ha sido creada pero aun no ha sido verificada.</p>
-                            <a>Haz click para reenviar correo de verificacion</a>
+                            <a className="link boldText">Haz click para reenviar correo de verificacion</a>
                         </div>
                         }
                     </div>
 
-                    <button onClick={this.iniciarSesion} type="submit" className="button">Ingresar</button>
+                    <button onClick={this.iniciarSesion} type="submit">Ingresar</button>
                 </form>
 
                 <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
-                <Link className="textWhiteCenter centerHorizontal" to="/passforgot" > <span className="subrayar">Olvide mi contraseña</span> </Link>
+                <Link className="centerText boldText centerHorizontal" to="/passforgot" > <span className="link">Olvide mi contraseña</span> </Link>
                 
-                <div id="seccionIngresosExtra" >
-                    <p className="textWhiteCenter">¿Deseas generar ingresos extra en tu tiempo libre?</p>
+                <div className="registerHook" >
+                    <p className="authSubtitle">¿Deseas generar ingresos extra en tu tiempo libre?</p>
                     <Link to="/signup"><button  type="button" className="button">Hazlo con Xcala</button></Link>
                 </div>
             </div>

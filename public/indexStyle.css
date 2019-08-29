@@ -5,10 +5,36 @@
     background-repeat: no-repeat;
     min-width:100%;
 }
+
 html{
     height: 100%;
 }
 
 .myAccountStyle{
     background-color: #4fd199
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#preloader,#root,#overlay{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+}
+
+#preloader{
+    margin-top:50%;
+}
+
+#overlay{
+    min-width: 100%; /* Full width (cover the whole page) */
+    min-height: 100px; /* Full height (cover the whole page) */
+    z-index: 1;
+    background-color: #4fd199;
 }

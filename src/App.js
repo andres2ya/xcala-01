@@ -1,5 +1,5 @@
-import React from 'react';
-import Producto from './components/Producto'
+import React from "react";
+import {createPortal} from "react-dom";
 import Login from './components/auth/Login/Login'
 import SignUp from './components/auth/SignUp/SignUp'
 import EmailVerification from './components/auth/EmailVerify/EmailVerification'
@@ -11,10 +11,11 @@ import PassReset from './components/auth/PassReset/PassReset';
 import EmailConfirm from './components/auth/EmailConfirm/EmailConfirm';
 import MyAccount from './components/account/MyAccount';
 import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
-// import {UserIsAuthenticated,UserIsNotAuthenticated} from './helpers/auth'
+import Spinner from './components/layout/Spinner/Spinner';
 
 
-function App() {
+function App(){
+
   return (
     <div >
     {
@@ -52,8 +53,6 @@ function App() {
     }
     <div className="container">
     <Switch>
-      {/* <Route exact path="/" component={UserIsNotAuthenticated(Inicio)}/> */}
-      {/* <Route exact path="/login" component={UserIsNotAuthenticated(Login)}/> */}
       <Route exact path="/" component={Login}/>
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/myaccount" component={MyAccount}/>
@@ -63,9 +62,8 @@ function App() {
       <Route exact path="/emailverify" component={EmailVerify}/>
       <Route exact path="/emailconfirm" component={EmailConfirm}/>
       <Route exact path="/emailVerification" component={EmailVerification}/>
-      {/* <Route exact path="/productos" component={UserIsAuthenticated(Productos)}/>
-      <Route exact path="/productos/producto/:id" component={UserIsAuthenticated(Producto)}/> */}
     </Switch>
+      {createPortal(<Spinner/>,document.getElementById('preloader'))}
     </div>
   </div>
   );

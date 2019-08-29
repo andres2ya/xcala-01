@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import {loadFromLocalStorage} from '../../../helpers/localStorage';
 import {connect} from 'react-redux'
 import {Link,Redirect} from 'react-router-dom';
-import {signIn,keepSesion,handleErrorMsg,logOut} from '../../../ducks/authDucks/authDuckLogin'
+import {signIn,keepSesion,logOut} from '../../../ducks/authDucks/authDuckLogin'
 import {recoveryPassword} from '../../../ducks/authDucks/authDuckRecoveryPassword'
 import {sendEmailVerify} from '../../../ducks/authDucks/authDuckSignUp';
+import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
 import logoXcala from '../../../assets/logoXcala.png';
 import '../auth.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
@@ -21,6 +22,7 @@ class Login extends Component {
     }
 
     componentDidMount=()=>{
+        console.log(this.props.fire)
         document.body.className='loginStyle'
         //En el caso que entre a login desde la pantalla de confirmacion de correo verificado, 
         //entonces primero: hace signout, para luego permitir entrar a la cuenta y que el emailVerified cambie a true.
@@ -137,10 +139,10 @@ class Login extends Component {
 }
 
 const mapStateToProps=(state)=>({
-    errorEspañol:state.authLoginReducer.errorEspañol,
+    errorEspañol:state.handlerErrorsReducer.errorEspañol,
     authSuccess:state.authLoginReducer.authSuccess,
-    retry:state.authLoginReducer.retry,
-    tryLogin:state.authLoginReducer.tryLogin,
+    retry:state.handlerErrorsReducer.retry,
+    tryLogin:state.handlerErrorsReducer.tryLogin,
     errorBool:state.authLoginReducer.errorBool,
     keep:state.authLoginReducer.keep,
     isAuth:state.firebase.auth.uid,

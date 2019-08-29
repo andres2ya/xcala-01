@@ -83,8 +83,8 @@ const mapStateToProps=(state)=>({
     emailHasBeenSent:state.authRecoveryPasswordReducer.emailHasBeenSent,
     msg:state.authRecoveryPasswordReducer.msg,
     errorWhenTrySendResetPassEmail:state.authRecoveryPasswordReducer.errorWhenTrySendResetPassEmail,
-    errorEspañol:state.authLoginReducer.errorEspañol,
-    internetError:state.authLoginReducer.internetError
+    errorEspañol:state.handlerErrorsReducer.errorEspañol,
+    internetError:state.handlerErrorsReducer.internetError
 })
 
 const mapDispatchToProps=(dispatch)=>{

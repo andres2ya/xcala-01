@@ -1,4 +1,4 @@
-import {identifyAndReturnMsgError} from '../../helpers/errorsHandler';
+import {handleErrorMsg} from '../errorsDuck/handleErrors'
 //1. ACTION TYPES LOGIN
 const LOGIN_SUCCESS='xcala/auth/LOGIN_SUCCESS'
 const LOGIN_ERROR='xcala/auth/LOGIN_ERROR'
@@ -8,39 +8,12 @@ const LOGOUT_ERROR='xcala/auth/LOGOUT_ERROR'
 //----------------------------------------------------------------
 const KEEP_SESION_SUCCESS='xcala/auth/KEEP_SESION_SUCCESS'
 const KEEP_SESION_ERROR='xcala/auth/KEEP_SESION_ERROR'
-//----------------------------------------------------------------
-const HANDLE_ERROR_MSG='xcala/auth/HANDLE_ERROR_MSG'
+
 
 
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
-export const handleErrorMsg=(error,retry,tryLogin,from)=>{
-    //Traductor de errores "identifyAndReturnMsgError"
-    const errorEspañol=identifyAndReturnMsgError(error.code)
-    const errorCode=error.code
-
-    const internetError= (function(){
-        if(errorCode==='auth/network-request-failed'){
-            return true
-        }else{
-            return false
-        }
-    })()
-    
-    if(from==='signIn'){
-        return {
-            type:HANDLE_ERROR_MSG,
-            payload:{errorEspañol:errorEspañol,retry:retry,tryLogin:tryLogin,internetError:internetError}
-        }
-    }else{
-        return {
-            type:HANDLE_ERROR_MSG,
-            payload:{errorEspañol:errorEspañol}
-        }
-    }
-}
-//----------------------------------------------------------------
 export const signIn=(credentials)=>{
     return (dispatch,getState,{getFirebase})=>{
         const firebase=getFirebase();
@@ -107,27 +80,13 @@ export const logOut=()=>{
 //3. REDUCER AUTH
 const initialState={
     authSuccess:null,
-    errorEspañol:null,
     errorBool:false,
-    retry:false,
-    tryLogin:false,
     keep:false,
-    isKeepOptionManuallySet:false,
-    internetError:false
+    isKeepOptionManuallySet:false
+    
 }
 const authLoginReducer = (state=initialState, action)=>{
     switch(action.type){
-        case HANDLE_ERROR_MSG:
-            return{
-                ...state,
-                retry:action.payload.retry,
-                tryLogin:action.payload.tryLogin,
-                errorEspañol:action.payload.errorEspañol,
-                internetError:action.payload.internetError
-            }
-        //------------------------------------------------------------------
-        //------------------------------------------------------------------
-        //------------------------------------------------------------------
         case LOGIN_SUCCESS:
             console.log('login success')
             console.log(action.payload)

@@ -123,8 +123,8 @@ const mapStateToProps=(state)=>{
         passChanged:state.authRecoveryPasswordReducer.passChanged,
         successResetPassVerify:state.authRecoveryPasswordReducer.successResetPassVerify,
         erroWhenTryResetPassword:state.authRecoveryPasswordReducer.erroWhenTryResetPassword,
-        errorEspañol:state.authLoginReducer.errorEspañol,
-        internetError:state.authLoginReducer.internetError
+        errorEspañol:state.handlerErrorsReducer.errorEspañol,
+        internetError:state.handlerErrorsReducer.internetError
     }
 }
 

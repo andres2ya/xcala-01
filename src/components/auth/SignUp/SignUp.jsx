@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {signUp,saveDataNewUser} from '../../../ducks/authDucks/authDuckSignUp'
-import {keepSesion,handleErrorMsg} from '../../../ducks/authDucks/authDuckLogin';
+import {keepSesion} from '../../../ducks/authDucks/authDuckLogin';
+import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
 import EmailVerify from '../EmailVerify/EmailVerify';
 import logoXcala from '../../../assets/logoXcala.png';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
@@ -141,7 +142,7 @@ class SingUp extends Component {
 }
 
 const mapStateToProps=(state)=>({
-    errorEspañol:state.authLoginReducer.errorEspañol,
+    errorEspañol:state.handlerErrorsReducer.errorEspañol,
     showEmailVerify:state.authSignUpReducer.showEmailVerify,
     showRegisterButton:state.authSignUpReducer.showRegisterButton,
     newUserData:state.authSignUpReducer.newUserData

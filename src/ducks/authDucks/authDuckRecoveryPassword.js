@@ -1,4 +1,4 @@
-import {handleErrorMsg} from './authDuckLogin'
+import {handleErrorMsg} from '../errorsDuck/handleErrors'
 //1. ACTION TYPES 
 const RECOVERY_PASSWORD_SUCCESS='xcala/auth/RECOVERY_PASSWORD_SUCCESS'
 const RECOVERY_PASSWORD_ERROR='xcala/auth/RECOVERY_PASSWORD_ERROR'

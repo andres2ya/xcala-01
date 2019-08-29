@@ -1,5 +1,5 @@
 import {saveInLocalStorage} from '../../helpers/localStorage';
-import {handleErrorMsg} from './authDuckLogin'
+import {handleErrorMsg} from '../errorsDuck/handleErrors'
 //1. ACTION TYPES 
 const SIGNUP_SUCCESS='xcala/auth/SIGNUP_SUCCESS'
 const SIGNUP_ERROR='xcala/auth/SIGNUP_ERROR'

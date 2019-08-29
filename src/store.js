@@ -9,6 +9,7 @@ import authLoginReducer from './ducks/authDucks/authDuckLogin'
 import authRecoveryPasswordReducer from './ducks/authDucks/authDuckRecoveryPassword'
 import authSignUpReducer from './ducks/authDucks/authDuckSignUp'
 import authUpdatePassAndEmailReducer from './ducks/authDucks/authUpdatePassAndEmailDuck'
+import handlerErrorsReducer from './ducks/errorsDuck/handleErrors';
 
 //1. Configurando firebase en la aplicacion
 const firebaseConfig = {
@@ -43,10 +44,11 @@ const rooReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
     //los demas reducers necesarios para la app
+    handlerErrorsReducer:handlerErrorsReducer,
     authLoginReducer:authLoginReducer,
     authRecoveryPasswordReducer:authRecoveryPasswordReducer,
     authSignUpReducer:authSignUpReducer,
-    authUpdatePassAndEmailReducer:authUpdatePassAndEmailReducer
+    authUpdatePassAndEmailReducer:authUpdatePassAndEmailReducer,
 });
 
 //5. Creando store con el reducer unico "rooReducer", la inicializacion del estado "initialState", y la composicion de middlewares "thunks, etc"

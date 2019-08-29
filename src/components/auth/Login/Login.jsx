@@ -22,7 +22,6 @@ class Login extends Component {
     }
 
     componentDidMount=()=>{
-        console.log(this.props.fire)
         document.body.className='loginStyle'
         //En el caso que entre a login desde la pantalla de confirmacion de correo verificado, 
         //entonces primero: hace signout, para luego permitir entrar a la cuenta y que el emailVerified cambie a true.

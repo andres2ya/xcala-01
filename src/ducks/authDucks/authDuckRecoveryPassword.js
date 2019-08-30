@@ -1,4 +1,5 @@
 import {handleErrorMsg} from '../errorsDuck/handleErrors'
+import {showOrHidePreloader} from '../preloaderDuck/preloaderDuck';
 //1. ACTION TYPES 
 const RECOVERY_PASSWORD_SUCCESS='xcala/auth/RECOVERY_PASSWORD_SUCCESS'
 const RECOVERY_PASSWORD_ERROR='xcala/auth/RECOVERY_PASSWORD_ERROR'
@@ -16,14 +17,17 @@ const CONFIRM_RESET_PASSWORD_ERROR='xcala/auth/CONFIRM_RESET_PASSWORD_ERROR'
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
 export const recoveryPassword=(email)=>{
     return(dispatch,getState,{getFirebase})=>{
+        dispatch(showOrHidePreloader(true))
         const firebase=getFirebase()
         firebase.auth().sendPasswordResetEmail(email)
         .then((res)=>{
             dispatch({type:RECOVERY_PASSWORD_SUCCESS,payload:res})
+            dispatch(showOrHidePreloader(false))
         })
         .catch((err)=>{
             dispatch({type:RECOVERY_PASSWORD_ERROR,payload:err})
             dispatch(handleErrorMsg(err))
+            dispatch(showOrHidePreloader(false))
         })
     }
 }
@@ -43,14 +47,17 @@ export const resetPassword=(code)=>{
 //----------------------------------------------------------------
 export const confirmNewPassword=(code,NewPass)=>{
     return(dispatch,getState,{getFirebase})=>{
+        dispatch(showOrHidePreloader(true))
         const firebase=getFirebase()
         firebase.auth().confirmPasswordReset(code,NewPass)
         .then((res)=>{
             dispatch({type:CONFIRM_RESET_PASSWORD_SUCCESS})
+            dispatch(showOrHidePreloader(false))
         })
         .catch((err)=>{
             dispatch({type:CONFIRM_RESET_PASSWORD_ERROR,payload:err})
             dispatch(handleErrorMsg(err))
+            dispatch(showOrHidePreloader(false))
         })
     }
 }

@@ -14,7 +14,7 @@ class EmailConfirm extends Component {
     render() {
         if(!this.props.successVerified)
         return (
-            <div className="auth simpleMessageScreen centerHorizontal">
+            <div className={`auth simpleMessageScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
                 <div className="logoWithSubtitle" >
                     <img className="authLogoLeft" src={logoXcala} alt="Xcala Colombia"/>
                     <span>Registro</span>
@@ -32,7 +32,7 @@ class EmailConfirm extends Component {
         )
 
         return (
-            <div className="auth simpleMessageScreen centerHorizontal">
+            <div className={`auth simpleMessageScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
                 <div className="logoWithSubtitle" >
                     <img className="authLogoLeft" src={logoXcala} alt="Xcala Colombia"/>
                     <span>Registro</span>
@@ -51,7 +51,8 @@ class EmailConfirm extends Component {
 }
 const mapStateToProps=(state)=>({
     successVerified:state.authSignUpReducer.successVerified,
-    nombreUsuario:state.firebase.profile.nombreUsuario
+    nombreUsuario:state.firebase.profile.nombreUsuario,
+    showPreloader:state.preloaderReducer.showPreloader,
 })
 
 const mapDispatchToProps=(dispatch)=>{

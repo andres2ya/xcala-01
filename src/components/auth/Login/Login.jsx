@@ -10,6 +10,7 @@ import logoXcala from '../../../assets/logoXcala.png';
 import '../auth.css';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
 import EmailVerify from '../EmailVerify/EmailVerify';
+// import {preloaderOn} from '../../layout/Spinner/Spinner';
 
 
 class Login extends Component {
@@ -18,7 +19,8 @@ class Login extends Component {
         email:'', 
         password:'',
         isRetrySendEmailVerify:false,
-        newUser:loadFromLocalStorage('newUser')
+        newUser:loadFromLocalStorage('newUser'),
+        showPreloader:true
     }
 
     componentDidMount=()=>{
@@ -82,6 +84,7 @@ class Login extends Component {
     }
 
     render() {
+        
         if(this.state.isRetrySendEmailVerify===true){
              return <EmailVerify newUser={this.state.newUser}/>
         }else if(this.props.isAuthWithEmailVerified){
@@ -89,7 +92,7 @@ class Login extends Component {
         }else{
         
         return (
-            <div className="auth loginScreen centerHorizontal">
+            <div className={`auth loginScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
                 <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
                 <form className="formLogin" id="seccionIngresar">
                     <div className="centerVerticalAndHorizontal">
@@ -148,6 +151,7 @@ const mapStateToProps=(state)=>({
     isAuthWithEmailVerified:state.firebase.auth.emailVerified,
     successVerified:state.authSignUpReducer.successVerified,
     isKeepOptionManuallySet:state.authLoginReducer.isKeepOptionManuallySet,
+    showPreloader:state.preloaderReducer.showPreloader,
     fire:state
 })
 

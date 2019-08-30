@@ -41,7 +41,7 @@ class PassForgot extends Component {
 
     render() {
         return (
-            <div className="auth simpleFormScreen centerHorizontal">
+            <div className={`auth simpleFormScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
                 <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
                 
                 <div className="messageSimpleFormScreen">
@@ -84,7 +84,8 @@ const mapStateToProps=(state)=>({
     msg:state.authRecoveryPasswordReducer.msg,
     errorWhenTrySendResetPassEmail:state.authRecoveryPasswordReducer.errorWhenTrySendResetPassEmail,
     errorEspañol:state.handlerErrorsReducer.errorEspañol,
-    internetError:state.handlerErrorsReducer.internetError
+    internetError:state.handlerErrorsReducer.internetError,
+    showPreloader:state.preloaderReducer.showPreloader,
 })
 
 const mapDispatchToProps=(dispatch)=>{

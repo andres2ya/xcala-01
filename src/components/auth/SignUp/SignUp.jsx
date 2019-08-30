@@ -71,7 +71,7 @@ class SingUp extends Component {
         return <EmailVerify newUser={newUserData}/>
 
         return (
-            <div className="auth signUpScreen centerHorizontal">
+            <div className={`auth signUpScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
                 <div className="logoWithSubtitle" >
                     <img className="authLogoLeft" src={logoXcala} alt="Xcala Colombia"/>
                     <span>Registro</span>
@@ -145,7 +145,8 @@ const mapStateToProps=(state)=>({
     errorEspañol:state.handlerErrorsReducer.errorEspañol,
     showEmailVerify:state.authSignUpReducer.showEmailVerify,
     showRegisterButton:state.authSignUpReducer.showRegisterButton,
-    newUserData:state.authSignUpReducer.newUserData
+    newUserData:state.authSignUpReducer.newUserData,
+    showPreloader:state.preloaderReducer.showPreloader,
 })
 
 const mapDispatchToProps=(dispatch)=>{

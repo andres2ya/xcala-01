@@ -1,4 +1,5 @@
 import {handleErrorMsg} from '../errorsDuck/handleErrors'
+import {showOrHidePreloader} from '../preloaderDuck/preloaderDuck';
 //1. ACTION TYPES LOGIN
 const LOGIN_SUCCESS='xcala/auth/LOGIN_SUCCESS'
 const LOGIN_ERROR='xcala/auth/LOGIN_ERROR'
@@ -16,6 +17,7 @@ const KEEP_SESION_ERROR='xcala/auth/KEEP_SESION_ERROR'
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
 export const signIn=(credentials)=>{
     return (dispatch,getState,{getFirebase})=>{
+        dispatch(showOrHidePreloader(true))
         const firebase=getFirebase();
         firebase.auth().signInWithEmailAndPassword(
             credentials.email,
@@ -23,10 +25,12 @@ export const signIn=(credentials)=>{
         )
         .then((res)=>{
             dispatch({type:LOGIN_SUCCESS,payload:res});
+            dispatch(showOrHidePreloader(false))
         })
         .catch((err)=>{
             dispatch({type:LOGIN_ERROR,payload:err});
             dispatch(handleErrorMsg(err,false,true,'signIn'));
+            dispatch(showOrHidePreloader(false))
         })
     }
 }

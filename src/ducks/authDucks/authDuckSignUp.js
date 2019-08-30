@@ -1,5 +1,7 @@
 import {saveInLocalStorage} from '../../helpers/localStorage';
 import {handleErrorMsg} from '../errorsDuck/handleErrors'
+import {showOrHidePreloader} from '../preloaderDuck/preloaderDuck';
+
 //1. ACTION TYPES 
 const SIGNUP_SUCCESS='xcala/auth/SIGNUP_SUCCESS'
 const SIGNUP_ERROR='xcala/auth/SIGNUP_ERROR'
@@ -28,6 +30,7 @@ export const saveDataNewUser=(label,data)=>{
 //----------------------------------------------------------------
 export const signUp=(newUser)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
+        dispatch(showOrHidePreloader(true))
         const firebase=getFirebase()
         const firestore=getFirestore()
         firebase.auth().createUserWithEmailAndPassword(newUser.emailSignUp,newUser.passwordSignUp)
@@ -36,18 +39,21 @@ export const signUp=(newUser)=>{
             .then((res)=>{
                 dispatch({type:SIGNUP_SUCCESS});
                 dispatch(sendEmailVerify(newUser));
+                dispatch(showOrHidePreloader(false))
             })
         })
         .catch((err)=>{
             console.log(err)
             dispatch({type:SIGNUP_ERROR,payload:err})
             dispatch(handleErrorMsg(err))
+            dispatch(showOrHidePreloader(false))
         })
     }
 }
 //----------------------------------------------------------------
 export const sendEmailVerify=(newUser)=>{
     return(dispatch,getState,{getFirebase})=>{
+        dispatch(showOrHidePreloader(true))
         const firebase=getFirebase()
         firebase.auth().onAuthStateChanged((user)=>{//forma correcta de usar current user
             console.log(user)
@@ -55,9 +61,11 @@ export const sendEmailVerify=(newUser)=>{
                 firebase.auth().currentUser.sendEmailVerification()
                 .then((res)=>{
                     dispatch({type:EMAIL_VERIFICATION_SUCCESS,payload:newUser})
+                    dispatch(showOrHidePreloader(false))
                 })
                 .catch((err)=>{
                     dispatch({type:EMAIL_VERIFICATION_ERROR,payload:err})
+                    dispatch(showOrHidePreloader(false))
                 })
             }else{console.log('usuario no signed in')}
         })
@@ -67,14 +75,17 @@ export const sendEmailVerify=(newUser)=>{
 //----------------------------------------------------------------
 export const verifyEmail=(code)=>{
     return(dispatch,getState,{getFirebase})=>{
+        dispatch(showOrHidePreloader(true))
         const state=getState()
         const firebase = getFirebase()
         firebase.auth().applyActionCode(code)
         .then((res)=>{
-            dispatch({type:VERY_EMAIL_SUCCESS,payload:res})    
+            dispatch({type:VERY_EMAIL_SUCCESS,payload:res})
+            dispatch(showOrHidePreloader(false))    
         })
         .catch((err)=>{
-            dispatch({type:VERY_EMAIL_ERROR,payload:err}) 
+            dispatch({type:VERY_EMAIL_ERROR,payload:err})
+            dispatch(showOrHidePreloader(false)) 
         })
     }
 }

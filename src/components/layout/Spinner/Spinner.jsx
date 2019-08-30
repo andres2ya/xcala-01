@@ -2,31 +2,37 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import './Spinner.css'
 
-// TODO: Implementar toda la logica del spinner 
-// TODO: Cuando el spinner aparece, algunos elementos del DOM como
-// los textos, botones, entre otros
-// deben quedar con filtro blur:
-// filter: blur(2px);
-// -webkit-filter: blur(2px);
+// Se ejecuta una accion que cambia el estado de
+// showPreloader (en el reducer de preloader) a true o false.
+// Todos los div padres de los componentes tienen la siguiente funcion en su 
+// className:
+// <div className={`auth loginScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
+// la cual, cuando 'showPreloader=true' agrega una clase llamada 'preloaderOn'
+// y difumina el contendio del componente.
+
+// Asi mismo, cuando 'showPreloader' cambia a true, en la actualizacion del componente Spinner
+// se inyecta al elemento con id=overlay, una clase llamada
+// overlay on, la cual activa la capa superpuesta.
+
+//  Finalmente, cuando showPreloader cambia a false,
+//  tanto la clase 'preloaderOn' como 'overlayOn' se eliminan de sus respectivos componentes. 
+
+
 class Spinner extends Component {
-  state = {
-    showPreloader: true
-  };
 
-  openPreloader = () => {
-    this.setState({
-      showPreloader: true
-    });
-  };
+  componentDidUpdate=()=>{
+    const {showPreloader}=this.props
+    console.log(showPreloader)
+    if(showPreloader===true){
+      document.getElementById('overlay').className='overlayOn'
+    }else{
+      document.getElementById('overlay').removeAttribute('class')
+    }
+  }
 
-  closePreloader = () => {
-    this.setState({
-      showPreloader: false
-    });
-  };
   render() {
 
-    if(!this.state.showPreloader)
+    if(!this.props.showPreloader)
     return (null)
     
     return (
@@ -48,12 +54,12 @@ class Spinner extends Component {
   }
 }
 
-const mapStateToProps=()=>{
+const mapStateToProps=(state)=>({
+    showPreloader:state.preloaderReducer.showPreloader
+})
 
-}
+// const mapDispatchToProps=()=>{
 
-const mapDispatchToProps=()=>{
+// }
 
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Spinner);
+export default connect(mapStateToProps,null)(Spinner);

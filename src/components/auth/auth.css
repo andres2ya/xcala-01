@@ -126,6 +126,8 @@
   font-size: 25px;
   color: white;
   line-height: 25px;
+  /* filter: blur(2px);
+    -webkit-filter: blur(2px); */
 }
 
 .authSubtitle {

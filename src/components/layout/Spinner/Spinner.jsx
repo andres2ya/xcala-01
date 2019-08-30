@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import './Spinner.css'
 
+// TODO: Implementar toda la logica del spinner 
+// TODO: Cuando el spinner aparece, algunos elementos del DOM como
+// los textos, botones, entre otros
+// deben quedar con filtro blur:
+// filter: blur(2px);
+// -webkit-filter: blur(2px);
 class Spinner extends Component {
   state = {
     showPreloader: true

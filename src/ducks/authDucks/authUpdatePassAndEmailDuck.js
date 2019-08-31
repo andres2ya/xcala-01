@@ -92,7 +92,7 @@ const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
             }
         //------------------------------------------------------------------
         case UPDATE_PASSWORD_ERROR:
-                mensage='No se pudo actualizar tu contraseña'+' '+ action.payload
+                mensage=`No se pudo actualizar tu contraseña ${action.payload}`
                 console.log(mensage)
             return{
                 ...state,
@@ -102,7 +102,7 @@ const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
         //------------------------------------------------------------------
         //------------------------------------------------------------------
         case UPDATE_EMAIL_SUCCESS:
-                mensage='Se actualizo tu email con exito' + action.payload
+                mensage=`Se actualizo tu email con exito ${action.payload}`
                 console.log(mensage)
             return{
                 ...state,
@@ -110,7 +110,7 @@ const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
             }
         //------------------------------------------------------------------
         case UPDATE_EMAIL_ERROR:
-                mensage='No se pudo actualizar tu email' + action.payload.message
+                mensage=`No se pudo actualizar tu email ${action.payload.message}`
                 console.log(mensage)
             return{
                 ...state,
@@ -132,7 +132,7 @@ const authUpdatePassAndEmailReducer = (state=initialState, action)=>{
             return newState
         //------------------------------------------------------------------    
         case SEND_VERIFY_EMAIL_ERROR:
-                mensage='email no se pudo enviar'+' '+action.payload.message
+                mensage=`email no se pudo enviar ${action.payload.message}`
                 console.log(mensage)
             return{
                 ...state,

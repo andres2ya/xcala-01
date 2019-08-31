@@ -26,7 +26,7 @@ class CustomEmailHandler extends Component {
     }
     
     render() {
-        const {mode,code,url}=this.state
+        const {mode,code}=this.state
         switch (mode) {
             case 'resetPassword':
                     console.log(mode,code)

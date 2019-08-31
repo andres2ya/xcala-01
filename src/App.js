@@ -3,7 +3,6 @@ import {createPortal} from "react-dom";
 import Login from './components/auth/Login/Login'
 import SignUp from './components/auth/SignUp/SignUp'
 import EmailVerification from './components/auth/EmailVerify/EmailVerification'
-import MainNavbar from './components/layout/MainNavbar/MainNavbar';
 import {Route, Switch, withRouter} from "react-router-dom"
 import EmailVerify from './components/auth/EmailVerify/EmailVerify';
 import PassForgot from './components/auth/PassForgot/PassForgot';
@@ -12,12 +11,13 @@ import EmailConfirm from './components/auth/EmailConfirm/EmailConfirm';
 import MyAccount from './components/account/MyAccount';
 import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
 import Spinner from './components/layout/Spinner/Spinner';
+import MainNavbar from './components/navbars/MainNavbar'
 
 
 function App(){
 
   return (
-    <div >
+    <div>
     {
         (function(){
           var NavBar;
@@ -41,13 +41,13 @@ function App(){
               NavBar=null
               break;
             case '/myaccount':
-              NavBar=null
+              NavBar=<MainNavbar/>
               break;
             case '/customemailhandler':
               NavBar=null
               break;
             default:
-              NavBar=<MainNavbar text={'In other shit'} />}
+              NavBar=null}
           return NavBar
         })()
     }

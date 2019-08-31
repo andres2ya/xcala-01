@@ -32,7 +32,8 @@ class SingUp extends Component {
         this.setState({
             tryCreateUser:true
         })
-        {//Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
+
+        //Como estoy previniendo el efecto por defecto "recargar la pagina" entonces
         //es necesario indicarle al navegador que de todas formas haga la validacion de los campos
         //en el formulario que contienen "required"
         //Para eso, se usa reportValidity:
@@ -40,7 +41,8 @@ class SingUp extends Component {
         //2.)Al formulario seleccionado se le agrega la funcion reportValidity,
         //la cual retorna true o false
         //3.)Se Guarda la respuesta en una constante y se utiliza en un condicional para 
-        /**dar paso a la funcion deseada , en este caso: signUp y keepSesion*/}
+        /**dar paso a la funcion deseada , en este caso: signUp y keepSesion*/
+        
         var form = document.querySelector('#registerForm')
         var reportVal=form.reportValidity()
     

@@ -1,0 +1,102 @@
+.backImagen{
+    top:0;left:0;right: 0;bottom: 0;
+    position: absolute;
+    height: 100%;
+    background-image: url(../../assets/pp.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 10% 42%;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    z-index: 997;
+}
+
+.degrade{
+    /* margin-top: -21vh; */
+    top:0;left:0;right: 0;bottom: 0;
+    position: absolute;
+    height: 100%;
+    background-image: linear-gradient(rgb(4, 16, 75,0.7),rgb(61, 76, 136,0.7));
+    z-index: 998 ;
+}
+
+.content{
+    /* margin-top: -21vh; */
+    color: rgb(255, 255, 255);
+    z-index: 999;
+    position: relative;
+}
+
+    .rowLogoCarAndMenu{
+        min-height: 9vh;
+    }
+        .col-logo{
+
+        }
+            .logoMainNavbar{
+                height: 40px;
+                margin-top: 5px;
+                margin-left: 15px;
+            }
+
+        .col-car{
+        }
+
+        .col-menu{
+        }
+
+
+    .rowName{
+        min-height: 4vh;
+    }
+
+        .col-imagen{
+            margin-top:-50px;
+            margin-bottom: -50px;
+        }
+
+            .roundImage{
+                width: 116px;
+                height: 116px;
+                border:4px solid white;
+                border-radius: 50%;
+                background-color: black;
+            }
+
+        .col-name{
+            
+        }
+
+            .rowName{
+                min-height: 4vh;
+                font-family: "Nunito", sans-serif;
+                font-weight: 700;
+            }
+
+            .rowSummary{
+                min-height: 8vh;
+                background-image: linear-gradient(to right,#ffffff00,#ffffff26,#ffffff33,#ffffff33);
+            }
+                .col-relleno{
+                    margin-right: 10px;
+                }
+
+                .col-income, .col-sales{
+                    display: block;
+                    text-align: center;
+                }
+                
+                .col-income{
+                    border-right: 1px solid white;
+                }
+
+                    .col-income p, .col-sales p{
+                        font-weight: 400;
+                        margin-bottom: -10px;
+                        font-family: "Nunito", sans-serif;
+                        font-weight: 700;
+                    }
+
+                    .col-income span, .col-sales span{
+                        font-size: 12px;
+                    }

@@ -11,10 +11,10 @@ html{
 }
 
 .myAccountStyle{
-    background-color: #4fd199
+    background-color: white;
 }
 
-.container{
+#container{
     height:100%;
     position: relative;
 }

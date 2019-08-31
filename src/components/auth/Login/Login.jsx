@@ -118,7 +118,7 @@ class Login extends Component {
                         :
                         <div onClick={this.retrySendEmailVerification}>
                             <p id="linkReenviar">Tu cuenta ha sido creada pero aun no ha sido verificada.</p>
-                            <a className="link boldText">Haz click para reenviar correo de verificacion</a>
+                            <span className="link boldText">Haz click para reenviar correo de verificacion</span>
                         </div>
                         }
                     </div>

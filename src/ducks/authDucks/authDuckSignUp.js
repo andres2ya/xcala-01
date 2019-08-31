@@ -76,7 +76,6 @@ export const sendEmailVerify=(newUser)=>{
 export const verifyEmail=(code)=>{
     return(dispatch,getState,{getFirebase})=>{
         dispatch(showOrHidePreloader(true))
-        const state=getState()
         const firebase = getFirebase()
         firebase.auth().applyActionCode(code)
         .then((res)=>{

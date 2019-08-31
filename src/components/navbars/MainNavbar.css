@@ -1,13 +1,20 @@
+.parentIMG{
+    overflow: hidden;
+    height: 23vh;
+    position: relative;
+}
+
 .backImagen{
-    top:0;left:0;right: 0;bottom: 0;
+    top:0;left:0;right:0;bottom:0;
     position: absolute;
-    height: 100%;
+    height: 100%;width: 100%;
     background-image: url(../../assets/pp.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 10% 42%;
     filter: blur(5px);
     -webkit-filter: blur(5px);
+    transform: scale(1.5); 
     z-index: 997;
 }
 
@@ -16,12 +23,12 @@
     top:0;left:0;right: 0;bottom: 0;
     position: absolute;
     height: 100%;
-    background-image: linear-gradient(rgb(4, 16, 75,0.7),rgb(61, 76, 136,0.7));
+    background-image: linear-gradient(to right,rgb(4, 16, 75,0.8),rgb(61, 76, 136,0.8));
     z-index: 998 ;
 }
 
 .content{
-    /* margin-top: -21vh; */
+    margin-top: -23vh;
     color: rgb(255, 255, 255);
     z-index: 999;
     position: relative;
@@ -39,11 +46,11 @@
                 margin-left: 15px;
             }
 
-        .col-car{
+        .col-carAndMenu{
         }
-
-        .col-menu{
-        }
+            .betweenWidgets{
+                
+            }
 
 
     .rowName{
@@ -56,11 +63,14 @@
         }
 
             .roundImage{
-                width: 116px;
-                height: 116px;
+                width: 120px;
+                height: 120px;
                 border:4px solid white;
                 border-radius: 50%;
                 background-color: black;
+-webkit-box-shadow: 0px 20px 50px 0px rgba(0,0,0,0.4);
+-moz-box-shadow: 0px 20px 50px 0px rgba(0,0,0,0.4);
+box-shadow: 0px 20px 50px 0px rgba(0,0,0,0.4);
             }
 
         .col-name{
@@ -71,6 +81,7 @@
                 min-height: 4vh;
                 font-family: "Nunito", sans-serif;
                 font-weight: 700;
+                font-size:20px;
             }
 
             .rowSummary{

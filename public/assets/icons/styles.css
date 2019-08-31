@@ -53,3 +53,9 @@
 .icon-atlight:before {
   content: "\65";
 }
+.icon-s-car:before {
+  content: "\66";
+}
+.icon-menu:before {
+  content: "\67";
+}

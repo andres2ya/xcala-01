@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import "./MainNavbar.css";
 import logoXcala from "../../assets/logoXcala.png";
 import sampleImg from "../../assets/pp.jpg";
+import ShoppingCarWidget from './ShoppingCarWidget/ShoppingCarWidget';
+import MenuWidget from './MenuWidget/MenuWidget';
 
 class MainNavbar extends Component {
   render() {
     return (
     <div className="sticky-top">
-      <div className="backImagen"/>
+     <div className="parentIMG"><div className="backImagen"/></div>
       <div className="degrade"/>
       <div className="container-fluid  content">
         <div className="row rowLogoCarAndMenu">
@@ -18,8 +20,12 @@ class MainNavbar extends Component {
               alt="Xcala Colombia"
             />
           </div>
-          <div className="col-4 col-car centerVerticalAndHorizontal">
-            carrito|m
+          <div className="col-4 col-carAndMenu centerVerticalAndHorizontal">
+              <div className="row centerVerticalAndHorizontal">
+                  <div className="col-3"><ShoppingCarWidget/></div>
+                  <span className="betweenWidgets"></span>
+                  <div className="col-3"><MenuWidget/></div>
+              </div>
           </div>
         </div>
         {/* ---------------------------------------------- */}

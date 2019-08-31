@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./MainNavbar.css";
-import logoXcala from "../../assets/logoXcala.png";
-import sampleImg from "../../assets/pp.jpg";
-import ShoppingCarWidget from './ShoppingCarWidget/ShoppingCarWidget';
-import MenuWidget from './MenuWidget/MenuWidget';
+import logoXcala from "../../../assets/logoXcala.png";
+import sampleImg from '../../../assets/pp.jpg';
+import ShoppingCarWidget from '../Widgets/ShoppingCarWidget/ShoppingCarWidget';
+import MenuWidget from '../Widgets/MenuWidget/MenuWidget';
 
 class MainNavbar extends Component {
   render() {

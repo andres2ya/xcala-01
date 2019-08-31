@@ -11,7 +11,7 @@ import EmailConfirm from './components/auth/EmailConfirm/EmailConfirm';
 import MyAccount from './components/account/MyAccount';
 import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
 import Spinner from './components/layout/Spinner/Spinner';
-import MainNavbar from './components/navbars/MainNavbar'
+import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
 
 
 function App(){

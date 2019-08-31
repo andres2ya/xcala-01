@@ -21,7 +21,7 @@ class MainNavbar extends Component {
             />
           </div>
           <div className="col-5 col-carAndMenu centerVerticalAndHorizontal d-flex justify-content-end">
-              <ShoppingCarWidget/>
+              <ShoppingCarWidget numberItemsInCar={'10'} />
               <div className="betweenWidgetsLeft"/>
               <div className="betweenWidgetsRight"/>
               <MenuWidget/>
@@ -31,7 +31,7 @@ class MainNavbar extends Component {
         <div className="row rowName">
           <div className="col-5" />
           <div className="col-7 col-name">
-            <div className="row rowName ">¡Hola Andres F!</div>
+            <div className="row rowName d-flex align-items-center"><span className="nameItem">¡Hola Andres Felipe!</span></div>
           </div>
         </div>
         {/* ---------------------------------------------- */}

@@ -1,11 +1,18 @@
 .ShoppingCarWidget{
     font-size: 30px;
     color:rgb(255, 255, 255,0.7);
-    margin-right: 10px;
+    margin-right: 5px;
+}
+
+.ShoppingCarWidget:active{
+    transform: scale(0.9);
+    color:rgb(255, 255, 255,0.5);
 }
     .itemsInCar{
         font-size: 15px;
-        margin-left: -18px;
+        width: 17px;
+        margin-left: -23px;
         margin-top: -15px;
         color: white;
+        text-align: center;
     }

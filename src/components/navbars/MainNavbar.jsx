@@ -9,9 +9,9 @@ class MainNavbar extends Component {
   render() {
     return (
     <div className="sticky-top">
-     <div className="parentIMG"><div className="backImagen"/></div>
+    <div className="absoluteParentIMG"><div className="parentIMG"><div className="backImagen"/></div></div>
       <div className="degrade"/>
-      <div className="container-fluid  content">
+      <div className="content container-fluid">
         <div className="row rowLogoCarAndMenu">
           <div className="col-8 col-logo">
             <img

@@ -13,7 +13,7 @@ class MainNavbar extends Component {
       <div className="degrade"/>
       <div className="content container-fluid">
         <div className="row rowLogoCarAndMenu">
-          <div className="col-7 col-logo">
+          <div className="col-7 col-logo centerVertical">
             <img
               className="logoMainNavbar"
               src={logoXcala}

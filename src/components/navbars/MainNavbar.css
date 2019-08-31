@@ -20,7 +20,7 @@
     background-position: 10% 42%;
     filter: blur(5px);
     -webkit-filter: blur(5px);
-    transform: scale(2); 
+    transform: scale(1); 
     z-index: 1;
 }
 
@@ -29,7 +29,7 @@
     top:0;left:0;right: 0;bottom: 0;
     position: absolute;
     height: 100%;
-    background-image: linear-gradient(to right,rgb(4, 16, 75,0.8),rgb(61, 76, 136,0.8));
+    background-image: linear-gradient(to right,rgb(4, 16, 75,0.75),rgb(61, 76, 136,0.75));
     z-index: 2 ;
 }
 
@@ -41,25 +41,23 @@
 }
 
     .rowLogoCarAndMenu{
-        min-height: 9vh;
+        height: 9vh;
     }
         .col-logo{
 
         }
             .logoMainNavbar{
                 height: 40px;
-                margin-top: 5px;
                 margin-left: 15px;
             }
 
         .col-carAndMenu{
-            float: right;
         }
             
             .betweenWidgetsLeft{
                 width: 10px;
                 height: 30px;
-                border-right: 1px solid white;
+                border-right: 1px solid rgb(255, 255, 255,0.5);
             }
             .betweenWidgetsRight{
                 width: 10px;
@@ -87,14 +85,14 @@
         }
 
             .rowName{
-                min-height: 4vh;
+                height: 4vh;
                 font-family: "Nunito", sans-serif;
                 font-weight: 700;
-                font-size:20px;
+                font-size:18px;
             }
 
             .rowSummary{
-                min-height: 8vh;
+                height: 8vh;
                 background-image: linear-gradient(to right,#ffffff00,#ffffff26,#ffffff33,#ffffff33);
             }
                 .col-relleno{
@@ -104,10 +102,12 @@
                 .col-income, .col-sales{
                     display: block;
                     text-align: center;
+                    height: 8vh;
+                    padding-top: 1vh;
                 }
                 
                 .col-income{
-                    border-right: 1px solid white;
+                    border-right: 1px solid rgb(255, 255, 255,0.5);
                 }
 
                     .col-income p, .col-sales p{

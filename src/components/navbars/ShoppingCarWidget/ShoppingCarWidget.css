@@ -1,6 +1,7 @@
 .ShoppingCarWidget{
     font-size: 30px;
     color:rgb(255, 255, 255,0.7);
+    margin-right: 10px;
 }
     .itemsInCar{
         font-size: 15px;

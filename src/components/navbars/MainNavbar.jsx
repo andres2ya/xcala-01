@@ -13,19 +13,18 @@ class MainNavbar extends Component {
       <div className="degrade"/>
       <div className="content container-fluid">
         <div className="row rowLogoCarAndMenu">
-          <div className="col-8 col-logo">
+          <div className="col-7 col-logo">
             <img
               className="logoMainNavbar"
               src={logoXcala}
               alt="Xcala Colombia"
             />
           </div>
-          <div className="col-4 col-carAndMenu centerVerticalAndHorizontal">
-              <div className="row centerVerticalAndHorizontal">
-                  <div className="col-3"><ShoppingCarWidget/></div>
-                  <span className="betweenWidgets"></span>
-                  <div className="col-3"><MenuWidget/></div>
-              </div>
+          <div className="col-5 col-carAndMenu centerVerticalAndHorizontal d-flex justify-content-end">
+              <ShoppingCarWidget/>
+              <div className="betweenWidgetsLeft"/>
+              <div className="betweenWidgetsRight"/>
+              <MenuWidget/>
           </div>
         </div>
         {/* ---------------------------------------------- */}

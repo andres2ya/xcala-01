@@ -11,13 +11,19 @@ class MyAccount extends Component {
         console.log(this.state)
     }
 
+    uploadPhoto=(e)=>{
+        const file=e.target.files[0]
+        const {isAuth}=this.props
+        this.props.uploadFile(file,isAuth)
+    }
+
     render() {
         if(!this.props.isAuth)
         return <Redirect to='/'/>
 
         return (
             <div style={{height:1000}}>
-                <p className="AUnPasoTitulo">¡Bienvenido {this.props.nombreUsuario}!</p>
+                <div style={{height:100}}>x</div>
                 <button onClick={()=>this.props.logOut()}>Cerrar sesion</button>
                 <button onClick={()=>console.log(this.props.fire)}>Check</button>
             </div>
@@ -27,7 +33,6 @@ class MyAccount extends Component {
 
 const mapStateToProps=(state)=>({
         isAuth:state.firebase.auth.uid,
-        nombreUsuario:state.firebase.profile.nombreUsuario,
         fire:state
 })
 

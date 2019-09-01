@@ -14,10 +14,8 @@
     top:0;left:0;right:0;bottom:0;
     position: absolute;
     height: 100%;width: 100%;
-    background-image: url(../../../assets/pp.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 10% 42%;
+    object-fit: cover;
+    object-position: 10% 42%;
     filter: blur(5px);
     -webkit-filter: blur(5px);
     transform: scale(1); 

@@ -5,12 +5,14 @@ import { reduxFirestore, firestoreReducer, getFirestore} from "redux-firestore";
 import firebase from "firebase/app";
 import "firebase/auth";//para habilitar toda la autenticacion
 import "firebase/firestore";
+import "firebase/storage"
 import authLoginReducer from './ducks/authDucks/authDuckLogin'
 import authRecoveryPasswordReducer from './ducks/authDucks/authDuckRecoveryPassword'
 import authSignUpReducer from './ducks/authDucks/authDuckSignUp'
 import authUpdatePassAndEmailReducer from './ducks/authDucks/authUpdatePassAndEmailDuck'
 import handlerErrorsReducer from './ducks/errorsDuck/handleErrors';
 import preloaderReducer from './ducks/preloaderDuck/preloaderDuck';
+import uploadFileReducer from './ducks/accountDuck/uploadFilesDuck';
 
 //1. Configurando firebase en la aplicacion
 const firebaseConfig = {
@@ -50,7 +52,8 @@ const rooReducer = combineReducers({
     authRecoveryPasswordReducer:authRecoveryPasswordReducer,
     authSignUpReducer:authSignUpReducer,
     authUpdatePassAndEmailReducer:authUpdatePassAndEmailReducer,
-    preloaderReducer:preloaderReducer
+    preloaderReducer:preloaderReducer,
+    uploadFileReducer:uploadFileReducer
 });
 
 //5. Creando store con el reducer unico "rooReducer", la inicializacion del estado "initialState", y la composicion de middlewares "thunks, etc"

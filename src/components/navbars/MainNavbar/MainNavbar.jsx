@@ -1,15 +1,46 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+import numeral from 'numeral';
 import "./MainNavbar.css";
 import logoXcala from "../../../assets/logoXcala.png";
-import sampleImg from '../../../assets/pp.jpg';
+import userWithoutPhoto from '../../../assets/userWithoutPhoto.jpg';
 import ShoppingCarWidget from '../Widgets/ShoppingCarWidget/ShoppingCarWidget';
 import MenuWidget from '../Widgets/MenuWidget/MenuWidget';
+import {uploadFile} from '../../../ducks/accountDuck/uploadFilesDuck';
 
 class MainNavbar extends Component {
+
+  state={
+    // userPhoto:userWithoutPhoto,
+    // photoFromProfile:false
+  }
+
+  uploadPhoto=(e)=>{
+    const file=e.target.files[0]
+    const {isAuth}=this.props
+    this.props.uploadFile(file,isAuth)
+}
+
   render() {
+    // const {userPhotoURLFromReducer,userPhotoURLFromProfile}=this.props
+    // const {userPhoto,photoFromProfile}=this.state
+
+    // if(photoFromProfile===false && userPhotoURLFromProfile!==null && userPhoto!==userWithoutPhoto){
+    //   console.log('photo from profile')
+    //   this.setState({userPhoto:userPhotoURLFromProfile,photoFromProfile:true})
+    // }
+
+    // if(userPhoto===userWithoutPhoto)
+    //   if(userPhotoURLFromReducer!==null && userPhotoURLFromProfile===null){
+    //     console.log('photo from reducer')
+    //     this.setState({userPhoto:userPhotoURLFromReducer})
+    //   }else{
+    //     console.log('photo from state')
+    //   }
+    const {userPhotoURLFromProfile}=this.props
     return (
     <div className="sticky-top">
-    <div className="absoluteParentIMG"><div className="parentIMG"><div className="backImagen"/></div></div>
+    <div className="absoluteParentIMG"><div className="parentIMG"><img src={userPhotoURLFromProfile!==null?userPhotoURLFromProfile:userWithoutPhoto} className="backImagen" alt="userBackgroundPhoto"/></div></div>
       <div className="degrade"/>
       <div className="content container-fluid">
         <div className="row rowLogoCarAndMenu">
@@ -31,21 +62,30 @@ class MainNavbar extends Component {
         <div className="row rowName">
           <div className="col-5" />
           <div className="col-7 col-name">
-            <div className="row rowName d-flex align-items-center"><span className="nameItem">¡Hola Andres Felipe!</span></div>
+            <div className="row rowName d-flex align-items-center">
+              <span className="nameItem">
+                {`¡Hola 
+                ${this.props.nombreUsuario!==undefined?
+                this.props.nombreUsuario
+                :
+                'nos alegra verte'}!`}
+              </span>
+            </div>
           </div>
         </div>
         {/* ---------------------------------------------- */}
         <div className="row rowSummary centerVertical">
           <div className="col-1 col-imagen">
-            <img src={sampleImg} className="roundImage " />
+            <img src={userPhotoURLFromProfile!==null?userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt="userPhoto" />
+            <input type="file" onChange={this.uploadPhoto}/>
           </div>
           <div className="col-3 col-relleno" />
           <div className="col-4 col-income">
-            <p>$5.000.000</p>
+            <p>{numeral(this.props.gananciaTotal).format('$0,0')}</p>
             <span>Ganancia</span>
           </div>
           <div className="col-3 col-sales">
-            <p>350</p>
+            <p>{this.props.ventasTotal>0?this.props.ventasTotal:0}</p>
             <span>Ventas</span>
           </div>
         </div>
@@ -54,4 +94,18 @@ class MainNavbar extends Component {
     );
   }
 }
-export default MainNavbar;
+const mapStateToProps=(state)=>({
+  userPhotoURLFromReducer:state.uploadFileReducer.userPhotoURL,
+  userPhotoURLFromProfile:state.firebase.auth.photoURL,
+  nombreUsuario:state.firebase.profile.nombreUsuario,
+  gananciaTotal:state.firebase.profile.gananciaTotal,
+  ventasTotal:state.firebase.profile.ventasTotal
+})
+
+const mapDispatchToProps = (dispatch)=>{
+  return{
+    uploadFile:(file,userID)=>dispatch(uploadFile(file,userID))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(MainNavbar);

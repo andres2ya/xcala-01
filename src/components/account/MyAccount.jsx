@@ -29,40 +29,50 @@ class MyAccount extends Component {
                 </div>
                 <div className="row firstRow">
                     <div className="col-6 Fcardd ">
-                        <div className="">
-                            ICONO
+                        <div className="FcarddOver">
+                                <div className="">
+                                {/* ICONO */}
+                                </div>
+                                <span>
+                                {/* Detalles de tus pedidos */}
+                                </span>
                         </div>
-                        <span>
-                            Detalles de tus pedidos
-                        </span>
                     </div>
                     <div className="col-6 Scardd">
-                        <div className="">
-                            ICONO
+                        <div className="ScarddOver">
+                                <div className="">
+                                {/* ICONO */}
+                                </div>
+                                <span>
+                                {/* Detalles de tu cuenta */}
+                                </span>
                         </div>
-                        <span>
-                            Detalles de tu cuenta
-                        </span>
                     </div>
                 </div>
                 <div className="row secondRow">
-                    <div className="col-6 Tcardd">
-                        <div className="">
-                            ICONO
+                    <div className="col-6 Tcardd ">
+                        <div className="TcarddOver">
+                                <div className="">
+                                {/* ICONO */}
+                                </div>
+                                <span>
+                                {/* Detalles de tus pedidos */}
+                                </span>
                         </div>
-                        <span>
-                            Direccion de facturacion
-                        </span>
                     </div>
                     <div className="col-6 FRcardd">
-                        <div className="">
-                            ICONO
+                        <div className="FRcarddOverDos"/>
+                        <div className="FRcarddOver">
+                                <div className="">
+                                {/* ICONO */}
+                                </div>
+                                <span>
+                                {/* Detalles de tu cuenta */}
+                                </span>
                         </div>
-                        <span>
-                            Direcciones de envio
-                        </span>
                     </div>
                 </div>
+                
                 <button onClick={()=>this.props.logOut()}>Cerrar sesion</button>
                 <button onClick={()=>console.log(this.props.fire)}>Check</button>
             </div>

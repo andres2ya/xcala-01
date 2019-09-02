@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {logOut} from '../../ducks/authDucks/authDuckLogin';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import './account.css'
 
 class MyAccount extends Component {
 
@@ -23,7 +24,45 @@ class MyAccount extends Component {
 
         return (
             <div>
-                
+                <div className="row titulo">
+                    Opciones de tu cuenta
+                </div>
+                <div className="row firstRow">
+                    <div className="col-6 Fcardd ">
+                        <div className="">
+                            ICONO
+                        </div>
+                        <span>
+                            Detalles de tus pedidos
+                        </span>
+                    </div>
+                    <div className="col-6 Scardd">
+                        <div className="">
+                            ICONO
+                        </div>
+                        <span>
+                            Detalles de tu cuenta
+                        </span>
+                    </div>
+                </div>
+                <div className="row secondRow">
+                    <div className="col-6 Tcardd">
+                        <div className="">
+                            ICONO
+                        </div>
+                        <span>
+                            Direccion de facturacion
+                        </span>
+                    </div>
+                    <div className="col-6 FRcardd">
+                        <div className="">
+                            ICONO
+                        </div>
+                        <span>
+                            Direcciones de envio
+                        </span>
+                    </div>
+                </div>
                 <button onClick={()=>this.props.logOut()}>Cerrar sesion</button>
                 <button onClick={()=>console.log(this.props.fire)}>Check</button>
             </div>

@@ -1,0 +1,44 @@
+.titulo{
+    margin-top:40px;
+}
+
+.Fcardd,.Scardd,.Tcardd,.FRcard{
+    height: 200px;
+    border-radius: 20px;
+}
+
+.Fcardd{
+    
+    position: relative;
+    -webkit-box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
+    -moz-box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
+    box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
+    z-index: 1;
+}
+
+.Scardd{
+    
+    position: relative;
+    -webkit-box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40);
+    -moz-box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40);
+    box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40);
+    z-index: 2;
+}
+
+.Tcardd{
+    
+    position: relative;
+    -webkit-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
+-moz-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
+box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
+    z-index: 2;
+}
+
+.FRcard{
+    
+    position: relative;
+    -webkit-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+-moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+z-index: 3;
+}

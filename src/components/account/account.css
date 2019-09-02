@@ -1,35 +1,78 @@
-.titulo{
-    margin-top:40px;
+.accountTitle{
+    margin-top:50px;
+    margin-left:15px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: #3d4c88;
+    line-height: 25px;
+    z-index: 3;
 }
 
-.Fcardd,.Scardd,.Tcardd,.FRcard{
+.iconOpcion{
+    font-size: 80px;
+    font-weight: 50;
+    color: #3d4c88;
+    margin-top:40px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.titleBoxAccountOption{
+    margin-left:50px;
+    margin-right: 50px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #3d4c88;
+    line-height: 15px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 365px) {
+    .titleBoxAccountOption{
+        margin-left:40px;
+        margin-right: 40px; 
+        font-size: 14px;
+    }
+}
+
+
+.firstRow{
+    margin-top:-30px;
+}
+
+.secondRow{
+    margin-bottom:5px;
+}
+
+.firstBoxAccountOption,.secondBoxAccountOption,.thirdBoxAccountOption,.FRcard{
     height: 190px;
     border-radius: 15px;
 }
 
-.Fcardd{
+.firstBoxAccountOption{
     border-right:0.5px solid rgb(255, 255, 255,0.0);
     border-bottom: 0.5px solid rgb(255, 255, 255,0.0);
 }
 
-.Scardd{
+.secondBoxAccountOption{
     border-left:0.5px solid rgb(255, 255, 255,0.0);
     border-bottom: 0.5px solid rgb(255, 255, 255,0.0);
 }
 
-.Tcardd{
+.thirdBoxAccountOption{
     border-right:0.5px solid rgb(255, 255, 255,0.0);
     border-top: 0.5px solid rgb(255, 255, 255,0.0);
 }
 
-.FRcardd{
+.fourthBoxAccountOption{
     border-left:0.5px solid rgb(255, 255, 255,0.0);
     border-top: 0.5px solid rgb(255, 255, 255,0.0);
 }
 
 
 
-.Fcardd{
+.firstBoxAccountOption{
     
     position: relative;
     -webkit-box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
@@ -38,7 +81,7 @@
     
 }
 
-                .FcarddOver{
+                .firstBoxAccountOptionOver{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
@@ -47,16 +90,17 @@
                     z-index: 2;
                 }
 
-                .FcarddOver:active{
+                .firstBoxAccountOptionOver:active{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
                     background-color: rgb(255, 255, 255,0.0);
                     border-radius: 15px;
                     z-index: 1;
+                    transform: scale(0.9)
                 }
 
-.Scardd{
+.secondBoxAccountOption{
     
     position: relative;
     -webkit-box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40);
@@ -64,7 +108,7 @@
     box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40); 
 }
 
-                .ScarddOver{
+                .secondBoxAccountOptionOver{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
@@ -73,23 +117,28 @@
                     z-index: 2;
                 }
 
-                .ScarddOver:active{
+                .accountDetailsIcon{
+                    margin-left:10px;
+                }
+
+                .secondBoxAccountOptionOver:active{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
                     background-color: rgb(255, 255, 255,0.0);
                     border-radius: 15px;
                     z-index: 1;
+                    transform: scale(0.9)
                 }
-.Tcardd{
+.thirdBoxAccountOption{
     
     position: relative;
     -webkit-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
--moz-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
+    -moz-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
+    box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
     
 }
-                .TcarddOver{
+                .thirdBoxAccountOptionOver{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
@@ -98,48 +147,74 @@ box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
                     z-index: 2;
                 }
 
-                .TcarddOver:active{
+                .invoiceAddresIcon{
+                    margin-left:25px;
+                }
+
+                .thirdBoxAccountOptionOver:active{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
                     background-color: rgb(255, 255, 255,0.0);
                     border-radius: 15px;
                     z-index: 1;
+                    transform: scale(0.9)
                 }
 
 .FRcard{
     
     position: relative;
     -webkit-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
--moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+    -moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+    box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
 
 }
-                .FRcarddOver{
+                .fourthBoxAccountOptionOver{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
                     background-color: white;
                     border-radius: 15px;
                     z-index: 2;
+                    
                 }
 
-                .FRcarddOverDos{
+                .fourthBoxAccountOptionOverDos{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
                     border-radius: 15px;
                     -webkit-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
--moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+                    -moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
+                    box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
                     z-index: 1;
+                    
                 }
 
-                .FRcarddOver:active{
+                .fourthBoxAccountOptionOver:active{
                     position: absolute;
                     top:0;left:0;right:0;bottom:0;
                     width: 100%;height: 100%;
                     background-color: rgb(255, 255, 255,0.0);
                     border-radius: 20px;
                     z-index: 1;
+                    transform: scale(0.9)
                 }
+
+                
+
+.buttonLogout button{
+    background-color: #d2145a;
+    color:white;
+    width: 80%;
+    height: 40px;
+    border: 0px;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+}
+
+.buttonLogout button:active{
+    zoom: 0.98;
+}

@@ -62,3 +62,27 @@
 .icon-pencil:before {
   content: "\68";
 }
+.icon-shipping-address:before {
+  content: "\6a";
+}
+.icon-invoice-address:before {
+  content: "\6b";
+}
+.icon-account-details:before {
+  content: "\6c";
+}
+.icon-order-details:before {
+  content: "\69";
+}
+.icon-account-details-5px:before {
+  content: "\6d";
+}
+.icon-invoice-address-5px:before {
+  content: "\6e";
+}
+.icon-order-details-5px:before {
+  content: "\6f";
+}
+.icon-shipping-address-5px:before {
+  content: "\70";
+}

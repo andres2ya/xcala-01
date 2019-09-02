@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
 import numeral from 'numeral';
 import "./MainNavbar.css";
 import logoXcala from "../../../assets/logoXcala.png";
@@ -10,11 +11,6 @@ import {uploadFile} from '../../../ducks/accountDuck/uploadFilesDuck';
 
 class MainNavbar extends Component {
 
-  state={
-    // userPhoto:userWithoutPhoto,
-    // photoFromProfile:false
-  }
-
   uploadPhoto=(e)=>{
     const file=e.target.files[0]
     const {isAuth}=this.props
@@ -22,21 +18,6 @@ class MainNavbar extends Component {
 }
 
   render() {
-    // const {userPhotoURLFromReducer,userPhotoURLFromProfile}=this.props
-    // const {userPhoto,photoFromProfile}=this.state
-
-    // if(photoFromProfile===false && userPhotoURLFromProfile!==null && userPhoto!==userWithoutPhoto){
-    //   console.log('photo from profile')
-    //   this.setState({userPhoto:userPhotoURLFromProfile,photoFromProfile:true})
-    // }
-
-    // if(userPhoto===userWithoutPhoto)
-    //   if(userPhotoURLFromReducer!==null && userPhotoURLFromProfile===null){
-    //     console.log('photo from reducer')
-    //     this.setState({userPhoto:userPhotoURLFromReducer})
-    //   }else{
-    //     console.log('photo from state')
-    //   }
     const {userPhotoURLFromProfile}=this.props
     return (
     <div className="sticky-top">
@@ -52,7 +33,7 @@ class MainNavbar extends Component {
             />
           </div>
           <div className="col-5 col-carAndMenu centerVerticalAndHorizontal d-flex justify-content-end">
-              <ShoppingCarWidget numberItemsInCar={'10'} />
+              <Link to="/shoppingcar"><ShoppingCarWidget numberItemsInCar={'10'} /></Link>
               <div className="betweenWidgetsLeft"/>
               <div className="betweenWidgetsRight"/>
               <MenuWidget/>
@@ -75,9 +56,10 @@ class MainNavbar extends Component {
         </div>
         {/* ---------------------------------------------- */}
         <div className="row rowSummary centerVertical">
-          <div className="col-1 col-imagen">
-            <img src={userPhotoURLFromProfile!==null?userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt="userPhoto" />
-            <input type="file" onChange={this.uploadPhoto}/>
+          <div className="col-1 col-imagen centerVertical">
+            <img src={userPhotoURLFromProfile?userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt="userPhoto" />
+            <label className="iconInputFile d-flex align-items-center justify-content-center" htmlFor="inputFile"><i className="icon-pencil centerVerticalAndHorizontal"/></label>
+            <input id="inputFile" className="inputFile" type="file" onChange={this.uploadPhoto}/>
           </div>
           <div className="col-3 col-relleno" />
           <div className="col-4 col-income">
@@ -95,8 +77,8 @@ class MainNavbar extends Component {
   }
 }
 const mapStateToProps=(state)=>({
-  userPhotoURLFromReducer:state.uploadFileReducer.userPhotoURL,
-  userPhotoURLFromProfile:state.firebase.auth.photoURL,
+  photoURLProfileChanged:state.uploadFileReducer.photoURLProfileChanged,
+  userPhotoURLFromProfile:state.firebase.profile.userPhotoURL,
   nombreUsuario:state.firebase.profile.nombreUsuario,
   gananciaTotal:state.firebase.profile.gananciaTotal,
   ventasTotal:state.firebase.profile.ventasTotal

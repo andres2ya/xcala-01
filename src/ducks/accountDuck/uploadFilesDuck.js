@@ -18,8 +18,9 @@ export const uploadFile=(file,userID)=>{
             snapshot.ref.getDownloadURL()
             .then((downloadURL)=>{
                 dispatch(showOrHidePreloader(false))
-                dispatch({type:UPLOAD_FILE_SUCCESS,payload:downloadURL})
-                dispatch(updateUserPhotoURL(downloadURL))
+                dispatch({type:UPLOAD_FILE_SUCCESS})
+                console.log(userID)
+                dispatch(setUserPhotoURLInProfile(downloadURL))
             })
         })
         .catch((err)=>{
@@ -30,54 +31,76 @@ export const uploadFile=(file,userID)=>{
     }
 }
 //..................................................................................
-export const updateUserPhotoURL=(downloadURL)=>{
-    return(dispatch,getState,{getFirebase})=>{
+export const setUserPhotoURLInProfile=(downloadURL)=>{
+    return (dispatch,getState,{getFirebase,getFirestore})=>{
         const firebase=getFirebase()
         firebase.auth().onAuthStateChanged((user)=>{//forma correcta de usar current user
+            console.log(user)
             if(user){
-                firebase.auth().currentUser.updateProfile({
-                    photoURL:downloadURL
+                const firestore=getFirestore()
+                firestore.collection('users').doc(user.uid).update({
+                userPhotoURL:downloadURL
                 })
                 .then(res=>{
                     dispatch({type:UPDATE_PHOTO_URL_SUCCESS})
-                    window.location.reload(true)
                 })
                 .catch(err=>{
                     console.log(err)
                     dispatch({type:UPDATE_PHOTO_URL_ERROR,payload:err})
-
                 })
-            }else{console.log('usuario no signed in')}
-        }) 
+            }else{console.log('no user signin')}
+        })
     }
 }
+
+
+// export const updateUserPhotoURL=(downloadURL)=>{
+//     return(dispatch,getState,{getFirebase})=>{
+//         const firebase=getFirebase()
+//         firebase.auth().onAuthStateChanged((user)=>{//forma correcta de usar current user
+//             if(user){
+//                 firebase.auth().currentUser.updateProfile({
+//                     photoURL:downloadURL
+//                 })
+//                 .then(res=>{
+//                     dispatch({type:UPDATE_PHOTO_URL_SUCCESS})
+//                 })
+//                 .catch(err=>{
+//                     console.log(err)
+//                     dispatch({type:UPDATE_PHOTO_URL_ERROR,payload:err})
+//                 })
+//             }else{console.log('usuario no signed in')}
+//         }) 
+//     }
+// }
 
 
 //3. REDUCER PRELOADER
 const initialState={
     errorWhenUpdatingFile:false,
-    userPhotoURL:null
+    photoURLProfileChanged:false
 }
 const uploadFileReducer = (state=initialState, action)=>{
     switch(action.type){
         case UPLOAD_FILE_SUCCESS:
             return{
                 ...state,
-                errorWhenUpdatingFile:true,
-                userPhotoURL:action.payload}
+                errorWhenUpdatingFile:false}
         case UPLOAD_FILE_ERROR:
             return{
                 ...state,
-                errorWhenUpdatingFile:false}
+                errorWhenUpdatingFile:true}
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
         case UPDATE_PHOTO_URL_SUCCESS:
             return{
-                ...state,}
+                ...state,
+                photoURLProfileChanged:true}
         case UPDATE_PHOTO_URL_ERROR:
             return{
-                ...state}
+                ...state,
+                photoURLProfileChanged:false}
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------
         //---------------------------------------------------------------------

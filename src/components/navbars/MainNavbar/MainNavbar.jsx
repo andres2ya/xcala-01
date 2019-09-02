@@ -17,8 +17,13 @@ class MainNavbar extends Component {
     this.props.uploadFile(file,isAuth)
 }
 
+onIMGError=()=>{
+  console.log('erro img')
+}
+
   render() {
     const {userPhotoURLFromProfile}=this.props
+    console.log(userPhotoURLFromProfile)
     return (
     <div className="sticky-top">
     <div className="absoluteParentIMG"><div className="parentIMG"><img src={userPhotoURLFromProfile!==null?userPhotoURLFromProfile:userWithoutPhoto} className="backImagen" alt="userBackgroundPhoto"/></div></div>
@@ -57,7 +62,7 @@ class MainNavbar extends Component {
         {/* ---------------------------------------------- */}
         <div className="row rowSummary centerVertical">
           <div className="col-1 col-imagen centerVertical">
-            <img src={userPhotoURLFromProfile?userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt="userPhoto" />
+            <img src={userPhotoURLFromProfile!==null? userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt="userPhoto" />
             <label className="iconInputFile d-flex align-items-center justify-content-center" htmlFor="inputFile"><i className="icon-pencil centerVerticalAndHorizontal"/></label>
             <input id="inputFile" className="inputFile" type="file" onChange={this.uploadPhoto}/>
           </div>

@@ -22,8 +22,8 @@ class MyAccount extends Component {
         return <Redirect to='/'/>
 
         return (
-            <div style={{height:1000}}>
-                <div style={{height:100}}>x</div>
+            <div>
+                
                 <button onClick={()=>this.props.logOut()}>Cerrar sesion</button>
                 <button onClick={()=>console.log(this.props.fire)}>Check</button>
             </div>

@@ -38,6 +38,16 @@
     position: relative;
 }
 
+@media only screen and (min-width: 768px) {
+    .content{
+        width: 70%;
+        margin-left:auto;
+        margin-right: auto;
+    }
+    
+}
+
+
     .rowLogoCarAndMenu{
         height: 9vh;
     }
@@ -136,6 +146,10 @@
                 font-size:17px;
                 line-height: 75%;
             }
+
+            .rowNameChild{
+                height: 4vh;
+            }
             
             .nameItem{
 
@@ -145,6 +159,13 @@
                 .rowName{
                     height: 4vh;
                     font-size: 15px;
+                }
+            }
+
+            @media only screen and (min-width: 768px) {
+                .rowNameChild{
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             }
 

@@ -88,7 +88,7 @@ class Login extends Component {
         if(this.state.isRetrySendEmailVerify===true){
              return <EmailVerify newUser={this.state.newUser}/>
         }else if(this.props.isAuthWithEmailVerified){
-             return <Redirect to="/myaccount"/>
+             return <Redirect to="/my-account"/>
         }else{
         
         return (

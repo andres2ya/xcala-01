@@ -13,6 +13,7 @@ import authUpdatePassAndEmailReducer from './ducks/authDucks/authUpdatePassAndEm
 import handlerErrorsReducer from './ducks/errorsDuck/handleErrors';
 import preloaderReducer from './ducks/preloaderDuck/preloaderDuck';
 import uploadFileReducer from './ducks/accountDuck/uploadFilesDuck';
+import getUserOrdersReducer from './ducks/accountDuck/getUserOrdersDuck';
 
 //1. Configurando firebase en la aplicacion
 const firebaseConfig = {
@@ -53,7 +54,8 @@ const rooReducer = combineReducers({
     authSignUpReducer:authSignUpReducer,
     authUpdatePassAndEmailReducer:authUpdatePassAndEmailReducer,
     preloaderReducer:preloaderReducer,
-    uploadFileReducer:uploadFileReducer
+    uploadFileReducer:uploadFileReducer,
+    getUserOrdersReducer:getUserOrdersReducer
 });
 
 //5. Creando store con el reducer unico "rooReducer", la inicializacion del estado "initialState", y la composicion de middlewares "thunks, etc"

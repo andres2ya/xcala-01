@@ -148,7 +148,7 @@ const mapStateToProps=(state)=>({
     showEmailVerify:state.authSignUpReducer.showEmailVerify,
     showRegisterButton:state.authSignUpReducer.showRegisterButton,
     newUserData:state.authSignUpReducer.newUserData,
-    showPreloader:state.preloaderReducer.showPreloader,
+    showPreloader:state.preloaderReducer.showPreloader
 })
 
 const mapDispatchToProps=(dispatch)=>{

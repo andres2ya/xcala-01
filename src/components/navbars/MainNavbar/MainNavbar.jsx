@@ -38,7 +38,7 @@ onIMGError=()=>{
             />
           </div>
           <div className="col-5 col-carAndMenu centerVerticalAndHorizontal d-flex justify-content-end">
-              <LinkWithDelay to="/shoppingcar" delay={30}><ShoppingCarWidget numberItemsInCar={'10'}/></LinkWithDelay>
+              <LinkWithDelay to="/shopping-car" delay={30}><ShoppingCarWidget numberItemsInCar={'10'}/></LinkWithDelay>
               <div className="betweenWidgetsLeft"/>
               <div className="betweenWidgetsRight"/>
               <MenuWidget/>
@@ -48,7 +48,7 @@ onIMGError=()=>{
         <div className="row rowName">
           <div className="col-5" />
           <div className="col-7 col-name">
-            <div className="row rowName d-flex align-items-center">
+            <div className="row rowNameChild d-flex align-items-center">
               <span className="nameItem">
                 {`¡Hola 
                 ${this.props.nombreUsuario!==undefined?
@@ -62,13 +62,13 @@ onIMGError=()=>{
         {/* ---------------------------------------------- */}
         <div className="row rowSummary centerVertical">
           <div className="col-1 col-imagen centerVertical">
-            <Link to="/myaccount">
+            <Link to="/my-account">
               <img src={userPhotoURLFromProfile? userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt=" " />
             </Link>
-            <label className="iconInputFile d-flex align-items-center justify-content-center" htmlFor="inputFile"><i className="icon-pencil centerVerticalAndHorizontal"/></label>
+            <label className="iconInputFile d-flex align-items-center justify-content-center" htmlFor="inputFile"><i className="icon-edit-pencil centerVerticalAndHorizontal"/></label>
             <input id="inputFile" className="inputFile" type="file" onChange={this.uploadPhoto}/>
           </div>
-          <div className="col-3 col-relleno" />
+          <div className="col-3 col-sm-1 col-relleno" />
           <div className="col-4 col-income">
             <p>{numeral(this.props.gananciaTotal).format('$0,0')}</p>
             <span>Ganancia</span>

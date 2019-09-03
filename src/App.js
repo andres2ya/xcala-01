@@ -12,62 +12,36 @@ import MyAccount from './components/account/MyAccount';
 import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
 import Spinner from './components/layout/Spinner/Spinner';
 import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
+import OrdersDetails from "./components/account/OrdersDetails";
+import SpecificOrder from "./components/account/SpecificOrder";
 
 
 function App(){
 
   return (
+    
     <div>
     {
         (function(){
-          var NavBar;
-          switch(window.location.pathname){
-            case '/':
-              NavBar=null
-              break;
-            case '/signup':
-              NavBar=null
-              break;
-            case '/emailverify':
-              NavBar=null
-              break;
-            case '/emailconfirm':
-              NavBar=null
-              break;
-            case '/passforgot':
-              NavBar=null
-              break;
-            case '/passreset':
-              NavBar=null
-              break;
-            case '/myaccount':
-              NavBar=<MainNavbar/>
-              break;
-            case '/orderDetails':
-              NavBar=<MainNavbar/>
-              break;
-            case '/accountDetails':
-              NavBar=<MainNavbar/>
-              break;
-            case '/invoiceAddress':
-              NavBar=<MainNavbar/>
-              break;
-            case '/shippingAddress':
-              NavBar=<MainNavbar/>
-              break;
-            case '/customemailhandler':
-              NavBar=null
-              break;
-            default:
-              NavBar=null}
-          return NavBar
+          var url=window.location.pathname
+          if(url==='/my-account'||url==='/order-details'||url==='/account-details'||url==='/invoice-address'||url==='/shipping-address'||url==='/all-products'){
+            return <MainNavbar/>
+          }else if(url==='/all-categories'||url==='/shopping-car'||url.indexOf("id") > -1){
+            return 'otherNavbar'
+          }else if(url==='category-id'){
+            return 'otherNavbar'
+          }else{
+            return null
+          }
         })()
     }
     <div className="container">
     <Switch>
       <Route exact path="/" component={Login}/>
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
-      <Route exact path="/myaccount" component={MyAccount}/>
+      <Route exact path="/my-account" component={MyAccount}/>
+      <Route exact path="/order-details" component={OrdersDetails}/>
+      <Route exact path="/order-details/id=:id" component={SpecificOrder}/>
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>
       <Route exact path="/signup" component={SignUp}/>

@@ -24,13 +24,13 @@ class MyAccount extends Component {
         return <Redirect to='/'/>
 
         return (
-            <div>
+            <div className="pcControlerScreen">
                 <div className="row">
                     <p className="accountTitle">Opciones de tu cuenta</p>   
                 </div>
                 <div className="row firstRow ">
                     <div className="col-6 firstBoxAccountOption">
-                        <LinkWithDelay to='/orderDetails' delay={30}>    
+                        <LinkWithDelay to='/order-details' delay={30}>    
                             <div className="firstBoxAccountOptionOver" >
                                 
                                 <i className="icon-order-details-7px iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
@@ -41,7 +41,7 @@ class MyAccount extends Component {
                         </LinkWithDelay>
                     </div>
                     <div className="col-6 secondBoxAccountOption">
-                        <LinkWithDelay to='/accountDetails' delay={30}>
+                        <LinkWithDelay to='/account-details' delay={30}>
                             <div className="secondBoxAccountOptionOver">
                                 
                                 <i className="icon-accoun-tdetails-7px accountDetailsIcon iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
@@ -54,7 +54,7 @@ class MyAccount extends Component {
                 </div>
                 <div className="row secondRow">
                     <div className="col-6 thirdBoxAccountOption ">
-                        <LinkWithDelay to='/invoiceAddress' delay={30}>
+                        <LinkWithDelay to='/invoice-address' delay={30}>
                             <div className="thirdBoxAccountOptionOver">
                                 
                                 <i className="icon-invoice-address-7px invoiceAddresIcon iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
@@ -66,7 +66,7 @@ class MyAccount extends Component {
                     </div>
                     <div className="col-6 fourthBoxAccountOption">
                         <div className="fourthBoxAccountOptionOverDos"/>
-                        <LinkWithDelay to='/shippingAddress' delay={30}>
+                        <LinkWithDelay to='/shipping-address' delay={30}>
                             <div className="fourthBoxAccountOptionOver">
                                 
                                 <i className="icon-shipping-address-7px iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>

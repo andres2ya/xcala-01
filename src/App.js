@@ -43,6 +43,18 @@ function App(){
             case '/myaccount':
               NavBar=<MainNavbar/>
               break;
+            case '/orderDetails':
+              NavBar=<MainNavbar/>
+              break;
+            case '/accountDetails':
+              NavBar=<MainNavbar/>
+              break;
+            case '/invoiceAddress':
+              NavBar=<MainNavbar/>
+              break;
+            case '/shippingAddress':
+              NavBar=<MainNavbar/>
+              break;
             case '/customemailhandler':
               NavBar=null
               break;

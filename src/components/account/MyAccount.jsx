@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
 import {logOut} from '../../ducks/authDucks/authDuckLogin';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import './account.css'
+import LinkWithDelay from '../../helpers/LinkWithDelay';
 
 class MyAccount extends Component {
 
     componentDidMount=()=>{
         document.body.removeAttribute('class')
         document.body.className='myAccountStyle'
-        console.log(this.state)
     }
 
     uploadPhoto=(e)=>{
@@ -19,6 +19,7 @@ class MyAccount extends Component {
     }
 
     render() {
+        
         if(!this.props.isAuth)
         return <Redirect to='/'/>
 
@@ -29,44 +30,51 @@ class MyAccount extends Component {
                 </div>
                 <div className="row firstRow ">
                     <div className="col-6 firstBoxAccountOption">
-                        <div className="firstBoxAccountOptionOver">
-                            {/* <div className="row d-flex justify-content-center"> */}
-                                <i className="icon-order-details-5px iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
-                            {/* </div> */}
-                            {/* <div className="row d-flex justify-content-center"> */}
+                        <LinkWithDelay to='/orderDetails' delay={40}>    
+                            <div className="firstBoxAccountOptionOver" >
+                                
+                                <i className="icon-order-details-7px iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
+                                
                                 <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Detalles de tus pedidos</span>
-                            {/* </div> */}
-                        </div>
+                                
+                            </div>
+                        </LinkWithDelay>
                     </div>
                     <div className="col-6 secondBoxAccountOption">
-                        <div className="secondBoxAccountOptionOver">
-                            
-                            <i className="icon-account-details-5px accountDetailsIcon iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
-                            
-                            <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Detalles de tu cuenta</span>
-                            
-                        </div>
+                        <LinkWithDelay to='/accountDetails' delay={40}>
+                            <div className="secondBoxAccountOptionOver">
+                                
+                                <i className="icon-accoun-tdetails-7px accountDetailsIcon iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
+                                
+                                <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Detalles de tu cuenta</span>
+                                
+                            </div>
+                        </LinkWithDelay>
                     </div>
                 </div>
                 <div className="row secondRow">
                     <div className="col-6 thirdBoxAccountOption ">
-                        <div className="thirdBoxAccountOptionOver">
-                            
-                            <i className="icon-invoice-address-5px invoiceAddresIcon iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
-                            
-                            <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Direccion de facturaccion</span>
-                            
-                        </div>
+                        <LinkWithDelay to='/invoiceAddress' delay={40}>
+                            <div className="thirdBoxAccountOptionOver">
+                                
+                                <i className="icon-invoice-address-7px invoiceAddresIcon iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
+                                
+                                <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Direccion de facturaccion</span>
+                                
+                            </div>
+                        </LinkWithDelay>
                     </div>
                     <div className="col-6 fourthBoxAccountOption">
                         <div className="fourthBoxAccountOptionOverDos"/>
-                        <div className="fourthBoxAccountOptionOver">
-                            
-                            <i className="icon-shipping-address-5px iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
-                            
-                            <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Direcciones de envio</span>
-                            
-                        </div>
+                        <LinkWithDelay to='/shippingAddress' delay={40}>
+                            <div className="fourthBoxAccountOptionOver">
+                                
+                                <i className="icon-shipping-address-7px iconOpcion centerVerticalAndHorizontal d-flex justify-content-center"/>
+                                
+                                <span className="titleBoxAccountOption centerVerticalAndHorizontal d-flex justify-content-center">Direcciones de envio</span>
+                                
+                            </div>
+                        </LinkWithDelay>
                     </div>
                 </div>
                 

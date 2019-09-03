@@ -32,7 +32,7 @@ const rrfConfig = {
     userProfile: "users",//Indica la coleccion de firebase donde esta ubicada la informacion de los usuarios para
     useFirestoreForProfile: true,//luego poderla sincronizar con el ID en "firebase.auth.profile"
     attachAuthIsReady:true
-    // ,logErrors: false,
+    //,logErrors: false,
 };
 
 //3. Crear en enhacer del store con compose de redux y firebase

@@ -104,3 +104,51 @@
 .icon-edit-pencil-10px:before {
   content: "\76";
 }
+.icon-banknote:before {
+  content: "\77";
+}
+.icon-filter:before {
+  content: "\78";
+}
+.icon-cancel-circled:before {
+  content: "\79";
+}
+.icon-arrow-circle-left:before {
+  content: "\7a";
+}
+.icon-arrow-circle-right:before {
+  content: "\41";
+}
+.icon-arrow-circle-up:before {
+  content: "\42";
+}
+.icon-arrow-circle-down:before {
+  content: "\43";
+}
+.icon-arrow-circle-o-down:before {
+  content: "\44";
+}
+.icon-arrow-circle-o-left:before {
+  content: "\45";
+}
+.icon-arrow-circle-o-right:before {
+  content: "\46";
+}
+.icon-arrow-circle-o-up:before {
+  content: "\47";
+}
+.icon-arrow-down:before {
+  content: "\48";
+}
+.icon-arrow-left:before {
+  content: "\49";
+}
+.icon-arrow-right:before {
+  content: "\4a";
+}
+.icon-arrow-up:before {
+  content: "\4b";
+}
+.icon-details:before {
+  content: "\4c";
+}

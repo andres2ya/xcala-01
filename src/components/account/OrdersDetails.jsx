@@ -7,7 +7,8 @@ import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrd
 class OrdersDetails extends Component {
 
   state={
-    orderDisplay:'allOrders'
+    orderDisplay:'allOrders',
+    ordersReverse:undefined
   }
 
   changeOrderDisplay=(tab)=>{
@@ -17,21 +18,58 @@ class OrdersDetails extends Component {
   }
 
   render() {
-    const {userOrders}=this.props
+    const {userOrders,orderStateFilter}=this.props
     const {orderDisplay}=this.state
     var orders=undefined
-    if(orderDisplay==='allOrders'){
-      orders=userOrders
-    }else if(orderDisplay==='cashOnDeliveryOrders'){
-      orders=userOrders.filter(order=>(order.tipoPago==='contraEntrega'))
-    }else{
-      orders=userOrders.filter(order=>(order.tipoPago==='online'))
+
+    if(userOrders){
+      switch (orderDisplay) {
+        case 'allOrders':
+          orders=[...userOrders]
+          break;
+        case 'cashOnDeliveryOrders':
+          orders=userOrders.filter(order=>(order.tipoPago==='contraEntrega'))
+          break;
+        case 'onlinePayOrders':
+          orders=userOrders.filter(order=>(order.tipoPago==='online'))
+          break;
+        default:
+          break;
+      }
     }
-    
+
+    if(orderStateFilter){
+      switch (orderStateFilter) {
+        case 'enviadoAlProveedor':
+          orders=orders.filter(order=>(order.estado==='enviadoAlProveedor'))
+          break;
+        case 'enProduccion':
+          orders=orders.filter(order=>(order.estado==='enProduccion'))
+          break;
+        case 'listoParaDespacho':
+          orders=orders.filter(order=>(order.estado==='listoParaDespacho'))
+          break;
+        case 'despachado':
+          orders=orders.filter(order=>(order.estado==='despachado'))
+          break;
+        case 'finalizado':
+          orders=orders.filter(order=>(order.estado==='finalizado'))
+          break;
+        case 'cancelado':
+          orders=orders.filter(order=>(order.estado==='cancelado'))
+          break;
+        case 'allOrders':
+          orders=[...orders]
+          break;
+        default:
+          break;
+      }
+    }
+
     return (
       <div className="pcControlerScreen ">
         <div className="row">
-          <p onClick={()=>this.props.applyStateFilterToOrders(true)} className="accountTitle">Resumen de tus pedidos</p>
+          <p className="accountTitle">Resumen de tus pedidos</p>
         </div>
         <div className="container-fluid tab-orders">
           <div className="row">
@@ -52,11 +90,26 @@ class OrdersDetails extends Component {
             </div>
           </div>
         </div>
+        <div className="container-fluid filtersContainer">
+          <div className="row">
+            <div className="col-5">
+              {/* Espacio para otro filtro */}
+            </div>
+            <div className="col-7 col-stateFilter d-flex justify-content-end align-items-center">
+              <div
+              onClick={()=>this.props.applyStateFilterToOrders(true)}
+              className="filterBox d-flex justify-content-end align-items-center">
+                Filtrar por estado <i className="icon-filterBox icon-filter centerVerticalAndHorizontal"/>
+              </div>
+            </div>
+          </div>
+        </div>
         
-        {orders?orders.map(order=>(
+        {orders?orders.reverse().map(order=>(
           
             <div key={order.numeroPedido} className="container-fluid orderCard">
-              <LinkWithDelay to={`/order-details/id=${order.id}`} delay={30}><div className="orderCardContent">
+              <LinkWithDelay to={`/order-details/id=${order.id}`} delay={30}>
+                <div className="orderCardContent">
                 <div className="row">
                   <div className="col-9">
                     <div className="row">
@@ -66,18 +119,20 @@ class OrdersDetails extends Component {
                             <span>Pedido #{order.numeroPedido}</span>
                           </div>
                         </div> 
-                        <div className="orderDateCard centerHorizontal">
-                            <span>{order.fecha}</span>
+                        <div className="orderStateCard centerHorizontal d-flex justify-content-center align-items-center">
+                            <div className={`stateCircle ${order.estado}`}/>
+                            <span>{order.estado}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="col-3 viewOrderButton d-flex justify-content-center align-items-center">
-                    {order.tipoPago==='contraEntrega'?
-                      <i className="icon-edit-pencil-10px"></i>
-                      :
-                      <i className="icon-edit-pencil-10px"></i>
-                    }
+                      <i className="icon-details"></i>                    
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12">
+                    <span>{order.fecha}</span>
                   </div>
                 </div>
                 <div className="row">
@@ -88,8 +143,8 @@ class OrdersDetails extends Component {
                 <div className="row">
                   <div className="col-12">
                   <span className="boldText">Ganancia total:</span> <strong>{numeral(order.gananciaTotal).format('$0,0')}</strong>
-                  </div>
                 </div>
+              </div>
               </div>
               </LinkWithDelay>
           </div>
@@ -102,7 +157,7 @@ class OrdersDetails extends Component {
 
 const mapStateToProps=(state)=>({
   userOrders:state.firebase.profile.pedidos,
-  // orderStateFilter:
+  orderStateFilter:state.showOrHideApplyStateFilterReducer.orderStateFilter
 })
 
 const mapDispatchToProps=(dispatch)=>{

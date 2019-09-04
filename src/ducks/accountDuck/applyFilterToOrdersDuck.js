@@ -5,11 +5,11 @@ const HIDE_APPLY_STATE_FILTER_TO_ORDERS='xcala/orderDetails/HIDE_APPLY_STATE_FIL
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
-export const applyStateFilterToOrders=(option)=>{
+export const applyStateFilterToOrders=(option,orderState)=>{
     if(option===true){
         return {type:SHOW_APPLY_STATE_FILTER_TO_ORDERS}
     }else{
-        return {type:HIDE_APPLY_STATE_FILTER_TO_ORDERS}
+        return {type:HIDE_APPLY_STATE_FILTER_TO_ORDERS,payload:orderState}
     }
     
 }
@@ -18,7 +18,8 @@ export const applyStateFilterToOrders=(option)=>{
 
 //3. REDUCER PRELOADER
 const initialState={
-    showApplyStateFilterToOrdersModal:false
+    showApplyStateFilterToOrdersModal:false,
+    orderStateFilter:null
 }
 const showOrHideApplyStateFilterReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -30,7 +31,8 @@ const showOrHideApplyStateFilterReducer = (state=initialState, action)=>{
         case HIDE_APPLY_STATE_FILTER_TO_ORDERS:
             return{
                 ...state,
-                showApplyStateFilterToOrdersModal:false}
+                showApplyStateFilterToOrdersModal:false,
+                orderStateFilter:action.payload}
         default:
             return state;
         }

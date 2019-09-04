@@ -50,6 +50,7 @@ function App(){
       <Route exact path="/emailVerification" component={EmailVerification}/>
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
+      {/* {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))} */}
     </div>
   </div>
   );

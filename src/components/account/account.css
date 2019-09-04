@@ -253,8 +253,41 @@
 /*
 ORDER DETAILS */
 
+/* selector */
+.tab-orders{
+    -webkit-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+}
+
+.col-selector{
+    background-color: rgb(255, 255, 255);
+    color: rgb(114, 114, 114);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.2;
+    height: 50px;
+    border-left: 1px solid rgb(234, 234, 234);
+    border-right: 1px solid rgb(234, 234, 234);
+}
+
+.col-selector-active{
+    background-color: rgb(255, 255, 255);
+    color: rgb(114, 114, 114);
+    font-weight: 900;
+    font-size: 14px;
+    border-bottom: 3px solid #3d4c88
+}
+
+
+
+
+
+/* orderList */
 .orderCard{
-   border-top:1px solid grey;
+   border-bottom:1px solid grey;
 }
 
 .orderCard a{
@@ -281,24 +314,44 @@ ORDER DETAILS */
                             min-width: 120px;
                             border-radius: 15px;
                             font-size: 15px;
+                            position: relative;
+                            z-index: 999;
                         }
+
+                        /* .overlay-orderIdCard{
+                            position: absolute;
+                            top:0;left:0;right:0;bottom:0;
+                            width: 95%;height: 85%;
+                            margin-left:3px;
+                            margin-top:2.5px;
+                            background-color: white;
+                            border-radius: 15px;
+                            z-index: 1000;
+                        } */
                                 .enviadoAlProveedor{
                                     background-image:linear-gradient(#eb1e79,#d2145a) ;
+                                    /* color: #d2145a; */
+                                    
                                 }
                                 .enProduccion{
                                     background-image:linear-gradient(#1eebcc,#146ad2) ;
+                                    /* color: #146ad2 */
                                 }
                                 .listoParaDespacho{
-                                    background-image:linear-gradient(#afe06a,#867810) ;
+                                    background-image:linear-gradient(#e0d46a,#ddcc32) ;
                                 }
                                 .despachado{
-                                    background-image:linear-gradient(#99aa2b,#177e45) ;
+                                    background-image:linear-gradient(#99aa2b,#95a817) ;
                                 }
                                 .finalizado{
                                     background-image:linear-gradient(#75db65,#14d23a) ;
                                 }
                                 .cancelado{
                                     background-image:linear-gradient(#814559,#660b2c) ;
+                                }
+                                .tipoPagoIcon{
+                                    margin-left:-8px;
+                                    margin-right: 8px;
                                 }
 
                         .orderDateCard{

@@ -43,6 +43,7 @@ html{
     -webkit-filter: blur(10px);
 }
 
+
 #root{
     z-index: 1;
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LinkWithDelay from '../../helpers/LinkWithDelay';
 import {connect} from 'react-redux';
 import numeral from 'numeral';
+import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrdersDuck';
 
 class OrdersDetails extends Component {
 
@@ -30,7 +31,7 @@ class OrdersDetails extends Component {
     return (
       <div className="pcControlerScreen ">
         <div className="row">
-          <p className="accountTitle">Resumen de tus pedidos</p>
+          <p onClick={()=>this.props.applyStateFilterToOrders(true)} className="accountTitle">Resumen de tus pedidos</p>
         </div>
         <div className="container-fluid tab-orders">
           <div className="row">
@@ -104,4 +105,11 @@ const mapStateToProps=(state)=>({
   // orderStateFilter:
 })
 
-export default connect(mapStateToProps,null)(OrdersDetails);
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    applyStateFilterToOrders:(option)=>dispatch(applyStateFilterToOrders(option))
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(OrdersDetails);

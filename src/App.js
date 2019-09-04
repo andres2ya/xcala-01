@@ -14,6 +14,7 @@ import Spinner from './components/layout/Spinner/Spinner';
 import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
 import OrdersDetails from "./components/account/OrdersDetails";
 import SpecificOrder from "./components/account/SpecificOrder";
+import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
 
 
 function App(){
@@ -50,7 +51,7 @@ function App(){
       <Route exact path="/emailVerification" component={EmailVerification}/>
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
-      {/* {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))} */}
+      {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))}
     </div>
   </div>
   );

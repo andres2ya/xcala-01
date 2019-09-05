@@ -13,7 +13,7 @@ import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmail
 import Spinner from './components/layout/Spinner/Spinner';
 import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
 import OrdersDetails from "./components/account/OrdersDetails";
-import SpecificOrder from "./components/account/SpecificOrder";
+import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
 
 
@@ -27,7 +27,7 @@ function App(){
           var url=window.location.pathname
           if(url==='/my-account'||url==='/order-details'||url==='/account-details'||url==='/invoice-address'||url==='/shipping-address'||url==='/all-products'){
             return <MainNavbar/>
-          }else if(url==='/all-categories'||url==='/shopping-car'||url.indexOf("id") > -1){
+          }else if(url==='/all-categories'||url==='/shopping-car'||url.indexOf("order-id") > -1){
             return 'otherNavbar'
           }else if(url==='category-id'){
             return 'otherNavbar'
@@ -42,7 +42,7 @@ function App(){
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/my-account" component={MyAccount}/>
       <Route exact path="/order-details" component={OrdersDetails}/>
-      <Route exact path="/order-details/id=:id" component={SpecificOrder}/>
+      <Route exact path="/order-id:id" component={SpecificOrderDetails}/>
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>
       <Route exact path="/signup" component={SignUp}/>

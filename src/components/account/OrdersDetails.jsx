@@ -108,7 +108,7 @@ class OrdersDetails extends Component {
         {orders?orders.reverse().map(order=>(
           
             <div key={order.numeroPedido} className="container-fluid orderCard">
-              <LinkWithDelay to={`/order-details/id=${order.id}`} delay={30}>
+              <LinkWithDelay to={`/order-id${order.id}`} delay={30}>
                 <div className="orderCardContent">
                 <div className="row">
                   <div className="col-9">
@@ -148,8 +148,7 @@ class OrdersDetails extends Component {
               </div>
               </LinkWithDelay>
           </div>
-        )):null}
-
+        )):null}        
       </div>
     );
   }

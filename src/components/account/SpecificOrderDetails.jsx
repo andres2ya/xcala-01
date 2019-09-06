@@ -66,10 +66,10 @@ class SpecificOrderDetails extends Component {
 
         <div className="orderItemsDetailsBox">
           <div className="row orderItemsDetailsTitles">
-            <div className="col-6 d-flex justify-content-center align-items-center">
+            <div className="col-5 d-flex justify-content-center align-items-center">
               Producto
             </div>
-            <div className="col-6 d-flex justify-content-center align-items-center">
+            <div className="col-7 d-flex justify-content-center align-items-center">
               Datos
             </div>
           </div>
@@ -78,6 +78,8 @@ class SpecificOrderDetails extends Component {
 
 
           <div className="row dividerSpecificOrderDetails"/>
+
+          <div className="container-listItemsOfOrder">
           {orderIdData?orderIdData[0].items.map(item=>(
             // TODO:  key debe ser remplazada por un id de verdad.
             <div key={item.idProducto} className="row orderItemsDetailsContent">
@@ -115,6 +117,7 @@ class SpecificOrderDetails extends Component {
           ))
           :
           null}
+          </div>
         </div>
 
 
@@ -122,9 +125,71 @@ class SpecificOrderDetails extends Component {
 
 
         <footer className="sticky-footer">
-          <i className="swipeUpIcon icon-up-open-big d-flex justify-content-center align-items-end"></i>
-          <div id="totalOrderBox" className={`${panUpTotalOrderBox?'totalOrderBoxOn':'totalOrderBoxOff'} d-flex justify-content-center align-items-center`}>
-            <span className="totalOrderTitle">Detalles del pedido</span>
+          <i className={`${panUpTotalOrderBox?'swipeDownIcon icon-down-open-big':'swipeUpIcon icon-up-open-big'} d-flex justify-content-center align-items-end`}></i>
+          <div id="totalOrderBox" className={`${panUpTotalOrderBox?'totalOrderBoxOn':'totalOrderBoxOff'}`}>
+            <div id="totalOrderBoxContent" className={`row ${panUpTotalOrderBox?'totalOrderBoxContentOn':'totalOrderBoxContentOff'}`}>
+               {panUpTotalOrderBox?
+               <div className="col-12">
+                <div id="totalOrderTitle" className="totalOrderTitle">Total pedido</div>
+
+                <div className="row yourIncome">
+                    <div className="col-7 d-flex align-items-center">
+                        <div className="totalLabelSubtotal">Tu ingreso total:</div>   
+                    </div>
+                    <div className="col-5 d-flex align-items-center">
+                        <div className="totalValueSubtotal">$134.000</div>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-7">
+                        <div className="totalLabel">Costo productos:</div>   
+                    </div>
+                    <div className="col-5">
+                        <div className="totalValue">-$80.000</div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-7">
+                        <div className="totalLabel">Costo envio:</div>   
+                    </div>
+                    <div className="col-5">
+                        <div className="totalValue">-$8.900</div>
+                    </div>
+                </div>
+                <div className="row totalCostSubTotal">
+                    <div className="col-7 d-flex align-items-center">
+                        <div className="totalLabelSubtotal">Costo total:</div>   
+                    </div>
+                    <div className="col-5 d-flex align-items-center">
+                        <div className="totalValueSubtotal">-$88.900</div>
+                    </div>
+                </div>
+
+                <div className="row yourUtility">
+                    <div className="col-7 d-flex align-items-center">
+                        <div className="totalLabelSubtotal">Tu ganancia total:</div>   
+                    </div>
+                    <div className="col-5 d-flex align-items-center">
+                        <div className="totalValueSubtotal">$45.100</div>
+                    </div>
+                </div>
+
+                <div className="row specificOrderOptionsBtn">
+                    <div className="col-6 d-flex justify-content-center align-items-center">
+                        <button>Rastrear pedido</button>
+                    </div>
+                    <div className="col-6 d-flex justify-content-center align-items-center">
+                        <button>Abrir caso</button>
+                    </div>
+                </div>
+               </div>
+                :
+                <div className="col-12 d-flex justify-content-center align-items-center">
+                    <div id="orderDetailsTitlePanUp" className="row totalOrderTitle">Detalles del pedido</div>
+                </div>
+               } 
+            </div>
           </div>
         </footer>
       </div>

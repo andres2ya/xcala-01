@@ -1,8 +1,46 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import numeral from 'numeral';
+import Hammer from 'hammerjs';
 
 class SpecificOrderDetails extends Component {
+  state={
+      panUpTotalOrderBox:false,
+      panDownTotalOrderBox:false
+  }
+
+
+  componentDidMount=()=>{
+      /**Integraccion HammerJS */
+    // 1)  Seleccionando el elemento al cual se le aplicara el listener de hammer
+      var totalOrderBox=document.getElementById('totalOrderBox');
+    // 2)  Creando una instancia de hammer
+      var totalOrderBoxHammer= new Hammer(totalOrderBox)
+    // 3)  Bloqueando el vertical scrolling cuando se toca el elementoByid seleccionado
+      totalOrderBoxHammer.get('pan').set({direction:Hammer.DIRECTION_ALL})
+    // 4)  Creando el listener de hammer al elemento by id
+      totalOrderBoxHammer.on('panup pandown',(e)=>this.panHammer(e))
+  }
+
+  panHammer=(e)=>{
+      const {panUpTotalOrderBox,panDownTotalOrderBox}=this.state
+      if(e.type==='panup' && panUpTotalOrderBox===false){
+        this.setState({
+            panUpTotalOrderBox:true,
+            panDownTotalOrderBox:false
+        })
+        console.log(e.type)
+      }
+
+      if(e.type==='pandown' && panDownTotalOrderBox===false){
+        this.setState({
+            panDownTotalOrderBox:true,
+            panUpTotalOrderBox:false
+        })
+        console.log(e.type)
+      }
+  }
+
   render() {
     var orderId = this.props.match.params.id;
     const {userOrders}=this.props
@@ -12,7 +50,7 @@ class SpecificOrderDetails extends Component {
     }
     
 
-
+    const {panUpTotalOrderBox}=this.state
     return (
       <div className="container">
         <div className="row numberOrderTitle">
@@ -36,9 +74,13 @@ class SpecificOrderDetails extends Component {
             </div>
           </div>
 
+
+
+
           <div className="row dividerSpecificOrderDetails"/>
           {orderIdData?orderIdData[0].items.map(item=>(
-            <div className="row orderItemsDetailsContent">
+            // TODO:  key debe ser remplazada por un id de verdad.
+            <div key={item.idProducto} className="row orderItemsDetailsContent">
             <div className="col-5">
                 <div className="row d-flex justify-content-center align-items-center">
                     <span className="boldText">{item.nombreProducto}</span>
@@ -73,12 +115,15 @@ class SpecificOrderDetails extends Component {
           ))
           :
           null}
-          
         </div>
+
+
+
+
 
         <footer className="sticky-footer">
           <i className="swipeUpIcon icon-up-open-big d-flex justify-content-center align-items-end"></i>
-          <div className="totalOrderBoxOff d-flex justify-content-center align-items-center">
+          <div id="totalOrderBox" className={`${panUpTotalOrderBox?'totalOrderBoxOn':'totalOrderBoxOff'} d-flex justify-content-center align-items-center`}>
             <span className="totalOrderTitle">Detalles del pedido</span>
           </div>
         </footer>

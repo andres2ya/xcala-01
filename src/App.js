@@ -15,6 +15,8 @@ import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
 import OrdersDetails from "./components/account/OrdersDetails";
 import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
+import SecondNavbar from "./components/navbars/SecondNavbar/SecondNavbar";
+
 
 
 function App(){
@@ -28,7 +30,7 @@ function App(){
           if(url==='/my-account'||url==='/order-details'||url==='/account-details'||url==='/invoice-address'||url==='/shipping-address'||url==='/all-products'){
             return <MainNavbar/>
           }else if(url==='/all-categories'||url==='/shopping-car'||url.indexOf("order-id") > -1){
-            return 'otherNavbar'
+            return <SecondNavbar/>
           }else if(url==='category-id'){
             return 'otherNavbar'
           }else{

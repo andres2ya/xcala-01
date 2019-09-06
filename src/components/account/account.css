@@ -543,6 +543,9 @@ ORDER DETAILS */
 /* ------------------------------------------------------------------------------------- */
 /*
 /* SPECIFIC ORDER */
+.SpecificOrderContainer{
+    margin-top:40px;
+}
 .numberOrderTitle{
     color:black;
     font-size: 35px;
@@ -590,8 +593,11 @@ ORDER DETAILS */
     background-image: linear-gradient(to right,transparent,#3d4c88,#6c9fd1,transparent);
 }
 
-.container-listItemsOfOrder{
+.container-listItemsOfOrderOff{
     margin-bottom: 70px;
+}
+.container-listItemsOfOrderOn{
+    margin-bottom: 300px;
 }
 
 .orderItemsDetailsContent{
@@ -601,6 +607,12 @@ ORDER DETAILS */
 }
 
 
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+/*
+/* STICKY-FOOTER FOR SPECIFIC ORDER DETAILS */
 
 .sticky-footer{
     position: fixed;
@@ -612,7 +624,7 @@ ORDER DETAILS */
 
 
 #totalOrderBox{
-    transition-duration: 1500ms;
+    transition-duration: 150ms;
 }
 
 .totalOrderBoxOff{
@@ -701,12 +713,12 @@ ORDER DETAILS */
     font-family: "Nunito", sans-serif;
     font-weight: 700;
 }
-@media only screen and (min-width: 768px){
+/* @media only screen and (min-width: 768px){
     .totalOrderBoxContentOn{
         margin-left:300px;
         margin-right: 300px;
     }
-}
+} */
 .totalOrderBoxContentOff{
     font-family: "Nunito", sans-serif;
     font-weight: 700;

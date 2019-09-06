@@ -4,8 +4,8 @@ import './MenuWidget.css'
 class MenuWidget extends Component {
     render() {
         return (
-            <div className="menuWidget">
-                <i className="icon-menu"></i>
+            <div className={this.props.classNavIcon}>
+                <i className="icon-menu centerVertical"></i>
             </div>
         )
     }

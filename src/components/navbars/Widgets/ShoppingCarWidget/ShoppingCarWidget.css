@@ -1,18 +1,28 @@
-.ShoppingCarWidget{
+.ShoppingCarWidgetMainNavbar{
     font-size: 30px;
     color:rgb(255, 255, 255,0.7);
     margin-right: 5px;
 }
 
-.ShoppingCarWidget:active{
+.ShoppingCarWidgetMainNavbar:active{
     transform: scale(0.9);
     color:rgb(255, 255, 255,0.5);
+}
+
+.ShoppingCarWidgetSecondNavbar{
+    font-size: 30px;
+    color:#3d4c88;
+    margin-right: 5px;
+}
+
+.ShoppingCarWidgetSecondNavbar:active{
+    transform: scale(0.9);
+    color:#3d4c88;
 }
     .itemsInCar{
         font-size: 15px;
         width: 17px;
         margin-left: -23px;
-        margin-top: -15px;
-        color: white;
+        margin-top: -6px;
         text-align: center;
     }

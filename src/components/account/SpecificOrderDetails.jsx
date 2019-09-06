@@ -52,7 +52,7 @@ class SpecificOrderDetails extends Component {
 
     const {panUpTotalOrderBox}=this.state
     return (
-      <div className="container">
+      <div className="container SpecificOrderContainer">
         <div className="row numberOrderTitle">
           Pedido #{orderIdData ? orderIdData[0].numeroPedido : null}
         </div>
@@ -79,7 +79,7 @@ class SpecificOrderDetails extends Component {
 
           <div className="row dividerSpecificOrderDetails"/>
 
-          <div className="container-listItemsOfOrder">
+          <div className={`${panUpTotalOrderBox?'container-listItemsOfOrderOn':'container-listItemsOfOrderOff'}`}>
           {orderIdData?orderIdData[0].items.map(item=>(
             // TODO:  key debe ser remplazada por un id de verdad.
             <div key={item.idProducto} className="row orderItemsDetailsContent">
@@ -137,7 +137,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabelSubtotal">Tu ingreso total:</div>   
                     </div>
                     <div className="col-5 d-flex align-items-center">
-                        <div className="totalValueSubtotal">$134.000</div>
+                        <div className="totalValueSubtotal">{numeral(orderIdData[0].ingresoTotal).format('$0,0')}</div>
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabel">Costo productos:</div>   
                     </div>
                     <div className="col-5">
-                        <div className="totalValue">-$80.000</div>
+                        <div className="totalValue">-{numeral(orderIdData[0].costoProductos).format('$0,0')}</div>
                     </div>
                 </div>
                 <div className="row">
@@ -154,7 +154,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabel">Costo envio:</div>   
                     </div>
                     <div className="col-5">
-                        <div className="totalValue">-$8.900</div>
+                        <div className="totalValue">-{numeral(orderIdData[0].costoEnvios).format('$0,0')}</div>
                     </div>
                 </div>
                 <div className="row totalCostSubTotal">
@@ -162,7 +162,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabelSubtotal">Costo total:</div>   
                     </div>
                     <div className="col-5 d-flex align-items-center">
-                        <div className="totalValueSubtotal">-$88.900</div>
+                        <div className="totalValueSubtotal">-{numeral(orderIdData[0].costoTotal).format('$0,0')}</div>
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabelSubtotal">Tu ganancia total:</div>   
                     </div>
                     <div className="col-5 d-flex align-items-center">
-                        <div className="totalValueSubtotal">$45.100</div>
+                        <div className="totalValueSubtotal">{numeral(orderIdData[0].gananciaTotal).format('$0,0')}</div>
                     </div>
                 </div>
 

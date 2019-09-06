@@ -5,8 +5,8 @@ class ShoppingCarWidget extends Component {
     
     render() {
         return (
-            <div className="ShoppingCarWidget centerVertical">
-                <i className="icon-s-car"/><span className="itemsInCar"> {this.props.numberItemsInCar} </span>
+            <div className={`${this.props.classNavIcon} centerVertical`}>
+                <i className="icon-s-car centerVertical"/><span className="itemsInCar"> {this.props.numberItemsInCar} </span>
             </div>
         )
     }

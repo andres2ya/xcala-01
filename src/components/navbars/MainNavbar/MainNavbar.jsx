@@ -38,10 +38,10 @@ onIMGError=()=>{
             />
           </div>
           <div className="col-5 col-carAndMenu centerVerticalAndHorizontal d-flex justify-content-end">
-              <LinkWithDelay to="/shopping-car" delay={30}><ShoppingCarWidget numberItemsInCar={'10'}/></LinkWithDelay>
+              <LinkWithDelay to="/shopping-car" delay={30}><ShoppingCarWidget classNavIcon={'ShoppingCarWidgetMainNavbar'} numberItemsInCar={'10'}/></LinkWithDelay>
               <div className="betweenWidgetsLeft"/>
               <div className="betweenWidgetsRight"/>
-              <MenuWidget/>
+              <MenuWidget classNavIcon={'menuWidgetMainNav'}/>
           </div>
         </div>
         {/* ---------------------------------------------- */}

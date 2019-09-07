@@ -24,7 +24,6 @@ const initialState={
 const showOrHideApplyStateFilterReducer = (state=initialState, action)=>{
     switch(action.type){
         case SHOW_APPLY_STATE_FILTER_TO_ORDERS:
-            console.log('showApplyStateFilterToOrdersModal:true')
             return{
                 ...state,
                 showApplyStateFilterToOrdersModal:true}

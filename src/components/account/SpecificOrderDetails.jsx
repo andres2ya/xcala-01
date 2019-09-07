@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import numeral from 'numeral';
 import Hammer from 'hammerjs';
+import {openModalTrackOrder} from '../../ducks/accountDuck/trackOrderDuck';
 
 class SpecificOrderDetails extends Component {
   state={
@@ -22,6 +23,13 @@ class SpecificOrderDetails extends Component {
       totalOrderBoxHammer.on('panup pandown',(e)=>this.panHammer(e))
   }
 
+  componentWillUnmount=()=>{
+    document.getElementById('ownModal').removeAttribute('class')
+    document.body.removeAttribute('class')
+    document.body.className='myAccountStyle'
+    this.props.openModalTrackOrder(false);
+  }
+
   panHammer=(e)=>{
       const {panUpTotalOrderBox,panDownTotalOrderBox}=this.state
       if(e.type==='panup' && panUpTotalOrderBox===false){
@@ -29,7 +37,6 @@ class SpecificOrderDetails extends Component {
             panUpTotalOrderBox:true,
             panDownTotalOrderBox:false
         })
-        console.log(e.type)
       }
 
       if(e.type==='pandown' && panDownTotalOrderBox===false){
@@ -37,8 +44,13 @@ class SpecificOrderDetails extends Component {
             panDownTotalOrderBox:true,
             panUpTotalOrderBox:false
         })
-        console.log(e.type)
       }
+  }
+
+  trackOrder=(e,idTrackOrderData)=>{
+    e.preventDefault()
+    window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
+    this.props.openModalTrackOrder(true,idTrackOrderData)
   }
 
   render() {
@@ -137,7 +149,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabelSubtotal">Tu ingreso total:</div>   
                     </div>
                     <div className="col-5 d-flex align-items-center">
-                        <div className="totalValueSubtotal">{numeral(orderIdData[0].ingresoTotal).format('$0,0')}</div>
+                        <div className="totalValueSubtotal">{orderIdData?numeral(orderIdData[0].ingresoTotal).format('$0,0'):null}</div>
                     </div>
                 </div>
 
@@ -146,7 +158,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabel">Costo productos:</div>   
                     </div>
                     <div className="col-5">
-                        <div className="totalValue">-{numeral(orderIdData[0].costoProductos).format('$0,0')}</div>
+                        <div className="totalValue">-{orderIdData?numeral(orderIdData[0].costoProductos).format('$0,0'):null}</div>
                     </div>
                 </div>
                 <div className="row">
@@ -154,7 +166,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabel">Costo envio:</div>   
                     </div>
                     <div className="col-5">
-                        <div className="totalValue">-{numeral(orderIdData[0].costoEnvios).format('$0,0')}</div>
+                        <div className="totalValue">-{orderIdData ?numeral(orderIdData[0].costoEnvios).format('$0,0'):null}</div>
                     </div>
                 </div>
                 <div className="row totalCostSubTotal">
@@ -162,7 +174,7 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabelSubtotal">Costo total:</div>   
                     </div>
                     <div className="col-5 d-flex align-items-center">
-                        <div className="totalValueSubtotal">-{numeral(orderIdData[0].costoTotal).format('$0,0')}</div>
+                        <div className="totalValueSubtotal">-{orderIdData ?numeral(orderIdData[0].costoTotal).format('$0,0'):null}</div>
                     </div>
                 </div>
 
@@ -171,13 +183,13 @@ class SpecificOrderDetails extends Component {
                         <div className="totalLabelSubtotal">Tu ganancia total:</div>   
                     </div>
                     <div className="col-5 d-flex align-items-center">
-                        <div className="totalValueSubtotal">{numeral(orderIdData[0].gananciaTotal).format('$0,0')}</div>
+                        <div className="totalValueSubtotal">{orderIdData ?numeral(orderIdData[0].gananciaTotal).format('$0,0'):null}</div>
                     </div>
                 </div>
 
                 <div className="row specificOrderOptionsBtn">
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                        <button>Rastrear pedido</button>
+                        <button onClick={orderIdData?(e)=>this.trackOrder(e,orderIdData):null}>Rastrear pedido</button>
                     </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
                         <button>Abrir caso</button>
@@ -199,4 +211,9 @@ class SpecificOrderDetails extends Component {
 const mapStateToProps=(state)=>({
     userOrders:state.firebase.profile.pedidos
 })
-export default connect(mapStateToProps,null)(SpecificOrderDetails);
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    openModalTrackOrder:(option,idTrackOrderData)=>dispatch(openModalTrackOrder(option,idTrackOrderData))
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(SpecificOrderDetails);

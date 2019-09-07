@@ -11,10 +11,23 @@ class OrdersDetails extends Component {
     ordersReverse:undefined
   }
 
+  componentWillUnmount=()=>{
+    document.getElementById('ownModal').removeAttribute('class')
+    document.body.removeAttribute('class')
+    document.body.className='myAccountStyle'
+    this.props.applyStateFilterToOrders(false,this.props.orderStateFilter)
+  }
+
   changeOrderDisplay=(tab)=>{
     this.setState({
       orderDisplay:tab
     })
+  }
+
+  applyFilterByState=(e)=>{
+    e.preventDefault()
+    window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
+    this.props.applyStateFilterToOrders(true)
   }
 
   render() {
@@ -97,7 +110,7 @@ class OrdersDetails extends Component {
             </div>
             <div className="col-7 col-stateFilter d-flex justify-content-end align-items-center">
               <div
-              onClick={()=>this.props.applyStateFilterToOrders(true)}
+              onClick={this.applyFilterByState}
               className="filterBox d-flex justify-content-end align-items-center">
                 Filtrar por estado <i className="icon-filterBox icon-filter centerVerticalAndHorizontal"/>
               </div>

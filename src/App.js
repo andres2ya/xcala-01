@@ -12,10 +12,11 @@ import MyAccount from './components/account/MyAccount';
 import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
 import Spinner from './components/layout/Spinner/Spinner';
 import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
+import SecondNavbar from "./components/navbars/SecondNavbar/SecondNavbar";
 import OrdersDetails from "./components/account/OrdersDetails";
 import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
-import SecondNavbar from "./components/navbars/SecondNavbar/SecondNavbar";
+import ModalTrackorder from "./components/account/ModalTrackorder";
 
 
 
@@ -54,6 +55,7 @@ function App(){
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
       {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))}
+      {createPortal(<ModalTrackorder/>,document.getElementById('ownModal'))}
     </div>
   </div>
   );

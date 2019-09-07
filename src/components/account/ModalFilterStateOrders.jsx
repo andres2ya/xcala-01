@@ -6,16 +6,13 @@ class ModalFilterStateOrders extends Component {
 
     componentDidUpdate=()=>{
         const {showApplyStateFilterToOrdersModal}=this.props
-        console.log(showApplyStateFilterToOrdersModal)
         if(showApplyStateFilterToOrdersModal===true){
             document.getElementById('ownModal').className='ownModal'
             document.body.className='overFlowYHidden'
-            console.log('yes')
         }else{
             document.getElementById('ownModal').removeAttribute('class')
             document.body.removeAttribute('class')
             document.body.className='myAccountStyle'
-            console.log('no')
         }
     }
 

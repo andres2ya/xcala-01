@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import MenuWidget from '../Widgets/MenuWidget/MenuWidget';
 import ShoppingCarWidget from '../Widgets/ShoppingCarWidget/ShoppingCarWidget';
 import logoXcalaSecondNavbar from "../../../assets/logoXcalaSecondNavbar.png";
+import userWithoutPhoto from '../../../assets/userWithoutPhoto.jpg';
 import LinkWithDelay from "../../../helpers/LinkWithDelay";
 import './SecondNavbar.css';
 
@@ -17,7 +18,7 @@ class SecondNavbar extends Component {
                     </div>
                     <div className="col-8 d-flex justify-content-end align-items-center">
                         <LinkWithDelay to={'/my-account'} delay={30}>
-                        <img className="userPhotoSecondNavbar" src={this.props.userPhotoURLFromProfile} alt="userPhoto"/>
+                        <img className="userPhotoSecondNavbar" src={this.props.userPhotoURLFromProfile?this.props.userPhotoURLFromProfile:userWithoutPhoto} alt="userPhoto"/>
                         </LinkWithDelay>
                             <div className="betweenWidgetsLeftSecondNav"/>
                             <div className="betweenWidgetsRightSecondNav"/>

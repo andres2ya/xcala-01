@@ -76,13 +76,16 @@ class ModalTrackorder extends Component {
                     <div className={`axisStates axisStates-${numberOfActiveStates}`} />
 
                     {onlyActiveStates
-                      ? onlyActiveStates.map(estado => (
-                          <div className="row orderStates">
+                      ? onlyActiveStates.map((estado,index) => (
+
+                          <div key={estado.estado} className="row orderStates">
                             <div className="circleStatesOverAxis d-flex align-items-center">
-                              <div className="circleOverAxis" />
+                              <div className={`${estado.estado} ${(index+1)===onlyActiveStates.length?'circleOverAxis-last':'circleOverAxis'}`}/>
                             </div>
                             <div className="col-10 statesTextAxis d-flex justify-content-star align-items-center">
-                              {estado.fechaActivacion} | {estado.horaActivacion} - {estado.descripcion}
+                               <span>
+                                 <span className="boldText">{estado.fechaActivacion} | {estado.horaActivacion}</span> - {estado.descripcion}
+                               </span>
                             </div>
                           </div>
                         ))

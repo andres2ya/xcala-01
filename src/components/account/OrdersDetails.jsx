@@ -54,6 +54,8 @@ class OrdersDetails extends Component {
     if(orderStateFilter){
       switch (orderStateFilter) {
         case 'enviadoAlProveedor':
+          // Para leer directamente desde el arreglo de estado de cada pedido utilizar:
+          // orders=orders.filter(order.estados[order.estados.slice().reverse().findIndex(estado=>estado.activo===true)].estado==='enviadoAlProveedor')
           orders=orders.filter(order=>(order.estado==='enviadoAlProveedor'))
           break;
         case 'enProduccion':
@@ -119,7 +121,7 @@ class OrdersDetails extends Component {
         </div>
         
         {orders?orders.reverse().map(order=>(
-          
+            
             <div key={order.numeroPedido} className="container-fluid orderCard">
               <LinkWithDelay to={`/order-id${order.id}`} delay={30}>
                 <div className="orderCardContent">

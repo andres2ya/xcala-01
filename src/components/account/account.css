@@ -544,7 +544,7 @@ ORDER DETAILS */
 /*
 /* SPECIFIC ORDER */
 .SpecificOrderContainer{
-    margin-top:40px;
+    margin-top:30px;
 }
 .numberOrderTitle{
     color:black;
@@ -552,24 +552,81 @@ ORDER DETAILS */
     font-family: "Nunito", sans-serif;
     font-weight: 700;
     line-height: 25px;
-    margin-top:15px;
 }
+
+.backBtnGeneral{
+    font-size: 40px;
+    color: #3d4c88;
+}
+
 .paragraphOrderDetails{
     font-weight: 400;
     margin-top:5px;
     line-height: 20px;
 }
 
-.orderIdCard-SpecificOrder{
-    color:white;
-    font-weight: 400;
+
+.specificOrderStateCircle{
     height: 30px;
-    min-width: 150px;
-    border-radius: 15px;
-    font-size: 15px;
-    position: relative;
-    z-index: 999;
+    width: 30px;
+    border-radius: 50%;
+    border-width:7px;
+    border-style: solid;
+    margin-right: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+
+    -webkit-animation: specificbordeanimation 1.5s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    -webkit-animation-timing-function: ease-in-out;
+    animation: specificbordeanimation 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
 }
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes specificbordeanimation {
+    from {border-width: 0px;}
+    to {border-width: 15px;}
+  }
+  
+  @keyframes specificbordeanimation {
+    from {border-width: 0px;}
+    to {border-width: 15px;}
+  }
+
+.specificOrderStateCard>.enviadoAlProveedor{
+    background-image:linear-gradient(white,white) ;
+    border-color:#d2145a;
+}
+.specificOrderStateCard>.enProduccion{
+    background-image:linear-gradient(white,white) ;
+    border-color:#146ad2;
+}
+.specificOrderStateCard>.listoParaDespacho{
+    background-image:linear-gradient(white,white) ;
+    border-color:#ddcc32;
+}
+.specificOrderStateCard>.despachado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#95a817;
+}
+.specificOrderStateCard>.finalizado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#14d23a;
+}
+.specificOrderStateCard>.cancelado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#660b2c;
+}
+
+
+
+
+
+
+
 
 .supplierName{
     margin-top:20px;
@@ -874,10 +931,10 @@ ORDER DETAILS */
     height: 1px;
     background-color: rgb(119, 119, 119);
 
-    -webkit-animation: axisanimation 1s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation: axisanimation 1.5s;  /* Safari 4.0 - 8.0 */
 -webkit-animation-iteration-count: 1; /* Safari 4.0 - 8.0 */
 -webkit-animation-timing-function: ease-in-out;
-animation: axisanimation 1s;
+animation: axisanimation 1.5s;
 animation-iteration-count: 1;
 animation-timing-function: ease-in-out;
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import numeral from 'numeral';
 import Hammer from 'hammerjs';
@@ -64,16 +65,34 @@ class SpecificOrderDetails extends Component {
 
     const {panUpTotalOrderBox}=this.state
     return (
-      <div className="container SpecificOrderContainer">
+      <div className="SpecificOrderContainer">
         <div className="row numberOrderTitle">
-          Pedido #{orderIdData ? orderIdData[0].numeroPedido : null}
+          <div className="col-10 d-flex align-items-center">
+            Pedido #{orderIdData ? orderIdData[0].numeroPedido : null}
+          </div>
+          <div className="col-2 d-flex align-items-center">
+            <Link to="/order-details">
+              <i className="backBtnGeneral icon-arrow-circle-left centerVertical"/>
+            </Link>
+          </div>
         </div>
-        <div className="row paragraphOrderDetails d-flex align-items-center">
-          fue realizado el {orderIdData ? orderIdData[0].fecha : null} y esta
-          actualmente: <span className={`d-flex justify-content-center align-items-center orderIdCard-SpecificOrder ${orderIdData ? orderIdData[0].estado: null}`}>{orderIdData ? orderIdData[0].estado : null}.</span>
+        {/* <div className="row paragraphOrderDetails d-flex align-items-center">
+          <div className="col-10">
+            {orderIdData ? orderIdData[0].fecha : null}.
+          </div>
+        </div> */}
+        <div className="row">
+          <div className="col-12 d-flex align-items-center specificOrderStateCard">
+            <div className={`specificOrderStateCircle ${orderIdData ? orderIdData[0].estado: null}`}/>
+            <div className="boldText">
+              {orderIdData ? orderIdData[0].estado : null}: {orderIdData ? orderIdData[0].fecha : null}.
+            </div>
+          </div>
         </div>
         <div className="row supplierName">
-        <span className="boldText">Proveedor:</span>{orderIdData ? orderIdData[0].items[0].proveedor : null}
+          <div className="col-12">
+            <span className="boldText">Proveedor:</span>{orderIdData ? orderIdData[0].items[0].proveedor : null}
+          </div>
         </div>
 
         <div className="orderItemsDetailsBox">
@@ -90,45 +109,46 @@ class SpecificOrderDetails extends Component {
 
 
           <div className="row dividerSpecificOrderDetails"/>
-
-          <div className={`${panUpTotalOrderBox?'container-listItemsOfOrderOn':'container-listItemsOfOrderOff'}`}>
-          {orderIdData?orderIdData[0].items.map(item=>(
-            // TODO:  key debe ser remplazada por un id de verdad.
-            <div key={item.idProducto} className="row orderItemsDetailsContent">
-            <div className="col-5">
-                <div className="row d-flex justify-content-center align-items-center">
-                    <span className="boldText">{item.nombreProducto}</span>
+            <div className="col-12">
+              <div className={`${panUpTotalOrderBox?'container-listItemsOfOrderOn':'container-listItemsOfOrderOff'}`}>
+              {orderIdData?orderIdData[0].items.map(item=>(
+                // TODO:  key debe ser remplazada por un id de verdad.
+                <div key={item.idProducto} className="row orderItemsDetailsContent">
+                <div className="col-5">
+                    <div className="row d-flex justify-content-center align-items-center">
+                        <span className="boldText">{item.nombreProducto}</span>
+                    </div>
+                    <div className="row d-flex justify-content-center align-items-center">
+                        <img width="100" src={item.fotoProducto} alt="fotoProducto"/>
+                    </div>
                 </div>
-                <div className="row d-flex justify-content-center align-items-center">
-                    <img width="100" src={item.fotoProducto} alt="fotoProducto"/>
+                <div className="col-7">
+                    <div className="row">
+                        <span className="boldText">Costo:</span>
+                        {numeral(item.precioProducto).format('$0,0')}
+                    </div>
+                    <div className="row">
+                        <span className="boldText">Precio de venta:</span>
+                        {numeral(item.precioVenta).format('$0,0')}
+                    </div>
+                    <div className="row">
+                        <span className="boldText">Ganancia:</span>
+                        {numeral(item.gananciaVenta).format('$0,0')}
+                    </div>
+                    <div className="row">
+                        <span className="boldText">Cliente:</span>
+                        {item.clienteNombre}
+                    </div>
+                    <div className="row">
+                        <span className="boldText">Direccion de envio:</span>
+                        {item.clienteDireccion}
+                    </div>
                 </div>
+              </div>
+              ))
+              :
+              null}
             </div>
-            <div className="col-7">
-                <div className="row">
-                    <span className="boldText">Costo:</span>
-                    {numeral(item.precioProducto).format('$0,0')}
-                </div>
-                <div className="row">
-                    <span className="boldText">Precio de venta:</span>
-                    {numeral(item.precioVenta).format('$0,0')}
-                </div>
-                <div className="row">
-                    <span className="boldText">Ganancia:</span>
-                    {numeral(item.gananciaVenta).format('$0,0')}
-                </div>
-                <div className="row">
-                    <span className="boldText">Cliente:</span>
-                    {item.clienteNombre}
-                </div>
-                <div className="row">
-                    <span className="boldText">Direccion de envio:</span>
-                    {item.clienteDireccion}
-                </div>
-            </div>
-          </div>
-          ))
-          :
-          null}
           </div>
         </div>
 

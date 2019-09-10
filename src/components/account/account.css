@@ -26,203 +26,142 @@
     }
 }
 
-.iconOpcion{
-    font-size: 80px;
-    font-weight: 50;
-    /* color: #3d4c88; */
-    background: -webkit-linear-gradient(#eb1e79, #3d4c88);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* --- */
-    margin-top:40px;
-    margin-bottom: 10px;
-    text-align: center;
+.menuOptionsContainer{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.menuOptionsContainer:active{
+    transform: scale(0.9);
+}
+.fourthMenuOptionsContainer{
+    margin-bottom: 40px;
 }
 
-.titleBoxAccountOption{
-    margin-left:40px;
-    margin-right: 40px;
-    font-size: 15px;
-    font-weight: 400;
-    color: #3d4c88;
-    line-height: 15px;
-    text-align: center;
-}
-
-@media only screen and (max-width: 365px) {
-    .titleBoxAccountOption{
-        margin-left:30px;
-        margin-right: 30px; 
-        font-size: 14px;
-    }
-}
-
-
-.firstRow{
-    margin-top:-30px;
-}
-
-.secondRow{
-    margin-bottom:5px;
-}
-
-.firstBoxAccountOption,.secondBoxAccountOption,.thirdBoxAccountOption,.FRcard{
-    height: 190px;
+.menuOpcionCard{
+    position: relative;
+    padding-left: 23%;
+    height: 70px;
     border-radius: 15px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.1);
+-moz-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.1);
+box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.1);
+z-index: 898;
 }
+    .overMenuOpcionIcon{
+        position: absolute;
+        padding-left:6px;
+        left:0;top:0;
+        z-index: 899;
+        height: 100%;
+        width: 23%;
+        border-style: solid;
+        border-width: 2px 0px 2px 2px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+            .firstOverMenuOptionIcon{
+                /* border-color: #111e50; */
+                border-color:transparent;
+                background-color: rgb(17, 30, 80,0.7);
 
-.firstBoxAccountOption{
-    border-right:0.5px solid rgb(255, 255, 255,0.0);
-    border-bottom: 0.5px solid rgb(255, 255, 255,0.0);
-}
+            }.secondOverMenuOptionIcon{
+                /* border-color: #113ca0; */
+                border-color:transparent;
+                background-color: rgb(17, 60, 160,0.7);
+                padding-left:9px;
+            }.thirdOverMenuOptionIcon{
+                /* border-color: rgb(17, 90, 240); */
+                border-color:transparent;
+                background-color: rgb(17, 90, 240,0.7);
+                padding-left:9px;
+            }.fourthOverMenuOptionIcon{
+                /* border-color: #118cff; */
+                border-color:transparent;
+                background-color: rgb(17, 140, 255,0.7);
+            }
+            
 
-.secondBoxAccountOption{
-    border-left:0.5px solid rgb(255, 255, 255,0.0);
-    border-bottom: 0.5px solid rgb(255, 255, 255,0.0);
-}
-
-.thirdBoxAccountOption{
-    border-right:0.5px solid rgb(255, 255, 255,0.0);
-    border-top: 0.5px solid rgb(255, 255, 255,0.0);
-}
-
-.fourthBoxAccountOption{
-    border-left:0.5px solid rgb(255, 255, 255,0.0);
-    border-top: 0.5px solid rgb(255, 255, 255,0.0);
-}
-
-
-
-.firstBoxAccountOption{
-    
-    position: relative;
-    -webkit-box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
-    -moz-box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
-    box-shadow: 15px 15px 21px -19px rgba(0,0,0,0.40);
-    
-}
-
-                .firstBoxAccountOptionOver{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: white;
-                    border-radius: 15px;
-                    z-index: 2;
+        .iconMenuOption{
+            font-size: 40px;
+        }
+                .firstIconMenuOption{
+                    /* color:#111e50; */
+                    color: white;
+                }.secondIconMenuOption{
+                    /* color:#113ca0; */
+                    color: white;
+                }.thirdIconMenuOption{
+                    /* color:#115af0; */
+                    color:white;
+                }.fourthIconMenuOption{
+                    /* color:#118cff; */
+                    color:white;
                 }
 
-                .firstBoxAccountOptionOver:active{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: rgb(255, 255, 255,0.0);
-                    border-radius: 15px;
-                    z-index: 1;
-                    transform: scale(0.9)
+
+        .menuOptionTitleCard{
+            height: 35px;
+            font-size: 14px;
+            font-family: "Nunito", sans-serif;
+            font-weight: 700;
+            opacity: 0.9;
+        }  
+                .firstMenuOptionTitleCard{
+                    color: #111e50;
+                }.secondMenuOptionTitleCard{
+                    color: #113ca0;
+                }.thirdMenuOptionTitleCard{
+                    color: #115af0;
+                }.fourthMenuOptionTitleCard{
+                    color: #118cff;
                 }
 
-.secondBoxAccountOption{
-    
-    position: relative;
-    -webkit-box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40);
-    -moz-box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40);
-    box-shadow: -15px 15px 21px -19px rgba(0,0,0,0.40); 
-}
 
-                .secondBoxAccountOptionOver{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: white;
-                    border-radius: 15px;
-                    z-index: 2;
+        .menuOptionDescriptionCard{
+            height: 40px;
+            color:grey;
+            font-size: 11px;
+            font-family: "Nunito", sans-serif;
+            font-weight: 400;
+            line-height: 1;
+        }
+        .arrowMenuOptionCard{
+            margin-bottom: -40px;
+        }
+        .iconArrowMenuOption{
+            font-size: 20px;
+        }
+                .firstIconArrowMenuOption{
+                    color: #111e50;
+                }.secondIconArrowMenuOption{
+                    color: #113ca0;
+                }.thirdIconArrowMenuOption{
+                    color: #115af0;
+                }.fourthIconArrowMenuOption{
+                    color: #118cff;
                 }
 
-                .accountDetailsIcon{
-                    margin-left:10px;
-                }
 
-                .secondBoxAccountOptionOver:active{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: rgb(255, 255, 255,0.0);
-                    border-radius: 15px;
-                    z-index: 1;
-                    transform: scale(0.9)
-                }
-.thirdBoxAccountOption{
-    
-    position: relative;
-    -webkit-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
-    -moz-box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
-    box-shadow: 15px -15px 21px -19px rgba(0,0,0,0.40);
-    
-}
-                .thirdBoxAccountOptionOver{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: white;
-                    border-radius: 15px;
-                    z-index: 2;
-                }
 
-                .invoiceAddresIcon{
-                    margin-left:25px;
-                }
 
-                .thirdBoxAccountOptionOver:active{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: rgb(255, 255, 255,0.0);
-                    border-radius: 15px;
-                    z-index: 1;
-                    transform: scale(0.9)
-                }
 
-.FRcard{
-    
-    position: relative;
-    -webkit-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-    -moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-    box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
 
-}
-                .fourthBoxAccountOptionOver{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: white;
-                    border-radius: 15px;
-                    z-index: 2;
-                    
-                }
 
-                .fourthBoxAccountOptionOverDos{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    border-radius: 15px;
-                    -webkit-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-                    -moz-box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-                    box-shadow: -15px -15px 21px -19px rgba(0,0,0,0.40);
-                    z-index: 1;
-                    
-                }
 
-                .fourthBoxAccountOptionOver:active{
-                    position: absolute;
-                    top:0;left:0;right:0;bottom:0;
-                    width: 100%;height: 100%;
-                    background-color: rgb(255, 255, 255,0.0);
-                    border-radius: 20px;
-                    z-index: 1;
-                    transform: scale(0.9)
-                }
 
-                
+
+
+
+
+
+
+
+
+
+
+
+
 
 .buttonLogout button{
     background-color: #d2145a;

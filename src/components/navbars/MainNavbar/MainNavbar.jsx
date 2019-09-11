@@ -14,8 +14,8 @@ class MainNavbar extends Component {
 
   uploadPhoto=(e)=>{
     const file=e.target.files[0]
-    const {isAuth}=this.props
-    this.props.uploadFile(file,isAuth)
+    const {uid}=this.props
+    this.props.uploadFile(file,uid)
 }
 
 onIMGError=()=>{
@@ -63,7 +63,7 @@ onIMGError=()=>{
         <div className="row rowSummary centerVertical">
           <div className="col-1 col-imagen centerVertical">
             <Link to="/my-account">
-              <img src={userPhotoURLFromProfile? userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt=" " />
+              <img width="120" height="120" src={userPhotoURLFromProfile? userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt=" " />
             </Link>
             <label className="iconInputFile d-flex align-items-center justify-content-center" htmlFor="inputFile"><i className="icon-edit-pencil centerVerticalAndHorizontal"/></label>
             <input id="inputFile" className="inputFile" type="file" onChange={this.uploadPhoto}/>
@@ -88,7 +88,8 @@ const mapStateToProps=(state)=>({
   userPhotoURLFromProfile:state.firebase.profile.userPhotoURL,
   nombreUsuario:state.firebase.profile.nombreUsuario,
   gananciaTotal:state.firebase.profile.gananciaTotal,
-  ventasTotal:state.firebase.profile.ventasTotal
+  ventasTotal:state.firebase.profile.ventasTotal,
+  uid:state.firebase.auth.uid
 })
 
 const mapDispatchToProps = (dispatch)=>{

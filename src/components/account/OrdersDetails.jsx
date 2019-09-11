@@ -47,11 +47,12 @@ class OrdersDetails extends Component {
           orders=userOrders.filter(order=>(order.tipoPago==='online'))
           break;
         default:
+          orders=[...userOrders]
           break;
       }
     }
 
-    if(orderStateFilter){
+    if(orders!==undefined && orderStateFilter!==undefined){
       switch (orderStateFilter) {
         case 'enviadoAlProveedor':
           // Para leer directamente desde el arreglo de estado de cada pedido utilizar:
@@ -77,6 +78,7 @@ class OrdersDetails extends Component {
           orders=[...orders]
           break;
         default:
+          orders=[...orders]
           break;
       }
     }
@@ -163,7 +165,15 @@ class OrdersDetails extends Component {
               </div>
               </LinkWithDelay>
           </div>
-        )):null}        
+        ))
+        :
+        <div>
+          <p className="noOrdersMsg">Aun no has realizado tu primer pedido.</p>
+          <div className="row lookForProductsBtn d-flex justify-content-center align-items-center">
+            <button >Ver productos</button>
+          </div>
+        </div>
+        }        
       </div>
     );
   }

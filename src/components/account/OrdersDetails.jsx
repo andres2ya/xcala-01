@@ -33,10 +33,16 @@ class OrdersDetails extends Component {
 
   applyFilterByConstumer=(e)=>{
     e.preventDefault()
-    this.setState({
-      filterByConstumer:true,
-      selectConstumer:e.target.value
-    })
+    if(e.target.value!=='MostrarTodos'){
+      this.setState({
+        filterByConstumer:true,
+        selectConstumer:e.target.value
+      })
+    }else{
+      this.setState({
+        filterByConstumer:false
+      })
+    }
   }
 
   render() {
@@ -142,6 +148,7 @@ class OrdersDetails extends Component {
                 <option selected="Buscar por cliente" disabled>Buscar por cliente</option>
                 <option value="Pepito">Pepito</option>
                 <option value="Julian">Julian</option>
+                <option value="MostrarTodos">Mostrar todos</option>
               </select>
               {/* Filtro por cliente */}
             </div>

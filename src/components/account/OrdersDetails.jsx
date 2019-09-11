@@ -8,7 +8,8 @@ class OrdersDetails extends Component {
 
   state={
     orderDisplay:'allOrders',
-    ordersReverse:undefined
+    filterByConstumer:false,
+    selectConstumer:undefined
   }
 
   componentWillUnmount=()=>{
@@ -28,6 +29,14 @@ class OrdersDetails extends Component {
     e.preventDefault()
     window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
     this.props.applyStateFilterToOrders(true)
+  }
+
+  applyFilterByConstumer=(e)=>{
+    e.preventDefault()
+    this.setState({
+      filterByConstumer:true,
+      selectConstumer:e.target.value
+    })
   }
 
   render() {
@@ -83,6 +92,23 @@ class OrdersDetails extends Component {
       }
     }
 
+    const {selectConstumer,filterByConstumer}=this.state
+    // Funcion para filtrar un arreglo de acuerdo con el resultado de filtro de una arreglo interno del primero: Es decir, 
+    // filtrar aquellas ordenes (primera arreglo) cuyo arreglo interno (items) contiene dentro de si el parametro (clienteNombre) que coincide con el valor buscado (selectConstumer)
+    if(orders!==undefined && filterByConstumer===true ){
+
+        orders=orders.filter(function(order){
+          console.log(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0])
+          if(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0]!==undefined 
+          && order.items.filter((item)=>item.clienteNombre===selectConstumer)[0].clienteNombre===selectConstumer){
+              return(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0].clienteNombre)            
+            }
+        })
+    }
+    
+
+
+
     return (
       <div className="pcControlerScreen ">
         <div className="row">
@@ -109,8 +135,15 @@ class OrdersDetails extends Component {
         </div>
         <div className="container-fluid filtersContainer">
           <div className="row">
-            <div className="col-5">
-              {/* Espacio para otro filtro */}
+            <div className="col-5 filterByConstumer-col  d-flex justify-content-start align-items-center">
+              {/* Filtro por cliente */}
+              {/* TODO: Cargar las opciones con los datos de los nombres de los clientes de los usuarios vendedores */}
+              <select onChange={this.applyFilterByConstumer} id="filterByConstumer">
+                <option selected="Buscar por cliente" disabled>Buscar por cliente</option>
+                <option value="Pepito">Pepito</option>
+                <option value="Julian">Julian</option>
+              </select>
+              {/* Filtro por cliente */}
             </div>
             <div className="col-7 col-stateFilter d-flex justify-content-end align-items-center">
               <div

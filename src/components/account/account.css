@@ -223,7 +223,7 @@ ORDER DETAILS */
     border-bottom: 3px solid #3d4c88
 }
 
-/* filtro por estado ------------------------------------------------------------*/
+/* filtro por estado y cliente ------------------------------------------------------------*/
 .filtersContainer{
     font-size: 13px;
     color: grey;
@@ -247,6 +247,15 @@ ORDER DETAILS */
                     text-align: end;
                 }
 
+#filterByConstumer{
+    color:grey;
+    font-weight: 500;
+    border-radius: 15px;
+    outline: none;
+}
+#filterByConstumer:focus{
+    outline: none;
+}
 
 
 

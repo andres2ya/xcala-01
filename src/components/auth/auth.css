@@ -193,6 +193,10 @@
   color: white;
   border-bottom: 1px solid white;
 }
+.linkBlue {
+  color: #3d4c88;
+  border-bottom: 1px solid #3d4c88;
+}
 
 .icon {
   font-size: 25px;

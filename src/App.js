@@ -17,6 +17,7 @@ import OrdersDetails from "./components/account/OrdersDetails";
 import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
 import ModalTrackorder from "./components/account/ModalTrackorder";
+import OpenCase from "./components/account/OpenCase";
 
 
 
@@ -56,6 +57,8 @@ function App(){
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
       {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))}
       {createPortal(<ModalTrackorder/>,document.getElementById('ownModal'))}
+
+      {createPortal(<OpenCase/>,document.getElementById('ownModal'))}
     </div>
   </div>
   );

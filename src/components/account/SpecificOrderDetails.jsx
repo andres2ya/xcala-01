@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import numeral from 'numeral';
 import Hammer from 'hammerjs';
 import {openModalTrackOrder} from '../../ducks/accountDuck/trackOrderDuck';
+import {openModalOpenCase} from '../../ducks/accountDuck/openCaseDuck';
 
 class SpecificOrderDetails extends Component {
   state={
@@ -29,6 +30,7 @@ class SpecificOrderDetails extends Component {
     document.body.removeAttribute('class')
     document.body.className='myAccountStyle'
     this.props.openModalTrackOrder(false);
+    this.props.openModalOpenCase(false);
   }
 
   panHammer=(e)=>{
@@ -52,6 +54,12 @@ class SpecificOrderDetails extends Component {
     e.preventDefault()
     window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
     this.props.openModalTrackOrder(true,idTrackOrderData)
+  }
+
+  openCase=(e,idRelatedOrder)=>{
+    e.preventDefault()
+    window.scrollTo(0,0)
+    this.props.openModalOpenCase(true,idRelatedOrder)
   }
 
   render() {
@@ -212,7 +220,7 @@ class SpecificOrderDetails extends Component {
                         <button onClick={orderIdData?(e)=>this.trackOrder(e,orderIdData):null}>Rastrear pedido</button>
                     </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                        <button>Abrir caso</button>
+                        <button onClick={orderIdData?(e)=>this.openCase(e,orderIdData):null}>Abrir caso</button>
                     </div>
                 </div>
                </div>
@@ -233,7 +241,8 @@ const mapStateToProps=(state)=>({
 })
 const mapDispatchToProps=(dispatch)=>{
   return{
-    openModalTrackOrder:(option,idTrackOrderData)=>dispatch(openModalTrackOrder(option,idTrackOrderData))
+    openModalTrackOrder:(option,idTrackOrderData)=>dispatch(openModalTrackOrder(option,idTrackOrderData)),
+    openModalOpenCase:(option,idRelatedOrder)=>dispatch(openModalOpenCase(option,idRelatedOrder))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SpecificOrderDetails);

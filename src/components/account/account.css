@@ -1004,3 +1004,162 @@ to {background-color: rgb(119, 119, 119);}
     background-image:linear-gradient(white,white) ;
     border-color:#660b2c;
 }
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/*
+/* MODAL OPEN CASE**/
+.modalOpenCaseInsideCard{
+    background-color: white;
+    margin-top:7.5vh;
+    margin-left:auto;
+    margin-right: auto;
+    width: 90%;
+    height: 85%;
+    border-radius: 15px;
+}
+
+@media only screen and (min-width: 768px){
+    .modalOpenCaseInsideCard{
+        margin-top:7.5vh;
+        margin-left:auto;
+        margin-right: auto;
+        width: 36%; 
+    }
+}
+.modalOpenCaseContent{
+    padding-top:15px;
+    padding-bottom: 15px;
+    /* position: relative; */
+}
+
+.numberOrderTitleModal{
+    color:black;
+    font-size: 30px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    line-height: 25px;
+    height: 40px;
+}
+
+.paragraphOrderDetailsModal{
+    font-weight: 400;
+    margin-top:5px;
+    line-height: 20px;
+    height: 25;
+}
+
+
+.selectRelatedItem{
+    margin-top:25px;
+}
+.selectOptionOpenCase select{
+    /* line-height: 30px; */
+    width: 90%;
+    border-radius: 15px;
+    color:#3d4c88;
+    font-size: 15px;
+    border-color: rgb(61, 76, 136,0.7);
+    margin-bottom: 10px;
+}
+.selectOptionOpenCase select:focus{
+    outline: none;
+}
+.selectOptionOpenCase select option{
+    outline: none;
+    border: none;
+}
+
+.typeOptionOpenCase textarea{
+    width: 90%;
+    height: 120px;
+    resize: none;
+    border-radius: 15px;
+    color:#3d4c88;
+    font-size: 14px;
+    border-color: rgb(61, 76, 136,0.7);
+    margin-bottom: 10px;
+}
+.typeOptionOpenCase textarea::placeholder{
+    color: rgb(61, 76, 136,0.5);
+}
+.typeOptionOpenCase textarea:focus{
+    outline: none;
+}
+
+
+
+.inputEvidencesFileBox{
+    margin-bottom: 50px;
+}
+
+.evidenceFileInput{
+    width: 0.01px;
+    height: 0.01px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+    z-index:-1
+}
+
+
+.inputEvidenceLabelOne,.inputEvidenceLabelTwo,.inputEvidenceLabelThree,.inputEvidenceLabelFour{
+    position: absolute;
+    top:0;left:0;right:0;bottom:0;
+    width: 45px;
+    height: 45px;
+    margin-left:25px;
+    margin-top:25px;
+    border-radius: 50%;
+    color: white;
+    background-color: grey;
+    z-index: 2;
+}
+        .inputEvidenceLabelTwo{
+            margin-left:80px;
+        }.inputEvidenceLabelThree{
+            margin-left:135px;
+        }.inputEvidenceLabelFour{
+            margin-left:190px;
+        }
+
+.inputEvidenceLabelOne:active,.inputEvidenceLabelTwo:active,.inputEvidenceLabelThree:active,.inputEvidenceLabelFour:active{
+    background-color: rgb(182, 182, 182);
+}
+
+
+
+.openCaseBtn{
+    margin-top:30px;
+}
+.openCaseBtn button{
+    min-width: 60%;
+    height: 40px;
+    border-radius: 15px;
+    background-color: white;
+    border:none;
+    font-size: 15px;
+    color:#3d4c88;
+    -webkit-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    font-weight: 700
+}
+@media only screen and (min-width: 768px){
+    .openCaseBtn button{
+        min-width: 30vw;
+    }
+}
+.openCaseBtn button:active{
+    transform: scale(0.9)
+}
+.openCaseBtn button:focus{
+    outline: none;
+}

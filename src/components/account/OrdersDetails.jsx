@@ -104,11 +104,11 @@ class OrdersDetails extends Component {
     if(orders!==undefined && filterByConstumer===true ){
 
         orders=orders.filter(function(order){
-          console.log(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0])
           if(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0]!==undefined 
           && order.items.filter((item)=>item.clienteNombre===selectConstumer)[0].clienteNombre===selectConstumer){
               return(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0].clienteNombre)            
-            }
+            }else{
+          return null}
         })
     }
     
@@ -144,8 +144,8 @@ class OrdersDetails extends Component {
             <div className="col-5 filterByConstumer-col  d-flex justify-content-start align-items-center">
               {/* Filtro por cliente */}
               {/* TODO: Cargar las opciones con los datos de los nombres de los clientes de los usuarios vendedores */}
-              <select onChange={this.applyFilterByConstumer} id="filterByConstumer">
-                <option selected="Buscar por cliente" disabled>Buscar por cliente</option>
+              <select onChange={this.applyFilterByConstumer} id="filterByConstumer" defaultValue={'BuscarPorCliente'}>
+                <option value="BuscarPorCliente" disabled>Buscar por cliente</option>
                 <option value="Pepito">Pepito</option>
                 <option value="Julian">Julian</option>
                 <option value="MostrarTodos">Mostrar todos</option>

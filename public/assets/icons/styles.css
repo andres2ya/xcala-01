@@ -164,3 +164,9 @@
 .icon-invoice-address-7px:before {
   content: "\6b";
 }
+.icon-check:before {
+  content: "\72";
+}
+.icon-plus:before {
+  content: "\53";
+}

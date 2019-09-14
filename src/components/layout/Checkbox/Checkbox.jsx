@@ -3,13 +3,15 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
 import {keepSesion} from '../../../ducks/authDucks/authDuckLogin'
 import {acceptTermsCondition} from '../../../ducks/authDucks/authDuckSignUp'
+import {acceptTyCForOpenCase} from '../../../ducks/accountDuck/openCaseDuck';
 import '../Checkbox/Checkbox.css'
 
 class Checkbox extends Component  {
 
     state={
         checked:false,
-        acceptTermCondition:false
+        acceptTermCondition:false,
+        acceptTermConditionForOpenCase:false
     }
 
     componentDidUpdate=()=>{
@@ -19,6 +21,8 @@ class Checkbox extends Component  {
         }
         else if(mode==='acceptT&C'){
             this.props.acceptTermsCondition(this.state.acceptTermCondition)
+        }else if(mode==='acceptT&CForOpenCase'){
+            this.props.acceptTyCForOpenCase(this.state.acceptTermConditionForOpenCase)
         }
     }
     
@@ -29,6 +33,8 @@ class Checkbox extends Component  {
         }
         else if(mode==='acceptT&C'){
             this.setState({ acceptTermCondition: !this.state.acceptTermCondition });
+        }else if(mode==='acceptT&CForOpenCase'){
+            this.setState({acceptTermConditionForOpenCase: !this.state.acceptTermConditionForOpenCase})
         }
     }
 
@@ -39,7 +45,7 @@ class Checkbox extends Component  {
             <span className={this.props.styleCheck}></span>
             <label htmlFor={this.props.id}>
                 {this.props.text}{' '}
-                {this.props.link===null?'':<Link to={this.props.link}><span className="link">{this.props.textLink}</span></Link>}
+                {this.props.link===null?'':<Link to={this.props.link}><span className={this.props.colorLink?this.props.colorLink:'link'}>{this.props.textLink}</span></Link>}
             </label>
         </div>
         )
@@ -49,7 +55,8 @@ class Checkbox extends Component  {
 const mapDispatchToProps=(dispatch)=>{
     return{
         keepSesion:(option)=>dispatch(keepSesion(option)),
-        acceptTermsCondition:(option)=>dispatch(acceptTermsCondition(option))
+        acceptTermsCondition:(option)=>dispatch(acceptTermsCondition(option)),
+        acceptTyCForOpenCase:(option)=>dispatch(acceptTyCForOpenCase(option))
     }
 }
 

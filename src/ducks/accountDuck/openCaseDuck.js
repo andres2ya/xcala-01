@@ -1,4 +1,3 @@
-import {showOrHidePreloader} from '../preloaderDuck/preloaderDuck'
 //1. ACTION TYPES
 const SHOW_OPEN_CASE_MODAL='xcala/orderDetails/SHOW_OPEN_CASE_MODAL'
 //--------------------------------------------------------------------
@@ -10,6 +9,14 @@ const SAVE_CASE_DATA='xcala/orderDetails/SAVE_CASE_DATA'
 //--------------------------------------------------------------------
 const LOAD_EVIDENCE_FILES_SUCCESS='xcala/orderDetails/LOAD_EVIDENCE_FILES_SUCCESS'
 const LOAD_EVIDENCE_FILES_ERROR='xcala/orderDetails/LOAD_EVIDENCE_FILES_ERROR'
+//--------------------------------------------------------------------
+const SHOW_LOADER_IN_MODAL_TRUE='xcala/orderDetails/SHOW_LOADER_IN_MODAL_TRUE'
+const SHOW_LOADER_IN_MODAL_FALSE='xcala/orderDetails/SHOW_LOADER_IN_MODAL_FALSE'
+//--------------------------------------------------------------------
+
+const SHOW_SUCCESS_OPEN_CASE_SCREEN='xcala/orderDetails/SHOW_SUCCESS_OPEN_CASE_SCREEN'
+
+
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
 export const openModalOpenCase=(option,idRelatedOrder)=>{
@@ -31,7 +38,7 @@ export const saveCaseData=(Label,data)=>{
 export const loadEvidenceFiles=(data,userID,orderID)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
         
-        dispatch(showOrHidePreloader(true))
+        dispatch({type:SHOW_LOADER_IN_MODAL_TRUE})
         
         //creando vector de evidencias
         var evidenceArray=[]
@@ -44,15 +51,17 @@ export const loadEvidenceFiles=(data,userID,orderID)=>{
         }if(data.evidenceFour){
             evidenceArray.push(data.evidenceFour)
         }
-
-
-        // mapeando vector de evidencias, 
-        // subiendo evidencias una por una y 
-        // obteniendo vector con URL de las evidencias
-        const firebase=getFirebase();
-        var evidenceURLSArray=[]
         
-       evidenceArray.map(function(evidence,index){
+        if(evidenceArray.length<1){
+            dispatch(createCaseInFirestore(data,userID,orderID))
+        }else{
+            // mapeando vector de evidencias, 
+            // subiendo evidencias una por una y 
+            // obteniendo vector con URL de las evidencias
+            const firebase=getFirebase();
+            var evidenceURLSArray=[]
+        
+            evidenceArray.map(function(evidence,index){
                 
                 /**TODO: Generar id para caso.*/
                 var storageRef=firebase.storage().ref(`/${userID}/pedidos/${orderID}/${data.selectedItem}/caso#1/evidencia-${index+1}`)
@@ -60,7 +69,6 @@ export const loadEvidenceFiles=(data,userID,orderID)=>{
                 .then((snapshot)=>{
                     snapshot.ref.getDownloadURL()
                     .then((downloadURL)=>{
-                        dispatch(showOrHidePreloader(false))
                         evidenceURLSArray.push(downloadURL)
                         console.log('desde map:abajo'+index)
                         console.log(evidenceURLSArray)
@@ -72,10 +80,11 @@ export const loadEvidenceFiles=(data,userID,orderID)=>{
                 })
                 .catch((err)=>{
                     console.log(err)
-                    dispatch(showOrHidePreloader(false))
+                    dispatch({type:SHOW_LOADER_IN_MODAL_FALSE})
                     dispatch({type:LOAD_EVIDENCE_FILES_ERROR,err:err})
                 })
             })
+        }
     }
 }
 //..................................................................................
@@ -104,6 +113,8 @@ export const createCaseInFirestore=(data,userID,orderID)=>{
         })
     })
     .then((res)=>{
+        dispatch({type:SHOW_LOADER_IN_MODAL_FALSE})
+        dispatch({type:SHOW_SUCCESS_OPEN_CASE_SCREEN})
         console.log('all right'+res)
     })
     .catch((err)=>{
@@ -130,11 +141,28 @@ const initialState={
         evidenceFour:null,
     },
     evidenceURLSArray:null,
-    errorWhenLoadingEvidenceFiles:null
+    errorWhenLoadingEvidenceFiles:null,
+    showLoaderInModal:false,
+    caseCreated:false
     
 }
 const openCaseReducer = (state=initialState, action)=>{
     switch(action.type){
+        case SHOW_SUCCESS_OPEN_CASE_SCREEN:
+            return{
+                ...state,
+                caseCreated:true
+            }
+        case SHOW_LOADER_IN_MODAL_TRUE:
+            return{
+                ...state,
+                showLoaderInModal:true
+            }
+        case SHOW_LOADER_IN_MODAL_FALSE:
+            return{
+                ...state,
+                showLoaderInModal:false
+            }
         case  ACCEPT_TYC_FOR_OPEM_CASE:
             return{
                 ...state,

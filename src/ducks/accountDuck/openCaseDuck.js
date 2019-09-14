@@ -35,25 +35,25 @@ export const saveCaseData=(Label,data)=>{
     return{type:SAVE_CASE_DATA,label:Label,data:data}
 }
 //..................................................................................
-export const loadEvidenceFiles=(data,userID,orderID)=>{
+export const loadEvidenceFiles=(supplierID,itemID,openCasedata,userID,orderID)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
         
         dispatch({type:SHOW_LOADER_IN_MODAL_TRUE})
         
         //creando vector de evidencias
         var evidenceArray=[]
-        if(data.evidenceOne){
-            evidenceArray.push(data.evidenceOne)
-        }if(data.evidenceTwo){
-            evidenceArray.push(data.evidenceTwo)
-        }if(data.evidenceThree){
-            evidenceArray.push(data.evidenceThree)
-        }if(data.evidenceFour){
-            evidenceArray.push(data.evidenceFour)
+        if(openCasedata.evidenceOne){
+            evidenceArray.push(openCasedata.evidenceOne)
+        }if(openCasedata.evidenceTwo){
+            evidenceArray.push(openCasedata.evidenceTwo)
+        }if(openCasedata.evidenceThree){
+            evidenceArray.push(openCasedata.evidenceThree)
+        }if(openCasedata.evidenceFour){
+            evidenceArray.push(openCasedata.evidenceFour)
         }
         
         if(evidenceArray.length<1){
-            dispatch(createCaseInFirestore(data,userID,orderID))
+            dispatch(createCaseInFirestore(supplierID,itemID,openCasedata,userID,orderID))
         }else{
             // mapeando vector de evidencias, 
             // subiendo evidencias una por una y 
@@ -64,17 +64,15 @@ export const loadEvidenceFiles=(data,userID,orderID)=>{
             evidenceArray.map(function(evidence,index){
                 
                 /**TODO: Generar id para caso.*/
-                var storageRef=firebase.storage().ref(`/${userID}/pedidos/${orderID}/${data.selectedItem}/caso#1/evidencia-${index+1}`)
+                var storageRef=firebase.storage().ref(`/${userID}/pedidos/${orderID}/${openCasedata.selectedItem}/caso#1/evidencia-${index+1}`)
                 storageRef.put(evidence[0])
                 .then((snapshot)=>{
                     snapshot.ref.getDownloadURL()
                     .then((downloadURL)=>{
                         evidenceURLSArray.push(downloadURL)
-                        console.log('desde map:abajo'+index)
-                        console.log(evidenceURLSArray)
                         dispatch({type:LOAD_EVIDENCE_FILES_SUCCESS,evidenceURLSArray:evidenceURLSArray})
                         if((index+1)===evidenceArray.length){
-                            dispatch(createCaseInFirestore(data,userID,orderID))
+                            dispatch(createCaseInFirestore(supplierID,itemID,openCasedata,userID,orderID))
                         }
                     })
                 })
@@ -88,7 +86,7 @@ export const loadEvidenceFiles=(data,userID,orderID)=>{
     }
 }
 //..................................................................................
-export const createCaseInFirestore=(data,userID,orderID)=>{
+export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderID)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
 
     //TODO: Estrategia para persistir el valor del arreglo de urls: simplemente, despachar un action que guarda en el estado el vector, 
@@ -97,28 +95,113 @@ export const createCaseInFirestore=(data,userID,orderID)=>{
     const state=getState()
     const evidenceURLSArray=state.openCaseReducer.evidenceURLSArray
 
-    console.log('holi: abajo')
-    console.log(evidenceURLSArray)
     //subiendo todos los datos del caso a la base de datos
     const firebase=getFirebase();
     const firestore =getFirestore();
-    var userDocRef=firestore.collection('users').doc(userID)
+
+    // TODO: Esta es la forma para añadirlo dentro de un arreglo en un unico documento
+    // var userDocRef=firestore.collection('users').doc(userID)
             
+    // userDocRef.update({
+    //     casos:firebase.firestore.FieldValue.arrayUnion({
+    //             selectedItem:openCasedata.selectedItem,
+    //             selectedReason:openCasedata.selectedReason,
+    //             longDescription:openCasedata.longDescription,
+    //             evidence:evidenceURLSArray
+    //     })
+    // })
+
+
+    // TODO: Esta es la forma para añadirlo en un documento dentro de la coleccion CASES
+    // firestore.collection('cases').add({
+    //     supplierID:supplierID,
+    //     itemID:itemID,
+    //     userID:userID,
+    //     orderID:orderID,
+    //     selectedItem:openCasedata.selectedItem,
+    //     selectedReason:openCasedata.selectedReason,
+    //     longDescription:openCasedata.longDescription,
+    //     evidence:evidenceURLSArray
+    // })
+
+    //TODO: Esta es la forma para añadirlo directamente en el objeo del correspndiente item dentro del doc del usuario en la coleccion users
+    //mediante la obtencion, modificacion y actualizacion del campo.
+    // const oldUserOrders=state.firebase.profile.pedidos
+    
+    // const specificRequiredOrder=oldUserOrders.filter(order=>order.numeroPedido===orderID)
+
+    // const specificRequiredItem=specificRequiredOrder[0].items.filter(item=>item.id===itemID)
+
+    // const updatedSpecificItem={...specificRequiredItem[0],case:{
+    //          supplierID:supplierID,
+    //          itemID:itemID,
+    //          userID:userID,
+    //          orderID:orderID,
+    //          selectedItem:openCasedata.selectedItem,
+    //          selectedReason:openCasedata.selectedReason,
+    //          longDescription:openCasedata.longDescription,
+    //          evidence:evidenceURLSArray
+    //     }}
+
+    // const itemsArrayWithOutSpecificRequiredItem=specificRequiredOrder[0].items.filter(item=>item.id!==itemID)
+
+    // const updateItemsArray=[...itemsArrayWithOutSpecificRequiredItem,updatedSpecificItem]
+
+
+    // const updatedSpecificOrder=specificRequiredOrder[0]
+    // updatedSpecificOrder.items=updateItemsArray
+
+    // const oldUserOrdersWithoutSpecificRequiredOrder=oldUserOrders.filter(order=>order.numeroPedido!==orderID)
+
+    // const updatedUserOrders=[...oldUserOrdersWithoutSpecificRequiredOrder,updatedSpecificOrder]
+
+    // var userDocRef=firestore.collection('users').doc(userID)    
+    // userDocRef.update({
+    //     pedidos:updatedUserOrders
+    // })
+    // .then((res)=>{
+    //      dispatch({type:SHOW_LOADER_IN_MODAL_FALSE})
+    //      dispatch({type:SHOW_SUCCESS_OPEN_CASE_SCREEN})
+    // })
+    // .catch((err)=>{
+    //      console.log(err)
+    // })
+
+    //-------
+
+    const oldUserOrders=state.firebase.profile.pedidos
+
+    var indexOfOrderID
+    var indexOfItemID
+    oldUserOrders.map((order,index)=>{
+        if(order.numeroPedido===orderID){indexOfOrderID=index}})
+    oldUserOrders[indexOfOrderID].items.map((item,index)=>{
+        if(item.id===itemID){indexOfItemID=index}})
+
+    const newUserOrders=[...oldUserOrders]
+    const seletedItemData=newUserOrders[indexOfOrderID].items[indexOfItemID]
+
+    newUserOrders[indexOfOrderID].items[indexOfItemID]={...seletedItemData,case:{
+                  supplierID:supplierID,
+                  itemID:itemID,
+                  userID:userID,
+                  orderID:orderID,
+                  selectedItem:openCasedata.selectedItem,
+                  selectedReason:openCasedata.selectedReason,
+                  longDescription:openCasedata.longDescription,
+                  evidence:evidenceURLSArray
+             }}
+
+    var userDocRef=firestore.collection('users').doc(userID)    
     userDocRef.update({
-        casos:firebase.firestore.FieldValue.arrayUnion({
-                selectedItem:data.selectedItem,
-                selectedReason:data.selectedReason,
-                longDescription:data.longDescription,
-                evidence:evidenceURLSArray
-        })
+        pedidos:newUserOrders
     })
     .then((res)=>{
-        dispatch({type:SHOW_LOADER_IN_MODAL_FALSE})
-        dispatch({type:SHOW_SUCCESS_OPEN_CASE_SCREEN})
-        console.log('all right'+res)
+         dispatch({type:SHOW_LOADER_IN_MODAL_FALSE})
+         dispatch({type:SHOW_SUCCESS_OPEN_CASE_SCREEN})
     })
     .catch((err)=>{
-        console.log(err)
+         console.log(err)
     })
 }}
 //..................................................................................

@@ -50,7 +50,7 @@ class OpenCase extends Component {
             })
             handleErrorMsg({code:'No has completado todos los campos'})
         }else{
-            loadEvidenceFiles(openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (toca generarlo)
+            loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (toca generarlo)
         }
     }
 
@@ -98,7 +98,7 @@ class OpenCase extends Component {
                                         <select className="boldText" defaultValue={openCaseData.selectedItem?openCaseData.selectedItem:'SeleccionarItem'} name="selectedItem" onChange={this.leerDatos} id="selectItemForOpenCase">
                                             <option value="SeleccionarItem" disabled>Producto relacionado</option>
                                             {/* TODO: reemplazar valor de option por un id del producto */}
-                                            {itemsOfIdRelatedOrder?itemsOfIdRelatedOrder.map(item=>(<option value={item.nombreProducto}>{item.nombreProducto} {'de'} {item.clienteNombre}</option>)):null}
+                                            {itemsOfIdRelatedOrder?itemsOfIdRelatedOrder.map(item=>(<option value={item.id}>{item.nombreProducto} {'de'} {item.clienteNombre}</option>)):null}
                                         </select>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@ const mapDispatchToProps=(dispatch)=>{
     return{
         openModalOpenCase:(option,idRelatedOrder)=>dispatch(openModalOpenCase(option,idRelatedOrder)),
         saveCaseData:(label,data)=>dispatch(saveCaseData(label,data)),
-        loadEvidenceFiles:(data,userID,orderID)=>dispatch(loadEvidenceFiles(data,userID,orderID)),
+        loadEvidenceFiles:(supplierID,itemID,openCaseData,userID,orderID)=>dispatch(loadEvidenceFiles(supplierID,itemID,openCaseData,userID,orderID)),
         handleErrorMsg:(msg)=>dispatch(handleErrorMsg(msg))
     }
 }

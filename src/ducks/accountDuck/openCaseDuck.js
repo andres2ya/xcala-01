@@ -65,6 +65,7 @@ export const loadEvidenceFiles=(supplierID,itemID,openCasedata,userID,orderID)=>
                 
                 /**TODO: Generar id para caso.*/
                 var storageRef=firebase.storage().ref(`/${userID}/pedidos/${orderID}/${openCasedata.selectedItem}/caso#1/evidencia-${index+1}`)
+                return(
                 storageRef.put(evidence[0])
                 .then((snapshot)=>{
                     snapshot.ref.getDownloadURL()
@@ -81,16 +82,13 @@ export const loadEvidenceFiles=(supplierID,itemID,openCasedata,userID,orderID)=>
                     dispatch({type:SHOW_LOADER_IN_MODAL_FALSE})
                     dispatch({type:LOAD_EVIDENCE_FILES_ERROR,err:err})
                 })
-            })
+             )})
         }
     }
 }
 //..................................................................................
 export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderID)=>{
     return(dispatch,getState,{getFirebase,getFirestore})=>{
-
-    //TODO: Estrategia para persistir el valor del arreglo de urls: simplemente, despachar un action que guarda en el estado el vector, 
-    //y luego despachar un action que lee ese vector y ahora si guarda en firestore
 
     const state=getState()
     const evidenceURLSArray=state.openCaseReducer.evidenceURLSArray
@@ -99,7 +97,7 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     const firebase=getFirebase();
     const firestore =getFirestore();
 
-    // TODO: Esta es la forma para añadirlo dentro de un arreglo en un unico documento
+    {//NOTE: FORMAS DE AÑADIR INFO A FIRESTORE: NOTE: Esta es la forma para añadirlo dentro de un arreglo en un unico documento
     // var userDocRef=firestore.collection('users').doc(userID)
             
     // userDocRef.update({
@@ -112,7 +110,7 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     // })
 
 
-    // TODO: Esta es la forma para añadirlo en un documento dentro de la coleccion CASES
+    // NOTE: Esta es la forma para añadirlo en un documento dentro de la coleccion CASES
     // firestore.collection('cases').add({
     //     supplierID:supplierID,
     //     itemID:itemID,
@@ -124,7 +122,7 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     //     evidence:evidenceURLSArray
     // })
 
-    //TODO: Esta es la forma para añadirlo directamente en el objeo del correspndiente item dentro del doc del usuario en la coleccion users
+    //NOTE: Esta es la forma para añadirlo directamente en el objeo del correspndiente item dentro del doc del usuario en la coleccion users
     //mediante la obtencion, modificacion y actualizacion del campo.
     // const oldUserOrders=state.firebase.profile.pedidos
     
@@ -168,15 +166,19 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     // })
 
     //-------
-
+    }
+    
+    //NOTE: Esta es la forma de incluir el case dentro del objeto del item correspondiente mediante la identificacion del pedido, el item y 
+    //posteriormente su asignacion para luego reemplazar todo el campo de pedidos con la nueva informacion.
+    
     const oldUserOrders=state.firebase.profile.pedidos
 
     var indexOfOrderID
     var indexOfItemID
     oldUserOrders.map((order,index)=>{
-        if(order.numeroPedido===orderID){indexOfOrderID=index}})
+        if(order.numeroPedido===orderID){return indexOfOrderID=index}return null})
     oldUserOrders[indexOfOrderID].items.map((item,index)=>{
-        if(item.id===itemID){indexOfItemID=index}})
+        if(item.id===itemID){return indexOfItemID=index}return null})
 
     const newUserOrders=[...oldUserOrders]
     const seletedItemData=newUserOrders[indexOfOrderID].items[indexOfItemID]

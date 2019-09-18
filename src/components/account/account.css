@@ -1141,7 +1141,7 @@ to {background-color: rgb(119, 119, 119);}
     cursor: pointer;
 }
 .generalDataResumenCaseBox{
-    margin-top:35px;
+    margin-top:20px;
 }
 .dataResumeCaseBox{
     margin-top:18px;
@@ -1170,22 +1170,55 @@ to {background-color: rgb(119, 119, 119);}
     height: 50px;
 }
 
-.fullImgEvidence{
-    max-height: 100%;
-    max-width: 100%;
+#fullImgWrapper{
+    height:250px;
+    width: 100%;
+    overflow:hidden;
+}
+
+#draggableEvidenceImg{
     border-radius: 15px;
-    display: flex;
-    justify-content: center;
+    position: relative;
+}
+
+#draggableEvidenceImg img{
+    position: absolute;
+    top:0;
+    left:0;
 }
 @media only screen and (min-width: 1024px){
-    .fullImgEvidence{
-        max-height: 85%;
-        max-width: 85%;
-        border-radius: 15px;
-        margin-left:auto;
-        margin-right:auto;
+    #fullImgWrapper{
+        height:300px;
+        width: 100%;
+        overflow:hidden;
     }
 }
+@media only screen and (max-width: 350px){
+    .labelResumeCase{
+        font-size:13px;
+        font-weight: 400;
+        color:grey;
+    }
+    .dataResumeCase{
+        font-size:18px;
+        font-weight: 800;
+        color:rgb(0, 0, 0);
+        font-family: 'Nunito Sans', sans-serif;
+        line-height: 120%;
+    }
+    .lighterDataResumeCase{
+        font-size:17px;
+        font-weight: 500;
+        color:rgb(0, 0, 0);
+        font-family: 'Nunito Sans', sans-serif;
+        line-height: 120%;
+    }
+    .dataResumeCaseBox{
+        margin-top:12px;
+        margin-bottom: 12px;
+    }
+}
+
 
 .evidencesThumbnails{
     margin-top:20px;

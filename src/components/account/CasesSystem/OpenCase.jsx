@@ -4,7 +4,8 @@ import {openModalOpenCase,saveCaseData,loadEvidenceFiles} from '../../../ducks/a
 import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
 import Checkbox from '../../layout/Checkbox/Checkbox'
 import SpinnerInModal from '../../layout/SpinnerInModal/SpinnerInModal';
-import { returnStatement } from '@babel/types';
+import Draggable from 'react-draggable';
+
 
 class OpenCase extends Component {
 
@@ -12,8 +13,9 @@ class OpenCase extends Component {
         gotError:false,
         showFullImg:false,
         imgToShowFull:null,
-        showCaseResume:false
+        showCaseResume:false,
     }
+
 
     componentDidUpdate=()=>{
         const {showOpenCaseModal}=this.props
@@ -81,12 +83,13 @@ class OpenCase extends Component {
         })
     }
 
+ 
 
 
 
     render() {
         const {indexDetailMode,showOpenCaseModalInDetailsMode,caseCreated,showOpenCaseModal,idRelatedOrderData,openCaseData,showBtnSendRequestForOpenCase,showLoaderInModal}=this.props
-
+        
         if(showOpenCaseModal===true && showOpenCaseModalInDetailsMode===true){
             const itemsOfIdRelatedOrder=[...idRelatedOrderData[0].items]
             return (
@@ -119,6 +122,15 @@ class OpenCase extends Component {
                             <div className="generalDataResumenCaseBox">
                                 <div className="row dataResumeCaseBox">
                                     <div className="col-12">
+                                        {/* TODO: Pendiente halar el estado desde base de datos: .case.estado */}
+                                        <div className="labelResumeCase">Estado del caso:</div> 
+                                        {/* <div className="lighterDataResumeCase strong">{itemsOfIdRelatedOrder[indexDetailMode].case.longDescription}</div> */}
+                                        <div className="dataResumeCase">Pendiente de resolucion</div>
+                                    </div>
+                                </div>
+
+                                <div className="row dataResumeCaseBox">
+                                    <div className="col-12">
                                         <div className="labelResumeCase">Producto relacionado:</div> 
                                         <div className="dataResumeCase">{itemsOfIdRelatedOrder[indexDetailMode].nombreProducto} de {itemsOfIdRelatedOrder[indexDetailMode].clienteNombre}</div>
                                     </div>
@@ -134,7 +146,7 @@ class OpenCase extends Component {
                                 <div className="row dataResumeCaseBox">
                                     <div className="col-12">
                                         <div className="labelResumeCase">Tu descripcion del caso:</div> 
-                                        <div className="lighterDataResumeCase strong">{itemsOfIdRelatedOrder[indexDetailMode].case.longDescription}</div>
+                                        <div style={{overflow: 'auto', height:80}} className="lighterDataResumeCase">{itemsOfIdRelatedOrder[indexDetailMode].case.longDescription}</div>
                                     </div>
                                 </div>
 
@@ -170,9 +182,23 @@ class OpenCase extends Component {
                             return(
                             <div>
                                 <div className="paragraphOrderDetailsModal">
-                                    <span className="boldText"> Tus evidencias</span>
+                                    <span className="labelResumeCase">Tus pruebas</span>
                                 </div>
-                                <img className="fullImgEvidence" src={this.state.imgToShowFull} alt="fullImgEvidence"/>
+
+
+                                
+                                
+                                    <div id="fullImgWrapper">
+                                        <Draggable axis="both">
+                                        <div id="draggableEvidenceImg">
+                                            <img src={this.state.imgToShowFull} alt="fullImgEvidence"/>
+                                        </div> 
+                                        </Draggable>
+                                    </div>
+                                
+
+
+
                                 <div className="evidencesThumbnails d-flex justify-content-center">
                                     {itemsOfIdRelatedOrder[indexDetailMode].case.evidence?
                                     itemsOfIdRelatedOrder[indexDetailMode].case.evidence.map((evidence,index)=>(
@@ -249,7 +275,7 @@ class OpenCase extends Component {
 
 
 
-
+        // TODO: impedir abrir un caso para un item que tiene actualmente un caso sin resolver.
         if(showOpenCaseModal){
             const itemsOfIdRelatedOrder=[...idRelatedOrderData[0].items]
             return (
@@ -401,8 +427,10 @@ class OpenCase extends Component {
 
                   </div>
                 </div>
+                
               </div>
             );
+            
         }else{
             return null
         }

@@ -72,6 +72,7 @@ export const loadEvidenceFiles=(supplierID,itemID,openCasedata,userID,orderID)=>
                     .then((downloadURL)=>{
                         evidenceURLSArray.push(downloadURL)
                         dispatch({type:LOAD_EVIDENCE_FILES_SUCCESS,evidenceURLSArray:evidenceURLSArray})
+                        console.log(evidenceURLSArray)
                         if((index+1)===evidenceArray.length){
                             dispatch(createCaseInFirestore(supplierID,itemID,openCasedata,userID,orderID))
                         }

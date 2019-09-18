@@ -361,12 +361,63 @@ ORDER DETAILS */
                                     border-color:#660b2c;
                                 }
 
-
-                .viewOrderButton{
-                    color:#3d4c88;
-                    font-size: 25px;
-                    margin-bottom: -12vh;
+                .dateCol{
+                    font-size: 15px;
+                    color:rgb(175, 175, 175);
                 }
+                .totalCostCol{
+                    font-size:16px;
+                    font-weight: 900;
+                    margin-right: 20px;
+                }
+                        .totalCostNumberCard{
+                            margin-bottom: -5px;
+                        }
+                        .totalCostLabelCard{
+                            color:rgb(175, 175, 175);
+                        }
+
+                .totalUtilityCol{
+                    font-size:16px;
+                    font-weight: 900;
+                    margin-left: 20px;
+                }   
+                        .totalUtilityNumberCard{
+                            margin-bottom: -5px;
+                        }
+                        .totalUtilityLabelCard{
+                            color:rgb(175, 175, 175);
+                        }
+                .viewOrderButton{
+                    color:rgb(175, 175, 175);
+                    font-size: 30px;
+                    /* margin-bottom: 12vh; */
+                }
+                .openCaseIndicatorBox{
+                    font-size:10px;
+                    font-weight: 400;
+                    color:white;
+                    background-color: #d2145a;
+                    border-radius: 15px;
+                    height: 15px;
+                    width: 50px;
+                    text-align: center;
+                }
+                @media only screen and (max-width: 365px){
+                    .totalCostCol,.totalUtilityCol{
+                        font-size:15px;
+                    }
+                    .totalCostCol{
+                        margin-right: 5px;
+                    }.totalUtilityCol{
+                        margin-left: 5px;
+                    }
+                }
+
+
+
+
+
 /* no orders */
 .noOrdersMsg{
     text-align: center;
@@ -634,6 +685,32 @@ ORDER DETAILS */
     margin-bottom: 10px;
     border-bottom: 1px solid rgb(190, 190, 190);
     font-size:14px;
+}
+
+.seeShippingAddressLink{
+    margin-left:10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.specificOrderItemCaseIndicator{
+    font-size:14px;
+    color:white;
+    background-color: #d2145a;
+    border-radius: 15px;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+/* .specificOrderItemCaseIndicator a{
+    color:white
+} */
+@media only screen and (max-width: 365px){
+    .specificOrderItemCaseIndicator{
+        font-size: 12px}
+    .seeShippingAddressLink{
+        font-size: 10px;}
 }
 
 
@@ -1055,6 +1132,66 @@ to {background-color: rgb(119, 119, 119);}
     height: 25;
 }
 
+.seeCaseResume{
+    color:white;
+    background-color: #d2145a;
+    border-radius: 15px;
+    width:180px;
+    text-align: center;
+    cursor: pointer;
+}
+.generalDataResumenCaseBox{
+    margin-top:35px;
+}
+.dataResumeCaseBox{
+    margin-top:18px;
+    margin-bottom: 18px;
+}
+.labelResumeCase{
+    font-size:15px;
+    font-weight: 400;
+    color:grey;
+}
+.dataResumeCase{
+    font-size:21px;
+    font-weight: 800;
+    color:rgb(0, 0, 0);
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 120%;
+}
+.lighterDataResumeCase{
+    font-size:20px;
+    font-weight: 500;
+    color:rgb(0, 0, 0);
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 120%;
+}
+.evidenceIMG{
+    height: 50px;
+}
+
+.fullImgEvidence{
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+}
+@media only screen and (min-width: 1024px){
+    .fullImgEvidence{
+        max-height: 85%;
+        max-width: 85%;
+        border-radius: 15px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+}
+
+.evidencesThumbnails{
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
 
 .selectRelatedItem{
     margin-top:25px;
@@ -1210,3 +1347,5 @@ to {background-color: rgb(119, 119, 119);}
 .openCaseBtnSuccessMsg button:focus{
     outline: none;
 }
+
+

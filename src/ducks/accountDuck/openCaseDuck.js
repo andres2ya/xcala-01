@@ -19,9 +19,9 @@ const SHOW_SUCCESS_OPEN_CASE_SCREEN='xcala/orderDetails/SHOW_SUCCESS_OPEN_CASE_S
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
-export const openModalOpenCase=(option,idRelatedOrder)=>{
+export const openModalOpenCase=(option,idRelatedOrderData,detailMode,index)=>{
         if(option===true){
-            return{type:SHOW_OPEN_CASE_MODAL,payload:idRelatedOrder}
+            return{type:SHOW_OPEN_CASE_MODAL,payload:idRelatedOrderData,detailMode:detailMode,indexDetailMode:index}
         }else{
             return{type:HIDE_OPEN_CASE_MODAL}
         }
@@ -214,7 +214,9 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
 //3. REDUCER PRELOADER
 const initialState={
     showOpenCaseModal:false,
-    idRelatedOrder:null,
+    showOpenCaseModalInDetailsMode:false,
+    indexDetailMode:null,
+    idRelatedOrderData:null,
     showBtnSendRequestForOpenCase:false,
     openCaseData:{
         selectedItem:null,
@@ -270,10 +272,13 @@ const openCaseReducer = (state=initialState, action)=>{
                 errorWhenLoadingEvidenceFiles:action.err
             }
         case SHOW_OPEN_CASE_MODAL:
+            console.log(action.indexDetailMode)
             return{
                 ...state,
                 showOpenCaseModal:true,
-                idRelatedOrder:action.payload
+                idRelatedOrderData:action.payload,
+                showOpenCaseModalInDetailsMode:action.detailMode,
+                indexDetailMode:action.indexDetailMode
             }
         case HIDE_OPEN_CASE_MODAL:
             return{

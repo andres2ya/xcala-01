@@ -49,6 +49,7 @@ class OrdersDetails extends Component {
     const {userOrders,orderStateFilter}=this.props
     const {orderDisplay}=this.state
     var orders=undefined
+    var stopRenderCaseIndicator=false
 
     if(userOrders){
       switch (orderDisplay) {
@@ -163,11 +164,11 @@ class OrdersDetails extends Component {
         </div>
         
         {orders?orders.reverse().map(order=>(
-            
             <div key={order.numeroPedido} className="container-fluid orderCard">
               <LinkWithDelay to={`/order-id${order.id}`} delay={30}>
-                <div className="orderCardContent">
+              <div className="orderCardContent">
                 <div className="row">
+
                   <div className="col-9">
                     <div className="row">
                       <div className="col-12 orderIdAndDateCard">
@@ -183,27 +184,64 @@ class OrdersDetails extends Component {
                       </div>
                     </div>
                   </div>
+
+                  <div className="col-3 d-flex justify-content-center align-items-center">
+                    
+                    {order.items.map((item,index)=>(
+                      (()=>{
+                        if(item.case!==undefined && stopRenderCaseIndicator===false){
+                          stopRenderCaseIndicator=true
+                          return (
+                            <div key={index} className="row">
+                              <div className="col-12 orderIdAndDateCard">
+                                <div className="openCaseIndicatorBox ">
+                                  Caso...
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        } else {
+                          stopRenderCaseIndicator=false 
+                          return null
+                        }
+                      })()
+                    ))}
+
+                  </div>
+                </div>
+
+
+                <div className="row">
+                  <div className="col-9 dateCol">
+                    <span>Realizado el {order.fecha}</span>
+                  </div>
+                  <div className="col-3"/>
+                </div>
+
+                <div className="row">
+                  <div className="col-9 d-flex">
+                    <div className="totalCostCol">
+                      {/* <div className="totalCostNumberCard">{numeral(order.costoTotal).format('$0,0')}</div> */}
+                      <div className="totalCostNumberCard">$1,000,000</div>
+                      
+                      <div className="totalCostLabelCard">Costo total</div>
+                    </div>
+                    <div className="totalUtilityCol">
+                      {/* <div className="totalUtilityNumberCard">{numeral(order.gananciaTotal).format('$0,0')}</div> */}
+                      <div className="totalUtilityNumberCard">$1,000,000</div>
+                      <div className="totalUtilityLabelCard">Ganancia total</div>
+                    </div>
+                  </div>
+                    
+
                   <div className="col-3 viewOrderButton d-flex justify-content-center align-items-center">
-                      <i className="icon-details"></i>                    
+                      <i className="icon-detailswithoutcircle centerVertical"></i>                    
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-12">
-                    <span>{order.fecha}</span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    <span className="boldText">Costo total:</span> <strong>{numeral(order.costoTotal).format('$0,0')}</strong>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                  <span className="boldText">Ganancia total:</span> <strong>{numeral(order.gananciaTotal).format('$0,0')}</strong>
-                </div>
-              </div>
-              </div>
-              </LinkWithDelay>
+
+
+            </div>
+            </LinkWithDelay>
           </div>
         ))
         :

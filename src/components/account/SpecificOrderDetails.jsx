@@ -9,7 +9,9 @@ import {openModalOpenCase} from '../../ducks/accountDuck/openCaseDuck';
 class SpecificOrderDetails extends Component {
   state={
       panUpTotalOrderBox:false,
-      panDownTotalOrderBox:false
+      panDownTotalOrderBox:false,
+      index:null,
+      showShippingAddressBool:false
   }
 
 
@@ -56,10 +58,23 @@ class SpecificOrderDetails extends Component {
     this.props.openModalTrackOrder(true,idTrackOrderData)
   }
 
-  openCase=(e,idRelatedOrder)=>{
+  openCase=(e,idRelatedOrderData)=>{
     e.preventDefault()
     window.scrollTo(0,0)
-    this.props.openModalOpenCase(true,idRelatedOrder)
+    this.props.openModalOpenCase(true,idRelatedOrderData)
+  }
+
+  showShippingAddress=(e,index)=>{
+    e.preventDefault()
+    this.setState({
+      index:index,
+      showShippingAddressBool:!this.state.showShippingAddressBool})
+  }
+
+  showItemCaseDetails=(e,index,idRelatedOrderData)=>{
+    e.preventDefault()
+    window.scrollTo(0,0)
+    this.props.openModalOpenCase(true,idRelatedOrderData,true,index)
   }
 
   render() {
@@ -119,7 +134,7 @@ class SpecificOrderDetails extends Component {
           <div className="row dividerSpecificOrderDetails"/>
             <div className="col-12">
               <div className={`${panUpTotalOrderBox?'container-listItemsOfOrderOn':'container-listItemsOfOrderOff'}`}>
-              {orderIdData?orderIdData[0].items.map(item=>(
+              {orderIdData?orderIdData[0].items.map((item,index)=>(
                 // TODO:  key debe ser remplazada por un id de verdad.
                 <div key={item.idProducto} className="row orderItemsDetailsContent">
                 <div className="col-5">
@@ -131,26 +146,52 @@ class SpecificOrderDetails extends Component {
                     </div>
                 </div>
                 <div className="col-7">
-                    <div className="row">
-                        <span className="boldText">Costo:</span>
-                        {numeral(item.precioProducto).format('$0,0')}
+                  {item.case?
+                    <div className="row specificOrderItemCaseIndicator d-flex justify-content-center">
+                        <span onClick={(e)=>this.showItemCaseDetails(e,index,orderIdData)}>Ver caso...</span>
                     </div>
+                    :
+                    null
+                    }
+
                     <div className="row">
                         <span className="boldText">Precio de venta:</span>
                         {numeral(item.precioVenta).format('$0,0')}
                     </div>
+
+                    <div className="row">
+                        <span className="boldText">Costo:</span>
+                        {numeral(item.precioProducto).format('$0,0')}
+                    </div>
+                    
                     <div className="row">
                         <span className="boldText">Ganancia:</span>
                         {numeral(item.gananciaVenta).format('$0,0')}
                     </div>
+
                     <div className="row">
                         <span className="boldText">Cliente:</span>
-                        {item.clienteNombre}
+                        {item.clienteNombre} 
+                        <span onClick={(e)=>this.showShippingAddress(e,index)} className="seeShippingAddressLink centerVertical">
+                          {this.state.showShippingAddressBool===true &&
+                           this.state.index===index?
+                           'Ocultar'
+                           :
+                           'Ver direccion'}
+                        </span>
                     </div>
+
+
+                    {this.state.index===index &&
+                    this.state.showShippingAddressBool===true?
                     <div className="row">
-                        <span className="boldText">Direccion de envio:</span>
-                        {item.clienteDireccion}
+                      <span className="boldText">Direccion de envio:</span>
+                      {item.clienteDireccion}
                     </div>
+                    :
+                    null}
+
+                                        
                 </div>
               </div>
               ))
@@ -242,7 +283,7 @@ const mapStateToProps=(state)=>({
 const mapDispatchToProps=(dispatch)=>{
   return{
     openModalTrackOrder:(option,idTrackOrderData)=>dispatch(openModalTrackOrder(option,idTrackOrderData)),
-    openModalOpenCase:(option,idRelatedOrder)=>dispatch(openModalOpenCase(option,idRelatedOrder))
+    openModalOpenCase:(option,idRelatedOrderData,detailMode,index)=>dispatch(openModalOpenCase(option,idRelatedOrderData,detailMode,index))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(SpecificOrderDetails);

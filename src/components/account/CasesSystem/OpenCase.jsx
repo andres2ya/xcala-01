@@ -4,11 +4,15 @@ import {openModalOpenCase,saveCaseData,loadEvidenceFiles} from '../../../ducks/a
 import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
 import Checkbox from '../../layout/Checkbox/Checkbox'
 import SpinnerInModal from '../../layout/SpinnerInModal/SpinnerInModal';
+import { returnStatement } from '@babel/types';
 
 class OpenCase extends Component {
 
     state={
-        gotError:false
+        gotError:false,
+        showFullImg:false,
+        imgToShowFull:null,
+        showCaseResume:false
     }
 
     componentDidUpdate=()=>{
@@ -54,8 +58,197 @@ class OpenCase extends Component {
         }
     }
 
+    showCaseResume=(e)=>{
+        e.preventDefault()
+        this.setState({
+            showCaseResume:!this.state.showCaseResume
+        })
+    }
+
+    showFullImg=(e,evidenceImgSrc)=>{
+        e.preventDefault()
+        this.setState({
+            showFullImg:!this.state.showFullImg,
+            imgToShowFull:evidenceImgSrc,
+            showCaseResume:!this.state.showCaseResume
+        })
+    }
+
+    changeFullImg=(e,evidenceImgSrc)=>{
+        e.preventDefault()
+        this.setState({
+            imgToShowFull:evidenceImgSrc
+        })
+    }
+
+
+
+
     render() {
-        const {caseCreated,showOpenCaseModal,idRelatedOrderData,openCaseData,showBtnSendRequestForOpenCase,showLoaderInModal}=this.props
+        const {indexDetailMode,showOpenCaseModalInDetailsMode,caseCreated,showOpenCaseModal,idRelatedOrderData,openCaseData,showBtnSendRequestForOpenCase,showLoaderInModal}=this.props
+
+        if(showOpenCaseModal===true && showOpenCaseModalInDetailsMode===true){
+            const itemsOfIdRelatedOrder=[...idRelatedOrderData[0].items]
+            return (
+              <div className="container modalOpenCaseInsideCard">
+                <div className="row modalOpenCaseContent">
+                  <div className="col-12">
+                    <div className="row relatedOrderIdAndBackArrow">
+                      <div className="col-8 numberOrderTitleModal d-flex justify-content-star align-items-center">
+                        Pedido #
+                        {idRelatedOrderData
+                          ? idRelatedOrderData[0].numeroPedido
+                          : null}
+                      </div>
+                      <div className="col-4 d-flex justify-content-end">
+                        <i
+                          onClick={() => this.props.openModalOpenCase(false)}
+                          className="backOrderDetails icon-arrow-circle-left centerVertical"
+                        />
+                      </div>
+                    </div>
+
+
+                    {this.state.showFullImg?null:
+                        <div className="seeCaseResume" onClick={this.showCaseResume}>{this.state.showCaseResume?'Cerrar resumen':'Ver resumen del caso'}</div>
+                    }
+                    
+                    {(()=>{
+                        if(this.state.showCaseResume===true && this.state.showFullImg===false){
+                            return (
+                            <div className="generalDataResumenCaseBox">
+                                <div className="row dataResumeCaseBox">
+                                    <div className="col-12">
+                                        <div className="labelResumeCase">Producto relacionado:</div> 
+                                        <div className="dataResumeCase">{itemsOfIdRelatedOrder[indexDetailMode].nombreProducto} de {itemsOfIdRelatedOrder[indexDetailMode].clienteNombre}</div>
+                                    </div>
+                                </div>
+
+                                <div className="row dataResumeCaseBox">
+                                    <div className="col-12">
+                                        <div className="labelResumeCase">Motivo del caso:</div> 
+                                        <div className="dataResumeCase">{itemsOfIdRelatedOrder[indexDetailMode].case.selectedReason}</div>
+                                    </div>
+                                </div>
+
+                                <div className="row dataResumeCaseBox">
+                                    <div className="col-12">
+                                        <div className="labelResumeCase">Tu descripcion del caso:</div> 
+                                        <div className="lighterDataResumeCase strong">{itemsOfIdRelatedOrder[indexDetailMode].case.longDescription}</div>
+                                    </div>
+                                </div>
+
+                                {itemsOfIdRelatedOrder[indexDetailMode].case.evidence?
+                                <div className="row dataResumeCaseBox">
+                                    <div className="col-12">
+                                        <span className="labelResumeCase">Tus pruebas</span>
+                                    </div>
+                                </div>
+                                :
+                                null}
+
+
+                                <div className="d-flex">
+                                    {itemsOfIdRelatedOrder[indexDetailMode].case.evidence?
+                                    itemsOfIdRelatedOrder[indexDetailMode].case.evidence.map((evidence,index)=>(
+                                        <div key={index} className="row">
+                                            <div className="col-3">
+                                                <img onClick={(e)=>this.showFullImg(e,evidence)} className="evidenceIMG" src={evidence} alt={`evidence${index}`}/>
+                                            </div>
+                                        </div>
+                                    ))
+                                    :
+                                    null
+                                    }
+                                </div>
+                            </div>
+                            )
+
+
+
+                        }else if(this.state.showCaseResume===false && this.state.showFullImg===true){
+                            return(
+                            <div>
+                                <div className="paragraphOrderDetailsModal">
+                                    <span className="boldText"> Tus evidencias</span>
+                                </div>
+                                <img className="fullImgEvidence" src={this.state.imgToShowFull} alt="fullImgEvidence"/>
+                                <div className="evidencesThumbnails d-flex justify-content-center">
+                                    {itemsOfIdRelatedOrder[indexDetailMode].case.evidence?
+                                    itemsOfIdRelatedOrder[indexDetailMode].case.evidence.map((evidence,index)=>(
+                                        <div key={index} className="row">
+                                            <div className="col-3">
+                                                <img onClick={(e)=>this.changeFullImg(e,evidence)} className="evidenceIMG" src={evidence} alt={`evidence${index}`}/>
+                                            </div>
+                                        </div>
+                                    ))
+                                    :
+                                    null
+                                    }
+                                </div>
+                                <div className="d-flex justify-content-center">
+                                    <div className="seeCaseResume" onClick={(e)=>this.showFullImg(e,null)}>Volver</div>
+                                </div>
+                            </div>
+                            )
+
+
+
+
+                        }else if(this.state.showCaseResume===false && this.state.showFullImg===false){
+                            return (
+                            <div>
+                                <div className="row openCaseSuccessMsg">
+                                    <div className="col-12">
+                                        <p className="openCaseModalSuccessMsgTitle">Tu solicitud ya fue atendida y esta proxima a ser resuelta.</p>
+                                        <p className="openCaseModalSuccessMsgParagraph">Porfavor revisa los detalles de este pedido para conocer la resolucion del caso una vez se haya finalizado.</p>
+                                    </div>
+                                </div>
+            
+            
+                                <div className="row openCaseBtnSuccessMsg">
+                                    <div className="col-12 d-flex justify-content-center">
+                                        <button onClick={(e) => this.props.openModalOpenCase(false)}>Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            ) 
+                        } else{
+                            return null
+                        }
+                    })()}
+
+
+                  </div>
+                </div>
+              </div>
+            )
+
+}
+
+
+
+
+
+
+
+
+
+
+
+        // --------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
         if(showOpenCaseModal){
             const itemsOfIdRelatedOrder=[...idRelatedOrderData[0].items]
@@ -218,7 +411,9 @@ class OpenCase extends Component {
 }
 const mapStateToProps=(state)=>({
     showOpenCaseModal:state.openCaseReducer.showOpenCaseModal,
-    idRelatedOrderData:state.openCaseReducer.idRelatedOrder,
+    idRelatedOrderData:state.openCaseReducer.idRelatedOrderData,
+    showOpenCaseModalInDetailsMode:state.openCaseReducer.showOpenCaseModalInDetailsMode,
+    indexDetailMode:state.openCaseReducer.indexDetailMode,
     showBtnSendRequestForOpenCase:state.openCaseReducer.showBtnSendRequestForOpenCase,
     openCaseData:state.openCaseReducer.openCaseData,
     uid:state.firebase.auth.uid,
@@ -228,7 +423,7 @@ const mapStateToProps=(state)=>({
 })
 const mapDispatchToProps=(dispatch)=>{
     return{
-        openModalOpenCase:(option,idRelatedOrder)=>dispatch(openModalOpenCase(option,idRelatedOrder)),
+        openModalOpenCase:(option,idRelatedOrderData)=>dispatch(openModalOpenCase(option,idRelatedOrderData)),
         saveCaseData:(label,data)=>dispatch(saveCaseData(label,data)),
         loadEvidenceFiles:(supplierID,itemID,openCaseData,userID,orderID)=>dispatch(loadEvidenceFiles(supplierID,itemID,openCaseData,userID,orderID)),
         handleErrorMsg:(msg)=>dispatch(handleErrorMsg(msg))

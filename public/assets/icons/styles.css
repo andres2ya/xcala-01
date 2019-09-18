@@ -170,3 +170,6 @@
 .icon-plus:before {
   content: "\53";
 }
+.icon-detailswithoutcircle:before {
+  content: "\52";
+}

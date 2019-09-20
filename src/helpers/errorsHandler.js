@@ -16,6 +16,8 @@ export const identifyAndReturnMsgError=(errorCode)=>{
             return 'Las constraseñas no coinciden'
         case 'No has completado todos los campos':
             return 'No has completado todos los campos'
+        case 'onlyImages':
+            return 'Solo puedes cargar imagenes'
         default:
             return 'Algo ha salido mal. Porfavor vuelve a intentarlo.'
     }

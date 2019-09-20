@@ -71,9 +71,13 @@ export const loadEvidenceFiles=(supplierID,itemID,openCasedata,userID,orderID)=>
                     snapshot.ref.getDownloadURL()
                     .then((downloadURL)=>{
                         evidenceURLSArray.push(downloadURL)
-                        dispatch({type:LOAD_EVIDENCE_FILES_SUCCESS,evidenceURLSArray:evidenceURLSArray})
+                        
+                        console.log('Array de urls: abajo ')
                         console.log(evidenceURLSArray)
-                        if((index+1)===evidenceArray.length){
+
+                        dispatch({type:LOAD_EVIDENCE_FILES_SUCCESS,evidenceURLSArray:evidenceURLSArray})
+                        if(evidenceURLSArray.length===evidenceArray.length){
+                        // if((index+1)===evidenceArray.length){
                             dispatch(createCaseInFirestore(supplierID,itemID,openCasedata,userID,orderID))
                         }
                     })
@@ -192,10 +196,14 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
                   selectedItem:openCasedata.selectedItem,
                   selectedReason:openCasedata.selectedReason,
                   longDescription:openCasedata.longDescription,
-                  evidence:evidenceURLSArray
+                  evidence:evidenceURLSArray,
+                  lastState:'Sin resolver'
              }}
 
-    var userDocRef=firestore.collection('users').doc(userID)    
+    var userDocRef=firestore.collection('users').doc(userID) 
+    console.log('Nuevos datos... abajo')
+    console.log(newUserOrders)
+    //NOTE: Estamos en esta linea ya que muestrea los nuevos datos incluso cuando no ha terminado de cargar todos los arhcivos   
     userDocRef.update({
         pedidos:newUserOrders
     })

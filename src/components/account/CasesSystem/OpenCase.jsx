@@ -39,11 +39,20 @@ class OpenCase extends Component {
         })
         const {saveCaseData}=this.props
         if(e.target.name==='evidenceOne' || e.target.name==='evidenceTwo' || e.target.name==='evidenceThree' || e.target.name==='evidenceFour'){
-            saveCaseData(e.target.name,e.target.files)
+            if(e.target.files[0].type.indexOf('image/')> -1){
+                saveCaseData(e.target.name,e.target.files)
+            }else{
+                const {handleErrorMsg}=this.props
+                this.setState({
+                    gotError:true
+                })
+                handleErrorMsg({code:'onlyImages'})
+            }
         }else{
             saveCaseData(e.target.name,e.target.value)
         }
     }
+    
 
     sendRequest=(e)=>{
         e.preventDefault()
@@ -56,7 +65,7 @@ class OpenCase extends Component {
             })
             handleErrorMsg({code:'No has completado todos los campos'})
         }else{
-            loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (toca generarlo)
+            loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (se debe generar)
         }
     }
 
@@ -124,7 +133,7 @@ class OpenCase extends Component {
                                     <div className="col-12">
                                         {/* TODO: Pendiente halar el estado desde base de datos: .case.estado */}
                                         <div className="labelResumeCase">Estado del caso:</div> 
-                                        {/* <div className="lighterDataResumeCase strong">{itemsOfIdRelatedOrder[indexDetailMode].case.longDescription}</div> */}
+                                        {/* <div className="lighterDataResumeCase strong">{itemsOfIdRelatedOrder[indexDetailMode].case.estado}</div> */}
                                         <div className="dataResumeCase">Pendiente de resolucion</div>
                                     </div>
                                 </div>
@@ -275,7 +284,7 @@ class OpenCase extends Component {
 
 
 
-        // TODO: impedir abrir un caso para un item que tiene actualmente un caso sin resolver.
+        
         if(showOpenCaseModal){
             const itemsOfIdRelatedOrder=[...idRelatedOrderData[0].items]
             return (
@@ -314,10 +323,31 @@ class OpenCase extends Component {
                                 
                                 <div className="row selectRelatedItem">
                                     <div className="col-12 selectOptionOpenCase d-flex justify-content-center align-items-center">
+                                        
+                                        
                                         <select className="boldText" defaultValue={openCaseData.selectedItem?openCaseData.selectedItem:'SeleccionarItem'} name="selectedItem" onChange={this.leerDatos} id="selectItemForOpenCase">
                                             <option value="SeleccionarItem" disabled>Producto relacionado</option>
                                             {/* TODO: reemplazar valor de option por un id del producto */}
-                                            {itemsOfIdRelatedOrder?itemsOfIdRelatedOrder.map(item=>(<option value={item.id}>{item.nombreProducto} {'de'} {item.clienteNombre}</option>)):null}
+                                            {itemsOfIdRelatedOrder?itemsOfIdRelatedOrder.map(item=>(
+                                                
+                                                
+                                            (()=>{
+                                                if(item.case!==undefined){
+                                                if(item.case.lastState!=='Sin resolver'){
+                                                    return <option value={item.id}>{item.nombreProducto} {'de'} {item.clienteNombre}</option>
+                                                } else{
+                                                    return <option value={item.id} disabled>{item.nombreProducto} {'de'} {item.clienteNombre} {'(caso abierto)'}</option>
+                                                }
+                                                }else {
+                                                    return <option value={item.id}>{item.nombreProducto} {'de'} {item.clienteNombre}</option>
+                                                }
+                                            })()
+                                            
+
+
+                                            ))
+                                            :
+                                            null}
                                         </select>
                                     </div>
                                 </div>
@@ -349,7 +379,7 @@ class OpenCase extends Component {
                                                     <i className="icon-plus centerVertical"></i>
                                                 }
                                             </label>
-                                            <input id="addEvidenceInputOne" name="evidenceOne" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
+                                            <input accept="image/*"  id="addEvidenceInputOne" name="evidenceOne" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
                                         </div>
             
                                         <div className="inputEvidencesFileBox">
@@ -360,7 +390,7 @@ class OpenCase extends Component {
                                                     <i className="icon-plus centerVertical"></i>
                                                 }
                                             </label>
-                                            <input id="addEvidenceInputTwo" name="evidenceTwo" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
+                                            <input accept="image/*"  id="addEvidenceInputTwo" name="evidenceTwo" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
                                         </div>
             
                                         <div className="inputEvidencesFileBox">
@@ -371,7 +401,7 @@ class OpenCase extends Component {
                                                     <i className="icon-plus centerVertical"></i>
                                                 }
                                             </label>
-                                            <input id="addEvidenceInputThree" name="evidenceThree" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
+                                            <input accept="image/*"  id="addEvidenceInputThree" name="evidenceThree" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
                                         </div>
             
                                         <div className="inputEvidencesFileBox">
@@ -382,7 +412,7 @@ class OpenCase extends Component {
                                                     <i className="icon-plus centerVertical"></i>
                                                 }
                                             </label>
-                                            <input id="addEvidenceInputFour" name="evidenceFour" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
+                                            <input accept="image/*"  id="addEvidenceInputFour" name="evidenceFour" className="evidenceFileInput" onChange={this.leerDatos} type="file"/>
                                         </div>
                                         
                                     </div>

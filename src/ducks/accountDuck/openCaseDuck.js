@@ -13,9 +13,9 @@ const LOAD_EVIDENCE_FILES_ERROR='xcala/orderDetails/LOAD_EVIDENCE_FILES_ERROR'
 const SHOW_LOADER_IN_MODAL_TRUE='xcala/orderDetails/SHOW_LOADER_IN_MODAL_TRUE'
 const SHOW_LOADER_IN_MODAL_FALSE='xcala/orderDetails/SHOW_LOADER_IN_MODAL_FALSE'
 //--------------------------------------------------------------------
-
 const SHOW_SUCCESS_OPEN_CASE_SCREEN='xcala/orderDetails/SHOW_SUCCESS_OPEN_CASE_SCREEN'
-
+//--------------------------------------------------------------------
+const RESET_OPEN_CASE_FORM='xcala/orderDetails/RESET_OPEN_CASE_FORM'
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
@@ -216,8 +216,9 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     })
 }}
 //..................................................................................
-
-
+export const resetOpenCaseForm=(reseted)=>{
+    return{ type:RESET_OPEN_CASE_FORM,payload:reseted}
+}
 
 
 //3. REDUCER PRELOADER
@@ -239,7 +240,8 @@ const initialState={
     evidenceURLSArray:null,
     errorWhenLoadingEvidenceFiles:null,
     showLoaderInModal:false,
-    caseCreated:false
+    caseCreated:false,
+    reseted:false
     
 }
 const openCaseReducer = (state=initialState, action)=>{
@@ -293,6 +295,19 @@ const openCaseReducer = (state=initialState, action)=>{
             return{
                 ...state,
                 showOpenCaseModal:false
+            }
+        case RESET_OPEN_CASE_FORM:
+            return{
+                ...state,
+                caseCreated:false,
+                reseted:true,
+                openCaseData:{'selectedItem':null,
+                'selectedReason':null,
+                'longDescription':null,
+                'evidenceOne':null,
+                'evidenceTwo':null,
+                'evidenceThree':null,
+                'evidenceFour':null,}
             }
         default:
             return state;

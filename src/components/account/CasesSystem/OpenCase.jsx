@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {openModalOpenCase,saveCaseData,loadEvidenceFiles} from '../../../ducks/accountDuck/openCaseDuck';
+import {openModalOpenCase,saveCaseData,loadEvidenceFiles,resetOpenCaseForm} from '../../../ducks/accountDuck/openCaseDuck';
 import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
 import Checkbox from '../../layout/Checkbox/Checkbox'
 import SpinnerInModal from '../../layout/SpinnerInModal/SpinnerInModal';
@@ -15,7 +15,6 @@ class OpenCase extends Component {
         imgToShowFull:null,
         showCaseResume:false,
     }
-
 
     componentDidUpdate=()=>{
         const {showOpenCaseModal}=this.props
@@ -66,8 +65,12 @@ class OpenCase extends Component {
             handleErrorMsg({code:'No has completado todos los campos'})
         }else{
             loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (se debe generar)
+            //Resetando formulario de apertura de caso
+            const {resetOpenCaseForm}=this.props
         }
     }
+
+
 
     showCaseResume=(e)=>{
         e.preventDefault()
@@ -131,10 +134,8 @@ class OpenCase extends Component {
                             <div className="generalDataResumenCaseBox">
                                 <div className="row dataResumeCaseBox">
                                     <div className="col-12">
-                                        {/* TODO: Pendiente halar el estado desde base de datos: .case.estado */}
-                                        <div className="labelResumeCase">Estado del caso:</div> 
-                                        {/* <div className="lighterDataResumeCase strong">{itemsOfIdRelatedOrder[indexDetailMode].case.estado}</div> */}
-                                        <div className="dataResumeCase">Pendiente de resolucion</div>
+                                        <div className="labelResumeCase">Estado del caso:</div>
+                                        <div className="dataResumeCase">{itemsOfIdRelatedOrder[indexDetailMode].case.lastState}</div>
                                     </div>
                                 </div>
 
@@ -330,7 +331,7 @@ class OpenCase extends Component {
                                             {/* TODO: reemplazar valor de option por un id del producto */}
                                             {itemsOfIdRelatedOrder?itemsOfIdRelatedOrder.map(item=>(
                                                 
-                                                
+
                                             (()=>{
                                                 if(item.case!==undefined){
                                                 if(item.case.lastState!=='Sin resolver'){
@@ -446,7 +447,9 @@ class OpenCase extends Component {
                             </div>
                             <div className="row openCaseBtnSuccessMsg">
                                 <div className="col-12 d-flex justify-content-center">
-                                    <button onClick={() => this.props.openModalOpenCase(false)}>Aceptar</button>
+                                    <button onClick={() => {this.props.openModalOpenCase(false)
+                                                            this.props.resetOpenCaseForm(true)}
+                                    }>Aceptar</button>
                                 </div>
                             </div>
                             </div>
@@ -484,7 +487,8 @@ const mapDispatchToProps=(dispatch)=>{
         openModalOpenCase:(option,idRelatedOrderData)=>dispatch(openModalOpenCase(option,idRelatedOrderData)),
         saveCaseData:(label,data)=>dispatch(saveCaseData(label,data)),
         loadEvidenceFiles:(supplierID,itemID,openCaseData,userID,orderID)=>dispatch(loadEvidenceFiles(supplierID,itemID,openCaseData,userID,orderID)),
-        handleErrorMsg:(msg)=>dispatch(handleErrorMsg(msg))
+        handleErrorMsg:(msg)=>dispatch(handleErrorMsg(msg)),
+        resetOpenCaseForm:(reseted)=>dispatch(resetOpenCaseForm(reseted))
     }
 }
 export default  connect(mapStateToProps,mapDispatchToProps)(OpenCase)

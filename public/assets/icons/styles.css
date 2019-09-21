@@ -173,3 +173,21 @@
 .icon-detailswithoutcircle:before {
   content: "\52";
 }
+.icon-search-minus:before {
+  content: "\54";
+}
+.icon-search-plus:before {
+  content: "\55";
+}
+.icon-zoom-out:before {
+  content: "\56";
+}
+.icon-zoom-in:before {
+  content: "\57";
+}
+.icon-arrows-alt:before {
+  content: "\58";
+}
+.icon-resize:before {
+  content: "\59";
+}

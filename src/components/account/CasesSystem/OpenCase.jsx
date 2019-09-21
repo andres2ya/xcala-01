@@ -14,6 +14,8 @@ class OpenCase extends Component {
         showFullImg:false,
         imgToShowFull:null,
         showCaseResume:false,
+        zoom:0.1,
+        key:1
     }
 
     componentDidUpdate=()=>{
@@ -65,8 +67,6 @@ class OpenCase extends Component {
             handleErrorMsg({code:'No has completado todos los campos'})
         }else{
             loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (se debe generar)
-            //Resetando formulario de apertura de caso
-            const {resetOpenCaseForm}=this.props
         }
     }
 
@@ -94,6 +94,36 @@ class OpenCase extends Component {
             imgToShowFull:evidenceImgSrc
         })
     }
+
+    zoomInFullIMG=(e)=>{
+        e.preventDefault()
+        var newZoom=this.state.zoom+0.1
+        if(this.state.zoom<=2){
+            this.setState({
+                zoom:newZoom
+            })
+        }
+    }
+
+    zoomOutFullIMG=(e)=>{
+        e.preventDefault()
+        var newZoom=this.state.zoom-0.1
+        if(this.state.zoom>0.2){
+            this.setState({
+                zoom:newZoom
+            })
+        }
+    }
+
+    resizeFullIMG=(e)=>{
+        e.preventDefault()
+        var newKey=this.state.key+1
+        this.setState({
+            key:newKey
+        })
+    }
+
+    
 
  
 
@@ -197,13 +227,30 @@ class OpenCase extends Component {
 
 
                                 
-                                
                                     <div id="fullImgWrapper">
-                                        <Draggable axis="both">
+                                        
+                                        <Draggable 
+                                        axis="both"
+                                        defaultPosition={{x: 0, y: 0}}
+                                        key={this.state.key}> 
                                         <div id="draggableEvidenceImg">
-                                            <img src={this.state.imgToShowFull} alt="fullImgEvidence"/>
+                                            <img style={{zoom:this.state.zoom}} className="FullIMG" src={this.state.imgToShowFull} alt="fullImgEvidence"/>
                                         </div> 
-                                        </Draggable>
+                                        </Draggable>                                        
+
+                                    </div>
+
+                                    <div className="row zoomIconsRow">
+                                        <div className="col-6"/>
+                                        <div className="col-2 backZoomIcon d-flex justify-content-center align-items-center">
+                                            <i onClick={this.resizeFullIMG}  className="resizeIcon icon-resize centerVertical"/>
+                                        </div>
+                                        <div className="col-2 backZoomIcon d-flex justify-content-center align-items-center">
+                                            <i onClick={this.zoomOutFullIMG} className="zoomIcon icon-zoom-out centerVertical"/>
+                                        </div>
+                                        <div className="col-2 backZoomIcon d-flex justify-content-center align-items-center">
+                                            <i onClick={this.zoomInFullIMG} className="zoomIcon icon-zoom-in centerVertical"/>
+                                        </div>
                                     </div>
                                 
 

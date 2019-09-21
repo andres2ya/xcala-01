@@ -16,7 +16,7 @@ const SHOW_LOADER_IN_MODAL_FALSE='xcala/orderDetails/SHOW_LOADER_IN_MODAL_FALSE'
 const SHOW_SUCCESS_OPEN_CASE_SCREEN='xcala/orderDetails/SHOW_SUCCESS_OPEN_CASE_SCREEN'
 //--------------------------------------------------------------------
 const RESET_OPEN_CASE_FORM='xcala/orderDetails/RESET_OPEN_CASE_FORM'
-
+//------------------------------------------------------------------------------
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
 export const openModalOpenCase=(option,idRelatedOrderData,detailMode,index)=>{
@@ -221,6 +221,7 @@ export const resetOpenCaseForm=(reseted)=>{
 }
 
 
+
 //3. REDUCER PRELOADER
 const initialState={
     showOpenCaseModal:false,
@@ -242,7 +243,6 @@ const initialState={
     showLoaderInModal:false,
     caseCreated:false,
     reseted:false
-    
 }
 const openCaseReducer = (state=initialState, action)=>{
     switch(action.type){

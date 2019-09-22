@@ -203,7 +203,6 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     var userDocRef=firestore.collection('users').doc(userID) 
     console.log('Nuevos datos... abajo')
     console.log(newUserOrders)
-    //NOTE: Estamos en esta linea ya que muestrea los nuevos datos incluso cuando no ha terminado de cargar todos los arhcivos   
     userDocRef.update({
         pedidos:newUserOrders
     })
@@ -229,6 +228,7 @@ const initialState={
     indexDetailMode:null,
     idRelatedOrderData:null,
     showBtnSendRequestForOpenCase:false,
+    
     openCaseData:{
         selectedItem:null,
         selectedReason:null,

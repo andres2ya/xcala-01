@@ -19,10 +19,16 @@ class MyAccount extends Component {
     }
 
     render() {
-        
-        if(!this.props.isAuth)
-        return <Redirect to='/'/>
+        console.log(this.props.fire)
+        if(!this.props.isAuth){
+            return <Redirect to='/'/>
+        }else if(this.props.isAuth){
+            if(this.props.userRole==='adminXcala'){
+                return <Redirect to='/xcala-admin'/>
+            }else{
 
+
+                
         return (          
             <div className="pcControlerScreen">
                 <div className="row">
@@ -145,11 +151,14 @@ class MyAccount extends Component {
                 {/* <button onClick={()=>console.log(this.props.fire)}>Check</button> */}
             </div>
         )
+        }
     }
+}
 }
 
 const mapStateToProps=(state)=>({
         isAuth:state.firebase.auth.uid,
+        userRole:state.firebase.profile.role,
         fire:state
 })
 

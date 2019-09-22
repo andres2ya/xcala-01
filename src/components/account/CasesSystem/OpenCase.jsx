@@ -10,6 +10,7 @@ import Draggable from 'react-draggable';
 class OpenCase extends Component {
 
     state={
+        
         gotError:false,
         showFullImg:false,
         imgToShowFull:null,
@@ -22,7 +23,7 @@ class OpenCase extends Component {
         const {showOpenCaseModal}=this.props
 
 
-
+if(document.body.className!=='loginStyle'){
         if(showOpenCaseModal===true){
             document.getElementById('ownModal').className='ownModal'
             document.body.className='overFlowYHidden'
@@ -32,6 +33,7 @@ class OpenCase extends Component {
             document.body.className='myAccountStyle'
         }
     }
+}
 
     leerDatos=(e)=>{
         e.preventDefault()
@@ -66,7 +68,8 @@ class OpenCase extends Component {
             })
             handleErrorMsg({code:'No has completado todos los campos'})
         }else{
-            loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) //TODO: reemplazar numero pedido por ID del pedidlo. (se debe generar)
+            //TODO: reemplazar numero pedido por ID del pedidlo. (se debe generar)
+            loadEvidenceFiles(null,openCaseData.selectedItem,openCaseData,uid,idRelatedOrderData[0].numeroPedido) 
         }
     }
 

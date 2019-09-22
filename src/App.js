@@ -18,6 +18,7 @@ import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
 import ModalTrackorder from "./components/account/ModalTrackorder";
 import OpenCase from "./components/account/CasesSystem/OpenCase";
+import ControlPanelXcala from "./components/XcalaInternalComponents/ControlPanelXcala/ControlPanelXcala";
 
 
 
@@ -53,6 +54,7 @@ function App(){
       <Route exact path="/emailverify" component={EmailVerify}/>
       <Route exact path="/emailconfirm" component={EmailConfirm}/>
       <Route exact path="/emailVerification" component={EmailVerification}/>
+      <Route exact path='/xcala-admin' component={ControlPanelXcala}/>
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
       {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))}

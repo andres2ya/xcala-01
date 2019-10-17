@@ -99,20 +99,21 @@ const initialState={
     showEmailVerify:false,
     showRegisterButton:false,
     successVerified:false,
-    newUserData:{
+    newSupplierData:{
         emailSignUp:'',
         passwordSignUp:'',
         repeatPasswordSignUp:'',
-        nombreUsuario:'',
-        apellidosUsuario:'',
-        fechaNacimientoUsuario:'',
-        cedulaUsuario:'',
-        ciudadUsuario:'',
-        celularUsuario:'',
-        role:'vendedor'
+        razonSocial:'',
+        representanteLegal:'',
+        fechaIngreso:'',
+        identificacionProveedor:'',
+        ciudadProveedor:'',
+        celularProveedor:'',
+        tipoProveedor:'',
+        role:'proveedor'
     }
 }
-const authSignUpReducer = (state=initialState, action)=>{
+const supplierSignUpReducer = (state=initialState, action)=>{
     switch(action.type){
         case ACCEPT_TERMS_AND_CONDITION:
             return{
@@ -125,7 +126,7 @@ const authSignUpReducer = (state=initialState, action)=>{
         case SAVE_DATA_NEW_USER:
             return{
                 ...state,
-                newUserData:{...state.newUserData,[action.label]:action.data}
+                newSupplierData:{...state.newSupplierData,[action.label]:action.data}
             }
         //------------------------------------------------------------------
         //------------------------------------------------------------------
@@ -197,4 +198,4 @@ const authSignUpReducer = (state=initialState, action)=>{
     }
 }
 
-export default authSignUpReducer
+export default supplierSignUpReducer

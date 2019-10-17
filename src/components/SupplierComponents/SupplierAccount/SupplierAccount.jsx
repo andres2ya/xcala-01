@@ -1,46 +1,23 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {logOut} from '../../ducks/authDucks/authDuckLogin';
-import {connect} from 'react-redux';
-import './account.css'
-import LinkWithDelay from '../../helpers/LinkWithDelay';
+import {logOut} from '../../../ducks/authDucks/authDuckLogin'
+import LinkWithDelay from '../../../helpers/LinkWithDelay';
+import './SupplierAccount.css';
 
-class MyAccount extends Component {
-
-    componentDidMount=()=>{
-        document.body.removeAttribute('class')
-        document.body.className='myAccountStyle'
-    }
-
-    uploadPhoto=(e)=>{
-        const file=e.target.files[0]
-        const {isAuth}=this.props
-        this.props.uploadFile(file,isAuth)
-    }
-
+class SupplierAccount extends Component {
     render() {
-        console.log(this.props.fire)
-        if(!this.props.isAuth){
+        const {userRole,userProfile}=this.props
+        if(userRole!=='proveedor'){
             return <Redirect to='/'/>
-        }else if(this.props.isAuth){
-            if(this.props.userRole==='adminXcala'){
-                return <Redirect to='/xcala-admin'/>
-            }else if(this.props.userRole==='proveedor'){
-                return <Redirect to='/supplier-panel'/>
-            }else{
-                
-
-
-        if(this.props.userRole!=='vendedor'){
-            return null
-        }else{
-
-        return (          
-            <div className="pcControlerScreen">
+        }
+        return (
+            <div>
+                <div className="pcControlerScreen">
                 <div className="row">
-                    <p className="accountTitle">Opciones de tu cuenta</p>   
+                    <p className="accountTitle"> Bienvenido {userProfile?userProfile.razonSocial:null}, esta son las opciones de tu cuenta</p>   
                 </div>
-                <LinkWithDelay to="/order-details" delay={30}>
+                <LinkWithDelay to="/supplier-orders" delay={30}>
                 <div className="menuOptionsContainer">
                     <div className="col-12 container">
                         <div className="overMenuOpcionIcon firstOverMenuOptionIcon d-flex justify-content-center align-items-center">
@@ -147,32 +124,28 @@ class MyAccount extends Component {
                     </div>
                 </div>
 
-                
 
 
-
-                <div className="row d-flex justify-content-center buttonLogout">
-                    <button onClick={()=>this.props.logOut()}>Salir de la cuenta</button>
+                <div className="row">
+                    <div className="col-12">
+                        <div className="row d-flex justify-content-center buttonLogout logoutSupplierPanel">
+                            <button onClick={()=>this.props.logOut()}>Salir de la cuenta</button>
+                        </div>
+                    </div>
                 </div>
-                {/* <button onClick={()=>console.log(this.props.fire)}>Check</button> */}
+            </div>
             </div>
         )
-        }
     }
 }
-}
-}
-
-const mapStateToProps=(state)=>({
-        isAuth:state.firebase.auth.uid,
-        userRole:state.firebase.profile.role,
-        fire:state
+const mapStateToProps =(state)=>({
+    userRole:state.firebase.profile.role,
+    userProfile:state.firebase.profile
 })
 
 const mapDispatchToProps=(dispatch)=>{
-   return {
-       logOut:()=>dispatch(logOut())
+    return{
+        logOut:()=>dispatch(logOut())
     }
 }
-
-export default  connect(mapStateToProps,mapDispatchToProps)(MyAccount)
+export default  connect(mapStateToProps,mapDispatchToProps)(SupplierAccount)

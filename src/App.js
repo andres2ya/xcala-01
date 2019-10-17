@@ -19,6 +19,9 @@ import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders"
 import ModalTrackorder from "./components/account/ModalTrackorder";
 import OpenCase from "./components/account/CasesSystem/OpenCase";
 import ControlPanelXcala from "./components/XcalaInternalComponents/ControlPanelXcala/ControlPanelXcala";
+import NewSupplier from "./components/XcalaInternalComponents/NewSupplier/NewSupplier";
+import SupplierAccount from "./components/SupplierComponents/SupplierAccount/SupplierAccount";
+import SupplierOrders from "./components/SupplierComponents/SupplierOrders/SupplierOrders";
 
 
 
@@ -32,7 +35,7 @@ function App(){
           var url=window.location.pathname
           if(url==='/my-account'||url==='/order-details'||url==='/account-details'||url==='/invoice-address'||url==='/shipping-address'||url==='/all-products'){
             return <MainNavbar/>
-          }else if(url==='/all-categories'||url==='/shopping-car'||url.indexOf("order-id") > -1){
+          }else if(url==='/all-categories'||url==='/shopping-car'||url==='/supplier-panel'||url==='/supplier-orders'||url.indexOf("order-id") > -1){
             return <SecondNavbar/>
           }else if(url==='category-id'){
             return 'otherNavbar'
@@ -55,6 +58,9 @@ function App(){
       <Route exact path="/emailconfirm" component={EmailConfirm}/>
       <Route exact path="/emailVerification" component={EmailVerification}/>
       <Route exact path='/xcala-admin' component={ControlPanelXcala}/>
+      <Route exact path='/xcala-new-supplier' component={NewSupplier}/>
+      <Route exact path='/supplier-panel' component={SupplierAccount}/>
+      <Route exact path='/supplier-orders' component={SupplierOrders}/>
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
       {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))}

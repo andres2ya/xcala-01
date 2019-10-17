@@ -10,6 +10,7 @@ import './SecondNavbar.css';
 
 class SecondNavbar extends Component {
     render() {
+        const {userRole}=this.props
         return (
             <div className="sticky-top container-fluid SecondNavbar">
                 <div className="row SecondNavbarContent">
@@ -17,15 +18,27 @@ class SecondNavbar extends Component {
                         <img className="logoXcalaSecondNavbar" src={logoXcalaSecondNavbar} alt="logoXcala"/>
                     </div>
                     <div className="col-8 d-flex justify-content-end align-items-center">
+
+
                         <LinkWithDelay to={'/my-account'} delay={30}>
                         <img className="userPhotoSecondNavbar" src={this.props.userPhotoURLFromProfile?this.props.userPhotoURLFromProfile:userWithoutPhoto} alt="userPhoto"/>
                         </LinkWithDelay>
                             <div className="betweenWidgetsLeftSecondNav"/>
                             <div className="betweenWidgetsRightSecondNav"/>
-                        <Link to={'/shopping-car'}>
-                        <ShoppingCarWidget classNavIcon={'ShoppingCarWidgetSecondNavbar'} numberItemsInCar={10}/>
-                        </Link>
+
+
+                        {userRole==='vendedor'?
+                        <div>
+                            <Link to={'/shopping-car'}>
+                                <ShoppingCarWidget classNavIcon={'ShoppingCarWidgetSecondNavbar'} numberItemsInCar={10}/>
+                            </Link>
                             <div className="betweenWidgetsLeftSecondNav"/>
+                        </div>
+                        :
+                        null
+                        }
+
+
                             <div className="betweenWidgetsRightSecondNav"/>
                         <MenuWidget classNavIcon={'menuWidgetSecondNav'}/>
                     </div>
@@ -35,7 +48,9 @@ class SecondNavbar extends Component {
     }
 }
 const mapStateToProps=(state)=>({
-    userPhotoURLFromProfile:state.firebase.profile.userPhotoURL
+    userPhotoURLFromProfile:state.firebase.profile.userPhotoURL,
+    userRole:state.firebase.profile.role
+
   })
 
   

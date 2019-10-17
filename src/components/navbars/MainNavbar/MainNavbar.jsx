@@ -23,7 +23,12 @@ onIMGError=()=>{
 }
 
   render() {
-    const {userPhotoURLFromProfile}=this.props
+    const {userPhotoURLFromProfile,userRole}=this.props
+
+    if(userRole!=='vendedor'){
+      return null
+    }
+    
     return (
     <div className="sticky-top">
     <div className="absoluteParentIMG"><div className="parentIMG"><img src={userPhotoURLFromProfile!==null?userPhotoURLFromProfile:userWithoutPhoto} className="backImagen" alt="userBackgroundPhoto"/></div></div>
@@ -89,7 +94,8 @@ const mapStateToProps=(state)=>({
   nombreUsuario:state.firebase.profile.nombreUsuario,
   gananciaTotal:state.firebase.profile.gananciaTotal,
   ventasTotal:state.firebase.profile.ventasTotal,
-  uid:state.firebase.auth.uid
+  uid:state.firebase.auth.uid,
+  userRole:state.firebase.profile.role,
 })
 
 const mapDispatchToProps = (dispatch)=>{

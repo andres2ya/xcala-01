@@ -200,3 +200,9 @@
 .icon-backarrow:before {
   content: "\31";
 }
+.icon-datearrow:before {
+  content: "\32";
+}
+.icon-caret-left:before {
+  content: "\33";
+}

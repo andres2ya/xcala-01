@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import numeral from 'numeral';
 import NavbarHeader from "./NavbarHeader/NavbarHeader";
 import { MainContentNavHeaderInfoBtn } from "./NavbarHeader/MainContentNavHeader/MainContentNavHeader";
+import DateSelector from "./DateSelector/DateSelector";
 
 
 class SupplierOrders extends Component {
@@ -22,6 +23,9 @@ class SupplierOrders extends Component {
             <MainContentNavHeaderInfoBtn link="/" text="Ver pedidos pendientes" quantity="42"/>
           </div>
 
+          <div className="row">
+            <DateSelector/>
+          </div>
 
 
           <div className="conte"></div>

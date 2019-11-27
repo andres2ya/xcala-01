@@ -108,7 +108,7 @@ class SupplierAccount extends Component {
                             <div className="col-12">
                                 <div className="row">
                                         <div className="col-10 menuOptionTitleCard fourthMenuOptionTitleCard d-flex  align-items-end">
-                                            <span>Direcciones de envio</span>
+                                            <span>Productos</span>
                                         </div>
                                         <div className="col-2 iconArrowMenuOption fourthIconArrowMenuOption arrowMenuOptionCard d-flex justify-content-center align-items-center">
                                             <i className="icon-right-open-big centerVertical"></i>
@@ -116,7 +116,7 @@ class SupplierAccount extends Component {
                                 </div>
                                 <div className="row">
                                     <div className="col-11 menuOptionDescriptionCard d-flex  align-items-start">
-                                        <span>Administra las direcciones de envio y detalles de tus clientes.</span>
+                                        <span>Administra los detalles de tu productos publicados.</span>
                                     </div>
                                 </div>
                             </div>

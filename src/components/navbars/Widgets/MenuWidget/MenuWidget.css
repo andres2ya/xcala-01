@@ -18,3 +18,13 @@
     transform: scale(0.90);
     color:#3d4c88;
 }
+
+.menuWidgetNavSupplier{
+    font-size: 38px;
+    color:white;
+}
+
+.menuWidgetNavSupplier:active{
+    transform: scale(0.90);
+    color:white;
+}

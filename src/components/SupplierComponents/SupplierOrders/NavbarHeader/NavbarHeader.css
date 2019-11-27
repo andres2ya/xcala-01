@@ -1,0 +1,35 @@
+.NavbarHeaderXsupplier{
+    background-image:linear-gradient( to bottom, #10174b,#444d84);
+    
+}
+.NavbarHeaderXsupplierBottom{
+    background-color: #444d84;
+    padding-bottom: 15px;
+}
+
+.logoXcalaSupplier{
+    margin-top:10px;
+    padding-left:20px;
+}
+.iconBack{
+    font-size: 24px;
+    color: white;
+}
+.iconBack:active{
+    transform: scale(0.9);
+}
+.iconProfile{
+    font-size: 26px;
+    color: white;
+}
+.iconProfile:active{
+    transform: scale(0.9);
+}
+
+
+
+
+
+.conte{
+    height: 1000px;
+}

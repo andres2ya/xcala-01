@@ -35,7 +35,7 @@ function App(){
           var url=window.location.pathname
           if(url==='/my-account'||url==='/order-details'||url==='/account-details'||url==='/invoice-address'||url==='/shipping-address'||url==='/all-products'){
             return <MainNavbar/>
-          }else if(url==='/all-categories'||url==='/shopping-car'||url==='/supplier-panel'||url==='/supplier-orders'||url.indexOf("order-id") > -1){
+          }else if(url==='/all-categories'||url==='/shopping-car'||url==='/supplier-panel'||url.indexOf("order-id") > -1){
             return <SecondNavbar/>
           }else if(url==='category-id'){
             return 'otherNavbar'
@@ -44,7 +44,7 @@ function App(){
           }
         })()
     }
-    <div className="container">
+    <div className="container-fluid">
     <Switch>
       <Route exact path="/" component={Login}/>
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>

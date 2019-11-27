@@ -1,0 +1,52 @@
+.ContentNavHeaderSpace{
+    height: 25px;
+}
+.ContentNavHeaderSpaceLess{
+    height: 10px;
+}
+.ContentNavHeaderTitle{
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 25px;
+    line-height: 1;
+}
+.ContentNavHeaderParagraph{
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 17px;
+    opacity: 0.75;
+    line-height: 1;
+}
+.ContentNavHeaderInfoBtn-info{
+    min-width: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    max-height: 20px;
+    font-size: 18px;
+    border-radius: 100%;
+    background-color: white;
+    color:#10174b;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+    margin-right:10px;
+}
+
+.ContentNavHeaderQuantityCircel{
+    border-radius: 100%;
+    min-width: 30px;
+    max-width: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    border:solid 1.5px white;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:10px;
+    font-weight: bold;
+    
+}

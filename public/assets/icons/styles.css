@@ -191,3 +191,12 @@
 .icon-resize:before {
   content: "\59";
 }
+.icon-userprofile:before {
+  content: "\5a";
+}
+.icon-profile:before {
+  content: "\30";
+}
+.icon-backarrow:before {
+  content: "\31";
+}

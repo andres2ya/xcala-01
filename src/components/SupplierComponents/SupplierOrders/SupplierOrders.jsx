@@ -9,6 +9,8 @@ import DateSelector from "./DateSelector/DateSelector";
 import TabsSelector from "./TabsSelector/TabsSelector";
 import DayCard from "./DayCard/DayCard";
 import DespachoCard from "./DespachoCard/DespachoCard";
+import IndividualOrderCard from "./IndividualOrderCard/IndividualOrderCard";
+import ReferenceForTickets from "./ReferenceForTickets/ReferenceForTickets";
 
 
 class SupplierOrders extends Component {
@@ -56,6 +58,24 @@ class SupplierOrders extends Component {
             <DespachoCard/>
             <DespachoCard/>
             <DespachoCard/>
+          </div>
+
+          <div className="centerDisplayHalf">
+            <IndividualOrderCard/>
+            <IndividualOrderCard/>
+            <IndividualOrderCard/>
+            <IndividualOrderCard/>
+          </div>
+
+          <div className="centerDisplayHalf">
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
+            <ReferenceForTickets/>
           </div>
       </div>
     )

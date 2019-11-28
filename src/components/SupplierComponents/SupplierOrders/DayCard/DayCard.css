@@ -1,0 +1,142 @@
+.DayCard{
+    margin:10px 0px 10px 0px;
+}
+.DayCard-titleDay{
+    color:darkblue;
+    font-weight: bold;
+    line-height: 1;
+}
+.DayCard-stateCard{
+    background-color: #dc2f5a;
+    color: white;
+    font-weight: 400;
+    min-width: 120px;
+    max-height: 24px;
+    border-radius: 20px;
+    text-align: center;
+
+}
+.iconCheckCircle{
+    color: darkblue;
+    font-size: 35px;
+}
+.DayCard-addButtoms-row{
+    margin-top:15px;
+    margin-bottom: 15px;
+}
+.DayCard-addButtom{
+    text-align: center;
+    line-height: 1;
+    color: #3d4c87;
+    font-weight: 400;
+    max-width: 90px;
+}
+.DayCard-separator{
+    border-bottom: 1px solid grey;
+    opacity: 0.5;
+}
+
+
+
+
+
+
+/* Inicio componente total por referencia */
+.DayCardByRef{
+    margin-top:8px;
+    margin-bottom: 8px;
+}
+.DayCardByRef-product{
+    background-color:#7ea4fb;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: white;
+    line-height: 1;
+    font-size: 15px;
+    font-weight: 400;
+    padding:4px 8px 4px 8px;
+    margin: auto 0px auto 0px;
+}
+
+@media only screen and (max-width: 374px) {
+    .DayCardByRef-product{
+        font-size: 13px;
+        min-width: 100px;
+    }
+}
+
+
+.DayCardByRef-variation{
+    opacity: 0.75;
+}
+.DayCardByRef-separator{
+    margin-top:5px;
+    margin-bottom: 5px;
+    width: 1px;
+    background-color: grey;
+    opacity: 0.8;
+}
+.DayCardByRef-option{
+    margin: auto 0px auto 0px;
+    text-align: center;
+    min-width: 60px;
+}
+.DayCardByRef-option-despacho{
+    margin: auto 0px auto 0px;
+    text-align: center;
+    min-width: 50px;
+    margin-left:5px;
+}
+.DayCardByRef-option-number{
+    font-weight: 500;
+    color: rgb(93, 93, 93);
+}
+.DayCardByRef-option-label{
+    margin-top:-8px;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgb(93, 93, 93);
+}
+.DayCardByRef-option-label-depacho{
+    margin-top:-8px;
+    font-size: 10px;
+    font-weight: 500;
+    color: darkblue;
+    border-bottom: 1.5px solid darkblue;
+}
+
+@media only screen and (min-width: 1024px) {
+    .DayCardByRef-product{
+        font-size: 17px;
+        min-width: 400px;
+    }
+    .DayCardByRef-option-label{
+        font-size: 14px;
+    }
+    .DayCardByRef-option-label-depacho{
+        font-size: 14px;
+    }
+    .DayCardByRef-option{
+        min-width: 160px;
+    }
+    .DayCardByRef-option-despacho{
+        min-width: 150px;
+        margin-left:15px;
+    }
+    .DayCardByRef-option-input{
+        min-width: 150px;
+        max-height: 24px;
+    }
+}
+
+.DayCardByRef-option-input{
+    font-weight: 500;
+    color: darkblue;
+    text-align: center;
+    max-width: 50px;
+    max-height: 24px;
+    border: none;
+}
+.DayCardByRef-option-input:focus{
+    outline: none;
+}

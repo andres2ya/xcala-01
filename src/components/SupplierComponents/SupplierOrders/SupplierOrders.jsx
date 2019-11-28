@@ -1,13 +1,29 @@
 import React, { Component } from "react";
+import './SupplierOrders.css'
 import LinkWithDelay from '../../../helpers/LinkWithDelay';
 import {connect} from 'react-redux';
 import numeral from 'numeral';
 import NavbarHeader from "./NavbarHeader/NavbarHeader";
 import { MainContentNavHeaderInfoBtn } from "./NavbarHeader/MainContentNavHeader/MainContentNavHeader";
 import DateSelector from "./DateSelector/DateSelector";
+import TabsSelector from "./TabsSelector/TabsSelector";
+import DayCard from "./DayCard/DayCard";
+import DespachoCard from "./DespachoCard/DespachoCard";
 
 
 class SupplierOrders extends Component {
+  state={
+        activeTab:'Sin atender',
+        namesTabs:['Sin atender','Incompletos','Completos']
+    }
+
+  changeActiveTab=(e)=>{
+        console.log(e.target.id)
+        this.setState({
+            activeTab:e.target.id
+        })
+    }
+
   render() {
     return (
       <div>
@@ -27,8 +43,20 @@ class SupplierOrders extends Component {
             <DateSelector/>
           </div>
 
+          <div className="row">
+            <TabsSelector onClick={this.changeActiveTab} activeTab={this.state.activeTab} namesTabs={this.state.namesTabs}/>
+          </div>
 
-          <div className="conte"></div>
+          <div className="row centerDisplay">
+            <DayCard/>
+            <DayCard/>
+          </div>
+
+          <div className="row centerDisplay">
+            <DespachoCard/>
+            <DespachoCard/>
+            <DespachoCard/>
+          </div>
       </div>
     )
   }

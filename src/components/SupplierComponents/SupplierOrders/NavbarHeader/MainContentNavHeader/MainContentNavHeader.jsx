@@ -27,7 +27,7 @@ export class MainContentNavHeaderButton extends Component {
 export class MainContentNavHeaderInfoBtn extends Component {
     render() {
         return (
-                <div className="MainContentNavHeaderInfoBtn-card col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 d-flex align-items-center">
+                <div className="MainContentNavHeaderInfoBtn-card col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
                     <div className="MainContentNavHeaderInfoBtn-info">!</div>
                     <Link to={this.props.link}>
                         <div className="MainContentNavHeaderInfoBtn-infoText">

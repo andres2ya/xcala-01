@@ -206,3 +206,6 @@
 .icon-caret-left:before {
   content: "\33";
 }
+.icon-check-circle:before {
+  content: "\34";
+}

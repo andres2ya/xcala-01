@@ -5,7 +5,6 @@ class DateSelector extends Component {
     render() {
         return (
             <div className="col-12">
-                <div className="row DateSelectorSpacer"></div>
                 <div className="row">
                     <div className="col-12 d-flex align-items-center">
                         <div className="DateSelectorTitle">Pedidos semana</div>

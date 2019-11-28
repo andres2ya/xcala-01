@@ -1,0 +1,27 @@
+.TabsSelectorTabRow{
+    margin-top:15px;
+    margin-bottom: 15px;
+}
+.TabsSelectorTab{
+    text-align: center;
+    height: 35px;
+    width: 100%;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+}
+
+.TabsSelectorTab-active{
+    background-color: rgb(255, 255, 255);
+    color: darkblue;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 5px solid darkblue;
+}
+.TabsSelectorTab-desactive{
+    background-color: rgb(255, 255, 255);
+    color: rgb(155, 155, 155);
+    font-size: 14px;
+    border-bottom: none;
+}

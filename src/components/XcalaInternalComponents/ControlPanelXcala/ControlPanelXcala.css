@@ -1,0 +1,29 @@
+.headerControlPanelAdminXcala{
+    height: 50px;
+    background-color: white;
+    color:#3d4c88;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    -webkit-box-shadow: 0px 10px 70px 0px rgba(0,0,0,0.15);
+-moz-box-shadow: 0px 10px 70px 0px rgba(0,0,0,0.15);
+box-shadow: 0px 10px 70px 0px rgba(0,0,0,0.15);
+}
+
+.logoutXcalaAdminPanel{
+    margin-top:180px;
+}
+
+.newSupplierBtn{
+    margin-top:50px;
+}
+.newSupplierBtn button{
+    width: 90%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(61, 76, 136);
+    color:white;
+}
+.newSupplierBtn button:focus{
+    outline: none;
+}

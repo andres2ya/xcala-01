@@ -1,0 +1,44 @@
+.ReferenceForTickets-product-col{
+    margin-top:auto;
+    margin-bottom:auto; 
+}
+.ReferenceForTickets-product{
+    line-height: 1;
+    font-weight: 500;
+    color: darkblue;
+    margin-right: 15px;
+    min-width: 150px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.ReferenceForTickets-product-variation{
+    opacity: 0.6;
+}
+.ReferenceForTickets-product-separator{
+    width: 1.5px;
+    height: 25px;
+    background-color: grey;
+    opacity: 0.8;
+    margin-top:auto;
+    margin-bottom:auto; 
+}
+.ReferenceForTickets-ticketInfo{
+    margin-left: 10px;
+    color: rgb(58, 58, 58);
+    margin-top:auto;
+    margin-bottom:auto;
+}
+.ReferenceForTickets-ticketInfo-number{
+    font-size: 15px;
+    font-weight: bold;
+}
+.ReferenceForTickets-ticketInfo-text{
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+}
+.ReferenceForTickets-separator{
+    border-bottom: 1px solid grey;
+    opacity: 0.3;
+    margin:15px 0px 15px 0px;
+}

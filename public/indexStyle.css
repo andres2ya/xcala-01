@@ -1,0 +1,65 @@
+html{
+    height: 100%;
+}
+
+.overFlowYHidden{
+    overflow-y: hidden;
+}
+
+.loginStyle{
+    background-image: linear-gradient( #080e6d66, #080e6d66),url("./assets/fondo.png");  
+    background-color:rgb(0, 0, 8);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width:100%;
+}
+
+.myAccountStyle{
+    background-color: white;
+}
+
+#container{
+    height:100%;
+    position: relative;
+}
+
+#preloader,#root,#overlay,#ownModal{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+}
+
+#root{
+    z-index: 1;
+}
+
+/* --------------------------------INICIO--overlay loader----------------------------------- */
+#preloader{
+    z-index: 3;
+}
+
+.overlayOn{
+    min-height: 100vh;/* Full width (cover the whole page) */ /* Full height (cover the whole page) */
+    background-color: rgb(47, 39, 137);
+    /* background-image: linear-gradient( #080e6d66, #080e6d66),url("./assets/fondo.png"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity:0.2;
+    z-index: 2;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+}
+                        
+#preloader{
+    margin-top:25vh;
+}
+/* -------------------------------FIN---overlay loader----------------------------------- */
+/* -------------------------------------------------------------------------------------- */
+
+.ownModal{
+    min-height: 100vh;/* Full width (cover the whole page) */ /* Full height (cover the whole page) */
+    background-color:rgb(0, 0, 0,0.8);
+    z-index: 2;
+}

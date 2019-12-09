@@ -1,0 +1,1402 @@
+@media only screen and (min-width: 768px){
+    .pcControlerScreen{
+        width: 70%;
+        margin-left:auto;
+        margin-right: auto;
+    }
+}
+
+
+.accountTitle{
+    margin-top:50px;
+    margin-left:15px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: #3d4c88;
+    line-height: 25px;
+    z-index: 3;
+}
+
+@media only screen and (min-width: 768px){
+    .accountTitle{
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+}
+
+.menuOptionsContainer{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.menuOptionsContainer:active{
+    transform: scale(0.9);
+}
+.fourthMenuOptionsContainer{
+    margin-bottom: 40px;
+}
+
+.menuOpcionCard{
+    position: relative;
+    padding-left: 23%;
+    height: 70px;
+    border-radius: 15px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.1);
+-moz-box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.1);
+box-shadow: 0px 0px 29px 0px rgba(0,0,0,0.1);
+z-index: 898;
+}
+    .overMenuOpcionIcon{
+        position: absolute;
+        padding-left:6px;
+        left:0;top:0;
+        z-index: 899;
+        height: 100%;
+        width: 23%;
+        border-style: solid;
+        border-width: 2px 0px 2px 2px;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+            .firstOverMenuOptionIcon{
+                /* border-color: #111e50; */
+                border-color:transparent;
+                background-color: rgb(17, 30, 80,0.7);
+
+            }.secondOverMenuOptionIcon{
+                /* border-color: #113ca0; */
+                border-color:transparent;
+                background-color: rgb(17, 60, 160,0.7);
+                padding-left:9px;
+            }.thirdOverMenuOptionIcon{
+                /* border-color: rgb(17, 90, 240); */
+                border-color:transparent;
+                background-color: rgb(17, 90, 240,0.7);
+                padding-left:9px;
+            }.fourthOverMenuOptionIcon{
+                /* border-color: #118cff; */
+                border-color:transparent;
+                background-color: rgb(17, 140, 255,0.7);
+            }
+            
+
+        .iconMenuOption{
+            font-size: 40px;
+        }
+                .firstIconMenuOption{
+                    /* color:#111e50; */
+                    color: white;
+                }.secondIconMenuOption{
+                    /* color:#113ca0; */
+                    color: white;
+                }.thirdIconMenuOption{
+                    /* color:#115af0; */
+                    color:white;
+                }.fourthIconMenuOption{
+                    /* color:#118cff; */
+                    color:white;
+                }
+
+
+        .menuOptionTitleCard{
+            height: 35px;
+            font-size: 14px;
+            font-family: "Nunito", sans-serif;
+            font-weight: 700;
+            opacity: 0.9;
+        }  
+                .firstMenuOptionTitleCard{
+                    color: #111e50;
+                }.secondMenuOptionTitleCard{
+                    color: #113ca0;
+                }.thirdMenuOptionTitleCard{
+                    color: #115af0;
+                }.fourthMenuOptionTitleCard{
+                    color: #118cff;
+                }
+
+
+        .menuOptionDescriptionCard{
+            height: 40px;
+            color:grey;
+            font-size: 11px;
+            font-family: "Nunito", sans-serif;
+            font-weight: 400;
+            line-height: 1;
+        }
+        .arrowMenuOptionCard{
+            margin-bottom: -40px;
+        }
+        .iconArrowMenuOption{
+            font-size: 20px;
+        }
+                .firstIconArrowMenuOption{
+                    color: #111e50;
+                }.secondIconArrowMenuOption{
+                    color: #113ca0;
+                }.thirdIconArrowMenuOption{
+                    color: #115af0;
+                }.fourthIconArrowMenuOption{
+                    color: #118cff;
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.buttonLogout button{
+    background-color: #d2145a;
+    color:white;
+    width: 90%;
+    height: 40px;
+    border: 0px;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+}
+
+
+.buttonLogout button:active{
+    transform:scale(0.98);
+}
+.buttonLogout button:focus{
+    outline: none;
+}
+
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* //------------------------------------------------------------------------------ */
+/* 
+/*
+ORDER DETAILS */
+
+/* tab selector (filtro por tipo de pago) ---------------------------------------*/
+.tab-orders{
+    -webkit-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);
+    margin-bottom: 0px;
+}
+
+.col-selector{
+    background-color: rgb(255, 255, 255);
+    color: rgb(114, 114, 114);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.2;
+    height: 50px;
+    border-left: 1px solid rgb(234, 234, 234);
+    border-right: 1px solid rgb(234, 234, 234);
+}
+
+.col-selector-active{
+    background-color: rgb(255, 255, 255);
+    color: rgb(114, 114, 114);
+    font-weight: 900;
+    font-size: 14px;
+    border-bottom: 3px solid #3d4c88
+}
+
+/* filtro por estado y cliente ------------------------------------------------------------*/
+.filtersContainer{
+    font-size: 13px;
+    color: grey;
+    font-weight: 500;
+    margin-top:10px;
+    margin-bottom: 0px;
+}
+
+.col-stateFilter{
+    text-align: end;
+    margin-right: 0px;
+}
+
+        .filterBox{
+            height: 30px;
+        }
+
+                .icon-filterBox{
+                    margin-left: 10px;
+                    margin-right: 0px;
+                    text-align: end;
+                }
+
+#filterByConstumer{
+    color:grey;
+    font-weight: 500;
+    border-radius: 15px;
+    outline: none;
+}
+#filterByConstumer:focus{
+    outline: none;
+}
+
+
+
+/* orderList -------------------------------------------------------------------- */
+.orderCard{
+   border-bottom:1px solid rgb(194, 194, 194);
+}
+
+.orderCard a{
+    color: black;
+}
+
+        .orderCardContent{
+            margin-top:10px;
+            margin-bottom: 10px;
+        }
+
+        .orderCardContent:active{
+            transform: scale(0.9);
+        }
+
+                .orderIdAndDateCard{
+                    display: flex;
+                    margin-bottom: 5px;
+                }
+                        .orderIdCard{
+                            color:white;
+                            font-weight: 400;
+                            height: 30px;
+                            min-width: 120px;
+                            border-radius: 15px;
+                            font-size: 15px;
+                            position: relative;
+                            z-index: 999;
+                        }
+
+                        /* .overlay-orderIdCard{
+                            position: absolute;
+                            top:0;left:0;right:0;bottom:0;
+                            width: 95%;height: 85%;
+                            margin-left:3px;
+                            margin-top:2.5px;
+                            background-color: white;
+                            border-radius: 15px;
+                            z-index: 1000;
+                        } */
+                                .enviadoAlProveedor{
+                                    background-image:linear-gradient(#eb1e79,#d2145a) ;
+                                    /* color: #d2145a; */ 
+                                }
+                                .enProduccion{
+                                    background-image:linear-gradient(#1eebcc,#146ad2) ;
+                                    /* color: #146ad2 */
+                                }
+                                .listoParaDespacho{
+                                    background-image:linear-gradient(#e0d46a,#ddcc32) ;
+                                }
+                                .despachado{
+                                    background-image:linear-gradient(#99aa2b,#95a817) ;
+                                }
+                                .finalizado{
+                                    background-image:linear-gradient(#75db65,#14d23a) ;
+                                }
+                                .cancelado{
+                                    background-image:linear-gradient(#814559,#660b2c) ;
+                                }
+                                
+                        .orderStateCard{
+                           margin-left:5px;
+                           font-size: 12px;
+                           font-weight: 400;
+                        }
+                                .stateCircle{
+                                    height: 13px;
+                                    width: 13px;
+                                    border-radius: 50%;
+                                    border:2px solid;
+                                    margin-right: 5px;
+                                }
+
+                                .orderStateCard>.enviadoAlProveedor{
+                                    background-image:linear-gradient(white,white) ;
+                                    border-color:#d2145a;
+                                }
+                                .orderStateCard>.enProduccion{
+                                    background-image:linear-gradient(white,white) ;
+                                    border-color:#146ad2;
+                                }
+                                .orderStateCard>.listoParaDespacho{
+                                    background-image:linear-gradient(white,white) ;
+                                    border-color:#ddcc32;
+                                }
+                                .orderStateCard>.despachado{
+                                    background-image:linear-gradient(white,white) ;
+                                    border-color:#95a817;
+                                }
+                                .orderStateCard>.finalizado{
+                                    background-image:linear-gradient(white,white) ;
+                                    border-color:#14d23a;
+                                }
+                                .orderStateCard>.cancelado{
+                                    background-image:linear-gradient(white,white) ;
+                                    border-color:#660b2c;
+                                }
+
+                .dateCol{
+                    font-size: 15px;
+                    color:rgb(175, 175, 175);
+                }
+                .totalCostCol{
+                    font-size:16px;
+                    font-weight: 900;
+                    margin-right: 20px;
+                }
+                        .totalCostNumberCard{
+                            margin-bottom: -5px;
+                        }
+                        .totalCostLabelCard{
+                            color:rgb(175, 175, 175);
+                        }
+
+                .totalUtilityCol{
+                    font-size:16px;
+                    font-weight: 900;
+                    margin-left: 20px;
+                }   
+                        .totalUtilityNumberCard{
+                            margin-bottom: -5px;
+                        }
+                        .totalUtilityLabelCard{
+                            color:rgb(175, 175, 175);
+                        }
+                .viewOrderButton{
+                    color:rgb(175, 175, 175);
+                    font-size: 30px;
+                    /* margin-bottom: 12vh; */
+                }
+                .openCaseIndicatorBox{
+                    font-size:10px;
+                    font-weight: 400;
+                    color:white;
+                    background-color: #d2145a;
+                    border-radius: 15px;
+                    height: 15px;
+                    width: 50px;
+                    text-align: center;
+                }
+                @media only screen and (max-width: 365px){
+                    .totalCostCol,.totalUtilityCol{
+                        font-size:15px;
+                    }
+                    .totalCostCol{
+                        margin-right: 5px;
+                    }.totalUtilityCol{
+                        margin-left: 5px;
+                    }
+                }
+
+
+
+
+
+/* no orders */
+.noOrdersMsg{
+    text-align: center;
+    color: grey;
+    font-size: 15px;
+    margin:100px 30px 0px 30px
+}
+
+.lookForProductsBtn button{
+    color:white;
+    border-radius: 15px;
+    border-width: 0px;
+    height: 50px;
+    width: 150px;
+    background-color: #3d4c88;
+}
+.lookForProductsBtn button:active{
+    transform: scale(0.9);
+}
+.lookForProductsBtn button:focus{
+    outline: none;
+}
+
+
+
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/*
+/* MODAL FILTER BY STATE*/
+
+.modalFilterByStateInsideCard{
+    background-color: white;
+    margin-top:35vh;
+    margin-left:auto;
+    margin-right: auto;
+    width: 90%;
+    border-radius: 15px;
+    height: 220px;
+}
+
+@media only screen and (min-width: 768px){
+    .modalFilterByStateInsideCard{
+        margin-top:30vh;
+        margin-left:auto;
+        margin-right: auto;
+        width: 50%
+    }
+}
+        .modalFilterByStateContent{
+            margin-top:15px;
+            width: 100%;
+        }
+            
+            .modalTitle{
+                font-family: "Nunito", sans-serif;
+                font-weight: 700;
+                font-size: 19px;
+                color: #3d4c88;
+                line-height: 25px;
+            }
+            
+            .backOrderDetails{
+                font-size: 40px;
+                color: #6aff76;
+            }
+
+            .filterByStateOptionBox{
+                margin-bottom: 5px;
+                font-weight: 400;
+            }
+            .filterByStateOptionBox:active{
+                transform: scale(0.9);
+                font-weight: 900;
+            }
+            
+
+            .circleState{
+                height: 20px;
+                width:20px;
+                border-radius: 15px;
+                margin-right: 4px;
+            }
+                    .CSEnEspera{
+                        background-color: #d2145a;
+                    }
+                    .CSEnProduccion{
+                        background-color: #146ad2;
+                    }
+                    .CSDespachado{
+                        background-color: #95a817;
+                    }
+                    .CSEnCamino{
+                        background-color: #ddcc32;
+                    }
+                    .CSFinalizado{
+                        background-color: #14d23a;
+                    }
+                    .CSCancelado{
+                        background-color: #660b2c;
+                    }
+                    
+.removeFilter{
+    margin-top:15px;
+    color:red;
+    font-weight: 400
+}
+.removeFilter:active{
+    transform: scale(0.9);
+    font-weight: bold
+}
+
+.removeFilterIcon{
+    font-size: 25px;
+}
+
+            /* .applyFilterBtn button{
+                margin-top:10px;
+                color: #3d4c88;
+                background-color: white;
+                width:50%;
+                height: 50px;
+                border:none;
+                border-radius: 15px;
+                -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
+                -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
+                box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
+            }
+            .applyFilterBtn button:active{
+                transform: scale(0.9)
+            }
+            .applyFilterBtn button:focus{
+                outline: none;
+            }  */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/*
+/* SPECIFIC ORDER */
+.SpecificOrderContainer{
+    margin-top:30px;
+}
+.numberOrderTitle{
+    color:black;
+    font-size: 35px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    line-height: 25px;
+}
+
+.backBtnGeneral{
+    font-size: 40px;
+    color: #3d4c88;
+}
+
+.paragraphOrderDetails{
+    font-weight: 400;
+    margin-top:5px;
+    line-height: 20px;
+}
+
+
+.specificOrderStateCircle{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border-width:7px;
+    border-style: solid;
+    margin-right: 5px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+
+    -webkit-animation: specificbordeanimation 1.5s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    -webkit-animation-timing-function: ease-in-out;
+    animation: specificbordeanimation 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes specificbordeanimation {
+    from {border-width: 0px;}
+    to {border-width: 15px;}
+  }
+  
+  @keyframes specificbordeanimation {
+    from {border-width: 0px;}
+    to {border-width: 15px;}
+  }
+
+.specificOrderStateCard>.enviadoAlProveedor{
+    background-image:linear-gradient(white,white) ;
+    border-color:#d2145a;
+}
+.specificOrderStateCard>.enProduccion{
+    background-image:linear-gradient(white,white) ;
+    border-color:#146ad2;
+}
+.specificOrderStateCard>.listoParaDespacho{
+    background-image:linear-gradient(white,white) ;
+    border-color:#ddcc32;
+}
+.specificOrderStateCard>.despachado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#95a817;
+}
+.specificOrderStateCard>.finalizado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#14d23a;
+}
+.specificOrderStateCard>.cancelado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#660b2c;
+}
+
+
+
+
+
+
+
+
+.supplierName{
+    margin-top:20px;
+}
+
+.orderItemsDetailsBox{
+    margin-top:20px;
+}
+
+.orderItemsDetailsTitles{
+    font-weight: 700;
+    /* border-bottom: 3px solid #3d4c88; */
+}
+
+.dividerSpecificOrderDetails{
+    margin-bottom: 10px;
+    height: 2px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background-image: linear-gradient(to right,transparent,#3d4c88,#6c9fd1,transparent);
+}
+
+.container-listItemsOfOrderOff{
+    margin-bottom: 70px;
+}
+.container-listItemsOfOrderOn{
+    margin-bottom: 300px;
+}
+
+.orderItemsDetailsContent{
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(190, 190, 190);
+    font-size:14px;
+}
+
+.seeShippingAddressLink{
+    margin-left:10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.specificOrderItemCaseIndicator{
+    font-size:14px;
+    color:white;
+    background-color: #d2145a;
+    border-radius: 15px;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+/* .specificOrderItemCaseIndicator a{
+    color:white
+} */
+@media only screen and (max-width: 365px){
+    .specificOrderItemCaseIndicator{
+        font-size: 12px}
+    .seeShippingAddressLink{
+        font-size: 10px;}
+}
+
+
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+/*
+/* STICKY-FOOTER FOR SPECIFIC ORDER DETAILS */
+
+.sticky-footer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+              }
+
+
+#totalOrderBox{
+    transition-duration: 150ms;
+}
+
+.totalOrderBoxOff{
+    width: 100%;
+    height: 60px;
+    border-radius: 15px 15px 0px 0px;
+    background-color: rgb(61, 76, 136,0.95);
+    -webkit-box-shadow: 0px -5px 40px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px -5px 40px -10px rgba(0,0,0,0.5);
+    box-shadow: 0px -5px 40px -10px rgba(0,0,0,0.5);
+}
+
+.totalOrderBoxOn{
+    width: 100%;
+    height: 290px;
+    border-radius: 15px 15px 0px 0px;
+    background-color: rgb(61, 76, 136,0.95);
+    -webkit-box-shadow: 0px -5px 40px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px -5px 40px -10px rgba(0,0,0,0.5);
+    box-shadow: 0px -5px 40px -10px rgba(0,0,0,0.5);
+}
+
+
+.swipeUpIcon{
+    color: white;
+    font-size: 25px;
+    position: relative;
+    margin-bottom: -30px;
+    -webkit-animation: mymove 0.8s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    -webkit-animation-timing-function: ease-out;
+    animation: mymove 0.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymove {
+    from {bottom: 0px;}
+    to {bottom: 10px;}
+  }
+  
+  @keyframes mymove {
+    from {bottom: 0px;}
+    to {bottom: 10px;}
+  }
+
+
+.swipeDownIcon{
+    color: #ffffff;
+    font-size: 25px;
+    position: relative;
+    margin-bottom: -20px;
+    -webkit-animation: mymoveDown 0.8s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    -webkit-animation-timing-function: ease-out;
+    animation: mymoveDown 0.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymoveDown {
+    from {top: 10px;}
+    to {top: 0px;}
+  }
+  
+  @keyframes mymoveDown {
+    from {top: 10px;}
+    to {top: 0px;}
+  }
+
+
+
+
+
+#totalOrderBoxContent{
+    height: 100%;
+    top:0;left:0;right:0;bottom:0;
+    position: absolute;
+    color: white;
+}
+.totalOrderBoxContentOn{
+    margin-top:20px;
+    margin-left:10px;
+    margin-right: 10px;
+    text-align: start;
+    font-size: 25px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+}
+/* @media only screen and (min-width: 768px){
+    .totalOrderBoxContentOn{
+        margin-left:300px;
+        margin-right: 300px;
+    }
+} */
+.totalOrderBoxContentOff{
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+}
+
+
+#orderDetailsTitlePanUp{
+    transition-duration: 1500ms;
+    text-align: center;
+}
+
+.totalLabel{
+    font-size:15px;
+    font-weight: 400;
+    opacity: 0.75;
+}
+
+.totalValue{
+    font-size:15px;
+    font-weight: 400;
+    opacity: 0.75;
+}
+
+.yourIncome{
+    border-top:1px dashed rgb(172, 172, 172);
+    border-bottom: 1px dashed rgb(172, 172, 172);
+}
+
+.totalLabelSubtotal{
+    font-size:17px;
+    font-weight: 700;
+    line-height: 20px;
+}
+.totalValueSubtotal{
+    font-size:17px;
+    font-weight: 700;
+}
+
+.totalCostSubTotal{
+    border-top:1px dashed rgb(172, 172, 172);
+}
+
+.yourUtility{
+    border-top:2px dashed rgb(172, 172, 172);
+}
+
+.specificOrderOptionsBtn{
+    margin-top:15px;
+}
+.specificOrderOptionsBtn button{
+    min-width: 45vw;
+    height: 80px;
+    border-radius: 15px;
+    background-color: white;
+    border:none;
+    font-size: 15px;
+    color:#3d4c88;
+    -webkit-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    font-weight: 700
+}
+@media only screen and (min-width: 768px){
+    .specificOrderOptionsBtn button{
+        min-width: 30vw;
+    }
+}
+.specificOrderOptionsBtn button:active{
+    transform: scale(0.9)
+}
+.specificOrderOptionsBtn button:focus{
+    outline: none;
+}
+
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/*
+/* MODAL TRACK ORDER**/
+
+.modalTrackOrderInsideCard{
+    background-color: white;
+    margin-top:12vh;
+    margin-left:auto;
+    margin-right: auto;
+    width: 90%;
+    border-radius: 15px;
+}
+
+@media only screen and (min-width: 768px){
+    .modalTrackOrderInsideCard{
+        margin-top:12vh;
+        margin-left:auto;
+        margin-right: auto;
+        width: 36%; 
+    }
+}
+
+.modalTrackOrderContent{
+    padding-top:15px;
+    padding-bottom: 15px;
+    /* position: relative; */
+}
+
+.numberOrderTitleModal{
+    color:black;
+    font-size: 30px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    line-height: 25px;
+    height: 40px;
+}
+
+.paragraphOrderDetailsModal{
+    font-weight: 400;
+    margin-top:5px;
+    line-height: 20px;
+    height: 25;
+}
+
+.orderStates{
+    margin-top:10px;
+    height: 50px;
+    font-size: 12px;
+}
+.statesTextAxis{
+    height: 50px;
+    margin-left: 1px;
+}
+.circleStatesOverAxis{
+    margin-left:15px;
+    position: relative;
+    height: 50px;
+    width: 30px;
+}
+.axisStates{
+    top:0;left:0;
+    margin-left:29px;
+    /* margin-top en funcion de la altura de:
+    margin-top: (relacionado a orderStates)
+    col numberOrderTitleModal +
+    col paragraphOrderDetails +
+    1/2(altura col orderStates) */
+    margin-top:100px;
+    position: absolute;
+    width: 2px;
+    height: 1px;
+    background-color: rgb(119, 119, 119);
+
+    -webkit-animation: axisanimation 1.5s;  /* Safari 4.0 - 8.0 */
+-webkit-animation-iteration-count: 1; /* Safari 4.0 - 8.0 */
+-webkit-animation-timing-function: ease-in-out;
+animation: axisanimation 1.5s;
+animation-iteration-count: 1;
+animation-timing-function: ease-in-out;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes axisanimation {
+from {background-color: rgb(255, 255, 255);}
+to {background-color: rgb(119, 119, 119);}
+}
+
+@keyframes axisanimation {
+from {background-color: rgb(255, 255, 255);}
+to {background-color: rgb(119, 119, 119);}
+}
+
+
+.axisStates-One{
+    height: 0px;
+}
+.axisStates-Two{
+    height: 65px;
+}
+.axisStates-Three{
+    height: 130px;
+}
+.axisStates-Four{
+    height: 195px;
+}
+.axisStates-Five{
+    height: 235px;
+}
+.axisStates-Six{
+    height: 290px;
+}
+
+
+.circleOverAxis{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border:7px solid;
+}
+
+.circleOverAxis-last{
+    border-width:0px;
+    border-style:solid;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+
+    -webkit-animation: bordeanimation 1.5s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    -webkit-animation-timing-function: ease-in-out;
+    animation: bordeanimation 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes bordeanimation {
+    from {border-width: 0px;}
+    to {border-width: 15px;}
+  }
+  
+  @keyframes bordeanimation {
+    from {border-width: 0px;}
+    to {border-width: 15px;}
+  }
+
+
+.circleStatesOverAxis>.enviadoAlProveedor{
+    background-image:linear-gradient(white,white) ;
+    border-color:#d2145a;
+}
+.circleStatesOverAxis>.enProduccion{
+    background-image:linear-gradient(white,white) ;
+    border-color:#146ad2;
+}
+.circleStatesOverAxis>.listoParaDespacho{
+    background-image:linear-gradient(white,white) ;
+    border-color:#ddcc32;
+}
+.circleStatesOverAxis>.despachado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#95a817;
+}
+.circleStatesOverAxis>.finalizado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#14d23a;
+}
+.circleStatesOverAxis>.cancelado{
+    background-image:linear-gradient(white,white) ;
+    border-color:#660b2c;
+}
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------- */
+/*
+/* MODAL OPEN CASE**/
+.modalOpenCaseInsideCard{
+    background-color: white;
+    margin-top:7.5vh;
+    margin-left:auto;
+    margin-right: auto;
+    width: 90%;
+    height: 85%;
+    border-radius: 15px;
+}
+
+@media only screen and (min-width: 768px){
+    .modalOpenCaseInsideCard{
+        margin-top:7.5vh;
+        margin-left:auto;
+        margin-right: auto;
+        width: 36%; 
+    }
+}
+.modalOpenCaseContent{
+    padding-top:15px;
+    padding-bottom: 15px;
+    /* position: relative; */
+}
+
+.numberOrderTitleModal{
+    color:black;
+    font-size: 30px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    line-height: 25px;
+    height: 40px;
+}
+
+.paragraphOrderDetailsModal{
+    font-weight: 400;
+    margin-top:5px;
+    line-height: 20px;
+    height: 25;
+}
+
+.seeCaseResume{
+    color:white;
+    background-color: #d2145a;
+    border-radius: 15px;
+    width:180px;
+    text-align: center;
+    cursor: pointer;
+}
+.generalDataResumenCaseBox{
+    margin-top:20px;
+}
+.dataResumeCaseBox{
+    margin-top:18px;
+    margin-bottom: 18px;
+}
+.labelResumeCase{
+    font-size:15px;
+    font-weight: 400;
+    color:grey;
+}
+.dataResumeCase{
+    font-size:21px;
+    font-weight: 800;
+    color:rgb(0, 0, 0);
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 120%;
+}
+.lighterDataResumeCase{
+    font-size:20px;
+    font-weight: 500;
+    color:rgb(0, 0, 0);
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 120%;
+}
+.evidenceIMG{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+#fullImgWrapper{
+    height:250px;
+    width: 100%;
+    overflow:hidden;
+}
+
+.zoomIconsRow{
+    margin-top:-40px;
+    margin-bottom:40px;
+    margin-right: 10px;
+}
+
+.zoomIcon{
+    color:rgb(236, 236, 236);
+    font-size: 30px;
+}
+.resizeIcon{
+    color:rgb(236, 236, 236);
+    font-size: 24px;
+}
+
+#draggableEvidenceImg{
+    border-radius: 15px;
+    position: relative;
+}
+
+#draggableEvidenceImg img{
+    position: absolute;
+    top:0;
+    left:0;
+}
+@media only screen and (min-width: 1024px){
+    #fullImgWrapper{
+        height:300px;
+        width: 100%;
+        overflow:hidden;
+    }
+}
+@media only screen and (max-width: 350px){
+    .labelResumeCase{
+        font-size:13px;
+        font-weight: 400;
+        color:grey;
+    }
+    .dataResumeCase{
+        font-size:18px;
+        font-weight: 800;
+        color:rgb(0, 0, 0);
+        font-family: 'Nunito Sans', sans-serif;
+        line-height: 120%;
+    }
+    .lighterDataResumeCase{
+        font-size:17px;
+        font-weight: 500;
+        color:rgb(0, 0, 0);
+        font-family: 'Nunito Sans', sans-serif;
+        line-height: 120%;
+    }
+    .dataResumeCaseBox{
+        margin-top:12px;
+        margin-bottom: 12px;
+    }
+}
+
+
+.evidencesThumbnails{
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+
+
+.selectRelatedItem{
+    margin-top:25px;
+}
+.selectOptionOpenCase select{
+    /* line-height: 30px; */
+    width: 90%;
+    border-radius: 15px;
+    color:#3d4c88;
+    font-size: 15px;
+    border-color: rgb(61, 76, 136,0.7);
+    margin-bottom: 10px;
+}
+.selectOptionOpenCase select:focus{
+    outline: none;
+}
+.selectOptionOpenCase select option{
+    outline: none;
+    border: none;
+}
+
+.typeOptionOpenCase textarea{
+    width: 90%;
+    height: 120px;
+    resize: none;
+    border-radius: 15px;
+    color:#3d4c88;
+    font-size: 14px;
+    border-color: rgb(61, 76, 136,0.7);
+    margin-bottom: 10px;
+}
+.typeOptionOpenCase textarea::placeholder{
+    color: rgb(61, 76, 136,0.5);
+}
+.typeOptionOpenCase textarea:focus{
+    outline: none;
+}
+
+
+
+.inputEvidencesFileBox{
+    margin-bottom: 50px;
+}
+
+.evidenceFileInput{
+    width: 0.01px;
+    height: 0.01px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+    z-index:-1
+}
+
+
+.inputEvidenceLabelOne,.inputEvidenceLabelTwo,.inputEvidenceLabelThree,.inputEvidenceLabelFour{
+    position: absolute;
+    top:0;left:0;right:0;bottom:0;
+    width: 45px;
+    height: 45px;
+    margin-left:25px;
+    margin-top:25px;
+    border-radius: 50%;
+    color: white;
+    background-color: grey;
+    z-index: 2;
+}
+        .inputEvidenceLabelTwo{
+            margin-left:80px;
+        }.inputEvidenceLabelThree{
+            margin-left:135px;
+        }.inputEvidenceLabelFour{
+            margin-left:190px;
+        }
+
+.inputEvidenceLabelOne:active,.inputEvidenceLabelTwo:active,.inputEvidenceLabelThree:active,.inputEvidenceLabelFour:active{
+    background-color: rgb(182, 182, 182);
+}
+
+
+
+.openCaseBtn{
+    margin-top:30px;
+}
+.openCaseBtn button{
+    min-width: 60%;
+    height: 40px;
+    border-radius: 15px;
+    background-color: white;
+    border:none;
+    font-size: 15px;
+    color:#3d4c88;
+    -webkit-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    font-weight: 700
+}
+@media only screen and (min-width: 768px){
+    .openCaseBtn button{
+        min-width: 30vw;
+    }
+}
+.openCaseBtn button:active{
+    transform: scale(0.9)
+}
+.openCaseBtn button:focus{
+    outline: none;
+}
+
+/* ------------------------------------ */
+
+.openCaseSuccessMsg{
+    margin-top: 80px;
+}
+.openCaseModalSuccessMsgTitle{
+    font-size: 25px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: #3d4c88;
+    line-height: 100%;
+}
+.openCaseModalSuccessMsgParagraph{
+    font-size: 15px;
+    font-weight: 400;
+    color: #3d4c88;
+    line-height: 125%;
+}
+
+.openCaseBtnSuccessMsg{
+    margin-top:30px;
+}
+.openCaseBtnSuccessMsg button{
+    min-width: 60%;
+    height: 80px;
+    border-radius: 15px;
+    background-color: white;
+    border:none;
+    font-size: 15px;
+    color:#3d4c88;
+    -webkit-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    font-weight: 400
+}
+@media only screen and (min-width: 768px){
+    .openCaseBtnSuccessMsg button{
+        min-width: 30vw;
+    }
+}
+.openCaseBtnSuccessMsg button:active{
+    transform: scale(0.9)
+}
+.openCaseBtnSuccessMsg button:focus{
+    outline: none;
+}
+
+

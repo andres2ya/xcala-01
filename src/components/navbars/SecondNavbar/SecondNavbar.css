@@ -1,0 +1,35 @@
+.SecondNavbar{
+    height: 9vh;
+    background-color: white;
+    width: 100%;
+    -webkit-box-shadow: 0px 0px 39px -7px rgba(0,0,0,0.5);
+-moz-box-shadow: 0px 0px 39px -7px rgba(0,0,0,0.5);
+box-shadow: 0px 0px 39px -7px rgba(0,0,0,0.5);
+}
+
+.SecondNavbarContent{
+    height: 100%;
+}
+
+.logoXcalaSecondNavbar{
+    height: 40px;
+    margin-left:15px;
+}
+
+.userPhotoSecondNavbar{
+    height: 40px;
+    border-radius: 50%;
+}
+.userPhotoSecondNavbar:active{
+    transform: scale(0.9)
+}
+
+.betweenWidgetsLeftSecondNav{
+    width: 10px;
+    height: 30px;
+    border-right: 1px solid rgb(61, 76, 136,0.5)
+}
+.betweenWidgetsRightSecondNav{
+    width: 10px;
+    height: 30px;
+}

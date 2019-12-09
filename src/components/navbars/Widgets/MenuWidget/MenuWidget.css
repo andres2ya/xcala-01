@@ -1,0 +1,30 @@
+.menuWidgetMainNav{
+    font-size: 38px;
+    margin-top:5px;
+}
+
+.menuWidgetMainNav:active{
+    transform: scale(0.90);
+    color:rgb(255, 255, 255,0.5);
+}
+
+.menuWidgetSecondNav{
+    font-size: 38px;
+    margin-top:5px;
+    color:#3d4c88;
+}
+
+.menuWidgetSecondNav:active{
+    transform: scale(0.90);
+    color:#3d4c88;
+}
+
+.menuWidgetNavSupplier{
+    font-size: 38px;
+    color:white;
+}
+
+.menuWidgetNavSupplier:active{
+    transform: scale(0.90);
+    color:white;
+}

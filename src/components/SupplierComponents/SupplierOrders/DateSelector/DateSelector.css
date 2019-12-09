@@ -1,0 +1,34 @@
+.DateSelectorSpacerLess{
+    height: 10px;
+}
+.DateSelectorSpacerBetweenArrow{
+    width: 20px;
+}
+.DateSelectorTitle{
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: #3d4c87;
+    font-size: 18px;
+    line-height: 1;
+}
+.DateSelector-Date{
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: #3d4c87;
+    font-size: 17px;
+    line-height: 1;
+}
+.DateSelectorParagraph{
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    color: #74798f;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 1;
+}
+.DateSelectorArrow{
+    color: #3d4c87;
+    font-size: 20px;
+}
+
+

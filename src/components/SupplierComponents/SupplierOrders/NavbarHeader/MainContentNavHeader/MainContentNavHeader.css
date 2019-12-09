@@ -1,0 +1,105 @@
+.MainContentNavHeaderSpace{
+    height: 15px;
+}
+.MainContentNavHeaderTitle{
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+    line-height: 1;
+}
+.MainContentNavHeaderParagraph{
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 15px;
+    opacity: 0.75;
+    line-height: 1;
+}
+
+.MainContentNavHeader-SpacerInMD{
+    width: 10px;
+}
+
+.MainContentNavHeader-SpacerInMD-vertical{
+    height: 15px;
+    width: 100%;
+}
+
+.MainContentNavHeader-buttonSpacer{
+    width: 5px;
+}
+
+.MainContentNavHeader-buttonDivider{
+    border-left:0.5px solid white;
+    opacity: 0.3;
+    height: 45px;
+}
+
+/* Button */
+.MainContentNavHeader-Button{
+    background-color: rgb(255, 255, 255,0.1);
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    color: white;
+
+    min-height: 45px;
+    max-height: 45px;
+    min-width: 85px;
+    max-width: 85px;
+
+    font-size: 15px;
+    border-radius: 8px;
+    border: solid 1.5px white;
+}
+
+/* InfoBtn MainContentNavHeader ----------------------------- */
+.MainContentNavHeaderInfoBtn-card{
+    margin-bottom: 5px;
+}
+.MainContentNavHeaderInfoBtn-info{
+    min-width: 14px;
+    max-width: 14px;
+    min-height: 14px;
+    max-height: 14px;
+    font-size: 12px;
+    border-radius: 100%;
+    background-color: white;
+    color:#10174b;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}
+.MainContentNavHeaderInfoBtn-infoText{
+    margin-left:10px;
+    background-color:rgb(255, 255, 255,0.1);
+    border-radius: 8px;
+    border: solid 1.5px white;
+    color: white;
+    font-size: 15px;
+    font-weight: 400;
+    min-width: 170px;
+    max-width: 170px;
+    display: flex;
+    justify-content: start;
+    align-items:center ;
+}
+.MainContentNavHeaderInfoBtn-infoTextSpace{
+    width: 7px;
+}
+.MainContentNavHeaderInfoBtn-separator{
+    color: white;
+    opacity: 0.2;
+    margin-left:5px;
+    margin-right:5px;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}
+.MainContentNavHeaderInfoBtn-quantity{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}

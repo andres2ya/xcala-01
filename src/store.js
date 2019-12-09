@@ -32,6 +32,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+<<<<<<< HEAD
 
 // NOTE:Activar offline persistence
 firebase.firestore().enablePersistence()
@@ -48,6 +49,8 @@ firebase.firestore().enablePersistence()
   });
 
 
+=======
+>>>>>>> 7097e6d0444c4c8cd182c5c0d1e94df2c95b2e0c
 //2. Configurando react-redux-firebase
 const rrfConfig = {
     userProfile: "users",//Indica la coleccion de firebase donde esta ubicada la informacion de los usuarios para

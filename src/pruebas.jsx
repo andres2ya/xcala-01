@@ -6,7 +6,7 @@ import 'moment/locale/es';
 import {Link} from 'react-router-dom'
 
 
-export default class pruebas extends Component {
+export default class Pruebas extends Component {
 
 state={
     fromCache:"",

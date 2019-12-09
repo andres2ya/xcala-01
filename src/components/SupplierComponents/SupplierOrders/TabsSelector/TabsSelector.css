@@ -4,11 +4,7 @@
 }
 .TabsSelectorTab{
     text-align: center;
-<<<<<<< HEAD
     height: 50px;
-=======
-    height: 35px;
->>>>>>> 7097e6d0444c4c8cd182c5c0d1e94df2c95b2e0c
     width: 100%;
     cursor: pointer;
     -webkit-box-shadow: 0px 15px 15px -3px rgba(0,0,0,0.05);

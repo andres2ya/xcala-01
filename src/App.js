@@ -22,10 +22,7 @@ import ControlPanelXcala from "./components/XcalaInternalComponents/ControlPanel
 import NewSupplier from "./components/XcalaInternalComponents/NewSupplier/NewSupplier";
 import SupplierAccount from "./components/SupplierComponents/SupplierAccount/SupplierAccount";
 import SupplierOrders from "./components/SupplierComponents/SupplierOrders/SupplierOrders";
-<<<<<<< HEAD
-import pruebas from "./pruebas";
-=======
->>>>>>> 7097e6d0444c4c8cd182c5c0d1e94df2c95b2e0c
+import Pruebas from "./Pruebas";
 
 
 
@@ -51,10 +48,7 @@ function App(){
     <div className="container-fluid">
     <Switch>
       <Route exact path="/" component={Login}/>
-<<<<<<< HEAD
-      <Route exact path="/pruebas" component={pruebas}/>
-=======
->>>>>>> 7097e6d0444c4c8cd182c5c0d1e94df2c95b2e0c
+      <Route exact path="/pruebas" component={Pruebas}/>
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/my-account" component={MyAccount}/>
       <Route exact path="/order-details" component={OrdersDetails}/>

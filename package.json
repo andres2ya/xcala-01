@@ -6,15 +6,10 @@
     "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
     "firebase": "^6.3.4",
-<<<<<<< HEAD
     "firestore-size": "^2.0.4",
     "hammerjs": "^2.0.8",
     "history": "^4.9.0",
     "moment": "^2.24.0",
-=======
-    "hammerjs": "^2.0.8",
-    "history": "^4.9.0",
->>>>>>> 7097e6d0444c4c8cd182c5c0d1e94df2c95b2e0c
     "numeral": "^2.0.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

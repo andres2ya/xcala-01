@@ -9,7 +9,6 @@ import {Link} from 'react-router-dom'
 export default class pruebas extends Component {
 
 state={
-    prueba:"xxgit",
     fromCache:"",
     pedidosPorFecha:true,
     referencia:"",

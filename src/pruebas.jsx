@@ -281,14 +281,6 @@ state={
             })
         })
     }
-
-
-
-
-
-
-
-
     
     componentWillUnmount=()=>{
         this.removerListener()
@@ -299,7 +291,6 @@ state={
         console.log('nuevo dia: '+ this.state.fecha)
     }
 
-    
     render() {
         const {pedidosPorFecha}=this.state
         return (

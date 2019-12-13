@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import LinkWithDelay from '../../helpers/LinkWithDelay';
 import {connect} from 'react-redux';
-import numeral from 'numeral';
+// import numeral from 'numeral';
 import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrdersDuck';
 
 class OrdersDetails extends Component {

@@ -5,7 +5,7 @@ import logoXcalaSupplier from "../../../../assets/logoXcalaSupplier.png";
 import MenuWidget from "../../../navbars/Widgets/MenuWidget/MenuWidget";
 import "./NavbarHeader.css";
 import MainContentNavHeader from "./MainContentNavHeader/MainContentNavHeader";
-import ContentNavHeader from "./ContentNavHeader/ContentNavHeader";
+// import ContentNavHeader from "./ContentNavHeader/ContentNavHeader";
 
 class NavbarHeader extends Component {
   render() {

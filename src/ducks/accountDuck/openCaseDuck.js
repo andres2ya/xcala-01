@@ -99,10 +99,10 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     const evidenceURLSArray=state.openCaseReducer.evidenceURLSArray
 
     //subiendo todos los datos del caso a la base de datos
-    const firebase=getFirebase();
+    // const firebase=getFirebase();
     const firestore =getFirestore();
 
-    {//NOTE: FORMAS DE AÑADIR INFO A FIRESTORE: NOTE: Esta es la forma para añadirlo dentro de un arreglo en un unico documento
+    //NOTE: FORMAS DE AÑADIR INFO A FIRESTORE: Esta es la forma para añadirlo dentro de un arreglo en un unico documento
     // var userDocRef=firestore.collection('users').doc(userID)
             
     // userDocRef.update({
@@ -171,7 +171,7 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     // })
 
     //-------
-    }
+    
     
     //NOTE: Esta es la forma de incluir el case dentro del objeto del item correspondiente mediante la identificacion del pedido, el item y 
     //posteriormente su asignacion para luego reemplazar todo el campo de pedidos con la nueva informacion.

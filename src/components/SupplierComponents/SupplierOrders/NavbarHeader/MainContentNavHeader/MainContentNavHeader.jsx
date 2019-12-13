@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import './MainContentNavHeader.css'
-import { thisExpression } from '@babel/types';
 
 export class MainContentNavHeaderButton extends Component {
   render() {

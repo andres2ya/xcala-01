@@ -23,6 +23,7 @@ import NewSupplier from "./components/XcalaInternalComponents/NewSupplier/NewSup
 import SupplierAccount from "./components/SupplierComponents/SupplierAccount/SupplierAccount";
 import SupplierOrders from "./components/SupplierComponents/SupplierOrders/SupplierOrders";
 import Pruebas from "./Pruebas";
+import PruebaAddOrder from "./PruebaAddOrder";
 
 
 
@@ -49,6 +50,7 @@ function App(){
     <Switch>
       <Route exact path="/" component={Login}/>
       <Route exact path="/pruebas" component={Pruebas}/>
+      <Route exact path="/pruebasAdd" component={PruebaAddOrder}/>
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/my-account" component={MyAccount}/>
       <Route exact path="/order-details" component={OrdersDetails}/>

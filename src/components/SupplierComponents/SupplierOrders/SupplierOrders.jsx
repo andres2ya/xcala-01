@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import './SupplierOrders.css'
 import {connect} from 'react-redux';
-import numeral from 'numeral';
+// import numeral from 'numeral';
 import NavbarHeader from "./NavbarHeader/NavbarHeader";
 import { MainContentNavHeaderInfoBtn } from "./NavbarHeader/MainContentNavHeader/MainContentNavHeader";
 import DateSelector from "./DateSelector/DateSelector";

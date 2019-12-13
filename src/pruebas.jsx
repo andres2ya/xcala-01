@@ -204,12 +204,80 @@ state={
         .where("estadoDespacho","==","Despachado")
         .orderBy("idProducto","asc")
         .onSnapshot((snap)=>{
+            var auxPedidosParaActualizar=[]
+            var auxFechasPedidosParaActualizar=[]
+            var auxIdsPedidosParaActualizar=[]
+            var auxUniqueFechasPedidosParaActualizar=[]
+            var documentoPedidosPorFechaParaActualizar=[]
+            var productosFechaUnicaParaActualizar=[]
+            var pedidosFechaUnicaParaActualizar=[]
+            var productosUnicoFechaUnicaParaActualizar=[]
+            var nuevaCantidadDespachada
+            const {pedidosPorFecha}=this.state
             snap.forEach(doc=>{
-                console.log('Pedido despachado :',doc.data())
-                const {pedidosPorFecha}=this.state
-                var idDocumentoPedidoPorFecha=doc.data().fecha
-                var documentoPedidoPorFecha=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===idDocumentoPedidoPorFecha)
-                console.log('Documento pedidoPorFecha Relacionado :',documentoPedidoPorFecha[0])
+                auxPedidosParaActualizar.push(doc.data());
+                auxFechasPedidosParaActualizar.push(doc.data().fecha);
+                auxIdsPedidosParaActualizar.push(doc.id)
+            })
+            auxUniqueFechasPedidosParaActualizar=[...new Set(auxFechasPedidosParaActualizar)]
+
+            auxUniqueFechasPedidosParaActualizar.map(fechaUnica=>{
+                documentoPedidosPorFechaParaActualizar=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
+                let idDocParaActualizar=documentoPedidosPorFechaParaActualizar[0].id
+                let vectorProductosDocumentoParaActualizar=documentoPedidosPorFechaParaActualizar[0].productos
+                let objetoProductoEnDocumentoParaActualizar=[]
+
+                productosFechaUnicaParaActualizar=[]
+                pedidosFechaUnicaParaActualizar=auxPedidosParaActualizar.filter(pedido=>pedido.fecha===fechaUnica)
+                pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{productosFechaUnicaParaActualizar.push(pedidoFechaUnica.idProducto)})
+                productosUnicoFechaUnicaParaActualizar=[...new Set(productosFechaUnicaParaActualizar)]
+
+                productosUnicoFechaUnicaParaActualizar.map(productoUnicoFechaUnica=>{
+                    objetoProductoEnDocumentoParaActualizar=vectorProductosDocumentoParaActualizar.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
+                    let auxCantidadPedidoActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPedida
+                    let auxCantidadPendienteActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPendiente
+
+                    nuevaCantidadDespachada=0
+                    pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{
+                        if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+                            nuevaCantidadDespachada=nuevaCantidadDespachada+1
+                        }
+                    })
+                    // Remover
+                    db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayRemove({
+                        'nombre':productoUnicoFechaUnica,
+                        'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+                        'cantidadPendiente':auxCantidadPendienteActualParaActualizar
+                    })})
+                    //Añadir
+                    db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayUnion({
+                        'nombre':productoUnicoFechaUnica,
+                        'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+                        'cantidadPendiente':auxCantidadPendienteActualParaActualizar-nuevaCantidadDespachada
+                    })})
+                })
+            })
+            //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
+            if(auxIdsPedidosParaActualizar.length>0){
+                this.cambiarEstadoParaActualizar(auxIdsPedidosParaActualizar)
+            }
+        })
+    }
+
+    cambiarEstadoParaActualizar=(idPedidosParaActualizar)=>{
+        this.unsubscribeListenerActualizarPendientes()
+        //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
+        var db=firebase.firestore()
+        idPedidosParaActualizar.map((idPedido,index)=>{
+            db.collection('pedidos').doc(idPedido).update({'estado':'Despachado por el proveedor'})
+            .then(()=>{
+                //Si es el ultimo id, entonces activar listener
+                if((index+1)===idPedidosParaActualizar.length){
+                    this.activeListenerActualizarPendientes()
+                }
+            })
+            .catch((err)=>{
+                console.log(err)
             })
         })
     }

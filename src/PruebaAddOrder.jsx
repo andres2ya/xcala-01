@@ -9,10 +9,12 @@ export default class PruebaAddOrder extends Component {
     state={
         referencia:"",
         auxFecha:null,
-        fecha:null
+        fecha:null,
+        idPedido:0
     }
 
     addOrder=()=>{
+        this.setState({idPedido:this.state.idPedido+1})
         console.log('1')
         var db=firebase.firestore();
         db.collection('pedidos').add({
@@ -27,7 +29,8 @@ export default class PruebaAddOrder extends Component {
             telefonoCliente:"3183667033",
             idDepacho:null,
             estado:"Ordenados con exito",
-            estadoDespacho:'Sin atender'
+            estadoDespacho:'Sin atender',
+            idPedido:this.state.idPedido
         })
     }
     
@@ -42,6 +45,11 @@ leerFecha=(e)=>{
 }
 cambiarDia=()=>{
     this.setState({fecha:this.state.auxFecha})
+}
+
+
+componentDidUpdate=()=>{
+    console.log(this.state)
 }
 
 

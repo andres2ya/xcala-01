@@ -24,6 +24,7 @@ import SupplierAccount from "./components/SupplierComponents/SupplierAccount/Sup
 import SupplierOrders from "./components/SupplierComponents/SupplierOrders/SupplierOrders";
 import Pruebas from "./Pruebas";
 import PruebaAddOrder from "./PruebaAddOrder";
+import PruebasDespachos from "./PruebasDespachos";
 
 
 
@@ -51,6 +52,7 @@ function App(){
       <Route exact path="/" component={Login}/>
       <Route exact path="/pruebas" component={Pruebas}/>
       <Route exact path="/pruebasAdd" component={PruebaAddOrder}/>
+      <Route exact path="/pruebasdespacho" component={PruebasDespachos}/>
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/my-account" component={MyAccount}/>
       <Route exact path="/order-details" component={OrdersDetails}/>

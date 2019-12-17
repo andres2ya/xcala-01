@@ -13,7 +13,9 @@ state={
     pedidosPorFecha:[],
     mapearPedidosPorFecha:false,
     renderizar:false,
-    vectorProductosADespacharPorQEspecificas:[]
+    vectorProductosADespacharPorQEspecificas:[],
+    carritoDeDespachoAux:[],
+    carritoDescargado:false
 }
     removerListener=()=>{
         console.log('removiendo...')
@@ -27,7 +29,17 @@ state={
         this.activeListenerPedidosPorFechas()
         this.activeListenerPedidos()
         this.activeListenerActualizarPendientes()
-    }
+        var db=firebase.firestore()
+        db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>{
+            console.log('leyendo carrito...');
+            this.leerCarritoDeDespacho(doc.data())
+        })
+        .catch((err)=>{console.log(err)})
+
+        this.leerCarritoDeDespacho=(carrito)=>{console.log('AUX CARRITO:',carrito.carritoDeDespacho)
+            this.setState({carritoDeDespachoAux:carrito.carritoDeDespacho,carritoDescargado:true})
+        }
+    }   
 
     activeListenerPedidosPorFechas=()=>{
         //NOTE: Funcion que trae todas las fechas del proveedor para guardarlas en el estado y poder mostrar todo el historial, va paginado de a 7 dias.
@@ -307,19 +319,6 @@ state={
         // console.log('estado al actualizar componente: ',this.state)
     }
 
-    despachar=()=>{
-        var db=firebase.firestore()
-        db.collection('pedidos')
-        .where("idProveedor","==","AFY GLOBAL SAS")
-        .where("estado","==","Recibido por el proveedor")
-        .get()
-        .then((snap)=>{
-            snap.forEach(doc=>{
-                db.collection('pedidos').doc(doc.id).update({'estadoDespacho':'Despachado'}).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
-            })
-        })
-    }
-
     despacharTodo=(e,fecha,idPedidoPorFecha)=>{
         e.preventDefault()
         console.log('FECHA:::',fecha)
@@ -330,22 +329,34 @@ state={
         .where('fecha','==',fecha)
         .get()
         .then((snap)=>{
-            snap.forEach(doc=>{
-                //TODO: Cambiar estado de despacho solo cuando ya se haya introducido el pedido en el carrito de despacho
-                db.collection('pedidos').doc(doc.id).update({'estadoDespacho':'Despachado'}).then((res)=>{console.log('Respuesta Then update "pedidos" de despacharTodo :',res)}).catch((err)=>{console.log('Error Then update "pedidos" de despacharTodo :',err)})
-                console.log('Se procedera a añadir estos pedidos a la base de datos :')
-                db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayUnion(doc.data())}).then((res)=>{console.log('Respuesta Then update "proveedores" de añadir al carritoDeDespachoo :',res)}).catch((err)=>{console.log('Error Then update "proveedores" de añadir al carritoDeDespachoo :',err)})
-                db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'Completo'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
-            })
             if(snap.empty){
                 console.log('no existen mas pedidos para despachar en esta fecha :')
+            }else{
+                //NOTE: 1: Se trae el vector de carritoDeDespacho desde la base de datos
+                // db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>{console.log('leyendo carrito...');this.leerCarritoDeDespacho(doc.data())}).catch((err)=>{console.log(err)})
+                const {carritoDeDespachoAux}=this.state
+                
+                //NOTE: 2. Agregar nuevos pedidos al carritoDeDespacho
+                snap.forEach(doc=>{carritoDeDespachoAux.push(doc.data())})
+                //NOTE: 3. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
+                db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
+                .then((res)=>{
+                    //NOTE: 4. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
+                    snap.forEach(doc=>{
+                        db.collection("pedidos").doc(doc.id).update({estadoDespacho:'Despachado'})
+                        .then((res)=>{console.log(res)})
+                        .catch((err)=>{console.log(err)})
+                    })
+                })
+                .catch((err)=>{console.log(err)})
+                //NOTE: 5. Cambiar estado del documento "pedidoPorFecha" correspondiente
+                db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'Completo'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
             }
         })
         .catch((err)=>{
             console.log('Error en get() despacharTodo :',err)
         })
     }
-
 
     leerCantidadesEspecificas=(e,fecha,producto)=>{
         e.preventDefault()
@@ -367,18 +378,26 @@ state={
             console.log('XXX:',this.state.vectorProductosADespacharPorQEspecificas)
         }else{
             console.log('No has introducido una cantidad validad')
+            const index = this.state.vectorProductosADespacharPorQEspecificas.findIndex(item=>item.producto===producto && item.fecha===fecha)
+            this.state.vectorProductosADespacharPorQEspecificas.splice(index,1)
+            console.log('XXX:',this.state.vectorProductosADespacharPorQEspecificas)
         }
     }
 
     despacharQEspecificas=(e,fecha,idPedidoPorFecha)=>{
         e.preventDefault()
+        var db=firebase.firestore()
         var auxVectorDespacharQE
         auxVectorDespacharQE=this.state.vectorProductosADespacharPorQEspecificas.filter(productoADespacharPorQE=>productoADespacharPorQE.fecha===fecha)
         console.log(auxVectorDespacharQE)
-        auxVectorDespacharQE.map(productoADespacharPorQEFecha=>{
-
-                console.log('Despachados de :',productoADespacharPorQEFecha.producto)
-                var db=firebase.firestore()
+        
+        //NOTE: 1: Se trae el vector de carritoDeDespacho una unica vez. Se crea un vector con los ids de los pedidos que estan siendo agregados al carritoAux
+        // db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>this.leerCarritoDeDespacho(doc.data())).catch((err)=>{console.log(err)})
+        const {carritoDeDespachoAux}=this.state 
+        var idsPedidosEnCarrito=[]
+        //NOTE: 2. Se mapea cada referencia de esa fecha y para cada una de ella considerando su cantidad a despachar se realiza un llamado a la base de datos
+        if(auxVectorDespacharQE.length>0){
+            auxVectorDespacharQE.map((productoADespacharPorQEFecha,index)=>{
                 db.collection('pedidos')
                 .where("idProveedor","==","AFY GLOBAL SAS")
                 .where("estado","==","Recibido por el proveedor")
@@ -387,31 +406,51 @@ state={
                 .limit(productoADespacharPorQEFecha.cantidad)
                 .get()
                 .then((snap)=>{
-                    snap.forEach(doc=>{
-                        
-                        //TODO: Cambiar estado de despacho solo cuando ya se haya introducido el pedido en el carrito de despacho
-                        db.collection('pedidos').doc(doc.id).update({'estadoDespacho':'Despachado'}).then((res)=>{console.log('Respuesta Then update "pedidos" de despacharQEspecificas :',res)}).catch((err)=>{console.log('Error Then update "pedidos" de despacharQEspecificas :',err)})
-                        console.log('Se procedera a añadir estos pedidos a la base de datos :')
-                        db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayUnion(doc.data())}).then((res)=>{console.log('Respuesta Then update "proveedores" de añadir al carritoDeDespachoo :',res)}).catch((err)=>{console.log('Error Then update "proveedores" de añadir al carritoDeDespachoo :',err)})
-                        db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
-                    })
                     if(snap.empty){
-                        console.log('no existen mas pedidos para despachar en esta fecha y del producto.')
+                        console.log('no existen mas pedidos para despachar en esta fecha :')
+                    }else{
+                        //NOTE: 3. Agregar nuevos pedidos al carritoDeDespacho
+                        snap.forEach(doc=>{           
+                            carritoDeDespachoAux.push(doc.data())
+                            idsPedidosEnCarrito.push(doc.id)
+                        })
+                        console.log('INDEX:',index,'LENGTH:',auxVectorDespacharQE.length)
+                        if((index+1)===auxVectorDespacharQE.length){
+                            this.escribirEnBaseDeDatos()
+                        }
                     }
                 })
                 .catch((err)=>{
                     console.log('Error en get() despacharQEspecificas :',err)
                 })
-            
-        })
+            })
+        }else{
+            console.log('No has ingresado una cantidad valida para despachar')
+        }
+
+        this.escribirEnBaseDeDatos=()=>{
+            //NOTE: 4. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
+            db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
+            .then((res)=>{
+                //NOTE: 5. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
+                idsPedidosEnCarrito.map(id=>{
+                    db.collection("pedidos").doc(id).update({estadoDespacho:'Despachado'})
+                    .then((res)=>{console.log(res)})
+                    .catch((err)=>{console.log(err)})
+                })
+            })
+            .catch((err)=>{console.log(err)})
+            //NOTE: 6. Cambiar estado del documento "pedidoPorFecha" correspondiente
+            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
+        }
     }
     
     componentWillUpdate=()=>{
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     render() {
-        const {pedidosPorFecha,renderizar}=this.state
+        const {pedidosPorFecha,renderizar,carritoDescargado}=this.state
         // pedidosPorFecha.map(pedidoPorFecha=>{
         //     pedidoPorFecha.productos.sort((a,b)=>(a.nombre-b.nombre))
         // })
@@ -426,7 +465,6 @@ state={
                     <div>
                         <Link to="/">Volver</Link>
                         <h1>PANEL PEDIDOS PROVEEDOR</h1>
-                        <button onClick={this.despachar}>Despachar</button>
                         {pedidosPorFecha.map(pedido=>
                             <div>
                                 <strong>{pedido.fecha}</strong>
@@ -442,12 +480,24 @@ state={
                                 )}
                                 
                                 {pedido.estado==='incompleto'?
-                                    <button onClick={(e)=>this.despacharTodo(e,pedido.fecha,pedido.id)}>Despachar pendientes</button>
-                                :
                                     
+                                    carritoDescargado===true?
+                                    <button onClick={(e)=>this.despacharTodo(e,pedido.fecha,pedido.id)}>Despachar pendientes</button>
+                                    :
+                                    <button disabled>Despachar pendientes</button>
+                                :
+                                    carritoDescargado===true?
                                     <button onClick={(e)=>this.despacharTodo(e,pedido.fecha,pedido.id)}>Despachar todo</button>
+                                    :
+                                    <button disabled>Despachar todo</button>
+
                                 }
+
+                                {carritoDescargado===true?
                                 <button onClick={(e)=>this.despacharQEspecificas(e,pedido.fecha,pedido.id)}>Despachar cantidades especificas</button>
+                                :
+                                <button disabled>Despachar cantidades especificas</button>
+                                }
                                 <div>-----------------------------------------------------------</div>
 
                             </div>

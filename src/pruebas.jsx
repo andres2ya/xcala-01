@@ -359,6 +359,7 @@ state={
     }
 
     leerCantidadesEspecificas=(e,fecha,producto)=>{
+        //TODO: Limpiar caja texto del input al presionar "despachar Q especificas"
         e.preventDefault()
         var auxProductoUnicoQE
         var Q=parseInt(e.target.value) 
@@ -406,12 +407,16 @@ state={
                 .limit(productoADespacharPorQEFecha.cantidad)
                 .get()
                 .then((snap)=>{
+                    var auxDocData
                     if(snap.empty){
                         console.log('no existen mas pedidos para despachar en esta fecha :')
                     }else{
                         //NOTE: 3. Agregar nuevos pedidos al carritoDeDespacho
                         snap.forEach(doc=>{           
-                            carritoDeDespachoAux.push(doc.data())
+                            auxDocData=doc.data()
+                            auxDocData.id=doc.id
+                            console.log('objeto auxiliar: ',auxDocData)
+                            carritoDeDespachoAux.push(auxDocData)
                             idsPedidosEnCarrito.push(doc.id)
                         })
                         console.log('INDEX:',index,'LENGTH:',auxVectorDespacharQE.length)

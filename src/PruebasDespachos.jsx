@@ -7,7 +7,9 @@ export default class PruebasDespachos extends Component {
     state={
         pedidosIndividualesEnElCarrito:[],
         pedidosEnCarrito:[],
-        renderizar:false
+        idsEliminados:[],
+        renderizar:false,
+        a:false
     }
 
     componentDidMount=()=>{
@@ -191,6 +193,53 @@ export default class PruebasDespachos extends Component {
         })
     }
 
+    disminuirCantidadADespachar=(e,producto,fecha,ids,QPendiente,QDespachar)=>{
+        e.preventDefault()
+        //NOTE: 1. Buscar objeto e index de fecha
+        let objetoFecha=this.state.pedidosEnCarrito.filter(pedido=>pedido.fecha===fecha)
+        let indexObjetoFecha=this.state.pedidosEnCarrito.indexOf(objetoFecha[0],0)
+        //NOTE: 2. Buscar objeto producto y su index
+        let vectorProductos=objetoFecha[0].productos
+        let objetoProducto=vectorProductos.filter(productoo=>productoo.nombre===producto)
+        let indexObjetoProducto=vectorProductos.indexOf(objetoProducto[0],0)
+        //NOTE: 3. Obtiene cantidad a despachar y pendiente
+        let cantidadDespachar=objetoProducto[0].cantidadADespachar
+        let cantidadPend=objetoProducto[0].cantidadPendiente
+        let idsAux=objetoProducto[0].ids
+        
+        if((cantidadDespachar-1)>0){
+            this.state.idsEliminados.push(ids[0])
+            idsAux.splice(0,1)
+            //NOTE: 4. Crea un nuevo objeto producto con la cantidad a despachar actualizada
+            let newObjetoProducto={nombre:producto,cantidadADespachar:cantidadDespachar-1,cantidadPendiente:cantidadPend,ids:idsAux}
+            //NOTE: 5. Crea un nuevo vectorProductos reemplazando el objeto producto anterior con el recien creado
+            vectorProductos.splice(indexObjetoProducto,1,newObjetoProducto)
+            //NOTE: 6. Crea un nuevo objeto fecha reemplazando el vectorProducto anterior con el recien creado.
+            let newObjetoFecha={fecha:fecha,productos:vectorProductos}
+            //NOTE: Actualizando vector pedidosEnCarrito del estado
+            this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
+            this.setState({a:true})
+        }else if((cantidadDespachar-1)===0){
+            //NOTE: No se puede eliminar mas. Y como ha llegado a 0, entonces se procede a eliminar el producto del vector
+            vectorProductos.splice(indexObjetoProducto,1)
+            let newObjetoFecha={fecha:fecha,productos:vectorProductos}
+            this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
+            this.setState({a:true})
+
+            let objetoFecha2=this.state.pedidosEnCarrito.filter(pedido=>pedido.fecha===fecha)
+            if(objetoFecha2[0].productos.length===0){
+                console.log('No quedan mas productos para esta fecha')
+                this.state.pedidosEnCarrito.splice(indexObjetoFecha,1)
+            }
+        }
+
+        
+        console.log('PEDIDOS EN CARRITO',this.state.pedidosEnCarrito)
+        console.log('IDs ELIMINADOS:',this.state.idsEliminados)
+        //TODO: Terminar... Borrar la fecha cuando ya no quedan productos dentro de ella.
+    }
+
+
     //render sin conciderar fechas
     //TODO: Crear opcion para eliminar todas las cantidades de una referencia, y aumentar o disminuir las cantidades. De tal forma que cambie su estado como si no hubiese sido seleccionada, o para seleccionala.
     // render() {
@@ -253,10 +302,10 @@ export default class PruebasDespachos extends Component {
                                         <span> | </span>
                                         <span>A despachar:</span>
                                         <span>
-                                            <button onClick={(e)=>this.disminuirCantidad(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>-</button>
+                                            <button onClick={(e)=>this.disminuirCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>-</button>
                                             {/* Para actualizar la vista al disminuir o aumentar la cantidad, simplemente, SI Y SOLO SI SE TIENE EXITO,
                                             en la funcion que realiza esa tarea, se guarda en el estado la cantidad adicional o menor correspondiente y se le suma o resta al valor de al vista*/}
-                                            <span>{producto.cantidadADespachar+{/*this.state.masCantidad OR + this.state.menosCantidad*/}}</span>
+                                            <span>{producto.cantidadADespachar}</span>
                                             <button>+</button>
                                             <button>x</button>
                                         </span>

@@ -297,7 +297,7 @@ state={
         //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
         var db=firebase.firestore()
         idPedidosParaActualizar.map((idPedido,index)=>{
-            db.collection('pedidos').doc(idPedido).update({'estado':'Despachado por el proveedor'})
+            db.collection('pedidos').doc(idPedido).update({estado:'Despachado por el proveedor'})
             .then(()=>{
                 //Si es el ultimo id, entonces activar listener
                 if((index+1)===idPedidosParaActualizar.length){

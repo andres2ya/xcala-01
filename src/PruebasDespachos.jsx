@@ -10,7 +10,8 @@ export default class PruebasDespachos extends Component {
         idsEliminados:[],
         adicionales:[],
         renderizar:false,
-        a:false
+        a:false,
+        habilitarDespacho:false
     }
 
     componentDidMount=()=>{
@@ -21,6 +22,7 @@ export default class PruebasDespachos extends Component {
         .get()
         .then((doc)=>{
             auxCarritoDeDespacho=doc.data().carritoDeDespacho
+            console.log('CARRITO DESDE BD:',auxCarritoDeDespacho)
             //NOTE: Llamando al documento correspondiente de "pedidosPorFecha" para conocer la cantidad pedida
             var fechasAux=[]
             var fechasAuxUni=[]
@@ -37,7 +39,7 @@ export default class PruebasDespachos extends Component {
     
                 db.collection('pedidosPorFecha').doc(idDocString).get()
                 .then(pedidoPorFecha2=>{
-                    console.log(pedidoPorFecha2.data())
+                    console.log('PEDIDO POR FECHA DESDE BD:',pedidoPorFecha2.data())
                     auxPedidosPorFecha.push(pedidoPorFecha2.data())
                     if((index+1)===fechasAuxUni.length){
                         this.leerVector(auxCarritoDeDespacho,auxPedidosPorFecha)
@@ -128,43 +130,6 @@ export default class PruebasDespachos extends Component {
         }
     }
 
-    armarDespacho=(e)=>{
-        e.preventDefault()
-        var db=firebase.firestore()
-        const {idsEliminados,pedidosIndividualesEnElCarrito}=this.state
-        idsEliminados.map(idEliminado=>{
-            //NOTE: Eliminar de pedidosIndividualesEnElCarrito los pedidos del vectorIdEliminados
-            let idAEliminar=pedidosIndividualesEnElCarrito.filter(pedidoIndividual=>pedidoIndividual.id===idEliminado.id)
-            let indexIdAEliminar=pedidosIndividualesEnElCarrito.indexOf(idAEliminar[0],0)
-            this.state.pedidosIndividualesEnElCarrito.splice(indexIdAEliminar,1)
-
-            //NOTE: Desmarcar como despachados los peddios del vectorIdEliminados
-            db.collection('pedidos').doc(idEliminado.id)
-            .update({estado:'Recibido por el proveedor',estadoDespacho:'Sin atender'})
-            .then(res=>{console.log('Actualizado con exito')})
-            .catch(err=>{console.log('Ocurrio un error',err)})
-        })
-        
-
-        //NOTE: Marcar como despachados la cantidad de pedidos de cada fecha y producto del vector adicionales
-
-        //NOTE: Armar despacho en base de datos con los pedidos que quedaron en el carrito de despacho
-        
-        // db.collection('despachos').add({idDespacho:'DPACHO0001',pedidos:this.state.pedidosIndividualesEnElCarrito,fecha:'07/12/2019'})
-        // .then((ref)=>{
-        //     console.log(ref)
-        //     db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:[]})
-        //     .then((res)=>{
-        //         console.log(res)
-        //     })
-        //     .catch((err)=>{
-        //         console.log(err)
-        //     })
-        // })
-        // .catch((err)=>{
-        //     console.log(err)
-        // })
-    }
 
     // disminuirCantidad=(e,producto,fecha,ids,QPendiente,QDespachar)=>{
     //     e.preventDefault()
@@ -247,7 +212,6 @@ export default class PruebasDespachos extends Component {
                         if(QAdicional-1 === 0){
                             this.state.adicionales.splice(indexObjetoAdicional,1)
                         }
-                        console.log(this.state.adicionales)
                     }
 
                     //NOTE: 4. Crea un nuevo objeto producto con la cantidad a despachar actualizada
@@ -258,7 +222,7 @@ export default class PruebasDespachos extends Component {
                     let newObjetoFecha={fecha:fecha,productos:vectorProductos}
                     //NOTE: Actualizando vector pedidosEnCarrito del estado
                     this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
-                    this.setState({a:true})
+                    this.setState({habilitarDespacho:true})
                 }else if((cantidadDespachar-1)===0){
                     //NOTE: No se puede eliminar mas. Y como ha llegado a 0, entonces se procede a eliminar el producto del vector
                     this.state.idsEliminados.push({id:ids[0],producto:producto,fecha:fecha})
@@ -297,7 +261,6 @@ export default class PruebasDespachos extends Component {
                             let adicionalesADespachar={producto:producto,fecha:fecha,cantidadAdicional:1}
                             this.state.adicionales.push(adicionalesADespachar)
                         }
-                        console.log(this.state.adicionales)
                     }
 
 
@@ -309,7 +272,7 @@ export default class PruebasDespachos extends Component {
                     let newObjetoFecha={fecha:fecha,productos:vectorProductos}
                     //NOTE: Actualizando vector pedidosEnCarrito del estado
                     this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
-                    this.setState({a:true})
+                    this.setState({habilitarDespacho:true})
                 }
                 break;
             case "eliminarTodaLaReferencia":
@@ -317,27 +280,118 @@ export default class PruebasDespachos extends Component {
                 //NOTE: Añadir ids al vector ids por eliminar
                 ids.map(id=>{
                     this.state.idsEliminados.push({id:id,producto:producto,fecha:fecha})
+                    // idsAux.splice(0,1)
                 })
                 //NOTE:Borrar la correspondiente referencia del vector productos dentro de la fecha correspondiente
                 vectorProductos.splice(indexObjetoProducto,1)
                 let newObjetoFecha={fecha:fecha,productos:vectorProductos}
                 this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
-                this.setState({a:true})
                 //NOTE: Borrar fecha si ya no le quedan mas productos
                 let objetoFecha2=this.state.pedidosEnCarrito.filter(pedido=>pedido.fecha===fecha)
                 if(objetoFecha2[0].productos.length===0){
                     this.state.pedidosEnCarrito.splice(indexObjetoFecha,1)
                 }
+                this.setState({habilitarDespacho:true})
             default:
                 break;
         }
-
-        
-        console.log('PEDIDOS EN CARRITO',this.state.pedidosEnCarrito)
-        console.log('IDs ELIMINADOS:',this.state.idsEliminados)
-        //TODO: Terminar... Borrar la fecha cuando ya no quedan productos dentro de ella.
     }
 
+    prueba = (e)=>{
+        e.preventDefault()
+        var db=firebase.firestore()
+        const {idsEliminados,pedidosIndividualesEnElCarrito,adicionales}=this.state
+
+        if(idsEliminados.length>0){
+            idsEliminados.map(async(idEliminado,index)=>{
+                try {
+                    let idAEliminar=pedidosIndividualesEnElCarrito.filter(pedidoIndividual=>pedidoIndividual.id===idEliminado.id)
+                    await db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayRemove(idAEliminar[0])})
+                    // console.log('Removido del carrito con exito',idAEliminar[0].id)
+                    let indexIdAEliminar=pedidosIndividualesEnElCarrito.indexOf(idAEliminar[0],0)
+                    this.state.pedidosIndividualesEnElCarrito.splice(indexIdAEliminar,1)
+                    // console.log('Pedidos inviduales',this.state.pedidosIndividualesEnElCarrito)
+                    await db.collection('pedidos').doc(idEliminado.id).update({estado:'Recibido por el proveedor',estadoDespacho:'Reestablecido'})
+                    // console.log('Estado actualizado con exito',idEliminado.id)
+                    if(idsEliminados.length===(index+1)){
+                        console.log('Se restablcera idsEliminado=[]')
+                        this.setState({idsEliminados:[]},this.pruebaAdicionales())
+                    }
+                } catch (error) {
+                    console.log('OCURRIO UN ERROR:',error)   
+                }
+            })  
+        }else{
+            console.log('No hay elementos eliminados, se procede a operar adicionales')
+            this.pruebaAdicionales()
+        }  
+    }
+
+    pruebaAdicionales=()=>{
+        console.log('Comenzando adicionales.....')
+        var db=firebase.firestore()
+        let adicionalesFechas=[]
+        let adicionalesFechasUnicas=[]
+        const {pedidosIndividualesEnElCarrito,adicionales}=this.state
+        adicionales.map(adicional=>{adicionalesFechas.push(adicional.fecha)})
+        adicionalesFechasUnicas=[...new Set(adicionalesFechas)]
+        // console.log('ADICIONALES FECHAS UNICAS:',adicionalesFechasUnicas)
+        if(adicionalesFechasUnicas.length>0){
+            adicionalesFechasUnicas.map((adicionalFechaUnica,index)=>{
+                let pedidosAdicionalesFechaUnica=adicionales.filter(adicional=>adicional.fecha===adicionalFechaUnica)
+                // console.log('PEDIDOS ADICIONALES FECHAS UNICAS:',pedidosAdicionalesFechaUnica)
+                pedidosAdicionalesFechaUnica.map(async(pedidoAdicionalFechaUnica,index2)=>{
+                    const snap=await 
+                    db.collection('pedidos')
+                    .where("idProveedor","==","AFY GLOBAL SAS")
+                    .where("estado","==","Recibido por el proveedor")
+                    .where('fecha','==',adicionalFechaUnica)
+                    .where('idProducto',"==",pedidoAdicionalFechaUnica.producto)
+                    .limit(pedidoAdicionalFechaUnica.cantidadAdicional)
+                    .get()
+                    .then((snap)=>{return snap})
+                    .catch(err => console.log('ERROR:',err))
+    
+                    try {
+                        let contadorAux=0
+                        snap.forEach(async doc=>{
+                            let auxDocData=doc.data()
+                            auxDocData.id=doc.id
+                            await db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayUnion(auxDocData)})
+                            pedidosIndividualesEnElCarrito.push(auxDocData)
+                            await db.collection("pedidos").doc(doc.id).update({estadoDespacho:'Despachado',estado:'Recibido por el proveedor'})
+                            contadorAux=contadorAux+1
+                            if((index+1)===adicionalesFechasUnicas.length 
+                            && (index2+1)===pedidosAdicionalesFechaUnica.length 
+                            && pedidoAdicionalFechaUnica.cantidadAdicional===contadorAux){
+                                this.setState({adicionales:[]},this.pruebaCrearDespacho())
+                            }
+                        })
+                    } catch (error) {
+                        console.log('OCURRIO UN ERROR:',error)  
+                    }
+                })
+            })
+        }else{
+            console.log('No hay elementos adicionales, se procede a crear despacho')
+            this.pruebaCrearDespacho()
+        }
+    }
+
+    pruebaCrearDespacho=()=>{
+        var db=firebase.firestore()
+        db.collection('despachos').add({idDespacho:'DPACHO0001',pedidos:this.state.pedidosIndividualesEnElCarrito,fecha:'07/12/2019'})
+        .then(()=>{
+            db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:[]})
+            .then(()=>{
+
+                this.setState({pedidosEnCarrito:[],despachoCreado:true})
+            })
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
 
     //render sin conciderar fechas
     //TODO: Crear opcion para eliminar todas las cantidades de una referencia, y aumentar o disminuir las cantidades. De tal forma que cambie su estado como si no hubiese sido seleccionada, o para seleccionala.
@@ -385,7 +439,7 @@ export default class PruebasDespachos extends Component {
     //Render conciderando tanto fechas como productos
     render() {
         const {pedidosEnCarrito,renderizar}=this.state
-        console.log(pedidosEnCarrito,renderizar)
+        console.log('DESDE RENDER::::::',pedidosEnCarrito,renderizar)
         return (
             <div>
                 {renderizar===true?
@@ -407,6 +461,7 @@ export default class PruebasDespachos extends Component {
                                             <span>{producto.cantidadADespachar}</span>
                                             <button id="aumentarQDespachar" onClick={(e)=>this.disminuirCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>+</button>
                                             <button id="eliminarTodaLaReferencia" onClick={(e)=>this.disminuirCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>x</button>
+                                            <button onClick={(e)=>this.prueba(e)}>probar</button>
                                         </span>
                                     </div>
                                 )}
@@ -414,7 +469,11 @@ export default class PruebasDespachos extends Component {
 
                             </div>
                         )}
+                        {this.state.habilitarDespacho===true?
                         <button onClick={this.armarDespacho}>Solicitar transporte "Arma el documento despacho correspondiente"</button>
+                        :
+                        <button disabled onClick={this.armarDespacho}>Solicitar transporte "Arma el documento despacho correspondiente"</button>
+                        }
                     </div>
                     :
                     <div>No hay nada...</div>

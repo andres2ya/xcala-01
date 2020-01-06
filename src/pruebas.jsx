@@ -15,13 +15,16 @@ state={
     renderizar:false,
     vectorProductosADespacharPorQEspecificas:[],
     carritoDeDespachoAux:[],
-    carritoDescargado:false
+    carritoDescargado:false,
+    ejecutandoDespacharTodo:false,
+    ejecutandoDespacharQE:false
 }
     removerListener=()=>{
         console.log('removiendo...')
         this.unsubscribeListenerPedidos()
         this.unsubscribeListenerPedidosPorFechas()
         this.unsubscribeListenerActualizarPendientes()
+        this.unsubscribeListenerRestablecerPendientes()
     }
 
     componentWillMount=()=>{
@@ -29,17 +32,22 @@ state={
         this.activeListenerPedidosPorFechas()
         this.activeListenerPedidos()
         this.activeListenerActualizarPendientes()
+        this.activeListenerRestablecerPendientes()
+        this.getCarritoFromDB()
+    }   
+
+    getCarritoFromDB=()=>{
         var db=firebase.firestore()
         db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>{
             console.log('leyendo carrito...');
             this.leerCarritoDeDespacho(doc.data())
         })
         .catch((err)=>{console.log(err)})
-
+    
         this.leerCarritoDeDespacho=(carrito)=>{console.log('AUX CARRITO:',carrito.carritoDeDespacho)
             this.setState({carritoDeDespachoAux:carrito.carritoDeDespacho,carritoDescargado:true})
         }
-    }   
+    }
 
     activeListenerPedidosPorFechas=()=>{
         //NOTE: Funcion que trae todas las fechas del proveedor para guardarlas en el estado y poder mostrar todo el historial, va paginado de a 7 dias.
@@ -309,6 +317,93 @@ state={
             })
         })
     }
+
+    activeListenerRestablecerPendientes=()=>{
+        
+        var db=firebase.firestore()
+        this.unsubscribeListenerRestablecerPendientes=db.collection('pedidos')
+        .where("idProveedor","==","AFY GLOBAL SAS")
+        .where("estado","==","Recibido por el proveedor")
+        .where("estadoDespacho","==","Reestablecido")
+        .orderBy("idProducto","asc")
+        .onSnapshot((snap)=>{
+            var auxPedidosParaActualizar=[]
+            var auxFechasPedidosParaActualizar=[]
+            var auxIdsPedidosParaActualizar=[]
+            var auxUniqueFechasPedidosParaActualizar=[]
+            var documentoPedidosPorFechaParaActualizar=[]
+            var productosFechaUnicaParaActualizar=[]
+            var pedidosFechaUnicaParaActualizar=[]
+            var productosUnicoFechaUnicaParaActualizar=[]
+            var nuevaCantidadDespachada
+            const {pedidosPorFecha}=this.state
+            snap.forEach(doc=>{
+                auxPedidosParaActualizar.push(doc.data());
+                auxFechasPedidosParaActualizar.push(doc.data().fecha);
+                auxIdsPedidosParaActualizar.push(doc.id)
+            })
+            auxUniqueFechasPedidosParaActualizar=[...new Set(auxFechasPedidosParaActualizar)]
+
+            auxUniqueFechasPedidosParaActualizar.map(fechaUnica=>{
+                documentoPedidosPorFechaParaActualizar=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
+                let idDocParaActualizar=documentoPedidosPorFechaParaActualizar[0].id
+                let vectorProductosDocumentoParaActualizar=documentoPedidosPorFechaParaActualizar[0].productos
+                let objetoProductoEnDocumentoParaActualizar=[]
+
+                productosFechaUnicaParaActualizar=[]
+                pedidosFechaUnicaParaActualizar=auxPedidosParaActualizar.filter(pedido=>pedido.fecha===fechaUnica)
+                pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{productosFechaUnicaParaActualizar.push(pedidoFechaUnica.idProducto)})
+                productosUnicoFechaUnicaParaActualizar=[...new Set(productosFechaUnicaParaActualizar)]
+
+                productosUnicoFechaUnicaParaActualizar.map(productoUnicoFechaUnica=>{
+                objetoProductoEnDocumentoParaActualizar=vectorProductosDocumentoParaActualizar.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
+                let auxCantidadPedidoActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPedida
+                let auxCantidadPendienteActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPendiente
+
+                nuevaCantidadDespachada=0
+                pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{
+                    if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+                        nuevaCantidadDespachada=nuevaCantidadDespachada+1
+                    }
+                })
+                // Remover
+                db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayRemove({
+                    'nombre':productoUnicoFechaUnica,
+                    'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+                    'cantidadPendiente':auxCantidadPendienteActualParaActualizar
+                })})
+                //Añadir
+                db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayUnion({
+                    'nombre':productoUnicoFechaUnica,
+                    'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+                    'cantidadPendiente':auxCantidadPendienteActualParaActualizar+nuevaCantidadDespachada
+                })})
+            })
+        })
+        //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
+        if(auxIdsPedidosParaActualizar.length>0){
+            this.cambiarEstadoParaRestablecer(auxIdsPedidosParaActualizar)
+        }
+    })
+    }
+    
+    cambiarEstadoParaRestablecer=(idPedidosARestablecer)=>{
+        this.unsubscribeListenerRestablecerPendientes()
+        //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
+        var db=firebase.firestore()
+        idPedidosARestablecer.map((idPedido,index)=>{
+            db.collection('pedidos').doc(idPedido).update({estado:'Recibido por el proveedor',estadoDespacho:'Sin atender'})
+            .then(()=>{
+                //Si es el ultimo id, entonces activar listener
+                if((index+1)===idPedidosARestablecer.length){
+                    this.activeListenerRestablecerPendientes()
+                }
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        })
+    }
     
     componentWillUnmount=()=>{
         this.removerListener()
@@ -320,8 +415,11 @@ state={
     }
 
     despacharTodo=(e,fecha,idPedidoPorFecha)=>{
+        if(this.state.ejecutandoDespacharTodo===false){
+        console.log('Se comenzara a ejecutar despacharTodo')
+        this.setState({ejecutandoDespacharTodo:true})
         e.preventDefault()
-        console.log('FECHA:::',fecha)
+        this.unsubscribeListenerActualizarPendientes()
         var db=firebase.firestore()
         db.collection('pedidos')
         .where("idProveedor","==","AFY GLOBAL SAS")
@@ -335,27 +433,38 @@ state={
                 //NOTE: 1: Se trae el vector de carritoDeDespacho desde la base de datos
                 // db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>{console.log('leyendo carrito...');this.leerCarritoDeDespacho(doc.data())}).catch((err)=>{console.log(err)})
                 const {carritoDeDespachoAux}=this.state
-                
                 //NOTE: 2. Agregar nuevos pedidos al carritoDeDespacho
-                snap.forEach(doc=>{carritoDeDespachoAux.push(doc.data())})
+                let lengthSnap=0
+                snap.forEach(doc=>{
+                    let auxDocData=doc.data()
+                    auxDocData.id=doc.id
+                    carritoDeDespachoAux.push(auxDocData)
+                    lengthSnap=lengthSnap+1
+                })
                 //NOTE: 3. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
                 db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
                 .then((res)=>{
+                    this.getCarritoFromDB()
                     //NOTE: 4. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
-                    snap.forEach(doc=>{
-                        db.collection("pedidos").doc(doc.id).update({estadoDespacho:'Despachado'})
-                        .then((res)=>{console.log(res)})
-                        .catch((err)=>{console.log(err)})
+                    let lengthSnap2=0
+                    snap.forEach(async(doc)=>{
+                        await db.collection("pedidos").doc(doc.id).update({estadoDespacho:'Despachado'})
+                        lengthSnap2=lengthSnap2+1
+                        if((lengthSnap2)===lengthSnap){
+                            this.activeListenerActualizarPendientes()
+                            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'Completo'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
+                            this.setState({ejecutandoDespacharTodo:false})
+                        }
                     })
                 })
                 .catch((err)=>{console.log(err)})
                 //NOTE: 5. Cambiar estado del documento "pedidoPorFecha" correspondiente
-                db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'Completo'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
             }
         })
         .catch((err)=>{
             console.log('Error en get() despacharTodo :',err)
         })
+    }else{console.log('Se esta ejecutando despachar todo')}
     }
 
     leerCantidadesEspecificas=(e,fecha,producto)=>{
@@ -380,13 +489,19 @@ state={
         }else{
             console.log('No has introducido una cantidad validad')
             const index = this.state.vectorProductosADespacharPorQEspecificas.findIndex(item=>item.producto===producto && item.fecha===fecha)
-            this.state.vectorProductosADespacharPorQEspecificas.splice(index,1)
-            console.log('XXX:',this.state.vectorProductosADespacharPorQEspecificas)
+            if(index>0){
+                this.state.vectorProductosADespacharPorQEspecificas.splice(index,1)
+                console.log('XXX:',this.state.vectorProductosADespacharPorQEspecificas)
+            }
         }
     }
 
     despacharQEspecificas=(e,fecha,idPedidoPorFecha)=>{
+        if(this.state.ejecutandoDespacharQE===false){
+        this.setState({ejecutandoDespacharQE:true})
+        console.log('Se comenzara a ejecutar despacharQE')
         e.preventDefault()
+        this.unsubscribeListenerActualizarPendientes()
         var db=firebase.firestore()
         var auxVectorDespacharQE
         auxVectorDespacharQE=this.state.vectorProductosADespacharPorQEspecificas.filter(productoADespacharPorQE=>productoADespacharPorQE.fecha===fecha)
@@ -394,7 +509,9 @@ state={
         
         //NOTE: 1: Se trae el vector de carritoDeDespacho una unica vez. Se crea un vector con los ids de los pedidos que estan siendo agregados al carritoAux
         // db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>this.leerCarritoDeDespacho(doc.data())).catch((err)=>{console.log(err)})
+    
         const {carritoDeDespachoAux}=this.state 
+        
         var idsPedidosEnCarrito=[]
         //NOTE: 2. Se mapea cada referencia de esa fecha y para cada una de ella considerando su cantidad a despachar se realiza un llamado a la base de datos
         if(auxVectorDespacharQE.length>0){
@@ -429,6 +546,8 @@ state={
                     console.log('Error en get() despacharQEspecificas :',err)
                 })
             })
+        
+
         }else{
             console.log('No has ingresado una cantidad valida para despachar')
         }
@@ -437,16 +556,24 @@ state={
             //NOTE: 4. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
             db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
             .then((res)=>{
+                // this.setState({carritoDeDespachoAux:[]})
+                this.getCarritoFromDB()
                 //NOTE: 5. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
-                idsPedidosEnCarrito.map(id=>{
-                    db.collection("pedidos").doc(id).update({estadoDespacho:'Despachado'})
-                    .then((res)=>{console.log(res)})
-                    .catch((err)=>{console.log(err)})
+                idsPedidosEnCarrito.map(async(id,index,IDSPEC)=>{
+                    await db.collection("pedidos").doc(id).update({estadoDespacho:'Despachado'})
+                    if((index+1)===IDSPEC.length){
+                        this.activeListenerActualizarPendientes()
+                        db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
+                        this.setState({ejecutandoDespacharQE:false})
+                    }
+                    
                 })
             })
             .catch((err)=>{console.log(err)})
             //NOTE: 6. Cambiar estado del documento "pedidoPorFecha" correspondiente
-            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
+        }
+        }else{
+            console.log('Ya se esta ejecutando despacharQE')
         }
     }
     
@@ -480,7 +607,7 @@ state={
                                         <span>Pedida:{producto.cantidadPedida}</span>
                                         <span> | </span>
                                         <span>Pendiente:{producto.cantidadPendiente}</span>
-                                        <span><input onChange={(e)=>this.leerCantidadesEspecificas(e, pedido.fecha, producto.nombre)} min="0" max={producto.cantidadPendiente} type="number"/></span>
+                                        <span><input id="inputQADespachar" onChange={(e)=>this.leerCantidadesEspecificas(e, pedido.fecha, producto.nombre)} min="0" max={producto.cantidadPendiente} type="number"/></span>
                                     </div>
                                 )}
                                 
@@ -512,4 +639,5 @@ state={
             </div>
         )
     }
+
 }

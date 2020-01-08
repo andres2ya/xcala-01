@@ -22,59 +22,216 @@ state={
     removerListener=()=>{
         console.log('removiendo...')
         this.unsubscribeListenerPedidos()
-        this.unsubscribeListenerPedidosPorFechas()
-        this.unsubscribeListenerActualizarPendientes()
-        this.unsubscribeListenerRestablecerPendientes()
+        // this.unsubscribeListenerPedidosPorFechas()
+        // this.unsubscribeListenerActualizarPendientes()
+        // this.unsubscribeListenerRestablecerPendientes()
     }
 
     componentWillMount=()=>{
         moment.locale('es');
-        this.activeListenerPedidosPorFechas()
+        // this.activeListenerPedidosPorFechas()
         this.activeListenerPedidos()
-        this.activeListenerActualizarPendientes()
-        this.activeListenerRestablecerPendientes()
+        // this.activeListenerActualizarPendientes()
+        // this.activeListenerRestablecerPendientes()
         this.getCarritoFromDB()
     }   
 
-    getCarritoFromDB=()=>{
+    getCarritoFromDB=async()=>{
         var db=firebase.firestore()
-        db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>{
+        await db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get()
+        .then(async(doc)=>{
             console.log('leyendo carrito...');
-            this.leerCarritoDeDespacho(doc.data())
+            let carrito=doc.data()
+            await this.setState({carritoDeDespachoAux:carrito.carritoDeDespacho,carritoDescargado:true})
+            // this.markAsDespachadoAllordersInCarrito()
         })
         .catch((err)=>{console.log(err)})
-    
-        this.leerCarritoDeDespacho=(carrito)=>{console.log('AUX CARRITO:',carrito.carritoDeDespacho)
-            this.setState({carritoDeDespachoAux:carrito.carritoDeDespacho,carritoDescargado:true})
-        }
     }
+    // markAsDespachadoAllordersInCarrito=()=>{
+    //     var db=firebase.firestore()
+    //     const {carritoDeDespachoAux}=this.state
+        
+    //     let ordersToMark=carritoDeDespachoAux.filter(order=>order.estadoDespacho==='Sin atender')
+    //     if(ordersToMark.length>0){
+    //         ordersToMark.map(order=>{
+    //             console.log('Marcar como despachado el pedido con id:',order.id)
+    //             db.collection("pedidos").doc(order.id).update({estadoDespacho:'Despachado'})
+    //         })
+    //     }else{
+    //         console.log('No existen pedidos sin marcar en el carrito de despacho')
+    //     }
+    // }
+    ESPACIO=()=>{console.log('ESPACIO')}
+    // activeListenerPedidosPorFechas=()=>{
+    //     //NOTE: Funcion que trae todas las fechas del proveedor para guardarlas en el estado y poder mostrar todo el historial, va paginado de a 7 dias.
+    //     var db=firebase.firestore()
+    //     this.unsubscribeListenerPedidosPorFechas=db.collection("pedidosPorFecha").where("idProveedor","==","AFY GLOBAL SAS").orderBy("fecha","asc")
+    //     .onSnapshot((snap)=>{
+    //         var pedidosPorFecha=[]
+    //         if(snap.empty){
+    //             console.log('No hay documentos')
+    //             this.setState({mapearPedidosPorFecha:false,renderizar:false})
+    //         }else{
+    //             snap.forEach(doc=>{
+    //                 pedidosPorFecha.push(doc.data())
+    //             })
+    //             pedidosPorFecha.map(pedidoPorFecha=>{
+    //                 pedidoPorFecha.productos.sort((a,b)=>(a.nombre-b.nombre))
+    //             })
+    //             this.setState({pedidosPorFecha:pedidosPorFecha,mapearPedidosPorFecha:true,renderizar:true})
+    //         }
+    //     })
+    // }
+    ESPACIO=()=>{console.log('ESPACIO')}
+    // activeListenerPedidos = ()=>{
+    //     var db=firebase.firestore()
+    //     this.unsubscribeListenerPedidos=db.collection('pedidos')
+    //     .where("idProveedor","==","AFY GLOBAL SAS")
+    //     .where("estado","==","Ordenados con exito")
+    //     .orderBy("idProducto","asc")
+    //     .onSnapshot((snap)=>{
 
-    activeListenerPedidosPorFechas=()=>{
-        //NOTE: Funcion que trae todas las fechas del proveedor para guardarlas en el estado y poder mostrar todo el historial, va paginado de a 7 dias.
-        var db=firebase.firestore()
-        this.unsubscribeListenerPedidosPorFechas=db.collection("pedidosPorFecha").where("idProveedor","==","AFY GLOBAL SAS").orderBy("fecha","asc")
-        .onSnapshot((snap)=>{
-            var pedidosPorFecha=[]
-            if(snap.empty){
-                console.log('No hay documentos')
-                this.setState({mapearPedidosPorFecha:false,renderizar:false})
-            }else{
-                snap.forEach(doc=>{
-                    pedidosPorFecha.push(doc.data())
-                })
-                pedidosPorFecha.map(pedidoPorFecha=>{
-                    pedidoPorFecha.productos.sort((a,b)=>(a.nombre-b.nombre))
-                })
-                this.setState({pedidosPorFecha:pedidosPorFecha,mapearPedidosPorFecha:true,renderizar:true})
-            }
-        })
-    }
+    //         var auxPedidos=[]
+    //         var auxUniqueFechasPedidos=[]
+    //         var auxFechasPedidos=[]
+    //         var vectorProductos=[]
+    //         var auxIds=[]
+    //         var documentoPedidosPorFecha=[]
+    //         var pedidosFechaUnica=[]
+    //         var productosFechaUnica=[]
+    //         var productosUnicoFechaUnica=[]
+    //         var nuevaCantidadPedido=0
+    //         var auxDiaFecha
+    //         var auxMesFecha
+    //         var auxAñoFecha
+    //         var idDocString
+    //         var writtingError=false
+    //         const {pedidosPorFecha,mapearPedidosPorFecha}=this.state
+    //         // NOTE: Funcion que captura las referencias unicas y las ubica en un vector
+    //         snap.forEach((doc)=>{
+    //             auxPedidos.push(doc.data());
+    //             auxFechasPedidos.push(doc.data().fecha);
+    //             auxIds.push(doc.id)                
+    //         })
+    //         auxUniqueFechasPedidos=[...new Set(auxFechasPedidos)]
+            
+    //         auxUniqueFechasPedidos.map(fechaUnica=>{
+    //             auxDiaFecha=fechaUnica.slice(0,2)
+    //             auxMesFecha=fechaUnica.slice(3,5)
+    //             auxAñoFecha=fechaUnica.slice(6,10)
+    //             idDocString=auxDiaFecha+auxMesFecha+auxAñoFecha
+                
+    //             documentoPedidosPorFecha=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
+    //             if(documentoPedidosPorFecha.length===0){//Por cada fecha no encontrada en coleccion de pedidosPorFecha, creo un nuevo documento
+                    
+    //                 vectorProductos=[]
+    //                 productosFechaUnica=[]
+    //                 pedidosFechaUnica=auxPedidos.filter(pedido=>pedido.fecha===fechaUnica)
+    //                 pedidosFechaUnica.map(pedidoFechaUnica=>{productosFechaUnica.push(pedidoFechaUnica.idProducto)})
+    //                 productosUnicoFechaUnica=[...new Set(productosFechaUnica)]
+                    
+    //                 productosUnicoFechaUnica.map(productoUnicoFechaUnica=>{//Por cada nombre unico en la fecha unica creo un nuevo objeto en el vector productos
+    //                     pedidosFechaUnica.map(pedidoFechaUnica=>{
+    //                         if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+    //                             nuevaCantidadPedido=nuevaCantidadPedido+1
+    //                         }
+    //                     })
+    //                     vectorProductos.push({nombre:productoUnicoFechaUnica,cantidadPedida:nuevaCantidadPedido,cantidadPendiente:nuevaCantidadPedido})
+    //                     nuevaCantidadPedido=0
+    //                 })
+    //                 db.collection("pedidosPorFecha").doc(idDocString).set({
+    //                     id:idDocString,
+    //                     fecha:fechaUnica,
+    //                     idProveedor:"AFY GLOBAL SAS",
+    //                     productos:vectorProductos
+    //                 })
+    //                 .then((docRef)=>{
+    //                     // console.log('Document written with ID: ',docRef.id)
+    //                 })
+    //                 .catch((err)=>{
+    //                     console.log('Error adding document: ',err)
+    //                     writtingError=true
+    //                 })
+    //             }else{//Si la fecha unica ya existe en un documento de pedidosPorFecha ->Entonces
+    //                 //1. Obtener id documento correspondiente.
+    //                 let idDoc=documentoPedidosPorFecha[0].id
+    //                 //2. Buscar si el producto ya existe dentro del vector productos del documento
+    //                 let vectorProductosDocumento=documentoPedidosPorFecha[0].productos
+    //                 let objetoProductoEnDocumento=[]
+    //                 productosFechaUnica=[]
+    //                 pedidosFechaUnica=auxPedidos.filter(pedido=>pedido.fecha===fechaUnica)
+    //                 pedidosFechaUnica.map(pedidoFechaUnica=>{productosFechaUnica.push(pedidoFechaUnica.idProducto)})
+    //                 productosUnicoFechaUnica=[...new Set(productosFechaUnica)]
+
+    //                 productosUnicoFechaUnica.map(productoUnicoFechaUnica=>{
+    //                     objetoProductoEnDocumento=vectorProductosDocumento.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
+    //                     //3. Si no existe, crear el objeto correspondiente.
+    //                     if(objetoProductoEnDocumento.length===0){//Si no existe un objeto para ese producto, entonces
+    //                         //4. contar cantidad pedidos de ese producto
+    //                         nuevaCantidadPedido=0
+    //                         pedidosFechaUnica.map(pedidoFechaUnica=>{
+    //                             if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+    //                                 nuevaCantidadPedido=nuevaCantidadPedido+1
+    //                             }
+    //                         })
+    //                         //5. escribir objeto en documento
+    //                         db.collection("pedidosPorFecha").doc(idDoc).update({productos:firebase.firestore.FieldValue.arrayUnion({
+    //                             'nombre':productoUnicoFechaUnica,
+    //                             'cantidadPedida':nuevaCantidadPedido,
+    //                             'cantidadPendiente':nuevaCantidadPedido
+    //                          })})
+    //                         .catch((err)=>{
+    //                             console.log(err)
+    //                             writtingError=true
+    //                         })
+    //                     }
+    //                     //6. Si ya existe, entonces actualizar su cantidad.
+    //                     else{
+    //                         let auxCantidadPedidoActual=objetoProductoEnDocumento[0].cantidadPedida
+    //                         let auxCantidadPendienteActual=objetoProductoEnDocumento[0].cantidadPendiente
+
+    //                         nuevaCantidadPedido=0
+    //                         pedidosFechaUnica.map(pedidoFechaUnica=>{
+    //                             if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+    //                                 nuevaCantidadPedido=nuevaCantidadPedido+1
+    //                             }
+    //                         })
+    //                         // Remover
+    //                         db.collection("pedidosPorFecha").doc(idDoc).update({productos:firebase.firestore.FieldValue.arrayRemove({
+    //                             'nombre':productoUnicoFechaUnica,
+    //                             'cantidadPedida':auxCantidadPedidoActual,
+    //                             'cantidadPendiente':auxCantidadPendienteActual
+    //                         })})
+    //                         .catch((err)=>{
+    //                             console.log(err)
+    //                             writtingError=true
+    //                         })
+    //                         //Añadir
+    //                         db.collection("pedidosPorFecha").doc(idDoc).update({productos:firebase.firestore.FieldValue.arrayUnion({
+    //                             'nombre':productoUnicoFechaUnica,
+    //                             'cantidadPedida':auxCantidadPedidoActual+nuevaCantidadPedido,
+    //                             'cantidadPendiente':auxCantidadPendienteActual+nuevaCantidadPedido
+    //                         })})
+    //                         .catch((err)=>{
+    //                             console.log(err)
+    //                             writtingError=true
+    //                         })
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
+    //     if(auxIds.length>0 && writtingError===false){
+    //         this.cambiarEstado(auxIds)
+    //     }
+    //     })
+    // }
 
     activeListenerPedidos = ()=>{
         var db=firebase.firestore()
         this.unsubscribeListenerPedidos=db.collection('pedidos')
         .where("idProveedor","==","AFY GLOBAL SAS")
-        .where("estado","==","Ordenados con exito")
+        .where("estado","==","Pendiente")
         .orderBy("idProducto","asc")
         .onSnapshot((snap)=>{
 
@@ -93,7 +250,7 @@ state={
             var auxAñoFecha
             var idDocString
             var writtingError=false
-            const {pedidosPorFecha,mapearPedidosPorFecha}=this.state
+            const {pedidosPorFecha}=this.state
             // NOTE: Funcion que captura las referencias unicas y las ubica en un vector
             snap.forEach((doc)=>{
                 auxPedidos.push(doc.data());
@@ -101,12 +258,7 @@ state={
                 auxIds.push(doc.id)                
             })
             auxUniqueFechasPedidos=[...new Set(auxFechasPedidos)]
-            
             auxUniqueFechasPedidos.map(fechaUnica=>{
-                auxDiaFecha=fechaUnica.slice(0,2)
-                auxMesFecha=fechaUnica.slice(3,5)
-                auxAñoFecha=fechaUnica.slice(6,10)
-                idDocString=auxDiaFecha+auxMesFecha+auxAñoFecha
                 
                 documentoPedidosPorFecha=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
                 if(documentoPedidosPorFecha.length===0){//Por cada fecha no encontrada en coleccion de pedidosPorFecha, creo un nuevo documento
@@ -126,22 +278,17 @@ state={
                         vectorProductos.push({nombre:productoUnicoFechaUnica,cantidadPedida:nuevaCantidadPedido,cantidadPendiente:nuevaCantidadPedido})
                         nuevaCantidadPedido=0
                     })
-                    db.collection("pedidosPorFecha").doc(idDocString).set({
-                        id:idDocString,
+                    //NOTE: Guardando en estado la nueva fecha con su correspondiente vector productos
+                    this.state.pedidosPorFecha.push({
                         fecha:fechaUnica,
                         idProveedor:"AFY GLOBAL SAS",
                         productos:vectorProductos
                     })
-                    .then((docRef)=>{
-                        // console.log('Document written with ID: ',docRef.id)
-                    })
-                    .catch((err)=>{
-                        console.log('Error adding document: ',err)
-                        writtingError=true
-                    })
+
                 }else{//Si la fecha unica ya existe en un documento de pedidosPorFecha ->Entonces
-                    //1. Obtener id documento correspondiente.
-                    let idDoc=documentoPedidosPorFecha[0].id
+                    //1. Obtener index objeto (documento) correspondiente.
+                    let indexObjetoFecha=this.state.pedidosPorFecha.indexOf(documentoPedidosPorFecha[0],0)
+
                     //2. Buscar si el producto ya existe dentro del vector productos del documento
                     let vectorProductosDocumento=documentoPedidosPorFecha[0].productos
                     let objetoProductoEnDocumento=[]
@@ -161,16 +308,14 @@ state={
                                     nuevaCantidadPedido=nuevaCantidadPedido+1
                                 }
                             })
-                            //5. escribir objeto en documento
-                            db.collection("pedidosPorFecha").doc(idDoc).update({productos:firebase.firestore.FieldValue.arrayUnion({
-                                'nombre':productoUnicoFechaUnica,
-                                'cantidadPedida':nuevaCantidadPedido,
-                                'cantidadPendiente':nuevaCantidadPedido
-                             })})
-                            .catch((err)=>{
-                                console.log(err)
-                                writtingError=true
+                            //5.NOTE: escribir objeto producto en objeto fecha del estado
+                            this.state.pedidosPorFecha[indexObjetoFecha].productos.push({
+                                nombre:productoUnicoFechaUnica,
+                                cantidadPedida:nuevaCantidadPedido,
+                                cantidadPendiente:nuevaCantidadPedido
                             })
+
+
                         }
                         //6. Si ya existe, entonces actualizar su cantidad.
                         else{
@@ -183,226 +328,223 @@ state={
                                     nuevaCantidadPedido=nuevaCantidadPedido+1
                                 }
                             })
-                            // Remover
-                            db.collection("pedidosPorFecha").doc(idDoc).update({productos:firebase.firestore.FieldValue.arrayRemove({
+                            //NOTE:obtener index objeto producto
+                            let indexObjetoProducto=this.state.pedidosPorFecha[indexObjetoFecha].productos.indexOf({
                                 'nombre':productoUnicoFechaUnica,
                                 'cantidadPedida':auxCantidadPedidoActual,
                                 'cantidadPendiente':auxCantidadPendienteActual
-                            })})
-                            .catch((err)=>{
-                                console.log(err)
-                                writtingError=true
-                            })
-                            //Añadir
-                            db.collection("pedidosPorFecha").doc(idDoc).update({productos:firebase.firestore.FieldValue.arrayUnion({
+                            },0)
+                            //NOTE: Reemplazar objeto producto
+                            this.state.pedidosPorFecha[indexObjetoFecha].productos.splice(indexObjetoProducto,1,{
                                 'nombre':productoUnicoFechaUnica,
                                 'cantidadPedida':auxCantidadPedidoActual+nuevaCantidadPedido,
                                 'cantidadPendiente':auxCantidadPendienteActual+nuevaCantidadPedido
-                            })})
-                            .catch((err)=>{
-                                console.log(err)
-                                writtingError=true
                             })
                         }
                     })
                 }
             })
         //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
-        if(auxIds.length>0 && writtingError===false){
-            this.cambiarEstado(auxIds)
-        }
+        // if(auxIds.length>0 && writtingError===false){
+        //     this.cambiarEstado(auxIds)
+        // }
         })
     }
 
-    cambiarEstado=(idPedidos)=>{
-        this.unsubscribeListenerPedidos()
-        //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
-        var db=firebase.firestore()
-        idPedidos.map((idPedido,index)=>{
-            db.collection('pedidos').doc(idPedido).update({'estado':'Recibido por el proveedor'})
-            .then(()=>{
-                //Si es el ultimo id, entonces activar listener
-                if((index+1)===idPedidos.length){
-                    this.activeListenerPedidos()
-                }
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
-        })
-    }
+    // cambiarEstado=(idPedidos)=>{
+    //     this.unsubscribeListenerPedidos()
+    //     //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
+    //     var db=firebase.firestore()
+    //     idPedidos.map((idPedido,index)=>{
+    //         db.collection('pedidos').doc(idPedido).update({'estado':'Recibido por el proveedor'})
+    //         .then(()=>{
+    //             //Si es el ultimo id, entonces activar listener
+    //             if((index+1)===idPedidos.length){
+    //                 this.activeListenerPedidos()
+    //             }
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err)
+    //         })
+    //     })
+    // }
 
-    activeListenerActualizarPendientes=()=>{
-        var db=firebase.firestore()
-        this.unsubscribeListenerActualizarPendientes=db.collection('pedidos')
-        .where("idProveedor","==","AFY GLOBAL SAS")
-        .where("estado","==","Recibido por el proveedor")
-        .where("estadoDespacho","==","Despachado")
-        .orderBy("idProducto","asc")
-        .onSnapshot((snap)=>{
-            var auxPedidosParaActualizar=[]
-            var auxFechasPedidosParaActualizar=[]
-            var auxIdsPedidosParaActualizar=[]
-            var auxUniqueFechasPedidosParaActualizar=[]
-            var documentoPedidosPorFechaParaActualizar=[]
-            var productosFechaUnicaParaActualizar=[]
-            var pedidosFechaUnicaParaActualizar=[]
-            var productosUnicoFechaUnicaParaActualizar=[]
-            var nuevaCantidadDespachada
-            const {pedidosPorFecha}=this.state
-            snap.forEach(doc=>{
-                auxPedidosParaActualizar.push(doc.data());
-                auxFechasPedidosParaActualizar.push(doc.data().fecha);
-                auxIdsPedidosParaActualizar.push(doc.id)
-            })
-            auxUniqueFechasPedidosParaActualizar=[...new Set(auxFechasPedidosParaActualizar)]
+    // activeListenerActualizarPendientes=()=>{
+    //     var db=firebase.firestore()
+    //     this.unsubscribeListenerActualizarPendientes=db.collection('pedidos')
+    //     .where("idProveedor","==","AFY GLOBAL SAS")
+    //     .where("estado","==","Recibido por el proveedor")
+    //     .where("estadoDespacho","==","Despachado")
+    //     .orderBy("idProducto","asc")
+    //     .onSnapshot((snap)=>{
+    //         var auxPedidosParaActualizar=[]
+    //         var auxFechasPedidosParaActualizar=[]
+    //         var auxIdsPedidosParaActualizar=[]
+    //         var auxUniqueFechasPedidosParaActualizar=[]
+    //         var documentoPedidosPorFechaParaActualizar=[]
+    //         var productosFechaUnicaParaActualizar=[]
+    //         var pedidosFechaUnicaParaActualizar=[]
+    //         var productosUnicoFechaUnicaParaActualizar=[]
+    //         var nuevaCantidadDespachada
+    //         const {pedidosPorFecha}=this.state
+    //         snap.forEach(doc=>{
+    //             auxPedidosParaActualizar.push(doc.data());
+    //             auxFechasPedidosParaActualizar.push(doc.data().fecha);
+    //             auxIdsPedidosParaActualizar.push(doc.id)
+    //         })
+    //         auxUniqueFechasPedidosParaActualizar=[...new Set(auxFechasPedidosParaActualizar)]
 
-            auxUniqueFechasPedidosParaActualizar.map(fechaUnica=>{
-                documentoPedidosPorFechaParaActualizar=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
-                let idDocParaActualizar=documentoPedidosPorFechaParaActualizar[0].id
-                let vectorProductosDocumentoParaActualizar=documentoPedidosPorFechaParaActualizar[0].productos
-                let objetoProductoEnDocumentoParaActualizar=[]
+    //         auxUniqueFechasPedidosParaActualizar.map(fechaUnica=>{
+    //             documentoPedidosPorFechaParaActualizar=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
+    //             let idDocParaActualizar=documentoPedidosPorFechaParaActualizar[0].id
+    //             let vectorProductosDocumentoParaActualizar=documentoPedidosPorFechaParaActualizar[0].productos
+    //             let objetoProductoEnDocumentoParaActualizar=[]
 
-                productosFechaUnicaParaActualizar=[]
-                pedidosFechaUnicaParaActualizar=auxPedidosParaActualizar.filter(pedido=>pedido.fecha===fechaUnica)
-                pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{productosFechaUnicaParaActualizar.push(pedidoFechaUnica.idProducto)})
-                productosUnicoFechaUnicaParaActualizar=[...new Set(productosFechaUnicaParaActualizar)]
+    //             productosFechaUnicaParaActualizar=[]
+    //             pedidosFechaUnicaParaActualizar=auxPedidosParaActualizar.filter(pedido=>pedido.fecha===fechaUnica)
+    //             pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{productosFechaUnicaParaActualizar.push(pedidoFechaUnica.idProducto)})
+    //             productosUnicoFechaUnicaParaActualizar=[...new Set(productosFechaUnicaParaActualizar)]
 
-                productosUnicoFechaUnicaParaActualizar.map(productoUnicoFechaUnica=>{
-                    objetoProductoEnDocumentoParaActualizar=vectorProductosDocumentoParaActualizar.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
-                    let auxCantidadPedidoActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPedida
-                    let auxCantidadPendienteActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPendiente
+    //             productosUnicoFechaUnicaParaActualizar.map(productoUnicoFechaUnica=>{
+    //                 objetoProductoEnDocumentoParaActualizar=vectorProductosDocumentoParaActualizar.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
+    //                 let auxCantidadPedidoActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPedida
+    //                 let auxCantidadPendienteActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPendiente
 
-                    nuevaCantidadDespachada=0
-                    pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{
-                        if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
-                            nuevaCantidadDespachada=nuevaCantidadDespachada+1
-                        }
-                    })
-                    // Remover
-                    db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayRemove({
-                        'nombre':productoUnicoFechaUnica,
-                        'cantidadPedida':auxCantidadPedidoActualParaActualizar,
-                        'cantidadPendiente':auxCantidadPendienteActualParaActualizar
-                    })})
-                    //Añadir
-                    db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayUnion({
-                        'nombre':productoUnicoFechaUnica,
-                        'cantidadPedida':auxCantidadPedidoActualParaActualizar,
-                        'cantidadPendiente':auxCantidadPendienteActualParaActualizar-nuevaCantidadDespachada
-                    })})
-                })
-            })
-            //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
-            if(auxIdsPedidosParaActualizar.length>0){
-                this.cambiarEstadoParaActualizar(auxIdsPedidosParaActualizar)
-            }
-        })
-    }
+    //                 nuevaCantidadDespachada=0
+    //                 pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{
+    //                     if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+    //                         nuevaCantidadDespachada=nuevaCantidadDespachada+1
+    //                     }
+    //                 })
+    //                 // Remover
+    //                 db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayRemove({
+    //                     'nombre':productoUnicoFechaUnica,
+    //                     'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+    //                     'cantidadPendiente':auxCantidadPendienteActualParaActualizar
+    //                 })})
+    //                 //Añadir
+    //                 db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayUnion({
+    //                     'nombre':productoUnicoFechaUnica,
+    //                     'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+    //                     'cantidadPendiente':auxCantidadPendienteActualParaActualizar-nuevaCantidadDespachada
+    //                 })})
+    //             })
+    //         })
+    //         //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
+    //         if(auxIdsPedidosParaActualizar.length>0){
+    //             this.cambiarEstadoParaActualizar(auxIdsPedidosParaActualizar)
+    //         }
+    //     })
+    // }
 
-    cambiarEstadoParaActualizar=(idPedidosParaActualizar)=>{
-        this.unsubscribeListenerActualizarPendientes()
-        //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
-        var db=firebase.firestore()
-        idPedidosParaActualizar.map((idPedido,index)=>{
-            db.collection('pedidos').doc(idPedido).update({estado:'Despachado por el proveedor'})
-            .then(()=>{
-                //Si es el ultimo id, entonces activar listener
-                if((index+1)===idPedidosParaActualizar.length){
-                    this.activeListenerActualizarPendientes()
-                }
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
-        })
-    }
+    // cambiarEstadoParaActualizar=(idPedidosParaActualizar)=>{
+    //     this.unsubscribeListenerActualizarPendientes()
+    //     //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
+    //     var db=firebase.firestore()
+    //     idPedidosParaActualizar.map((idPedido,index)=>{
+    //         db.collection('pedidos').doc(idPedido).update({estado:'Despachado por el proveedor'})
+    //         .then(()=>{
+    //             //Si es el ultimo id, entonces activar listener
+    //             if((index+1)===idPedidosParaActualizar.length){
+    //                 this.activeListenerActualizarPendientes()
+    //             }
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err)
+    //         })
+    //     })
+    // }
 
-    activeListenerRestablecerPendientes=()=>{
+    // activeListenerRestablecerPendientes=()=>{
         
-        var db=firebase.firestore()
-        this.unsubscribeListenerRestablecerPendientes=db.collection('pedidos')
-        .where("idProveedor","==","AFY GLOBAL SAS")
-        .where("estado","==","Recibido por el proveedor")
-        .where("estadoDespacho","==","Reestablecido")
-        .orderBy("idProducto","asc")
-        .onSnapshot((snap)=>{
-            var auxPedidosParaActualizar=[]
-            var auxFechasPedidosParaActualizar=[]
-            var auxIdsPedidosParaActualizar=[]
-            var auxUniqueFechasPedidosParaActualizar=[]
-            var documentoPedidosPorFechaParaActualizar=[]
-            var productosFechaUnicaParaActualizar=[]
-            var pedidosFechaUnicaParaActualizar=[]
-            var productosUnicoFechaUnicaParaActualizar=[]
-            var nuevaCantidadDespachada
-            const {pedidosPorFecha}=this.state
-            snap.forEach(doc=>{
-                auxPedidosParaActualizar.push(doc.data());
-                auxFechasPedidosParaActualizar.push(doc.data().fecha);
-                auxIdsPedidosParaActualizar.push(doc.id)
-            })
-            auxUniqueFechasPedidosParaActualizar=[...new Set(auxFechasPedidosParaActualizar)]
+    //     var db=firebase.firestore()
+    //     this.unsubscribeListenerRestablecerPendientes=db.collection('pedidos')
+    //     .where("idProveedor","==","AFY GLOBAL SAS")
+    //     .where("estado","==","Recibido por el proveedor")
+    //     .where("estadoDespacho","==","Reestablecido")
+    //     .orderBy("idProducto","asc")
+    //     .onSnapshot((snap)=>{
+    //         var auxPedidosParaActualizar=[]
+    //         var auxFechasPedidosParaActualizar=[]
+    //         var auxIdsPedidosParaActualizar=[]
+    //         var auxUniqueFechasPedidosParaActualizar=[]
+    //         var documentoPedidosPorFechaParaActualizar=[]
+    //         var productosFechaUnicaParaActualizar=[]
+    //         var pedidosFechaUnicaParaActualizar=[]
+    //         var productosUnicoFechaUnicaParaActualizar=[]
+    //         var nuevaCantidadDespachada
+    //         const {pedidosPorFecha}=this.state
+    //         snap.forEach(doc=>{
+    //             auxPedidosParaActualizar.push(doc.data());
+    //             auxFechasPedidosParaActualizar.push(doc.data().fecha);
+    //             auxIdsPedidosParaActualizar.push(doc.id)
+    //         })
+    //         auxUniqueFechasPedidosParaActualizar=[...new Set(auxFechasPedidosParaActualizar)]
 
-            auxUniqueFechasPedidosParaActualizar.map(fechaUnica=>{
-                documentoPedidosPorFechaParaActualizar=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
-                let idDocParaActualizar=documentoPedidosPorFechaParaActualizar[0].id
-                let vectorProductosDocumentoParaActualizar=documentoPedidosPorFechaParaActualizar[0].productos
-                let objetoProductoEnDocumentoParaActualizar=[]
+    //         auxUniqueFechasPedidosParaActualizar.map(fechaUnica=>{
+    //             documentoPedidosPorFechaParaActualizar=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
+    //             let idDocParaActualizar=documentoPedidosPorFechaParaActualizar[0].id
+    //             let vectorProductosDocumentoParaActualizar=documentoPedidosPorFechaParaActualizar[0].productos
+    //             let objetoProductoEnDocumentoParaActualizar=[]
 
-                productosFechaUnicaParaActualizar=[]
-                pedidosFechaUnicaParaActualizar=auxPedidosParaActualizar.filter(pedido=>pedido.fecha===fechaUnica)
-                pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{productosFechaUnicaParaActualizar.push(pedidoFechaUnica.idProducto)})
-                productosUnicoFechaUnicaParaActualizar=[...new Set(productosFechaUnicaParaActualizar)]
+    //             productosFechaUnicaParaActualizar=[]
+    //             pedidosFechaUnicaParaActualizar=auxPedidosParaActualizar.filter(pedido=>pedido.fecha===fechaUnica)
+    //             pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{productosFechaUnicaParaActualizar.push(pedidoFechaUnica.idProducto)})
+    //             productosUnicoFechaUnicaParaActualizar=[...new Set(productosFechaUnicaParaActualizar)]
 
-                productosUnicoFechaUnicaParaActualizar.map(productoUnicoFechaUnica=>{
-                objetoProductoEnDocumentoParaActualizar=vectorProductosDocumentoParaActualizar.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
-                let auxCantidadPedidoActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPedida
-                let auxCantidadPendienteActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPendiente
+    //             productosUnicoFechaUnicaParaActualizar.map(productoUnicoFechaUnica=>{
+    //             objetoProductoEnDocumentoParaActualizar=vectorProductosDocumentoParaActualizar.filter(productoDocumento=>productoDocumento.nombre===productoUnicoFechaUnica)
+    //             let auxCantidadPedidoActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPedida
+    //             let auxCantidadPendienteActualParaActualizar=objetoProductoEnDocumentoParaActualizar[0].cantidadPendiente
 
-                nuevaCantidadDespachada=0
-                pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{
-                    if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
-                        nuevaCantidadDespachada=nuevaCantidadDespachada+1
-                    }
-                })
-                // Remover
-                db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayRemove({
-                    'nombre':productoUnicoFechaUnica,
-                    'cantidadPedida':auxCantidadPedidoActualParaActualizar,
-                    'cantidadPendiente':auxCantidadPendienteActualParaActualizar
-                })})
-                //Añadir
-                db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayUnion({
-                    'nombre':productoUnicoFechaUnica,
-                    'cantidadPedida':auxCantidadPedidoActualParaActualizar,
-                    'cantidadPendiente':auxCantidadPendienteActualParaActualizar+nuevaCantidadDespachada
-                })})
-            })
-        })
-        //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
-        if(auxIdsPedidosParaActualizar.length>0){
-            this.cambiarEstadoParaRestablecer(auxIdsPedidosParaActualizar)
-        }
-    })
-    }
+    //             nuevaCantidadDespachada=0
+    //             pedidosFechaUnicaParaActualizar.map(pedidoFechaUnica=>{
+    //                 if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
+    //                     nuevaCantidadDespachada=nuevaCantidadDespachada+1
+    //                 }
+    //             })
+    //             // Remover
+    //             db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayRemove({
+    //                 'nombre':productoUnicoFechaUnica,
+    //                 'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+    //                 'cantidadPendiente':auxCantidadPendienteActualParaActualizar
+    //             })})
+    //             //Añadir
+    //             db.collection("pedidosPorFecha").doc(idDocParaActualizar).update({productos:firebase.firestore.FieldValue.arrayUnion({
+    //                 'nombre':productoUnicoFechaUnica,
+    //                 'cantidadPedida':auxCantidadPedidoActualParaActualizar,
+    //                 'cantidadPendiente':auxCantidadPendienteActualParaActualizar+nuevaCantidadDespachada
+    //             })})
+    //         })
+    //     })
+    //     //Solo si existen nuevos pedidos, se ejecuta la funcion de cambiar estado
+    //     if(auxIdsPedidosParaActualizar.length>0){
+    //         this.cambiarEstadoParaRestablecer(auxIdsPedidosParaActualizar)
+    //     }
+    // })
+    // }
     
-    cambiarEstadoParaRestablecer=(idPedidosARestablecer)=>{
-        this.unsubscribeListenerRestablecerPendientes()
-        //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
-        var db=firebase.firestore()
-        idPedidosARestablecer.map((idPedido,index)=>{
-            db.collection('pedidos').doc(idPedido).update({estado:'Recibido por el proveedor',estadoDespacho:'Sin atender'})
-            .then(()=>{
-                //Si es el ultimo id, entonces activar listener
-                if((index+1)===idPedidosARestablecer.length){
-                    this.activeListenerRestablecerPendientes()
-                }
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
-        })
+    // cambiarEstadoParaRestablecer=(idPedidosARestablecer)=>{
+    //     this.unsubscribeListenerRestablecerPendientes()
+    //     //NOTE: Funcion que marca como leidos los documentos cargados en la vista del proveedor, de tal forma que el query no los vuelve a llamar.
+    //     var db=firebase.firestore()
+    //     idPedidosARestablecer.map((idPedido,index)=>{
+    //         db.collection('pedidos').doc(idPedido).update({estado:'Recibido por el proveedor',estadoDespacho:'Sin atender'})
+    //         .then(()=>{
+    //             //Si es el ultimo id, entonces activar listener
+    //             if((index+1)===idPedidosARestablecer.length){
+    //                 this.activeListenerRestablecerPendientes()
+    //             }
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err)
+    //         })
+    //     })
+    // }
+    
+    
+    componentDidUpdate=()=>{
+        // console.log('estado al actualizar componente: ',this.state)
     }
     
     componentWillUnmount=()=>{
@@ -410,26 +552,27 @@ state={
         console.log('listener removido')
     }
 
-    componentDidUpdate=()=>{
-        // console.log('estado al actualizar componente: ',this.state)
-    }
-
     despacharTodo=(e,fecha,idPedidoPorFecha)=>{
-        if(this.state.ejecutandoDespacharTodo===false){
-        console.log('Se comenzara a ejecutar despacharTodo')
+    e.preventDefault()
+    if(this.state.ejecutandoDespacharTodo===false){
+        console.log('1-Se comenzara a ejecutar despacharTodo')
         this.setState({ejecutandoDespacharTodo:true})
-        e.preventDefault()
-        this.unsubscribeListenerActualizarPendientes()
+        console.log('2-Se ha marcado "ejecutandoDespacharTodo" como true.')
         var db=firebase.firestore()
         db.collection('pedidos')
         .where("idProveedor","==","AFY GLOBAL SAS")
         .where("estado","==","Recibido por el proveedor")
+        .where("estadoDespacho","==","Sin atender")
         .where('fecha','==',fecha)
         .get()
         .then((snap)=>{
             if(snap.empty){
-                console.log('no existen mas pedidos para despachar en esta fecha :')
+                console.log('4-no existen mas pedidos para despachar en esta fecha:')
+                this.setState({ejecutandoDespacharTodo:false})
+                console.log('5-Se ha marcado "ejecutandoDespacharTodo" como false.')
             }else{
+                this.unsubscribeListenerActualizarPendientes()
+                console.log('3-Se ha desactivado listener actualizar pendientes.')
                 //NOTE: 1: Se trae el vector de carritoDeDespacho desde la base de datos
                 // db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>{console.log('leyendo carrito...');this.leerCarritoDeDespacho(doc.data())}).catch((err)=>{console.log(err)})
                 const {carritoDeDespachoAux}=this.state
@@ -442,32 +585,45 @@ state={
                     lengthSnap=lengthSnap+1
                 })
                 //NOTE: 3. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
+                console.log('Se actualizara carrito en base de datos')
                 db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
-                .then((res)=>{
-                    this.getCarritoFromDB()
+                .then(async(res)=>{
+                    console.log('Actualizacion exitosa del carrito en base de datos.')
                     //NOTE: 4. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
+                    await this.getCarritoFromDB()
+                    console.log('5.1-Termino de actualizar carrito')
                     let lengthSnap2=0
+                    console.log('6-Se comenzara a ejecutar forEach para el snap del listener')
                     snap.forEach(async(doc)=>{
+                        console.log('7-Ejecucion del forEach:')
                         await db.collection("pedidos").doc(doc.id).update({estadoDespacho:'Despachado'})
+                        console.log('8-Actualizado con exito el "estadoDespacho del pedido: ',doc.id)
                         lengthSnap2=lengthSnap2+1
+                        console.log('9-Turno: ',lengthSnap2,'==',lengthSnap,(lengthSnap2)===lengthSnap)
                         if((lengthSnap2)===lengthSnap){
-                            this.activeListenerActualizarPendientes()
-                            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'Completo'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
-                            this.setState({ejecutandoDespacharTodo:false})
+                            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'Completo'})
+                            .then((res)=>{
+                                //NOTE: 5. Cambiar estado del documento "pedidoPorFecha" correspondiente
+                                console.log('actualizado estado en "pedidosPorFecha": Completo')
+                                this.setState({ejecutandoDespacharTodo:false},this.activeListenerActualizarPendientes())
+                            })
+                            .catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
                         }
                     })
                 })
                 .catch((err)=>{console.log(err)})
-                //NOTE: 5. Cambiar estado del documento "pedidoPorFecha" correspondiente
             }
         })
         .catch((err)=>{
             console.log('Error en get() despacharTodo :',err)
         })
-    }else{console.log('Se esta ejecutando despachar todo')}
+    }else{
+        console.log('Se esta ejecutando despachar todo')
+    }
     }
 
     leerCantidadesEspecificas=(e,fecha,producto)=>{
+        
         //TODO: Limpiar caja texto del input al presionar "despachar Q especificas"
         e.preventDefault()
         var auxProductoUnicoQE
@@ -497,81 +653,78 @@ state={
     }
 
     despacharQEspecificas=(e,fecha,idPedidoPorFecha)=>{
-        if(this.state.ejecutandoDespacharQE===false){
-        this.setState({ejecutandoDespacharQE:true})
-        console.log('Se comenzara a ejecutar despacharQE')
         e.preventDefault()
-        this.unsubscribeListenerActualizarPendientes()
         var db=firebase.firestore()
         var auxVectorDespacharQE
-        auxVectorDespacharQE=this.state.vectorProductosADespacharPorQEspecificas.filter(productoADespacharPorQE=>productoADespacharPorQE.fecha===fecha)
-        console.log(auxVectorDespacharQE)
-        
-        //NOTE: 1: Se trae el vector de carritoDeDespacho una unica vez. Se crea un vector con los ids de los pedidos que estan siendo agregados al carritoAux
-        // db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').get().then((doc)=>this.leerCarritoDeDespacho(doc.data())).catch((err)=>{console.log(err)})
-    
-        const {carritoDeDespachoAux}=this.state 
-        
         var idsPedidosEnCarrito=[]
-        //NOTE: 2. Se mapea cada referencia de esa fecha y para cada una de ella considerando su cantidad a despachar se realiza un llamado a la base de datos
-        if(auxVectorDespacharQE.length>0){
-            auxVectorDespacharQE.map((productoADespacharPorQEFecha,index)=>{
-                db.collection('pedidos')
-                .where("idProveedor","==","AFY GLOBAL SAS")
-                .where("estado","==","Recibido por el proveedor")
-                .where('fecha','==',fecha)
-                .where('idProducto',"==",productoADespacharPorQEFecha.producto)
-                .limit(productoADespacharPorQEFecha.cantidad)
-                .get()
-                .then((snap)=>{
-                    var auxDocData
-                    if(snap.empty){
-                        console.log('no existen mas pedidos para despachar en esta fecha :')
-                    }else{
-                        //NOTE: 3. Agregar nuevos pedidos al carritoDeDespacho
-                        snap.forEach(doc=>{           
-                            auxDocData=doc.data()
-                            auxDocData.id=doc.id
-                            console.log('objeto auxiliar: ',auxDocData)
-                            carritoDeDespachoAux.push(auxDocData)
-                            idsPedidosEnCarrito.push(doc.id)
-                        })
-                        console.log('INDEX:',index,'LENGTH:',auxVectorDespacharQE.length)
-                        if((index+1)===auxVectorDespacharQE.length){
-                            this.escribirEnBaseDeDatos()
+        const {carritoDeDespachoAux}=this.state 
+        if(this.state.ejecutandoDespacharQE===false){
+            auxVectorDespacharQE=this.state.vectorProductosADespacharPorQEspecificas.filter(productoADespacharPorQE=>productoADespacharPorQE.fecha===fecha)
+            if(auxVectorDespacharQE.length>0){
+                console.log('Se comenzara a ejecutar despacharQE')
+                this.setState({ejecutandoDespacharQE:true})
+                this.unsubscribeListenerActualizarPendientes()
+                auxVectorDespacharQE.map((productoADespacharPorQEFecha,index)=>{
+                    db.collection('pedidos')
+                    .where("idProveedor","==","AFY GLOBAL SAS")
+                    .where("estado","==","Recibido por el proveedor")
+                    .where("estadoDespacho","==","Sin atender")
+                    .where('fecha','==',fecha)
+                    .where('idProducto',"==",productoADespacharPorQEFecha.producto)
+                    .limit(productoADespacharPorQEFecha.cantidad)
+                    .get()
+                    .then((snap)=>{
+                        var auxDocData
+                        if(snap.empty){
+                            console.log('no existen mas pedidos para despachar en esta fecha :')
+                        }else{
+                            //NOTE: 3. Agregar nuevos pedidos al carritoDeDespacho
+                            snap.forEach(doc=>{           
+                                auxDocData=doc.data()
+                                auxDocData.id=doc.id
+                                console.log('objeto auxiliar: ',auxDocData)
+                                carritoDeDespachoAux.push(auxDocData)
+                                idsPedidosEnCarrito.push(doc.id)
+                            })
+                            console.log('INDEX:',index,'LENGTH:',auxVectorDespacharQE.length)
+                            if((index+1)===auxVectorDespacharQE.length){
+                                this.escribirEnBaseDeDatos()
+                            }
                         }
-                    }
+                    })
+                    .catch((err)=>{
+                        console.log('Error en get() despacharQEspecificas :',err)
+                    })
                 })
-                .catch((err)=>{
-                    console.log('Error en get() despacharQEspecificas :',err)
-                })
-            })
-        
+            
 
-        }else{
-            console.log('No has ingresado una cantidad valida para despachar')
-        }
+            }else{
+                console.log('No has ingresado una cantidad valida para despachar')
+            }
 
-        this.escribirEnBaseDeDatos=()=>{
-            //NOTE: 4. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
-            db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
-            .then((res)=>{
-                // this.setState({carritoDeDespachoAux:[]})
-                this.getCarritoFromDB()
-                //NOTE: 5. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
-                idsPedidosEnCarrito.map(async(id,index,IDSPEC)=>{
-                    await db.collection("pedidos").doc(id).update({estadoDespacho:'Despachado'})
-                    if((index+1)===IDSPEC.length){
-                        this.activeListenerActualizarPendientes()
-                        db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'}).then((res)=>console.log('actualizado estado en "pedidosPorFecha',res)).catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
-                        this.setState({ejecutandoDespacharQE:false})
-                    }
-                    
+            this.escribirEnBaseDeDatos=()=>{
+                //NOTE: 4. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
+                db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
+                .then((res)=>{
+                    // this.setState({carritoDeDespachoAux:[]})
+                    this.getCarritoFromDB()
+                    //NOTE: 5. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
+                    idsPedidosEnCarrito.map(async(id,index,IDSPEC)=>{
+                        await db.collection("pedidos").doc(id).update({estadoDespacho:'Despachado'})
+                        if((index+1)===IDSPEC.length){
+                            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'})
+                            .then((res)=>{
+                                console.log('actualizado estado en "pedidosPorFecha',res)
+                                this.setState({ejecutandoDespacharQE:false},this.activeListenerActualizarPendientes())
+                            })
+                            .catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
+                        }
+                        
+                    })
                 })
-            })
-            .catch((err)=>{console.log(err)})
-            //NOTE: 6. Cambiar estado del documento "pedidoPorFecha" correspondiente
-        }
+                .catch((err)=>{console.log(err)})
+                //NOTE: 6. Cambiar estado del documento "pedidoPorFecha" correspondiente
+            }
         }else{
             console.log('Ya se esta ejecutando despacharQE')
         }
@@ -636,6 +789,7 @@ state={
                         )}
                     </div>  
                 }
+                <Link to='/pruebasdespacho'>despachos</Link>
             </div>
         )
     }

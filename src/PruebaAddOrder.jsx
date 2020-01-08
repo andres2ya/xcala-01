@@ -28,7 +28,7 @@ export default class PruebaAddOrder extends Component {
             direccionCliente:"Calle 45 sur #37-82",
             telefonoCliente:"3183667033",
             idDepacho:null,
-            estado:"Ordenados con exito",
+            estado:"Pendiente",
             estadoDespacho:'Sin atender',
             idPedido:this.state.idPedido
         })

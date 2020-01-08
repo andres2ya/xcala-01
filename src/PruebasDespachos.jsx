@@ -113,8 +113,7 @@ export default class PruebasDespachos extends Component {
                 let objetoPedidoPorFecha=pedidosPorFecha.filter(pedidoXFecha=>pedidoXFecha.fecha===fechaUnica)
                 let vectorProductosAux=objetoPedidoPorFecha[0].productos
                 let objetoProducto=vectorProductosAux.filter(producto=>producto.nombre===productoUniFechaUni)
-                let cantidadPendiente=objetoProducto[0].cantidadPendiente
-                QPendiente=cantidadPendiente
+                QPendiente=objetoProducto[0].cantidadPendiente
                 
                 //NOTE: Creando objeto del producto unico con la cantidad a despachar y la cantidad pendiente
                 objetoPorFecha={cantidadADespacharOriginal:auxQ.length,nombre:productoUniFechaUni,cantidadADespachar:auxQ.length,cantidadPendiente:QPendiente+auxQ.length,ids:auxIDs}

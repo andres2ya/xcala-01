@@ -82,7 +82,7 @@ state={
     //         }
     //     })
     // }
-    ESPACIO=()=>{console.log('ESPACIO')}
+    ESPACIO=()=>{console.log('ESPACI')}
     // activeListenerPedidos = ()=>{
     //     var db=firebase.firestore()
     //     this.unsubscribeListenerPedidos=db.collection('pedidos')

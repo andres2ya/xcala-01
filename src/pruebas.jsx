@@ -625,7 +625,6 @@ state={
 
     despacharTodo=(e,fecha)=>{
         e.preventDefault()
-        //TODO: Eliminar del vector pedidosPorFecha del estado, la fecha correspondiente
         if(this.state.ejecutandoDespacharTodo===false){
             this.setState({ejecutandoDespacharTodo:true})
             var db=firebase.firestore()
@@ -638,6 +637,13 @@ state={
                 if(!snap.empty){
                     this.unsubscribeListenerPedidos()
                     const {carritoDeDespachoAux}=this.state
+
+                    //NOTE: Eliminar del vector pedidosPorFecha del estado, la fecha correspondiente
+                    let objetoFecha=this.state.pedidosPorFecha.filter(pedido=>pedido.fecha===fecha)
+                    let indexObjetoFecha=this.state.pedidosPorFecha.indexOf(objetoFecha[0],0)
+                    this.state.pedidosPorFecha.splice(indexObjetoFecha,1)
+                    this.setState({renderizar:true})
+
                     var batch=db.batch()
                     snap.forEach(async doc=>{
                         let auxDocData=doc.data()
@@ -645,18 +651,12 @@ state={
                         carritoDeDespachoAux.push(auxDocData)
                         var refUpdateEstado= db.collection("pedidos").doc(doc.id)
                         batch.update(refUpdateEstado,{estado:'EnCarrito'})
-
                     })
-                    console.log('A-Termino de actualizar estados, conituna con actualizacion de carrito')
-                    //TODO: Analizar como manejar la interrupcion y que no se alcanze cambiar de estado todos los pedidos, 
-                    //o que se alcance a cambiar de estado todos los pedidos pero no se alcance a actualizar el carrito
-                    // o que se alcance a cmbiar de estado todos los pedidos y tambien a actualizar carrito, pero no a eliminar la fecha correspondiente
-
+                    
                     var refUpdateCarrito=db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd')
                     batch.update(refUpdateCarrito,{carritoDeDespacho:carritoDeDespachoAux})
                     batch.commit()
                     .then(async(res)=>{
-                        console.log('writing batch finished! carrito Actualizado con exito!')
                         await this.getCarritoFromDB()
                         this.setState({ejecutandoDespacharTodo:false})
                         this.activeListenerPedidos()
@@ -704,87 +704,80 @@ state={
         }
     }
 
-    despacharQEspecificas=(e,fecha,idPedidoPorFecha)=>{
+    despacharQEspecificas=(e,fecha)=>{
         e.preventDefault()
         var db=firebase.firestore()
         var auxVectorDespacharQE
-        var idsPedidosEnCarrito=[]
         const {carritoDeDespachoAux}=this.state 
         if(this.state.ejecutandoDespacharQE===false){
             auxVectorDespacharQE=this.state.vectorProductosADespacharPorQEspecificas.filter(productoADespacharPorQE=>productoADespacharPorQE.fecha===fecha)
             if(auxVectorDespacharQE.length>0){
                 console.log('Se comenzara a ejecutar despacharQE')
+                this.unsubscribeListenerPedidos()
                 this.setState({ejecutandoDespacharQE:true})
-                this.unsubscribeListenerActualizarPendientes()
-                auxVectorDespacharQE.map((productoADespacharPorQEFecha,index)=>{
+                auxVectorDespacharQE.map((productoADespacharPorQEFecha)=>{
                     db.collection('pedidos')
                     .where("idProveedor","==","AFY GLOBAL SAS")
-                    .where("estado","==","Recibido por el proveedor")
-                    .where("estadoDespacho","==","Sin atender")
+                    .where("estado","==","Pendiente")
                     .where('fecha','==',fecha)
                     .where('idProducto',"==",productoADespacharPorQEFecha.producto)
                     .limit(productoADespacharPorQEFecha.cantidad)
                     .get()
                     .then((snap)=>{
-                        var auxDocData
-                        if(snap.empty){
-                            console.log('no existen mas pedidos para despachar en esta fecha :')
-                        }else{
+                        if(!snap.empty){
+                            //NOTE: Eliminar del vector pedidosPorFecha del estado, el objeto producto correspondiente, o la fecha completa si es el caso
+                            var objetoFecha=this.state.pedidosPorFecha.filter(pedido=>pedido.fecha===fecha)
+                            var indexObjetoFecha=this.state.pedidosPorFecha.indexOf(objetoFecha[0])
+                            var vectorProductosFecha=objetoFecha[0].productos
+                            var objetoProducto=vectorProductosFecha.filter(producto=>producto.nombre===productoADespacharPorQEFecha.producto)
+                            var indexObjetoProducto=vectorProductosFecha.indexOf(objetoProducto[0])
+                            var cantidadPendienteObjetoProducto=objetoProducto[0].cantidadPendiente
+                            if(cantidadPendienteObjetoProducto-productoADespacharPorQEFecha.cantidad===0){
+                                this.state.pedidosPorFecha[indexObjetoFecha].productos.splice(indexObjetoProducto,1)
+                                this.setState({renderizar:true})
+                                let newVectorProductosFecha=objetoFecha[0].productos
+                                if(newVectorProductosFecha.length===0){
+                                    this.state.pedidosPorFecha.splice(indexObjetoFecha,1)
+                                    this.setState({renderizar:true})
+                                }
+                            }
+                            
                             //NOTE: 3. Agregar nuevos pedidos al carritoDeDespacho
+                            var auxDocData
+                            var batch=db.batch()
                             snap.forEach(doc=>{           
                                 auxDocData=doc.data()
                                 auxDocData.id=doc.id
-                                console.log('objeto auxiliar: ',auxDocData)
                                 carritoDeDespachoAux.push(auxDocData)
-                                idsPedidosEnCarrito.push(doc.id)
+                                var refUpdateEstado= db.collection("pedidos").doc(doc.id)
+                                batch.update(refUpdateEstado,{estado:'EnCarrito'})
                             })
-                            console.log('INDEX:',index,'LENGTH:',auxVectorDespacharQE.length)
-                            if((index+1)===auxVectorDespacharQE.length){
-                                this.escribirEnBaseDeDatos()
-                            }
+                            var refUpdateCarrito=db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd')
+                            batch.update(refUpdateCarrito,{carritoDeDespacho:carritoDeDespachoAux})
+                            batch.commit()
+                            .then(async(res)=>{
+                                await this.getCarritoFromDB()
+                                this.setState({ejecutandoDespacharQE:false})
+                                this.activeListenerPedidos()
+                            })
+                            .catch((err)=>{console.log(err)})
+                        }else{
+                            console.log('no existen mas pedidos para despachar en esta fecha :')
+                            this.setState({ejecutandoDespacharQE:false})
                         }
                     })
                     .catch((err)=>{
                         console.log('Error en get() despacharQEspecificas :',err)
                     })
                 })
-            
-
             }else{
                 console.log('No has ingresado una cantidad valida para despachar')
-            }
-
-            this.escribirEnBaseDeDatos=()=>{
-                //NOTE: 4. Actualizar vector carritoDeDespacho con los nuevos pedidos en la base de datos
-                db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:carritoDeDespachoAux})
-                .then((res)=>{
-                    // this.setState({carritoDeDespachoAux:[]})
-                    this.getCarritoFromDB()
-                    //NOTE: 5. Al exito de la actualizacion del carritoDeDespacho, se cambia el estado de los pedidos agregados a "En carrito de despacho"
-                    idsPedidosEnCarrito.map(async(id,index,IDSPEC)=>{
-                        await db.collection("pedidos").doc(id).update({estadoDespacho:'Despachado'})
-                        if((index+1)===IDSPEC.length){
-                            db.collection('pedidosPorFecha').doc(idPedidoPorFecha).update({estado:'incompleto'})
-                            .then((res)=>{
-                                console.log('actualizado estado en "pedidosPorFecha',res)
-                                this.setState({ejecutandoDespacharQE:false},this.activeListenerActualizarPendientes())
-                            })
-                            .catch((err)=>{console.log('Error al actualizar "pedidosPorFecha',err)})
-                        }
-                        
-                    })
-                })
-                .catch((err)=>{console.log(err)})
-                //NOTE: 6. Cambiar estado del documento "pedidoPorFecha" correspondiente
             }
         }else{
             console.log('Ya se esta ejecutando despacharQE')
         }
     }
-    
-    componentWillUpdate=()=>{
-        // console.log(this.state)
-    }
+
 
     render() {
         const {pedidosPorFecha,renderizar,carritoDescargado}=this.state

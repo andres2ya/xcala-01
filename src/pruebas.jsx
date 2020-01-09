@@ -234,7 +234,6 @@ state={
         .where("estado","==","Pendiente")
         .orderBy("idProducto","asc")
         .onSnapshot((snap)=>{
-
             var auxPedidos=[]
             var auxUniqueFechasPedidos=[]
             var auxFechasPedidos=[]
@@ -245,12 +244,8 @@ state={
             var productosFechaUnica=[]
             var productosUnicoFechaUnica=[]
             var nuevaCantidadPedido=0
-            var auxDiaFecha
-            var auxMesFecha
-            var auxAñoFecha
-            var idDocString
-            var writtingError=false
             const {pedidosPorFecha}=this.state
+
             // NOTE: Funcion que captura las referencias unicas y las ubica en un vector
             snap.forEach((doc)=>{
                 auxPedidos.push(doc.data());
@@ -258,25 +253,33 @@ state={
                 auxIds.push(doc.id)                
             })
             auxUniqueFechasPedidos=[...new Set(auxFechasPedidos)]
+            console.log('NUEVA CANTIDAD ANTES DEL MAP FECHA UNCIA:',nuevaCantidadPedido)
             auxUniqueFechasPedidos.map(fechaUnica=>{
-                
+                console.log('FECHA UNICA:',fechaUnica)
+                console.log('NUEVA CANTIDAD DENTRO DEL MAP FECHA UNICA:',nuevaCantidadPedido)
+
                 documentoPedidosPorFecha=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
                 if(documentoPedidosPorFecha.length===0){//Por cada fecha no encontrada en coleccion de pedidosPorFecha, creo un nuevo documento
-                    
                     vectorProductos=[]
                     productosFechaUnica=[]
                     pedidosFechaUnica=auxPedidos.filter(pedido=>pedido.fecha===fechaUnica)
                     pedidosFechaUnica.map(pedidoFechaUnica=>{productosFechaUnica.push(pedidoFechaUnica.idProducto)})
                     productosUnicoFechaUnica=[...new Set(productosFechaUnica)]
+                    console.log('NUEVA CANTIDAD ANTES DEL MAP PRODUCTOS UNICOS FECHA UNCIA:',nuevaCantidadPedido)
                     
                     productosUnicoFechaUnica.map(productoUnicoFechaUnica=>{//Por cada nombre unico en la fecha unica creo un nuevo objeto en el vector productos
+                        console.log('PEDIDOS FECHA UNICA;',pedidosFechaUnica)
+                        console.log('NUEVA CANTIDAD ANTES DEL MAP PEDIDOS FECHA UNCIA:',nuevaCantidadPedido)
                         pedidosFechaUnica.map(pedidoFechaUnica=>{
                             if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
                                 nuevaCantidadPedido=nuevaCantidadPedido+1
                             }
                         })
-                        vectorProductos.push({nombre:productoUnicoFechaUnica,cantidadPedida:nuevaCantidadPedido,cantidadPendiente:nuevaCantidadPedido})
+                        console.log('NUEVA CANTIDAD ANTES REINICIAR:',nuevaCantidadPedido)
+                        vectorProductos.push({nombre:productoUnicoFechaUnica,cantidadPedida:nuevaCantidadPedido,cantidadPendiente:nuevaCantidadPedido,prueba:'DESDE NUEVA FECHA'})
                         nuevaCantidadPedido=0
+                        console.log('NUEVA CANTIDAD DESPUES REINICIAR:',nuevaCantidadPedido)
+
                     })
                     //NOTE: Guardando en estado la nueva fecha con su correspondiente vector productos
                     this.state.pedidosPorFecha.push({
@@ -284,6 +287,7 @@ state={
                         idProveedor:"AFY GLOBAL SAS",
                         productos:vectorProductos
                     })
+                    this.setState({renderizar:true})
 
                 }else{//Si la fecha unica ya existe en un documento de pedidosPorFecha ->Entonces
                     //1. Obtener index objeto (documento) correspondiente.
@@ -314,14 +318,13 @@ state={
                                 cantidadPedida:nuevaCantidadPedido,
                                 cantidadPendiente:nuevaCantidadPedido
                             })
+                            this.setState({renderizar:true})
+                            nuevaCantidadPedido=0
 
 
                         }
                         //6. Si ya existe, entonces actualizar su cantidad.
                         else{
-                            let auxCantidadPedidoActual=objetoProductoEnDocumento[0].cantidadPedida
-                            let auxCantidadPendienteActual=objetoProductoEnDocumento[0].cantidadPendiente
-
                             nuevaCantidadPedido=0
                             pedidosFechaUnica.map(pedidoFechaUnica=>{
                                 if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
@@ -329,17 +332,15 @@ state={
                                 }
                             })
                             //NOTE:obtener index objeto producto
-                            let indexObjetoProducto=this.state.pedidosPorFecha[indexObjetoFecha].productos.indexOf({
-                                'nombre':productoUnicoFechaUnica,
-                                'cantidadPedida':auxCantidadPedidoActual,
-                                'cantidadPendiente':auxCantidadPendienteActual
-                            },0)
+                            let indexObjetoProducto=this.state.pedidosPorFecha[indexObjetoFecha].productos.indexOf(objetoProductoEnDocumento[0],0)
                             //NOTE: Reemplazar objeto producto
                             this.state.pedidosPorFecha[indexObjetoFecha].productos.splice(indexObjetoProducto,1,{
-                                'nombre':productoUnicoFechaUnica,
-                                'cantidadPedida':auxCantidadPedidoActual+nuevaCantidadPedido,
-                                'cantidadPendiente':auxCantidadPendienteActual+nuevaCantidadPedido
+                                nombre:productoUnicoFechaUnica,
+                                cantidadPedida:nuevaCantidadPedido,
+                                cantidadPendiente:nuevaCantidadPedido
                             })
+                            this.setState({renderizar:true})
+                            nuevaCantidadPedido=0
                         }
                     })
                 }
@@ -736,6 +737,7 @@ state={
 
     render() {
         const {pedidosPorFecha,renderizar,carritoDescargado}=this.state
+        console.log('PEDIDOR POR FECHA DESDE RENDER:',pedidosPorFecha)
         // pedidosPorFecha.map(pedidoPorFecha=>{
         //     pedidoPorFecha.productos.sort((a,b)=>(a.nombre-b.nombre))
         // })

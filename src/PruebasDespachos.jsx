@@ -5,14 +5,52 @@ import "firebase/firestore";
 export default class PruebasDespachos extends Component {
     
     state={
-        pedidosIndividualesEnElCarrito:[],
-        pedidosEnCarrito:[],
+        carritoDeDespachoVector:[],
+        pedidosEnCarritoPorFecha:[],
         idsEliminados:[],
         adicionales:[],
         renderizar:false,
         a:false,
         habilitarDespacho:false
     }
+
+    // componentDidMount=()=>{
+    //     var auxCarritoDeDespacho
+    //     var db=firebase.firestore()
+    //     db.collection('proveedores')
+    //     .doc('RYrofhCYJcdg93Yxqznd')
+    //     .get()
+    //     .then((doc)=>{
+    //         auxCarritoDeDespacho=doc.data().carritoDeDespacho
+    //         //NOTE: Llamando al documento correspondiente de "pedidosPorFecha" para conocer la cantidad pedida
+    //         var fechasAux=[]
+    //         var fechasAuxUni=[]
+    //         auxCarritoDeDespacho.map(pedido=>{fechasAux.push(pedido.fecha)})
+    //         fechasAuxUni=[...new Set(fechasAux)]
+
+    //         var auxPedidosPorFecha=[]
+    //         fechasAuxUni.map((fechaUnica,index)=>{
+    //             console.log(fechaUnica)
+    //             let auxDiaFecha=fechaUnica.slice(0,2)
+    //             let auxMesFecha=fechaUnica.slice(3,5)
+    //             let auxAñoFecha=fechaUnica.slice(6,10)
+    //             let idDocString=auxDiaFecha+auxMesFecha+auxAñoFecha
+    
+    //             db.collection('pedidosPorFecha').doc(idDocString).get()
+    //             .then(pedidoPorFecha2=>{
+    //                 console.log('PEDIDO POR FECHA DESDE BD:',pedidoPorFecha2.data())
+    //                 auxPedidosPorFecha.push(pedidoPorFecha2.data())
+    //                 if((index+1)===fechasAuxUni.length){
+    //                     this.leerVector(auxCarritoDeDespacho,auxPedidosPorFecha)
+    //                 }
+    //             })
+    //             .catch(err=> console.log(err))
+    //         })
+    //     })
+    //     .catch((err)=>{
+    //         console.log('Error en get() vectorCarritoDespacho :',err)
+    //     })
+    // }
 
     componentDidMount=()=>{
         var auxCarritoDeDespacho
@@ -22,37 +60,12 @@ export default class PruebasDespachos extends Component {
         .get()
         .then((doc)=>{
             auxCarritoDeDespacho=doc.data().carritoDeDespacho
-            console.log('CARRITO DESDE BD:',auxCarritoDeDespacho)
-            //NOTE: Llamando al documento correspondiente de "pedidosPorFecha" para conocer la cantidad pedida
-            var fechasAux=[]
-            var fechasAuxUni=[]
-            auxCarritoDeDespacho.map(pedido=>{fechasAux.push(pedido.fecha)})
-            fechasAuxUni=[...new Set(fechasAux)]
-
-            var auxPedidosPorFecha=[]
-            fechasAuxUni.map((fechaUnica,index)=>{
-                console.log(fechaUnica)
-                let auxDiaFecha=fechaUnica.slice(0,2)
-                let auxMesFecha=fechaUnica.slice(3,5)
-                let auxAñoFecha=fechaUnica.slice(6,10)
-                let idDocString=auxDiaFecha+auxMesFecha+auxAñoFecha
-    
-                db.collection('pedidosPorFecha').doc(idDocString).get()
-                .then(pedidoPorFecha2=>{
-                    console.log('PEDIDO POR FECHA DESDE BD:',pedidoPorFecha2.data())
-                    auxPedidosPorFecha.push(pedidoPorFecha2.data())
-                    if((index+1)===fechasAuxUni.length){
-                        this.leerVector(auxCarritoDeDespacho,auxPedidosPorFecha)
-                    }
-                })
-                .catch(err=> console.log(err))
-            })
+            this.leerVector(auxCarritoDeDespacho)
         })
         .catch((err)=>{
             console.log('Error en get() vectorCarritoDespacho :',err)
         })
     }
-
     //leerVector por productos solamente, sin conciderar fechas.
     // leerVector=(data)=>{
     //     this.setState({pedidosIndividualesEnElCarrito:data})
@@ -79,13 +92,13 @@ export default class PruebasDespachos extends Component {
 
 
     //Leer vector conciderando tanto fechas como productos
-    leerVector=(data,pedidosPorFecha)=>{
-        this.setState({pedidosIndividualesEnElCarrito:data})
-
+    leerVector=(carritoDeDespacho)=>{
+        this.setState({carritoDeDespachoVector:carritoDeDespacho})
+        
         //NOTE: Obteniendo fechas unicas del carrito de despacho
         var fechasAux=[]
         var fechasAuxUni=[]
-        data.map(dat=>{fechasAux.push(dat.fecha)})
+        carritoDeDespacho.map(dat=>{fechasAux.push(dat.fecha)})
         fechasAuxUni=[...new Set(fechasAux)]
         
         //NOTE: Mapeando cada una de las fechas unicas para armar sus objetos
@@ -95,7 +108,7 @@ export default class PruebasDespachos extends Component {
             var productosFechaUni=[]
             var productosUniFechUni=[]
             var productosAux=[]
-            productosFechaUni=data.filter(dat=>dat.fecha===fechaUnica)
+            productosFechaUni=carritoDeDespacho.filter(dat=>dat.fecha===fechaUnica)
             productosFechaUni.map(productoFechaUnica=>{productosAux.push(productoFechaUnica.idProducto)})
             productosUniFechUni=[...new Set(productosAux)]
 
@@ -105,30 +118,22 @@ export default class PruebasDespachos extends Component {
                 var auxQ=[]
                 var auxIDs=[]
                 var objetoPorFecha=null
-                auxQ=data.filter(pedido=>pedido.idProducto===productoUniFechaUni && pedido.fecha===fechaUnica)
+                auxQ=carritoDeDespacho.filter(pedido=>pedido.idProducto===productoUniFechaUni && pedido.fecha===fechaUnica)
                 auxQ.map(pedido=>auxIDs.push(pedido.id))
-                
-                //NOTE: Obteniendo cantidad pendiente del documento de la fecha unica en el objeto del producto unico
-                var QPendiente=0
-                let objetoPedidoPorFecha=pedidosPorFecha.filter(pedidoXFecha=>pedidoXFecha.fecha===fechaUnica)
-                let vectorProductosAux=objetoPedidoPorFecha[0].productos
-                let objetoProducto=vectorProductosAux.filter(producto=>producto.nombre===productoUniFechaUni)
-                QPendiente=objetoProducto[0].cantidadPendiente
-                
+                                
                 //NOTE: Creando objeto del producto unico con la cantidad a despachar y la cantidad pendiente
-                objetoPorFecha={cantidadADespacharOriginal:auxQ.length,nombre:productoUniFechaUni,cantidadADespachar:auxQ.length,cantidadPendiente:QPendiente+auxQ.length,ids:auxIDs}
+                objetoPorFecha={cantidadADespacharOriginal:auxQ.length,nombre:productoUniFechaUni,cantidadADespachar:auxQ.length,cantidadPendiente:auxQ.length+5,ids:auxIDs}
                 vectorProductos.push(objetoPorFecha)
             })
             //NOTE: Guardando en el estaado el objeto de la fecha unica con su respectivo vector productos
-            this.state.pedidosEnCarrito.push({fecha:fechaUnica,productos:vectorProductos})
+            this.state.pedidosEnCarritoPorFecha.push({fecha:fechaUnica,productos:vectorProductos})
         })
 
         //NOTE: Habilitando el renderizado del componente cuando en el estado ya se han almacenado los pedidos del carrito organizado por fechas.
-        if(this.state.pedidosEnCarrito.length>0){
+        if(this.state.pedidosEnCarritoPorFecha.length>0){
             this.setState({renderizar:true})
         }
     }
-
 
     // disminuirCantidad=(e,producto,fecha,ids,QPendiente,QDespachar)=>{
     //     e.preventDefault()
@@ -177,33 +182,35 @@ export default class PruebasDespachos extends Component {
     //     })
     // }
 
-    disminuirCantidadADespachar=(e,producto,fecha,ids,QPendiente,QDespachar)=>{
+    modificarCantidadADespachar=(e,producto,fecha)=>{
         e.preventDefault()
-        const MODO=e.target.id
         //NOTE: 1. Buscar objeto e index de fecha
-        let objetoFecha=this.state.pedidosEnCarrito.filter(pedido=>pedido.fecha===fecha)
-        let indexObjetoFecha=this.state.pedidosEnCarrito.indexOf(objetoFecha[0],0)
-        //NOTE: 2. Buscar objeto producto y su index
+        let objetoFecha=this.state.pedidosEnCarritoPorFecha.filter(pedido=>pedido.fecha===fecha)
+        let indexObjetoFecha=this.state.pedidosEnCarritoPorFecha.indexOf(objetoFecha[0],0)
+        //NOTE: 2. Obtener vector productos del objeto fecha
         let vectorProductos=objetoFecha[0].productos
+        //NOTE: 3. Buscar objeto e index producto
         let objetoProducto=vectorProductos.filter(productoo=>productoo.nombre===producto)
         let indexObjetoProducto=vectorProductos.indexOf(objetoProducto[0],0)
-        //NOTE: 3. Obtiene cantidad a despachar y pendiente
+        //NOTE: 4. Obtiene cantidad a despachar y pendiente el objeto producto
         let cantidadDespacharOriginal=objetoProducto[0].cantidadADespacharOriginal
         let cantidadDespachar=objetoProducto[0].cantidadADespachar
-        let cantidadPend=objetoProducto[0].cantidadPendiente
+        let cantidadPend=objetoProducto[0].cantidadPendiente//TODO: Traer desde el vector usado en Pruebas.jsx del estado global 
         let idsAux=objetoProducto[0].ids
         
+        const MODO=e.target.id
         switch (MODO) {
             case "disminuirQDespachar":
                 if((cantidadDespachar-1)>0){
-                    //NOTE: Impedir que elimine ids si la cantidad a reducir es mayor o igual a la cantidad a despachar especificada originalmente
+                    //NOTE: Añadir id a eliminados solo si la "nueva cantidad a despachar" es inferior a la "cantidad original que se solicito despachar"
                     if(cantidadDespacharOriginal > (cantidadDespachar-1)){
-                        this.state.idsEliminados.push({id:ids[0],producto:producto,fecha:fecha})
+                        this.state.idsEliminados.push({id:idsAux[0],producto:producto,fecha:fecha})
                         idsAux.splice(0,1)
                     }
                     
+                    //NOTE: Disminuir las cantidades adicionales a despachar, siempre y cuando existan
                     let objetoQAdicional=this.state.adicionales.filter(obj=>obj.producto===producto && obj.fecha===fecha)
-                    let indexObjetoAdicional=this.state.idsEliminados.indexOf(objetoQAdicional[0],0)
+                    let indexObjetoAdicional=this.state.adicionales.indexOf(objetoQAdicional[0],0)           
                     if(objetoQAdicional.length>0){
                         let QAdicional=objetoQAdicional[0].cantidadAdicional
                         let adicionalesADespachar={producto:producto,fecha:fecha,cantidadAdicional:QAdicional-1}
@@ -213,28 +220,30 @@ export default class PruebasDespachos extends Component {
                         }
                     }
 
-                    //NOTE: 4. Crea un nuevo objeto producto con la cantidad a despachar actualizada
+                    //NOTE: 4. Actualizar las cantidades a despachar
                     let newObjetoProducto={nombre:producto,cantidadADespacharOriginal:cantidadDespacharOriginal,cantidadADespachar:cantidadDespachar-1,cantidadPendiente:cantidadPend,ids:idsAux}
-                    //NOTE: 5. Crea un nuevo vectorProductos reemplazando el objeto producto anterior con el recien creado
                     vectorProductos.splice(indexObjetoProducto,1,newObjetoProducto)
-                    //NOTE: 6. Crea un nuevo objeto fecha reemplazando el vectorProducto anterior con el recien creado.
                     let newObjetoFecha={fecha:fecha,productos:vectorProductos}
-                    //NOTE: Actualizando vector pedidosEnCarrito del estado
-                    this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
+                    this.state.pedidosEnCarritoPorFecha.splice(indexObjetoFecha,1,newObjetoFecha)
                     this.setState({habilitarDespacho:true})
+
                 }else if((cantidadDespachar-1)===0){
-                    //NOTE: No se puede eliminar mas. Y como ha llegado a 0, entonces se procede a eliminar el producto del vector
-                    this.state.idsEliminados.push({id:ids[0],producto:producto,fecha:fecha})
+
+                    //NOTE: No se puede eliminar mas. Y como ha llegado a 0, entonces se procede a eliminar el producto del vector,
+                    //Añadiendo id a eliminados
+                    this.state.idsEliminados.push({id:idsAux[0],producto:producto,fecha:fecha})
                     idsAux.splice(0,1)
 
+                    //NOTE: Eliminar objeto producto de vectorProductos y actualizar el objeto fecha
                     vectorProductos.splice(indexObjetoProducto,1)
                     let newObjetoFecha={fecha:fecha,productos:vectorProductos}
-                    this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
+                    this.state.pedidosEnCarritoPorFecha.splice(indexObjetoFecha,1,newObjetoFecha)
                     this.setState({a:true})
         
-                    let objetoFecha2=this.state.pedidosEnCarrito.filter(pedido=>pedido.fecha===fecha)
+                    //NOTE: Si ya no quedan mas productos en vectorProductos, eliminar toda la fecha
+                    let objetoFecha2=this.state.pedidosEnCarritoPorFecha.filter(pedido=>pedido.fecha===fecha)
                     if(objetoFecha2[0].productos.length===0){
-                        this.state.pedidosEnCarrito.splice(indexObjetoFecha,1)
+                        this.state.pedidosEnCarritoPorFecha.splice(indexObjetoFecha,1)
                     }
                 }
                 break;
@@ -245,13 +254,13 @@ export default class PruebasDespachos extends Component {
                     let indexIdEliminado=this.state.idsEliminados.indexOf(idExist[0],0)
                     if(idExist.length>0){
                         this.state.idsEliminados.splice(indexIdEliminado,1)
-                        idsAux.push(idExist[0])
+                        idsAux.push(idExist[0].id)
                     }else{
                         //NOTE: Si la cantidad a despachar es mayor a la cantidad a despachar original, entonces,
                         //guardar en un vector en el estado objeto de la fecha, producto y cantidad adicional para 
                         //despachar.
                         let objetoQAdicional=this.state.adicionales.filter(obj=>obj.producto===producto && obj.fecha===fecha)
-                        let indexObjetoAdicional=this.state.idsEliminados.indexOf(objetoQAdicional[0],0)
+                        let indexObjetoAdicional=this.state.adicionales.indexOf(objetoQAdicional[0],0)
                         if(objetoQAdicional.length>0){
                             let QAdicional=objetoQAdicional[0].cantidadAdicional
                             let adicionalesADespachar={producto:producto,fecha:fecha,cantidadAdicional:QAdicional+1}
@@ -262,33 +271,29 @@ export default class PruebasDespachos extends Component {
                         }
                     }
 
-
-                    //NOTE: 4. Crea un nuevo objeto producto con la cantidad a despachar actualizada
+                    //NOTE: Actualizar las cantidades a despachar
                     let newObjetoProducto={nombre:producto,cantidadADespacharOriginal:cantidadDespacharOriginal,cantidadADespachar:cantidadDespachar+1,cantidadPendiente:cantidadPend,ids:idsAux}
-                    //NOTE: 5. Crea un nuevo vectorProductos reemplazando el objeto producto anterior con el recien creado
                     vectorProductos.splice(indexObjetoProducto,1,newObjetoProducto)
-                    //NOTE: 6. Crea un nuevo objeto fecha reemplazando el vectorProducto anterior con el recien creado.
                     let newObjetoFecha={fecha:fecha,productos:vectorProductos}
-                    //NOTE: Actualizando vector pedidosEnCarrito del estado
-                    this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
+                    this.state.pedidosEnCarritoPorFecha.splice(indexObjetoFecha,1,newObjetoFecha)
                     this.setState({habilitarDespacho:true})
                 }
                 break;
             case "eliminarTodaLaReferencia":
                 console.log('Se eliminara toda la referencia')
                 //NOTE: Añadir ids al vector ids por eliminar
-                ids.map(id=>{
+                idsAux.map(id=>{
                     this.state.idsEliminados.push({id:id,producto:producto,fecha:fecha})
                     // idsAux.splice(0,1)
                 })
                 //NOTE:Borrar la correspondiente referencia del vector productos dentro de la fecha correspondiente
                 vectorProductos.splice(indexObjetoProducto,1)
                 let newObjetoFecha={fecha:fecha,productos:vectorProductos}
-                this.state.pedidosEnCarrito.splice(indexObjetoFecha,1,newObjetoFecha)
+                this.state.pedidosEnCarritoPorFecha.splice(indexObjetoFecha,1,newObjetoFecha)
                 //NOTE: Borrar fecha si ya no le quedan mas productos
-                let objetoFecha2=this.state.pedidosEnCarrito.filter(pedido=>pedido.fecha===fecha)
+                let objetoFecha2=this.state.pedidosEnCarritoPorFecha.filter(pedido=>pedido.fecha===fecha)
                 if(objetoFecha2[0].productos.length===0){
-                    this.state.pedidosEnCarrito.splice(indexObjetoFecha,1)
+                    this.state.pedidosEnCarritoPorFecha.splice(indexObjetoFecha,1)
                 }
                 this.setState({habilitarDespacho:true})
             default:
@@ -437,29 +442,30 @@ export default class PruebasDespachos extends Component {
 
     //Render conciderando tanto fechas como productos
     render() {
-        const {pedidosEnCarrito,renderizar}=this.state
-        console.log('DESDE RENDER::::::',pedidosEnCarrito,renderizar)
+        const {pedidosEnCarritoPorFecha,renderizar,idsEliminados,adicionales}=this.state
+        console.log('PEDIDOS EN CARRITO POR FECHA DESDE RENDER::::::',pedidosEnCarritoPorFecha,renderizar)
+        console.log('ELIMINADOS DESDE RENDER::::::',idsEliminados)
+        console.log('ADICIONALES DESDE RENDER:',adicionales)
+
         return (
             <div>
                 {renderizar===true?
                     <div>
                         <h1>CARRITO DE DESPACHO 1</h1>
-                        {pedidosEnCarrito.map(pedido=>
+                        {pedidosEnCarritoPorFecha.map(pedido=>
                             <div>
                                 <strong>{pedido.fecha}</strong>
                                 {pedido.productos.map((producto)=>
                                     <div>
                                         <strong>{producto.nombre}</strong>
-                                        <span>Pendiente:{producto.cantidadPendiente}</span>
-                                        <span> | </span>
                                         <span>A despachar:</span>
                                         <span>
-                                            <button id="disminuirQDespachar" onClick={(e)=>this.disminuirCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>-</button>
+                                            <button id="disminuirQDespachar" onClick={(e)=>this.modificarCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>-</button>
                                             {/* Para actualizar la vista al disminuir o aumentar la cantidad, simplemente, SI Y SOLO SI SE TIENE EXITO,
                                             en la funcion que realiza esa tarea, se guarda en el estado la cantidad adicional o menor correspondiente y se le suma o resta al valor de al vista*/}
                                             <span>{producto.cantidadADespachar}</span>
-                                            <button id="aumentarQDespachar" onClick={(e)=>this.disminuirCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>+</button>
-                                            <button id="eliminarTodaLaReferencia" onClick={(e)=>this.disminuirCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>x</button>
+                                            <button id="aumentarQDespachar" onClick={(e)=>this.modificarCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>+</button>
+                                            <button id="eliminarTodaLaReferencia" onClick={(e)=>this.modificarCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>x</button>
                                             <button onClick={(e)=>this.prueba(e)}>probar</button>
                                         </span>
                                     </div>

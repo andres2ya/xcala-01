@@ -253,10 +253,7 @@ state={
                 auxIds.push(doc.id)                
             })
             auxUniqueFechasPedidos=[...new Set(auxFechasPedidos)]
-            console.log('NUEVA CANTIDAD ANTES DEL MAP FECHA UNCIA:',nuevaCantidadPedido)
             auxUniqueFechasPedidos.map(fechaUnica=>{
-                console.log('FECHA UNICA:',fechaUnica)
-                console.log('NUEVA CANTIDAD DENTRO DEL MAP FECHA UNICA:',nuevaCantidadPedido)
 
                 documentoPedidosPorFecha=pedidosPorFecha.filter(pedidoPorFecha=>pedidoPorFecha.fecha===fechaUnica)
                 if(documentoPedidosPorFecha.length===0){//Por cada fecha no encontrada en coleccion de pedidosPorFecha, creo un nuevo documento
@@ -265,21 +262,15 @@ state={
                     pedidosFechaUnica=auxPedidos.filter(pedido=>pedido.fecha===fechaUnica)
                     pedidosFechaUnica.map(pedidoFechaUnica=>{productosFechaUnica.push(pedidoFechaUnica.idProducto)})
                     productosUnicoFechaUnica=[...new Set(productosFechaUnica)]
-                    console.log('NUEVA CANTIDAD ANTES DEL MAP PRODUCTOS UNICOS FECHA UNCIA:',nuevaCantidadPedido)
                     
                     productosUnicoFechaUnica.map(productoUnicoFechaUnica=>{//Por cada nombre unico en la fecha unica creo un nuevo objeto en el vector productos
-                        console.log('PEDIDOS FECHA UNICA;',pedidosFechaUnica)
-                        console.log('NUEVA CANTIDAD ANTES DEL MAP PEDIDOS FECHA UNCIA:',nuevaCantidadPedido)
                         pedidosFechaUnica.map(pedidoFechaUnica=>{
                             if(pedidoFechaUnica.idProducto===productoUnicoFechaUnica){
                                 nuevaCantidadPedido=nuevaCantidadPedido+1
                             }
                         })
-                        console.log('NUEVA CANTIDAD ANTES REINICIAR:',nuevaCantidadPedido)
-                        vectorProductos.push({nombre:productoUnicoFechaUnica,cantidadPedida:nuevaCantidadPedido,cantidadPendiente:nuevaCantidadPedido,prueba:'DESDE NUEVA FECHA'})
+                        vectorProductos.push({nombre:productoUnicoFechaUnica,cantidadPedida:nuevaCantidadPedido,cantidadPendiente:nuevaCantidadPedido})
                         nuevaCantidadPedido=0
-                        console.log('NUEVA CANTIDAD DESPUES REINICIAR:',nuevaCantidadPedido)
-
                     })
                     //NOTE: Guardando en estado la nueva fecha con su correspondiente vector productos
                     this.state.pedidosPorFecha.push({
@@ -682,7 +673,6 @@ state={
         var Q=parseInt(e.target.value) 
         var Qmax=parseInt(e.target.max) 
 
-        console.log('Q:',e.target.value,'MAX:',e.target.max,'TYPE:',e.target.type)
         if(Q>0 && Q<(Qmax+1)){
             auxProductoUnicoQE={cantidad:Q,fecha:fecha,producto:producto}
             let auxExistProduct=this.state.vectorProductosADespacharPorQEspecificas.filter(productoo=>productoo.producto===producto && productoo.fecha===fecha)
@@ -693,13 +683,11 @@ state={
             }else{
                 this.state.vectorProductosADespacharPorQEspecificas.push(auxProductoUnicoQE)
             }
-            console.log('XXX:',this.state.vectorProductosADespacharPorQEspecificas)
         }else{
             console.log('No has introducido una cantidad validad')
             const index = this.state.vectorProductosADespacharPorQEspecificas.findIndex(item=>item.producto===producto && item.fecha===fecha)
             if(index>0){
                 this.state.vectorProductosADespacharPorQEspecificas.splice(index,1)
-                console.log('XXX:',this.state.vectorProductosADespacharPorQEspecificas)
             }
         }
     }
@@ -712,7 +700,6 @@ state={
         if(this.state.ejecutandoDespacharQE===false){
             auxVectorDespacharQE=this.state.vectorProductosADespacharPorQEspecificas.filter(productoADespacharPorQE=>productoADespacharPorQE.fecha===fecha)
             if(auxVectorDespacharQE.length>0){
-                console.log('Se comenzara a ejecutar despacharQE')
                 this.unsubscribeListenerPedidos()
                 this.setState({ejecutandoDespacharQE:true})
                 auxVectorDespacharQE.map((productoADespacharPorQEFecha)=>{
@@ -781,7 +768,6 @@ state={
 
     render() {
         const {pedidosPorFecha,renderizar,carritoDescargado}=this.state
-        console.log('PEDIDOR POR FECHA DESDE RENDER:',pedidosPorFecha)
         // pedidosPorFecha.map(pedidoPorFecha=>{
         //     pedidoPorFecha.productos.sort((a,b)=>(a.nombre-b.nombre))
         // })

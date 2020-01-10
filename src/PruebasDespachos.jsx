@@ -301,25 +301,57 @@ export default class PruebasDespachos extends Component {
         }
     }
 
+    // prueba = (e)=>{
+    //     e.preventDefault()
+    //     var db=firebase.firestore()
+    //     const {idsEliminados,pedidosIndividualesEnElCarrito}=this.state
+    //     if(idsEliminados.length>0){
+    //         var batch=db.batch()
+    //         idsEliminados.map(async(idEliminado,index)=>{
+    //             try {
+    //                 let idAEliminar=pedidosIndividualesEnElCarrito.filter(pedidoIndividual=>pedidoIndividual.id===idEliminado.id)
+    //                 await db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayRemove(idAEliminar[0])})
+    //                 // console.log('Removido del carrito con exito',idAEliminar[0].id)
+    //                 let indexIdAEliminar=pedidosIndividualesEnElCarrito.indexOf(idAEliminar[0],0)
+    //                 this.state.pedidosIndividualesEnElCarrito.splice(indexIdAEliminar,1)
+    //                 // console.log('Pedidos inviduales',this.state.pedidosIndividualesEnElCarrito)
+    //                 await db.collection('pedidos').doc(idEliminado.id).update({estado:'Recibido por el proveedor',estadoDespacho:'Reestablecido'})
+    //                 // console.log('Estado actualizado con exito',idEliminado.id)
+    //                 if(idsEliminados.length===(index+1)){
+    //                     console.log('Se restablcera idsEliminado=[]')
+    //                     this.setState({idsEliminados:[]},this.pruebaAdicionales())
+    //                 }
+    //             } catch (error) {
+    //                 console.log('OCURRIO UN ERROR:',error)   
+    //             }
+    //         })  
+    //     }else{
+    //         console.log('No hay elementos eliminados, se procede a operar adicionales')
+    //         this.pruebaAdicionales()
+    //     }  
+    // }
     prueba = (e)=>{
+        console.log('Comenzando eliminados.....')
         e.preventDefault()
         var db=firebase.firestore()
-        const {idsEliminados,pedidosIndividualesEnElCarrito,adicionales}=this.state
-
+        const {idsEliminados,carritoDeDespachoVector}=this.state
+        var batch=db.batch()
         if(idsEliminados.length>0){
-            idsEliminados.map(async(idEliminado,index)=>{
+            idsEliminados.map((idEliminado,index)=>{
                 try {
-                    let idAEliminar=pedidosIndividualesEnElCarrito.filter(pedidoIndividual=>pedidoIndividual.id===idEliminado.id)
-                    await db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayRemove(idAEliminar[0])})
+                    let idAEliminar=carritoDeDespachoVector.filter(pedidoIndividual=>pedidoIndividual.id===idEliminado.id)
+                    var refUpdateCarrito= db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd')
+                    batch.update(refUpdateCarrito,{carritoDeDespacho:firebase.firestore.FieldValue.arrayRemove(idAEliminar[0])})
                     // console.log('Removido del carrito con exito',idAEliminar[0].id)
-                    let indexIdAEliminar=pedidosIndividualesEnElCarrito.indexOf(idAEliminar[0],0)
-                    this.state.pedidosIndividualesEnElCarrito.splice(indexIdAEliminar,1)
+                    let indexIdAEliminar=carritoDeDespachoVector.indexOf(idAEliminar[0],0)
+                    this.state.carritoDeDespachoVector.splice(indexIdAEliminar,1)
                     // console.log('Pedidos inviduales',this.state.pedidosIndividualesEnElCarrito)
-                    await db.collection('pedidos').doc(idEliminado.id).update({estado:'Recibido por el proveedor',estadoDespacho:'Reestablecido'})
+                    var refUpdateEstado= db.collection('pedidos').doc(idEliminado.id)
+                    batch.update(refUpdateEstado,{estado:'Pendiente'})
                     // console.log('Estado actualizado con exito',idEliminado.id)
                     if(idsEliminados.length===(index+1)){
                         console.log('Se restablcera idsEliminado=[]')
-                        this.setState({idsEliminados:[]},this.pruebaAdicionales())
+                        this.setState({idsEliminados:[]},this.pruebaAdicionales(batch))
                     }
                 } catch (error) {
                     console.log('OCURRIO UN ERROR:',error)   
@@ -327,16 +359,16 @@ export default class PruebasDespachos extends Component {
             })  
         }else{
             console.log('No hay elementos eliminados, se procede a operar adicionales')
-            this.pruebaAdicionales()
+            this.pruebaAdicionales(batch)
         }  
     }
 
-    pruebaAdicionales=()=>{
+    pruebaAdicionales=(batch)=>{
         console.log('Comenzando adicionales.....')
         var db=firebase.firestore()
         let adicionalesFechas=[]
         let adicionalesFechasUnicas=[]
-        const {pedidosIndividualesEnElCarrito,adicionales}=this.state
+        const {carritoDeDespachoVector,adicionales}=this.state
         adicionales.map(adicional=>{adicionalesFechas.push(adicional.fecha)})
         adicionalesFechasUnicas=[...new Set(adicionalesFechas)]
         // console.log('ADICIONALES FECHAS UNICAS:',adicionalesFechasUnicas)
@@ -348,52 +380,55 @@ export default class PruebasDespachos extends Component {
                     const snap=await 
                     db.collection('pedidos')
                     .where("idProveedor","==","AFY GLOBAL SAS")
-                    .where("estado","==","Recibido por el proveedor")
+                    .where("estado","==","Pendiente")
                     .where('fecha','==',adicionalFechaUnica)
                     .where('idProducto',"==",pedidoAdicionalFechaUnica.producto)
                     .limit(pedidoAdicionalFechaUnica.cantidadAdicional)
                     .get()
                     .then((snap)=>{return snap})
                     .catch(err => console.log('ERROR:',err))
-    
-                    try {
-                        let contadorAux=0
-                        snap.forEach(async doc=>{
-                            let auxDocData=doc.data()
-                            auxDocData.id=doc.id
-                            await db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:firebase.firestore.FieldValue.arrayUnion(auxDocData)})
-                            pedidosIndividualesEnElCarrito.push(auxDocData)
-                            await db.collection("pedidos").doc(doc.id).update({estadoDespacho:'Despachado',estado:'Recibido por el proveedor'})
-                            contadorAux=contadorAux+1
-                            if((index+1)===adicionalesFechasUnicas.length 
-                            && (index2+1)===pedidosAdicionalesFechaUnica.length 
-                            && pedidoAdicionalFechaUnica.cantidadAdicional===contadorAux){
-                                this.setState({adicionales:[]},this.pruebaCrearDespacho())
-                            }
-                        })
-                    } catch (error) {
-                        console.log('OCURRIO UN ERROR:',error)  
-                    }
+
+                    let contadorAux=0
+                    snap.forEach(doc=>{
+                        let auxDocData=doc.data()
+                        auxDocData.id=doc.id
+
+                        var refUpdateCarritoAdicionales= db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd')
+                        batch.update(refUpdateCarritoAdicionales,{carritoDeDespacho:firebase.firestore.FieldValue.arrayUnion(auxDocData)})
+
+                        carritoDeDespachoVector.push(auxDocData)
+
+                        var refUpdateEstadoAdicionales= db.collection('pedidos').doc(doc.id)
+                        batch.update(refUpdateEstadoAdicionales,{estado:'Despachado'})
+
+                        contadorAux=contadorAux+1
+                        if((index+1)===adicionalesFechasUnicas.length 
+                        && (index2+1)===pedidosAdicionalesFechaUnica.length 
+                        && pedidoAdicionalFechaUnica.cantidadAdicional===contadorAux){
+                            this.setState({adicionales:[]},this.pruebaCrearDespacho(batch))
+                        }else{
+                        }
+                    })
                 })
             })
         }else{
             console.log('No hay elementos adicionales, se procede a crear despacho')
-            this.pruebaCrearDespacho()
+            this.pruebaCrearDespacho(batch)
         }
     }
 
-    pruebaCrearDespacho=()=>{
+    pruebaCrearDespacho=(batch)=>{
+        console.log('Comenzando creacion despacho.....')
         var db=firebase.firestore()
-        db.collection('despachos').add({idDespacho:'DPACHO0001',pedidos:this.state.pedidosIndividualesEnElCarrito,fecha:'07/12/2019'})
-        .then(()=>{
-            db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd').update({carritoDeDespacho:[]})
-            .then(()=>{
 
-                this.setState({pedidosEnCarrito:[],despachoCreado:true})
-            })
-        })
-        .catch((err)=>{
-            console.log(err)
+        var refCrearDespacho= db.collection('despachos').doc('DPACHO0002')
+        batch.set(refCrearDespacho,{idDespacho:'DPACHO0001',pedidos:this.state.carritoDeDespachoVector,fecha:'07/12/2019'})
+
+        var refLimpiarCarrito= db.collection('proveedores').doc('RYrofhCYJcdg93Yxqznd')
+        batch.update(refLimpiarCarrito,{carritoDeDespacho:[]})
+        batch.commit()
+        .then(()=>{
+            this.setState({pedidosEnCarritoPorFecha:[],despachoCreado:true})
         })
     }
 
@@ -488,3 +523,5 @@ export default class PruebasDespachos extends Component {
     }
 
 }
+
+

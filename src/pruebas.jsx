@@ -663,7 +663,7 @@ state={
         }else{
             console.log('Se esta ejecutando despachar todo')
         }
-        }
+    }
 
     leerCantidadesEspecificas=(e,fecha,producto)=>{
         
@@ -764,7 +764,6 @@ state={
             console.log('Ya se esta ejecutando despacharQE')
         }
     }
-
 
     render() {
         const {pedidosPorFecha,renderizar,carritoDescargado}=this.state

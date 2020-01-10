@@ -330,9 +330,9 @@ export default class PruebasDespachos extends Component {
     //         this.pruebaAdicionales()
     //     }  
     // }
-    prueba = (e)=>{
+
+    crearDespacho = ()=>{
         console.log('Comenzando eliminados.....')
-        e.preventDefault()
         var db=firebase.firestore()
         const {idsEliminados,carritoDeDespachoVector}=this.state
         var batch=db.batch()
@@ -351,7 +351,7 @@ export default class PruebasDespachos extends Component {
                     // console.log('Estado actualizado con exito',idEliminado.id)
                     if(idsEliminados.length===(index+1)){
                         console.log('Se restablcera idsEliminado=[]')
-                        this.setState({idsEliminados:[]},this.pruebaAdicionales(batch))
+                        this.setState({idsEliminados:[]},this.operarAdicionales(batch))
                     }
                 } catch (error) {
                     console.log('OCURRIO UN ERROR:',error)   
@@ -359,11 +359,11 @@ export default class PruebasDespachos extends Component {
             })  
         }else{
             console.log('No hay elementos eliminados, se procede a operar adicionales')
-            this.pruebaAdicionales(batch)
+            this.operarAdicionales(batch)
         }  
     }
 
-    pruebaAdicionales=(batch)=>{
+    operarAdicionales=(batch)=>{
         console.log('Comenzando adicionales.....')
         var db=firebase.firestore()
         let adicionalesFechas=[]
@@ -405,7 +405,7 @@ export default class PruebasDespachos extends Component {
                         if((index+1)===adicionalesFechasUnicas.length 
                         && (index2+1)===pedidosAdicionalesFechaUnica.length 
                         && pedidoAdicionalFechaUnica.cantidadAdicional===contadorAux){
-                            this.setState({adicionales:[]},this.pruebaCrearDespacho(batch))
+                            this.setState({adicionales:[]},this.armarDespacho(batch))
                         }else{
                         }
                     })
@@ -413,11 +413,11 @@ export default class PruebasDespachos extends Component {
             })
         }else{
             console.log('No hay elementos adicionales, se procede a crear despacho')
-            this.pruebaCrearDespacho(batch)
+            this.armarDespacho(batch)
         }
     }
 
-    pruebaCrearDespacho=(batch)=>{
+    armarDespacho=(batch)=>{
         console.log('Comenzando creacion despacho.....')
         var db=firebase.firestore()
 
@@ -501,7 +501,6 @@ export default class PruebasDespachos extends Component {
                                             <span>{producto.cantidadADespachar}</span>
                                             <button id="aumentarQDespachar" onClick={(e)=>this.modificarCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>+</button>
                                             <button id="eliminarTodaLaReferencia" onClick={(e)=>this.modificarCantidadADespachar(e,producto.nombre,pedido.fecha,producto.ids,producto.cantidadPendiente,producto.cantidadADespachar)}>x</button>
-                                            <button onClick={(e)=>this.prueba(e)}>probar</button>
                                         </span>
                                     </div>
                                 )}
@@ -510,9 +509,9 @@ export default class PruebasDespachos extends Component {
                             </div>
                         )}
                         {this.state.habilitarDespacho===true?
-                        <button onClick={this.armarDespacho}>Solicitar transporte "Arma el documento despacho correspondiente"</button>
+                        <button onClick={this.crearDespacho}>Solicitar transporte "Arma el documento despacho correspondiente"</button>
                         :
-                        <button disabled onClick={this.armarDespacho}>Solicitar transporte "Arma el documento despacho correspondiente"</button>
+                        <button disabled onClick={this.crearDespacho}>Solicitar transporte "Arma el documento despacho correspondiente"</button>
                         }
                     </div>
                     :

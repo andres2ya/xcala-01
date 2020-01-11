@@ -176,6 +176,8 @@ export const createCaseInFirestore=(supplierID,itemID,openCasedata,userID,orderI
     //NOTE: Esta es la forma de incluir el case dentro del objeto del item correspondiente mediante la identificacion del pedido, el item y 
     //posteriormente su asignacion para luego reemplazar todo el campo de pedidos con la nueva informacion.
     
+    //TODO: Aca tengo que poner la funcion para guardar el case
+
     const oldUserOrders=state.firebase.profile.pedidos
 
     var indexOfOrderID

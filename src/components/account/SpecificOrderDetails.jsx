@@ -79,6 +79,7 @@ class SpecificOrderDetails extends Component {
 
   render() {
     var orderId = this.props.match.params.id;
+    //TODO: Reemplazar "userOrder" por el vector de pedidos correspondientes al usuario
     const {userOrders}=this.props
     var orderIdData=undefined
     if(userOrders){

@@ -14,7 +14,7 @@ export default class PruebasTotalPendientes extends Component {
         this.getPendingOrders()
     ]
 
-    getPendingOrders=()=>{//Provisional para poder traer los pedidos, en produccion, los pedidos se obtienen del vector en el estado global de la aplicacion, sin volver a llamar
+    getPendingOrders=()=>{//Provisional para poder traer los pedidos. En produccion, los pedidos se obtienen del vector en el estado global de la aplicacion, sin volver a llamar
         var db=firebase.firestore()
         this.unsubscribeListenerPedidos=db.collection('pedidos')
         .where("idProveedor","==","AFY GLOBAL SAS")

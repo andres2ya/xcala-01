@@ -26,7 +26,7 @@ import Pruebas from "./Pruebas";
 import PruebaAddOrder from "./PruebaAddOrder";
 import PruebasDespachos from "./PruebasDespachos";
 import PruebasTotalPendientes from "./PruebasTotalPendientes";
-
+import PruebasPayU from "./PruebasPayU";
 
 
 function App(){
@@ -51,6 +51,7 @@ function App(){
     <div className="container-fluid">
     <Switch>
       <Route exact path="/" component={Login}/>
+      <Route exact path="/pruebaspayu" component={PruebasPayU}/>
       <Route exact path="/pruebas" component={Pruebas}/>
       <Route exact path="/pruebasAdd" component={PruebaAddOrder}/>
       <Route exact path="/pruebasdespacho" component={PruebasDespachos}/>

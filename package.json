@@ -6,7 +6,6 @@
     "cross-env": "^5.2.0",
     "dotenv": "^8.0.0",
     "firebase": "^6.3.4",
-    "firestore-size": "^2.0.4",
     "hammerjs": "^2.0.8",
     "history": "^4.9.0",
     "moment": "^2.24.0",
@@ -17,7 +16,7 @@
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.3.0",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.3.0",
     "redux": "^4.0.4",
     "redux-firestore": "^0.8.0",
     "redux-thunk": "^2.3.0"

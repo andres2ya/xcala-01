@@ -8,12 +8,12 @@ export default class PruebasPayU extends Component {
                     <input name="merchantId"    type="hidden"  value="508029"   />
                     <input name="accountId"     type="hidden"  value="512321" />
                     <input name="description"   type="hidden"  value="Test PAYU"  />
-                    <input name="referenceCode" type="hidden"  value="PRUEBAXCALA-13" />
+                    <input name="referenceCode" type="hidden"  value="PRUEBAXCALA-14" />
                     <input name="amount"        type="hidden"  value="3"   />
                     <input name="tax"           type="hidden"  value="0"  />
                     <input name="taxReturnBase" type="hidden"  value="0" />
                     <input name="currency"      type="hidden"  value="USD" />
-                    <input name="signature"     type="hidden"  value="5dcd621cc1d5ea73633854d7383caa4d"/>
+                    <input name="signature"     type="hidden"  value="fc7535bebe1eceace9f317f812f34426"/>
                     <input name="test"          type="hidden"  value="1" />
                     <input name="buyerEmail"    type="hidden"  value="test@test.com" />
                     <input name="responseUrl"    type="hidden"  value="https://prueba-payu-deploy.firebaseapp.com/respuestapayu" />

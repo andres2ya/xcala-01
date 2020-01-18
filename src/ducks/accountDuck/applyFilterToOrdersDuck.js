@@ -2,6 +2,8 @@
 const SHOW_APPLY_STATE_FILTER_TO_ORDERS='xcala/orderDetails/SHOW_APPLY_STATE_FILTER_TO_ORDERS'
 //--------------------------------------------------------------------
 const HIDE_APPLY_STATE_FILTER_TO_ORDERS='xcala/orderDetails/HIDE_APPLY_STATE_FILTER_TO_ORDERS'
+//--------------------------------------------------------------------
+const HIDE_APPLY_STATE_FILTER_TO_ORDERS_REMOVE_FILTER='xcala/orderDetails/HIDE_APPLY_STATE_FILTER_TO_ORDERS_REMOVE_FILTER'
 
 
 //2. ACTIONS y THUNK ACTIONS (Permiten retornar funciones)
@@ -9,7 +11,11 @@ export const applyStateFilterToOrders=(option,orderState)=>{
     if(option===true){
         return {type:SHOW_APPLY_STATE_FILTER_TO_ORDERS}
     }else{
-        return {type:HIDE_APPLY_STATE_FILTER_TO_ORDERS,payload:orderState}
+        if(orderState!=='removerFiltro'){
+            return {type:HIDE_APPLY_STATE_FILTER_TO_ORDERS,payload:orderState}
+        }else{
+            return {type:HIDE_APPLY_STATE_FILTER_TO_ORDERS_REMOVE_FILTER,payload:undefined}
+        }
     }
     
 }
@@ -19,7 +25,9 @@ export const applyStateFilterToOrders=(option,orderState)=>{
 //3. REDUCER PRELOADER
 const initialState={
     showApplyStateFilterToOrdersModal:false,
-    orderStateFilter:null
+    selectedOrderState:undefined,
+    activeFilterByOrderState:false
+
 }
 const showOrHideApplyStateFilterReducer = (state=initialState, action)=>{
     switch(action.type){
@@ -31,7 +39,14 @@ const showOrHideApplyStateFilterReducer = (state=initialState, action)=>{
             return{
                 ...state,
                 showApplyStateFilterToOrdersModal:false,
-                orderStateFilter:action.payload}
+                selectedOrderState:action.payload,
+                activeFilterByOrderState:true}
+        case HIDE_APPLY_STATE_FILTER_TO_ORDERS_REMOVE_FILTER:
+            return{
+                ...state,
+                showApplyStateFilterToOrdersModal:false,
+                selectedOrderState:action.payload,
+                activeFilterByOrderState:false}
         default:
             return state;
         }

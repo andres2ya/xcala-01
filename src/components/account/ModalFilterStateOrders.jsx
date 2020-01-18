@@ -91,7 +91,7 @@ class ModalFilterStateOrders extends Component {
                       </div>
                     </div>
                     <div 
-                    onClick={()=>this.selectFilterByState('allOrders')}
+                    onClick={()=>this.selectFilterByState('removerFiltro')}
                     className="row removeFilter d-flex align-items-center">
                         <div className="col-12 d-flex align-items-center">
                         <i className="removeFilterIcon icon-cancel-circled centerVertical"/>Remover filtro

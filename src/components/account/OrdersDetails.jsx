@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 // import numeral from 'numeral';
 import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrdersDuck';
 import TabsSelector from "../SupplierComponents/SupplierOrders/TabsSelector/TabsSelector";
+import OrderCard from "./OrderCardComponent/OrderCard"
 
 class OrdersDetails extends Component {
   
@@ -74,6 +75,13 @@ class OrdersDetails extends Component {
     console.log(this.props.activeFilterByOrderState)
     var orders=undefined
     var stopRenderCaseIndicator=false
+
+    const vectorPedidos=[
+      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
+      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
+      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
+      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'}
+    ]
 
     {//NOTE: ANTERIOR FORMA DE FILTRAR
     // if(userOrders){
@@ -190,6 +198,13 @@ class OrdersDetails extends Component {
           </div>
         </div>
         
+        {/* TODO: Diseñar nueva card for seller orders ... */}
+        
+
+        {vectorPedidos.map(pedido=>
+          <OrderCard idPedido={pedido.idPedido} ultimoEstado={pedido.ultimoEstado} caso={false} fecha={pedido.fecha} proveedor={pedido.proveedor} 
+          imagen={pedido.image} costo={pedido.costo} ganancia={pedido.ganancia} precioDeVenta={pedido.precioDeVenta} cliente={pedido.cliente} direccionEnvio={pedido.direccionEnvio}/>  
+        )}
 
         {orders?orders.reverse().map(order=>(
             <div key={order.numeroPedido} className="container-fluid orderCard">

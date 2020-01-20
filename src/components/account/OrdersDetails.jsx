@@ -77,10 +77,10 @@ class OrdersDetails extends Component {
     var stopRenderCaseIndicator=false
 
     const vectorPedidos=[
-      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
-      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
-      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
-      {idPedido:'0001',ultimoEstado:'enviadoAlProveedor',fecha:'01/01/2020',proveedor:'AFY SAS',image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'}
+      {idPedido:'0001',tipoPago:'online',ultimoEstado:'Pendiente',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:false,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
+      {idPedido:'0001',tipoPago:'online',ultimoEstado:'Despachado',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:true,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
+      {idPedido:'0001',cancelarActivo:true,cambiarDirActivo:false,cambioDireccion:true,tipoPago:'contraEntrega',ultimoEstado:'Despachado',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:false,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
+      {idPedido:'0001',cancelarActivo:false,cambiarDirActivo:true,cambioDireccion:false,tipoPago:'contraEntrega',ultimoEstado:'Pendiente',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:false,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'}
     ]
 
     {//NOTE: ANTERIOR FORMA DE FILTRAR
@@ -202,7 +202,7 @@ class OrdersDetails extends Component {
         
 
         {vectorPedidos.map(pedido=>
-          <OrderCard idPedido={pedido.idPedido} ultimoEstado={pedido.ultimoEstado} caso={false} fecha={pedido.fecha} proveedor={pedido.proveedor} 
+          <OrderCard idPedido={pedido.idPedido} cancelarActivo={pedido.cancelarActivo} cambiarDirActivo={pedido.cambiarDirActivo} cambioDireccion={pedido.cambioDireccion} tipoPago={pedido.tipoPago} ultimoEstado={pedido.ultimoEstado} casoActivo={pedido.casoActivo} fecha={pedido.fecha} proveedor={pedido.proveedor} 
           imagen={pedido.image} costo={pedido.costo} ganancia={pedido.ganancia} precioDeVenta={pedido.precioDeVenta} cliente={pedido.cliente} direccionEnvio={pedido.direccionEnvio}/>  
         )}
 

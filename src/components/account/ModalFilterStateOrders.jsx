@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrdersDuck';
 
+
 class ModalFilterStateOrders extends Component {
 
     componentDidUpdate=()=>{
@@ -24,7 +25,6 @@ class ModalFilterStateOrders extends Component {
     
 
     render() {
-        const {orderStateFilter}=this.props
         if(!this.props.showApplyStateFilterToOrdersModal){
             return(null)
         }else{
@@ -39,7 +39,7 @@ class ModalFilterStateOrders extends Component {
                         </p>
                       </div>
                       <div
-                        onClick={() =>this.props.applyStateFilterToOrders(false,orderStateFilter)}
+                        onClick={() =>this.props.applyStateFilterToOrders(false,undefined,true)}
                         className="col-3 col-modalExitBtn">
                         <i className="backOrderDetails icon-arrow-circle-left"/>
                       </div>
@@ -112,11 +112,11 @@ class ModalFilterStateOrders extends Component {
 }
 const mapStateToProps=(state)=>({
     showApplyStateFilterToOrdersModal:state.showOrHideApplyStateFilterReducer.showApplyStateFilterToOrdersModal,
-    orderStateFilter:state.showOrHideApplyStateFilterReducer.orderStateFilter
+    selectedOrderState:state.showOrHideApplyStateFilterReducer.selectedOrderState
 })
 const mapDispatchToProps=(dispatch)=>{
     return {
-      applyStateFilterToOrders:(option,orderState)=>dispatch(applyStateFilterToOrders(option,orderState))
+      applyStateFilterToOrders:(option,orderState,cerrarModal)=>dispatch(applyStateFilterToOrders(option,orderState,cerrarModal))
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(ModalFilterStateOrders)

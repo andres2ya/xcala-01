@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import LinkWithDelay from '../../helpers/LinkWithDelay';
 import {connect} from 'react-redux';
+import firebase from "firebase/app";
+import "firebase/firestore";
 // import numeral from 'numeral';
 import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrdersDuck';
 import TabsSelector from "../SupplierComponents/SupplierOrders/TabsSelector/TabsSelector";
 import OrderCard from "./OrderCardComponent/OrderCard"
+import FiltersOrdersComponent from './FiltersComponent/FiltersOrdersComponent'
 
 class OrdersDetails extends Component {
   
@@ -15,52 +18,45 @@ class OrdersDetails extends Component {
     activeFilterByCustomer:false,
     selectedCustomer:undefined,
 
-    //NOTE: Estas opciones mejor se estan trrayendo de las props debido a que este filtro se aplica mediante un modal, por lo cual estas opciones se guardan en el estado global del app
+    //NOTE: Estas opciones mejor se estan trayendo de las props debido a que este filtro se aplica mediante un modal, por lo cual estas opciones se guardan en el estado global del app
     // activeFilterByOrderState:false,
     // selectedOrderState:undefined
+
+    userOrders:[]
+  }
+
+  componentDidMount=()=>{
+    console.log(this.props.selectedOrderState)
+    this.getOrders('componentDidMount')
   }
 
   componentWillUnmount=()=>{
     document.getElementById('ownModal').removeAttribute('class')
     document.body.removeAttribute('class')
     document.body.className='myAccountStyle'
-    this.props.applyStateFilterToOrders(false,this.props.orderStateFilter)
+
+    this.props.applyStateFilterToOrders(false,'removerFiltro')
+    this.unsuscribeAllListener()
   }
 
-  
-  //NOTE: ANTERIOR FORMA DE FILTRAR...
-  // changeOrderDisplay=(tab)=>{
-  //   this.setState({
-  //     orderDisplay:tab
-  //   })
-  // }
-
-  // applyFilterByState=(e)=>{
-  //   e.preventDefault()
-  //   window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
-  //   this.props.applyStateFilterToOrders(true)
-  // }
-
-  // applyFilterByConstumer=(e)=>{
-  //   e.preventDefault()
-  //   if(e.target.value!=='MostrarTodos'){
-  //     this.setState({
-  //       filterByConstumer:true,
-  //       selectConstumer:e.target.value
-  //     })
-  //   }else{
-  //     this.setState({
-  //       filterByConstumer:false
-  //     })
-  //   }
-  // }
-
-  applyFilterByPay=(e)=>{
-    this.setState({selectedPay:e.target.id})
+  applyFilterByPay=async(e)=>{
+    if(e.target.id!=='Todos'){
+      await this.setState({selectedPay:e.target.id,activeFilterByPay:true})
+      this.getOrders('applyFilterByPay')
+    }else{
+      await this.setState({selectedPay:'Todos',activeFilterByPay:false})
+      this.getOrders('applyFilterByPay')
+    }
   }
 
-  applyFilterByCustomer=(e)=>{
-    this.setState({selectedCustomer:e.target.value})
+  applyFilterByCustomer=async(e)=>{
+    if(e.target.value!=='MostrarTodos'){
+      await this.setState({selectedCustomer:e.target.value,activeFilterByCustomer:true})
+      this.getOrders('applyFilterByCustomer')
+    }else{
+      await this.setState({selectedCustomer:undefined,activeFilterByCustomer:false})
+      this.getOrders('applyFilterByCustomer')
+    }
   }
 
   applyFilterByState=(e)=>{
@@ -68,239 +64,187 @@ class OrdersDetails extends Component {
     this.props.applyStateFilterToOrders(true)
   }
 
- 
+  componentDidUpdate=(prevProps)=>{
+    if(prevProps.activeFilterByOrderState!==this.props.activeFilterByOrderState){
+      this.getOrders('applyFilterByState')
+    }
+  }
 
-  render() {
-    console.log(this.props.selectedOrderState)
-    console.log(this.props.activeFilterByOrderState)
-    var orders=undefined
-    var stopRenderCaseIndicator=false
-
-    const vectorPedidos=[
-      {idPedido:'0001',tipoPago:'online',ultimoEstado:'Pendiente',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:false,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
-      {idPedido:'0001',tipoPago:'online',ultimoEstado:'Despachado',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:true,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
-      {idPedido:'0001',cancelarActivo:true,cambiarDirActivo:false,cambioDireccion:true,tipoPago:'contraEntrega',ultimoEstado:'Despachado',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:false,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'},
-      {idPedido:'0001',cancelarActivo:false,cambiarDirActivo:true,cambioDireccion:false,tipoPago:'contraEntrega',ultimoEstado:'Pendiente',fecha:'01/01/2020',proveedor:'AFY SAS',casoActivo:false,image:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',costo:'50000',ganancia:'20000',precioDeVenta:'70000',cliente:'Pepito',direccionEnvio:'Carrera 68D #24B-48'}
+  unsuscribeAllListener=async()=>{
+    const listeners=[
+      this.unsubscribePedidosSinFiltro,
+      this.unsubscribePedidosFiltroFormaPago,
+      this.unsubscribePedidosFiltroCliente,
+      this.unsubscribePedidosFiltroEstado,
+      this.unsubscribePedidosFiltro_Pago_y_cliente,
+      this.unsubscribePedidosFiltro_Pago_y_estado,
+      this.unsubscribePedidosFiltro_Cliente_y_Estado,
+      this.unsubscribePedidosFiltro_Pago_Cliente_y_Estado
     ]
 
-    {//NOTE: ANTERIOR FORMA DE FILTRAR
-    // if(userOrders){
-    //   switch (orderDisplay) {
-    //     case 'allOrders':
-    //       orders=[...userOrders]
-    //       break;
-    //     case 'cashOnDeliveryOrders':
-    //       orders=userOrders.filter(order=>(order.tipoPago==='contraEntrega'))
-    //       break;
-    //     case 'onlinePayOrders':
-    //       orders=userOrders.filter(order=>(order.tipoPago==='online'))
-    //       break;
-    //     default:
-    //       orders=[...userOrders]
-    //       break;
-    //   }
-    // }
+    //NOTE: Reiniciando vector pedidos cada vez que se filtra la vist a
+    this.setState({userOrders:[]})
+    
+    //NOTE: unsuscribe el listener que existe actualmente
+    return Promise.all(listeners.map(async(listener)=>{if(listener){return Promise.resolve(listener())}}))
+  }
 
-    // if(orders!==undefined && orderStateFilter!==undefined){
-    //   switch (orderStateFilter) {
-    //     case 'enviadoAlProveedor':
-    //       // Para leer directamente desde el arreglo de estado de cada pedido utilizar:
-    //       // orders=orders.filter(order.estados[order.estados.slice().reverse().findIndex(estado=>estado.activo===true)].estado==='enviadoAlProveedor')
-    //       orders=orders.filter(order=>(order.estado==='enviadoAlProveedor'))
-    //       break;
-    //     case 'enProduccion':
-    //       orders=orders.filter(order=>(order.estado==='enProduccion'))
-    //       break;
-    //     case 'listoParaDespacho':
-    //       orders=orders.filter(order=>(order.estado==='listoParaDespacho'))
-    //       break;
-    //     case 'despachado':
-    //       orders=orders.filter(order=>(order.estado==='despachado'))
-    //       break;
-    //     case 'finalizado':
-    //       orders=orders.filter(order=>(order.estado==='finalizado'))
-    //       break;
-    //     case 'cancelado':
-    //       orders=orders.filter(order=>(order.estado==='cancelado'))
-    //       break;
-    //     case 'allOrders':
-    //       orders=[...orders]
-    //       break;
-    //     default:
-    //       orders=[...orders]
-    //       break;
-    //   }
-    // }
+  getOrders=async(origen)=>{
+    //TODO: traer idVendedor desde el documento de cada usuario...
+    var db=firebase.firestore()
+    const {activeFilterByPay,selectedPay,   activeFilterByCustomer,selectedCustomer}=this.state
+    const {activeFilterByOrderState,selectedOrderState}=this.props
 
-    // const {selectConstumer,filterByConstumer}=this.state
-    // Funcion para filtrar un arreglo de acuerdo con el resultado de filtro de una arreglo interno del primero: Es decir, 
-    // filtrar aquellas ordenes (primera arreglo) cuyo arreglo interno (items) contiene dentro de si el parametro (clienteNombre) que coincide con el valor buscado (selectConstumer)
-    // if(orders!==undefined && filterByConstumer===true ){
-
-    //     orders=orders.filter(function(order){
-    //       if(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0]!==undefined 
-    //       && order.items.filter((item)=>item.clienteNombre===selectConstumer)[0].clienteNombre===selectConstumer){
-    //           return(order.items.filter((item)=>item.clienteNombre===selectConstumer)[0].clienteNombre)            
-    //         }else{
-    //       return null}
-    //     })
-    // }
+    if(origen!=='componentDidMount'){
+      await this.unsuscribeAllListener()
     }
 
-    return (
-      <div className="pcControlerScreen ">
-        <div className="row">
-          <p className="accountTitle">Resumen de tus pedidos</p>
-        </div>
-        {/* <div className="container-fluid tab-orders">
-          <div className="row">
-            <div 
-            onClick={()=>this.changeOrderDisplay('allOrders')}
-            className={`col-4 ${orderDisplay==='allOrders'?'col-selector-active':'col-selector'} d-flex justify-content-center align-items-center`}>
-              Todos
-            </div>
-            <div 
-            onClick={()=>this.changeOrderDisplay('cashOnDeliveryOrders')}
-            className={`col-4 ${orderDisplay==='cashOnDeliveryOrders'?'col-selector-active':'col-selector'}  d-flex justify-content-center align-items-center`}>
-              ContraEntrega
-            </div>
-            <div 
-            onClick={()=>this.changeOrderDisplay('onlinePayOrders')}
-            className={`col-4 ${orderDisplay==='onlinePayOrders'?'col-selector-active':'col-selector'} d-flex justify-content-center align-items-center`}>
-              Pago/online
-            </div>
-          </div>
-        </div> */}
-        <TabsSelector namesTabs={['Todos','ContraEntrega','Pago Online']} onClick={this.applyFilterByPay} activeTab={this.state.selectedPay}/>
-
-        <div className="container-fluid filtersContainer">
-          <div className="row">
-            <div className="col-5 filterByConstumer-col  d-flex justify-content-start align-items-center">
-              {/* Inicio Filtro por cliente */}
-              {/* TODO: Cargar las opciones con los datos de los nombres de los clientes de los usuarios vendedores */}
-              <select onChange={this.applyFilterByCustomer} id="filterByConstumer" defaultValue={'BuscarPorCliente'}>
-                <option value="BuscarPorCliente" disabled>Buscar por cliente</option>
-                <option value="Pepito">Pepito</option>
-                <option value="Julian">Julian</option>
-                <option value="MostrarTodos">Mostrar todos</option>
-              </select>
-              {/* FIn Filtro por cliente */}
-            </div>
-              {/* Inicio Filtro por estado */}
-            <div className="col-7 col-stateFilter d-flex justify-content-end align-items-center">
-              <div
-              onClick={this.applyFilterByState}
-              className="filterBox d-flex justify-content-end align-items-center">
-                Filtrar por estado <i className="icon-filterBox icon-filter centerVerticalAndHorizontal"/>
-              </div>
-            </div>
-              {/* Fin Filtro por estado */}
-          </div>
-        </div>
-        
-        {/* TODO: Diseñar nueva card for seller orders ... */}
-        
-
-        {vectorPedidos.map(pedido=>
-          <OrderCard idPedido={pedido.idPedido} cancelarActivo={pedido.cancelarActivo} cambiarDirActivo={pedido.cambiarDirActivo} cambioDireccion={pedido.cambioDireccion} tipoPago={pedido.tipoPago} ultimoEstado={pedido.ultimoEstado} casoActivo={pedido.casoActivo} fecha={pedido.fecha} proveedor={pedido.proveedor} 
-          imagen={pedido.image} costo={pedido.costo} ganancia={pedido.ganancia} precioDeVenta={pedido.precioDeVenta} cliente={pedido.cliente} direccionEnvio={pedido.direccionEnvio}/>  
-        )}
-
-        {orders?orders.reverse().map(order=>(
-            <div key={order.numeroPedido} className="container-fluid orderCard">
-              <LinkWithDelay to={`/order-id${order.id}`} delay={30}>
-              <div className="orderCardContent">
-                <div className="row">
-
-                  <div className="col-9">
-                    <div className="row">
-                      <div className="col-12 orderIdAndDateCard">
-                        <div className={`orderIdCard ${order.estado} d-flex justify-content-center align-items-center`}>
-                          <div className="overlay-orderIdCard d-flex justify-content-center align-items-center">
-                            <span>Pedido #{order.numeroPedido}</span>
-                          </div>
-                        </div> 
-                        <div className="orderStateCard centerHorizontal d-flex justify-content-center align-items-center">
-                            <div className={`stateCircle ${order.estado}`}/>
-                            <span>{order.estado}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-3 d-flex justify-content-center align-items-center">
-                    
-                    {order.items.map((item,index)=>(
-                      (()=>{
-                        if(item.case!==undefined && stopRenderCaseIndicator===false){
-                          stopRenderCaseIndicator=true
-                          return (
-                            <div key={index} className="row">
-                              <div className="col-12 orderIdAndDateCard">
-                                <div className="openCaseIndicatorBox ">
-                                  Caso...
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        } else {
-                          stopRenderCaseIndicator=false 
-                          return null
-                        }
-                      })()
-                    ))}
-
-                  </div>
-                </div>
-
-
-                <div className="row">
-                  <div className="col-9 dateCol">
-                    <span>Realizado el {order.fecha}</span>
-                  </div>
-                  <div className="col-3"/>
-                </div>
-
-                <div className="row">
-                  <div className="col-9 d-flex">
-                    <div className="totalCostCol">
-                      {/* <div className="totalCostNumberCard">{numeral(order.costoTotal).format('$0,0')}</div> */}
-                      <div className="totalCostNumberCard">$1,000,000</div>
-                      
-                      <div className="totalCostLabelCard">Costo total</div>
-                    </div>
-                    <div className="totalUtilityCol">
-                      {/* <div className="totalUtilityNumberCard">{numeral(order.gananciaTotal).format('$0,0')}</div> */}
-                      <div className="totalUtilityNumberCard">$1,000,000</div>
-                      <div className="totalUtilityLabelCard">Ganancia total</div>
-                    </div>
-                  </div>
-                    
-
-                  <div className="col-3 viewOrderButton d-flex justify-content-center align-items-center">
-                      <i className="icon-detailswithoutcircle centerVertical"></i>                    
-                  </div>
-                </div>
-
-
-            </div>
-            </LinkWithDelay>
-          </div>
-        ))
-
-        :
-
-        <div>
-          <p className="noOrdersMsg">Aun no has realizado tu primer pedido.</p>
-          <div className="row lookForProductsBtn d-flex justify-content-center align-items-center">
-            <button >Ver productos</button>
-          </div>
-        </div>
-        }        
-      </div>
-    );
+    if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===false){
+      console.log('Pedidos sin filtro:')
+      this.unsubscribePedidosSinFiltro=db.collection('pedidos').where('idVendedor','==','Andres').onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===false){
+      console.log('Pedidos filtrados por forma de pago:',selectedPay)
+      this.unsubscribePedidosFiltroFormaPago=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===false){
+      console.log('Pedidos filtrados por cliente:',this.state.selectedCustomer)
+      this.unsubscribePedidosFiltroCliente=db.collection('pedidos').where('idVendedor','==','Andres').where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por estado:',this.props.selectedOrderState)  
+      this.unsubscribePedidosFiltroEstado=db.collection('pedidos').where('idVendedor','==','Andres').where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===false){
+      console.log('Pedidos filtrados por tipo de pago y cliente:')
+      this.unsubscribePedidosFiltro_Pago_y_cliente=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por tipo de pago y estado:')
+      this.unsubscribePedidosFiltro_Pago_y_estado=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por cliente y estado:')
+      this.unsubscribePedidosFiltro_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==','Andres').where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por tipo de pago, cliente y estado:')
+      this.unsubscribePedidosFiltro_Pago_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }
   }
-}
+  
+  render() {
+    const {userOrders}=this.state
+
+    if(this.state.userOrders.length>0){
+      return (
+        <div className="pcControlerScreen ">
+
+          <div className="row">
+            <p className="accountTitle">Resumen de tus pedidos</p>
+          </div>
+          
+          <TabsSelector 
+            namesTabs={['Todos','ContraEntrega','Pago Online']} //TODO: Traer clientes del usuario vendedor desde su documento en DB.
+            onClick={this.applyFilterByPay} 
+            activeTab={this.state.selectedPay}>
+          </TabsSelector>
+
+
+          <FiltersOrdersComponent
+            vectorClientes={['Pepito','Alejandro']}
+            applyFilterByCustomer={this.applyFilterByCustomer}
+            applyFilterByState={this.applyFilterByState}
+            selectedOrderState={this.props.selectedOrderState}>
+          </FiltersOrdersComponent>
+                
+
+          {userOrders.map(pedido=>
+            <OrderCard 
+              idPedido={pedido.idPedido} 
+              posibleCancelar={pedido.posibleCancelar} 
+              cambioLaDireccion={pedido.cambioLaDireccion} 
+              casoAbierto={pedido.casoAbierto} 
+              tipoPago={pedido.tipoPago} 
+              ultimoEstado={pedido.ultimoEstado} 
+              fecha={pedido.fecha} 
+              idProveedor={pedido.idProveedor} 
+              imagenProducto={pedido.imagenProducto} 
+              costo={pedido.costo} 
+              ganancia={pedido.ganancia} 
+              precioVenta={pedido.precioVenta} 
+              idCliente={pedido.idCliente} 
+              direccionCliente={pedido.direccionCliente}>
+            </OrderCard>  
+          )}
+
+        </div>
+      )
+        }else{
+          return(
+            <div className="pcControlerScreen ">
+              <div className="row">
+                <p className="accountTitle">Resumen de tus pedidos</p>
+              </div>
+
+              <TabsSelector 
+                namesTabs={['Todos','ContraEntrega','Pago Online']} 
+                onClick={this.applyFilterByPay} 
+                activeTab={this.state.selectedPay}>
+              </TabsSelector>
+
+              <FiltersOrdersComponent
+                vectorClientes={['Pepito','Alejandro']}
+                applyFilterByCustomer={this.applyFilterByCustomer}
+                applyFilterByState={this.applyFilterByState}
+                selectedOrderState={this.props.selectedOrderState}>>
+              </FiltersOrdersComponent>
+            </div>
+          )
+        }
+  }};
+
 
 const mapStateToProps=(state)=>({
   //NOTE: Este es el que me devuelve el estado seleccionado desde el modal del filtro por estados
@@ -310,9 +254,8 @@ const mapStateToProps=(state)=>({
 
 const mapDispatchToProps=(dispatch)=>{
   return {
-    applyStateFilterToOrders:(option)=>dispatch(applyStateFilterToOrders(option))
+    applyStateFilterToOrders:(option,orderState)=>dispatch(applyStateFilterToOrders(option,orderState))
   }
 }
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(OrdersDetails);

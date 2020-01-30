@@ -13,9 +13,7 @@ import authUpdatePassAndEmailReducer from './ducks/authDucks/authUpdatePassAndEm
 import handlerErrorsReducer from './ducks/errorsDuck/handleErrors';
 import preloaderReducer from './ducks/preloaderDuck/preloaderDuck';
 import uploadFileReducer from './ducks/accountDuck/uploadFilesDuck';
-import showOrHideApplyStateFilterReducer from './ducks/accountDuck/applyFilterToOrdersDuck';
 import trackOrderReducer from './ducks/accountDuck/trackOrderDuck';
-import openCaseReducer from './ducks/accountDuck/openCaseDuck';
 import supplierSignUpReducer from './ducks/internalXcalaDucks/newSupplierDuck'
 
 
@@ -76,9 +74,7 @@ const rooReducer = combineReducers({
     authUpdatePassAndEmailReducer:authUpdatePassAndEmailReducer,
     preloaderReducer:preloaderReducer,
     uploadFileReducer:uploadFileReducer,
-    showOrHideApplyStateFilterReducer:showOrHideApplyStateFilterReducer,
     trackOrderReducer:trackOrderReducer,
-    openCaseReducer:openCaseReducer,
     supplierSignUpReducer:supplierSignUpReducer
 });
 

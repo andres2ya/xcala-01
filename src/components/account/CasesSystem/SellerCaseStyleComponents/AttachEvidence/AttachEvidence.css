@@ -1,0 +1,38 @@
+.inputEvidencesFileBox{
+    margin-bottom: 50px;
+}
+
+.evidenceFileInput{
+    width: 0.01px;
+    height: 0.01px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+    z-index:-1
+}
+
+
+.inputEvidenceLabelOne,.inputEvidenceLabelTwo,.inputEvidenceLabelThree,.inputEvidenceLabelFour{
+    position: absolute;
+    top:0;left:0;right:0;bottom:0;
+    width: 45px;
+    height: 45px;
+    margin-left:25px;
+    margin-top:25px;
+    border-radius: 50%;
+    color: white;
+    background-color: grey;
+    z-index: 2;
+}
+        .inputEvidenceLabelTwo{
+            margin-left:80px;
+        }.inputEvidenceLabelThree{
+            margin-left:135px;
+        }.inputEvidenceLabelFour{
+            margin-left:190px;
+        }
+
+.inputEvidenceLabelOne:active,.inputEvidenceLabelTwo:active,.inputEvidenceLabelThree:active,.inputEvidenceLabelFour:active{
+    background-color: rgb(182, 182, 182);
+}

@@ -18,6 +18,10 @@ export const identifyAndReturnMsgError=(errorCode)=>{
             return 'No has completado todos los campos'
         case 'onlyImages':
             return 'Solo puedes cargar imagenes'
+        case 'writeOpenCaseData':
+            return 'Porfavor ingresa el motivo y una descripcion del caso.'
+        case 'error al crear caso':
+            return 'Algo ha salido mal al momento de crear el caso. Porfavor vuelte a intentarlo.'
         default:
             return 'Algo ha salido mal. Porfavor vuelve a intentarlo.'
     }

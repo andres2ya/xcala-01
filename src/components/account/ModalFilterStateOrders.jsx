@@ -1,34 +1,31 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
-import {applyStateFilterToOrders} from '../../ducks/accountDuck/applyFilterToOrdersDuck';
 
+export default class ModalFilterStateOrders extends Component {
 
-class ModalFilterStateOrders extends Component {
-
-    componentDidUpdate=()=>{
-        const {showApplyStateFilterToOrdersModal}=this.props
-        if(showApplyStateFilterToOrdersModal===true){
-            document.getElementById('ownModal').className='ownModal'
-            document.body.className='overFlowYHidden'
-        }else{
-            document.getElementById('ownModal').removeAttribute('class')
-            document.body.removeAttribute('class')
-            document.body.className='myAccountStyle'
-        }
+    componentDidMount=()=>{
+      console.log('Se cargó el ModalFilterStateOrders con idPedido=',this.props.idPedido)
+    }
+    componentWillUnmount=()=>{
+        console.log('Se desmonto el ModalFilterStateOrders con idPedido=',this.props.idPedido)
     }
 
     selectFilterByState=(option)=>{
         setTimeout(
-            ()=>this.props.applyStateFilterToOrders(false,option),80
+            ()=>{
+              if(option==='removerFiltro'){
+                this.props.applyFilterByState(undefined)
+                this.props.toggleModal(null)
+              }else{
+                this.props.applyFilterByState(option)
+                this.props.toggleModal(null)
+              }
+            },80
         )
     }
     
 
     render() {
-        if(!this.props.showApplyStateFilterToOrdersModal){
-            return(null)
-        }else{
-            return (
+        return (
               <div className="modalFilterByStateInsideCard d-flex justify-content-center">
                 <div className="row modalFilterByStateContent">
                   <div className="col-12">
@@ -39,7 +36,7 @@ class ModalFilterStateOrders extends Component {
                         </p>
                       </div>
                       <div
-                        onClick={() =>this.props.applyStateFilterToOrders(false,undefined,true)}
+                        onClick={() =>this.props.toggleModal(null)}
                         className="col-3 col-modalExitBtn">
                         <i className="backOrderDetails icon-arrow-circle-left"/>
                       </div>
@@ -97,26 +94,9 @@ class ModalFilterStateOrders extends Component {
                         <i className="removeFilterIcon icon-cancel-circled centerVertical"/>Remover filtro
                         </div>
                     </div>
-                    {/* <div className="row">
-                      <div className="col-12 applyFilterBtn  d-flex justify-content-center align-items-center ">
-                          <button>Aplicar filtro</button>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
               </div>
             );
         }
-
-    }
 }
-const mapStateToProps=(state)=>({
-    showApplyStateFilterToOrdersModal:state.showOrHideApplyStateFilterReducer.showApplyStateFilterToOrdersModal,
-    selectedOrderState:state.showOrHideApplyStateFilterReducer.selectedOrderState
-})
-const mapDispatchToProps=(dispatch)=>{
-    return {
-      applyStateFilterToOrders:(option,orderState,cerrarModal)=>dispatch(applyStateFilterToOrders(option,orderState,cerrarModal))
-    }
-  }
-export default connect(mapStateToProps,mapDispatchToProps)(ModalFilterStateOrders)

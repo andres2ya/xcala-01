@@ -1,0 +1,80 @@
+/* MODAL OPEN CASE**/
+.modalOpenCaseInsideCard{
+    background-color: white;
+    padding-top:3vh;
+    margin-left:auto;
+    margin-right: auto;
+    padding-bottom: 3vh;
+    width: 90%;
+    height: auto;
+    border-radius: 15px;
+}
+
+@media only screen and (min-width: 768px){
+    .modalOpenCaseInsideCard{
+        width: 36%; 
+    }
+}
+
+.selectOptionOpenCase select{
+    /* line-height: 30px; */
+    width: 90%;
+    border-radius: 15px;
+    color:#3d4c88;
+    font-size: 15px;
+    border-color: rgb(61, 76, 136,0.7);
+    margin-bottom: 10px;
+}
+.selectOptionOpenCase select:focus{
+    outline: none;
+}
+.selectOptionOpenCase select option{
+    outline: none;
+    border: none;
+}
+
+.typeOptionOpenCase textarea{
+    width: 90%;
+    height: 120px;
+    resize: none;
+    border-radius: 15px;
+    color:#3d4c88;
+    font-size: 14px;
+    border-color: rgb(61, 76, 136,0.7);
+    margin-bottom: 10px;
+}
+.typeOptionOpenCase textarea::placeholder{
+    color: rgb(61, 76, 136,0.5);
+}
+.typeOptionOpenCase textarea:focus{
+    outline: none;
+}
+
+
+.openCaseBtn{
+    margin-top:30px;
+}
+.openCaseBtn button{
+    min-width: 60%;
+    height: 40px;
+    border-radius: 15px;
+    background-color: white;
+    border:none;
+    font-size: 15px;
+    color:#3d4c88;
+    -webkit-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    font-weight: 700
+}
+@media only screen and (min-width: 768px){
+    .openCaseBtn button{
+        min-width: 30vw;
+    }
+}
+.openCaseBtn button:active{
+    transform: scale(0.9)
+}
+.openCaseBtn button:focus{
+    outline: none;
+}

@@ -14,10 +14,8 @@ import Spinner from './components/layout/Spinner/Spinner';
 import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
 import SecondNavbar from "./components/navbars/SecondNavbar/SecondNavbar";
 import OrdersDetails from "./components/account/OrdersDetails";
-import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
+// import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders";
-import ModalTrackorder from "./components/account/ModalTrackorder";
-import OpenCase from "./components/account/CasesSystem/OpenCase";
 import ControlPanelXcala from "./components/XcalaInternalComponents/ControlPanelXcala/ControlPanelXcala";
 import NewSupplier from "./components/XcalaInternalComponents/NewSupplier/NewSupplier";
 import SupplierAccount from "./components/SupplierComponents/SupplierAccount/SupplierAccount";
@@ -59,7 +57,8 @@ function App(){
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/my-account" component={MyAccount}/>
       <Route exact path="/order-details" component={OrdersDetails}/>
-      <Route exact path="/order-id:id" component={SpecificOrderDetails}/>
+      {/* <Route exact path="/order-id:id" component={SpecificOrderDetails}/> */}
+      {/* <Route exact path="/order-id" component={SpecificOrderDetails}/> */}
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>
       <Route exact path="/signup" component={SignUp}/>
@@ -72,10 +71,9 @@ function App(){
       <Route exact path='/supplier-orders' component={SupplierOrders}/>
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
-      {createPortal(<ModalFilterStateOrders/>,document.getElementById('ownModal'))}
-      {createPortal(<ModalTrackorder/>,document.getElementById('ownModal'))}
+      
 
-      {createPortal(<OpenCase/>,document.getElementById('ownModal'))}
+      
     </div>
   </div>
   );

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class FiltersOrdersComponent extends Component {
     render() {
-        const {vectorClientes,applyFilterByCustomer,applyFilterByState,selectedOrderState}=this.props
+        const {vectorClientes,applyFilterByCustomer,toggleModal,selectedOrderState}=this.props
         return (
         <div className="row filtersContainer">
             <div className="col-5 filterByConstumer-col  d-flex justify-content-start align-items-center">
@@ -19,7 +19,7 @@ export default class FiltersOrdersComponent extends Component {
 
             {/* NOTE:Inicio Filtro por estado */}
             <div className="col-7 col-stateFilter ">
-                <div onClick={applyFilterByState} className="filterBox d-flex justify-content-end align-items-center">
+                <div onClick={()=>toggleModal('filterByState')} className="filterBox d-flex justify-content-end align-items-center">
                     
                     {selectedOrderState!==undefined?
                     <div className="d-flex justify-content-end align-items-center">

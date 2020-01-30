@@ -1,0 +1,45 @@
+.resumenPedidoACancelar{
+    margin-bottom: 15px;
+}
+
+
+
+
+
+
+.cancelOrderModal-button-noCancel,.cancelOrderModal-button-cancel {
+/* min-width: 100%; */
+/* max-width: 100%; */
+width: 39vw;
+height: 30px;
+border-radius: 20px;
+font-size: 14px;
+line-height: 1.2;
+text-align: center;
+}
+
+.cancelOrderModal-btns button:focus{
+    outline: none;
+}
+
+.cancelOrderModal-btns button:active{
+    transform:scale(0.98);
+}
+
+
+.cancelOrderModal-button-noCancel{
+border:1px solid rgb(241,0,0);
+color: rgb(241,0,0);
+background-color: white;
+}
+
+.cancelOrderModal-button-cancel{
+color: white;
+border:0px solid rgb(241,0,0);
+
+background: rgb(241,0,0);
+background: -moz-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+background: -webkit-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+background: linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f10000",endColorstr="#d00071",GradientType=1);
+}

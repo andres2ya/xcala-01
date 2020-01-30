@@ -4,8 +4,16 @@ import './OrderCard.css'
 import LinkWithDelay from '../../../helpers/LinkWithDelay'
 
 export default class OrderCard extends Component {
+  
   render() {
-    const {idPedido,posibleCancelar,cambioLaDireccion,tipoPago,ultimoEstado,casoAbierto,fecha,idProveedor,imagenProducto,costo,ganancia,precioVenta,idCliente,direccionCliente}=this.props
+    const {pedidoObjeto,idProducto,idPedido,posibleCancelar,cambioLaDireccion,tipoPago,estado,fecha,idProveedor,imagenProducto,costo,ganancia,precioVenta,idCliente,direccionCliente,tiempoCreacion}=this.props
+    const {
+      function_trackOrder,
+      function_cancelOrder,
+      function_changeShippingAddress,
+      function_openCase,
+      function_showItemCaseDetails}=this.props
+    
     return (
     <div key={idPedido} className="container-fluid orderCard">
       
@@ -15,7 +23,7 @@ export default class OrderCard extends Component {
           <div className="orderIdCard-">{'Pedido:'} {idPedido}</div>
           <div className="orderStateCard-">
             <span>o</span>
-            <span>{ultimoEstado}</span>
+            <span>{estado}</span>
           </div>
         </div>
       </div>
@@ -31,7 +39,7 @@ export default class OrderCard extends Component {
       {/* NOTE: Fila imagen y datosPedido */}
       <div className="row">
         <div className="col-5 justify-content-center align-items-center">
-          <div className="d-flex justify-content-center">Adidas x</div>
+    <div className="d-flex justify-content-center">{idProducto}</div>
           <div className="d-flex justify-content-center align-items-center">
             <img width='100' src={imagenProducto} alt=""/>
           </div>
@@ -47,32 +55,33 @@ export default class OrderCard extends Component {
 
 
 
+
       {/* NOTE: Funcion autoejecutable para renderizar botones de los pedidos de acuerdo con su estado. */}
-      {(function RenderBotones(tipoPago,ultimoEstado,casoAbierto,posibleCancelar,cambioLaDireccion) {
+      {(function RenderBotones(tipoPago,estado,posibleCancelar,cambioLaDireccion,tiempoCreacion) {
           
           switch (tipoPago) {
             case 'Pago Online'://NOTE: Pedidos con pago Online
-              if(ultimoEstado==='Pendiente'){
+              if(estado==='Pendiente'){
                 return(
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center">
-                      <button className="uniqueButton">Rastrear</button>
+                      <button className="uniqueButton" onClick={(e)=>function_trackOrder(e,idPedido)}>Rastrear</button>
                     </div>
                   </div>
                 )
-              }else if(ultimoEstado==='Despachado'){
+              }else if(estado==='Despachado'){
                 return(
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center">
-                      <button className="uniqueButton">Abrir caso</button>
+                      <button className="uniqueButton" onClick={(e)=>function_openCase(e,idPedido)}>Abrir caso</button>
                     </div>
                   </div>
                 )
-              }else if(ultimoEstado==='Caso abierto'){
+              }else if(estado==='Caso abierto'){
                 return(
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center">
-                      <button className="uniqueButton">Ver caso</button>
+                      <button className="uniqueButton" onClick={(e)=>function_showItemCaseDetails(e,idPedido,pedidoObjeto)}>Ver caso</button>
                     </div>
                   </div>
                 )
@@ -81,61 +90,61 @@ export default class OrderCard extends Component {
 
 
             case 'ContraEntrega'://NOTE: Pedidos con pago contra entrega
-              if(ultimoEstado==='Pendiente' && posibleCancelar==='true'){
+              if(estado==='Pendiente' && posibleCancelar==='true'){
                 return(
                   <div className="row">
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                      <button className="buttonOne">Rastrear</button>
+                      <button className="buttonOne" onClick={(e)=>function_trackOrder(e,idPedido)}>Rastrear</button>
                     </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                      <button className="buttonTwo">Cancelar</button>
+                      <button className="buttonTwo" onClick={(e)=>function_cancelOrder(e,idPedido,tiempoCreacion,pedidoObjeto)}>Cancelar</button>
                     </div>
                   </div>
                 )
 
-              }else if(ultimoEstado==='Pendiente' && posibleCancelar==='false' && cambioLaDireccion==='false'){
+              }else if(estado==='Pendiente' && posibleCancelar==='false' && cambioLaDireccion==='false'){
                 return(
                   <div className="row">
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                      <button className="buttonOne">Rastrear</button>
+                      <button className="buttonOne" onClick={(e)=>function_trackOrder(e,idPedido)}>Rastrear</button>
                     </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                      <button className="buttonTwo">Cambiar direccion</button>
+                      <button className="buttonTwo" onClick={(e)=>function_changeShippingAddress(e,idPedido,'direccionVendedor',pedidoObjeto)}>Enviar a mi direccion</button>
                     </div>
                   </div>
                 )
                
-              }else if(ultimoEstado==='Pendiente' && cambioLaDireccion==='true' ){
+              }else if(estado==='Pendiente' && cambioLaDireccion==='true' ){
                 return(
                   <div className="row">
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                      <button className="buttonOne">Rastrear</button>
+                      <button className="buttonOne" onClick={(e)=>function_trackOrder(e,idPedido)}>Rastrear</button>
                     </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
-                      <button disabled className="buttonTwo">Cambió la direccion</button>
+                      <button disabled className="buttonTwo">Se enviara a tu direccion</button>
                     </div>
                   </div>
                 )
 
-              }else if(ultimoEstado==='Despachado'){
+              }else if(estado==='Despachado'){
                 return(
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center">
-                      <button className="uniqueButton">Abrir caso</button>
+                      <button className="uniqueButton" onClick={(e)=>function_openCase(e,idPedido)}>Abrir caso</button>
                     </div>
                   </div>
                 )
 
-              }else if(ultimoEstado==='Caso abierto'){
+              }else if(estado==='Caso abierto'){
                 return(
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center">
-                      <button className="uniqueButton">Ver caso</button>
+                      <button className="uniqueButton" onClick={(e)=>function_showItemCaseDetails(e,idPedido,pedidoObjeto)}>Ver caso</button>
                     </div>
                   </div>
                 )
 
-              }else if(ultimoEstado==='Cancelado'){
+              }else if(estado==='Cancelado'){
                 return(
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center">
@@ -150,7 +159,7 @@ export default class OrderCard extends Component {
               break;
           }
 
-          }(tipoPago,ultimoEstado,casoAbierto,posibleCancelar,cambioLaDireccion))}
+          }(tipoPago,estado,posibleCancelar,cambioLaDireccion,tiempoCreacion))}
 
     </div>
 

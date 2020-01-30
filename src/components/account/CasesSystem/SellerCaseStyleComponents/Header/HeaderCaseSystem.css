@@ -1,0 +1,30 @@
+.headerModalContent{
+    /* padding-top:15px; */
+    padding-bottom: 15px;
+    /* position: relative; */
+} 
+
+.numberOrderTitleModal{
+    color:black;
+    font-size: 30px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    line-height: 25px;
+    height: 40px;
+}
+
+.orderIdModal{
+    color:black;
+    font-size: 15px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 500;
+    line-height: 25px;
+    height: 40px;
+}
+
+.paragraphOrderDetailsModal{
+    font-weight: 400;
+    margin-top:20px;
+    line-height: 20px;
+    height: 25;
+}

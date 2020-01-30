@@ -161,6 +161,15 @@ if(document.body.className!=='loginStyle'){
                         <div className="seeCaseResume" onClick={this.showCaseResume}>{this.state.showCaseResume?'Cerrar resumen':'Ver resumen del caso'}</div>
                     }
                     
+
+
+
+
+
+
+
+
+
                     {(()=>{
                         if(this.state.showCaseResume===true && this.state.showFullImg===false){
                             return (
@@ -218,6 +227,16 @@ if(document.body.className!=='loginStyle'){
                                 </div>
                             </div>
                             )
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -281,6 +300,18 @@ if(document.body.className!=='loginStyle'){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
                         }else if(this.state.showCaseResume===false && this.state.showFullImg===false){
                             return (
                             <div>
@@ -299,6 +330,14 @@ if(document.body.className!=='loginStyle'){
                                 </div>
                             </div>
                             ) 
+
+
+
+
+
+
+
+
                         } else{
                             return null
                         }
@@ -362,6 +401,10 @@ if(document.body.className!=='loginStyle'){
                         </div>
                     </div>
                     
+
+
+
+
                     
                     {/* Funcion auto ejecutada que decide si mostrar el fomrulario, el spinner o el mensaje de exito */}
                     {(()=>{
@@ -484,8 +527,22 @@ if(document.body.className!=='loginStyle'){
                                 </div>
                             </div>
                             )
+
+
+
+
+
+
+
+
                         }else if(showLoaderInModal===true){
                             return <SpinnerInModal/>
+
+
+
+
+
+                            
                         }else if(caseCreated===true){
                             return  (
                             <div>

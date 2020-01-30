@@ -11,15 +11,28 @@ export default class PruebaAddOrder extends Component {
     addOrder=()=>{
         this.setState({idPedido:this.state.idPedido+1})
         console.log('1')
+        let creationTime= Date.now()//NOTE: Usada para calcular diferencia tiempo entre la creacion y el momento de visualizacion para saber si han pasada 24 hr. Hora expresada en milisegundos, dividir sobre 1000 para obtener segundos
+        let creationDate=new Date()
+        let day=creationDate.getDate()
+        let month=creationDate.getMonth()+1 //NOTE: Mas 1 debido a que enero es el index 0
+        let year=creationDate.getFullYear()
+        if(month<=9){month=`0${month}`}
+        let creationDateLocalFormat=`${day}/${month}/${year}`
+
+        let hour=creationDate.getHours()
+        let minutes=creationDate.getMinutes()
+        let seconds=creationDate.getSeconds()
+        let creationHourLocalFormat=`${hour}:${minutes}:${seconds}`
+        
         var db=firebase.firestore();
         db.collection('pedidos').add({
-            idPedido:this.state.idPedido,
+            // idPedido:this.state.idPedido,
             idVendedor:this.state.idVendedor,
             idProveedor:this.state.idProveedor,
             tipoPago:this.state.tipoPago,
-            fecha:this.state.fecha,
-
-            idProducto:this.state.idProducto,
+            tiempoCreacion:creationTime,
+            fecha:creationDateLocalFormat,
+            hora:creationHourLocalFormat,
             imagenProducto:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',
             cantidad:1,
 
@@ -29,10 +42,10 @@ export default class PruebaAddOrder extends Component {
             telefonoCliente:"3183667033",
 
             idDepacho:null,
-            estadoDespacho:'Sin atender',
+            // estadoDespacho:'Sin atender',
 
-            estado:"Pendiente",
-            ultimoEstado:this.state.ultimoEstado,
+            estado:this.state.estado,
+            // ultimoEstado:this.state.ultimoEstado,
             
             costo:'50000',
             ganancia:'20000',
@@ -41,6 +54,13 @@ export default class PruebaAddOrder extends Component {
             posibleCancelar:this.state.posibleCancelar,
             cambioLaDireccion:this.state.cambioLaDireccion,
             // casoAbierto:this.state.casoAbierto,
+        })
+        .then(doc=>{
+            console.log(doc.id)
+            db.collection('pedidos').doc(doc.id).update({id:doc.id})
+        })
+        .catch(err=>{
+            console.log(err)
         })
     }
     
@@ -58,26 +78,27 @@ render() {
     return (
         <div>
                 <div className="d-block">
-                    <input id="idPedido" onChange={this.leerDatos} placeholder="idPedido" type="text"/>
-                    <input id="idVendedor" onChange={this.leerDatos} placeholder="idVendedor" type="text"/>
+                    {/* <input id="idPedido" onChange={this.leerDatos} placeholder="idPedido" type="text"/> */}
+                    <input id="idVendedor" onChange={this.leerDatos} placeholder="idVendedor x" type="text"/>
                     <input id="idProveedor" onChange={this.leerDatos} placeholder="idProveedor" type="text"/>
                     <label htmlFor="tipoPago">Tipo de pago</label>
                     <select id="tipoPago" onChange={this.leerDatos}>
                         <option value="Pago Online">online</option>
                         <option value="ContraEntrega">contra entrega</option>
                     </select>
-                    <input id="fecha" onChange={this.leerDatos} placeholder="Fecha" type="text"/>
+                    {/* <input id="fecha" onChange={this.leerDatos} placeholder="Fecha" type="text"/> */}
                     
 
                     <input id="idProducto" onChange={this.leerDatos} placeholder="idProducto" type="text"/>
                     
                     <input id="idCliente" onChange={this.leerDatos} placeholder="idCliente" type="text"/>
 
-                    <input id="ultimoEstado" onChange={this.leerDatos} placeholder="ultimoEstado" type="text"/>
+                    <input id="estado" onChange={this.leerDatos} placeholder="estado" type="text"/>
 
 
                     <label htmlFor="posibleCancelar">¿Posible Cancelar?</label>
                     <select id="posibleCancelar" onChange={this.leerDatos}>
+                        {/* TODO: Deben ser booleanos de verdad */}
                         <option value="true">true</option>
                         <option value="false">false</option>
                     </select>

@@ -24,13 +24,12 @@ const trackOrderReducer = (state=initialState, action)=>{
     switch(action.type){
         case SHOW_TRACK_ORDER_MODAL:
             return{
-                ...state,
                 showTrackOrderModal:true,
                 idTrackOrderData:action.payload}
         case HIDE_TRACK_ORDER_MODAL:
             return{
-                ...state,
-                showTrackOrderModal:false}
+                showTrackOrderModal:false,
+                idTrackOrderData:null}
         default:
             return state;
         }

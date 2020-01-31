@@ -11,12 +11,12 @@ import StickyFooter from "./PanHummerStickyFooter/StickyFooter";
 
 import Modal from './../Modal/Modal'
 import OpenCaseSeller from './CasesSystem/SellerOpenCase/OpenCaseSeller'
-import SellerCaseDetails from './CasesSystem/SellerCaseDetails/SellerCaseDetails'
 import ModalFilterStateOrders from './ModalFilterStateOrders'
 import CancelOrderModal from "./CancelOrderModal/CancelOrderModal";
 
 import Alert from './../Alert/Alert'
 import ChangeShippingAddressModal from "./ChangeShippingAddressModal/ChangeShippingAddressModal";
+import SellerFlowCase from "./CasesSystem/SellerFlowCase/SellerFlowCase";
 
 export default class OrdersDetails extends Component {
   
@@ -78,7 +78,7 @@ export default class OrdersDetails extends Component {
     }
   }
 
-
+  
   componentDidMount=()=>{
     this.getOrders('componentDidMount')
   }
@@ -159,6 +159,7 @@ export default class OrdersDetails extends Component {
       this.unsubscribePedidosSinFiltro=db.collection('pedidos').where('idVendedor','==','Andres').onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
+          console.log('1 o mas documentos cambiaron... deberia renderizarse nuevamente el componente -> llame nuevamente al modal en el que estaba -> cambie el flujo del caso...')
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
             this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
           }
@@ -288,7 +289,7 @@ export default class OrdersDetails extends Component {
     window.scrollTo(0,0)
     this.state.idPedido=idPedido
     this.state.tiempoCreacion=tiempoCreacion
-    this.state.pedidoObjeto=pedidoObjeto
+    // this.state.pedidoObjeto=pedidoObjeto
     this.toggleModal('cancelOrder')
     //NOTE: Mostrar advertencia y pedir confirmacion acerca de cancelar este pedido
     //Dependiendo de la confirmacion en el modal de "cancelOrder" se continua o no con "carryOnWithCancelOrder"
@@ -339,12 +340,10 @@ export default class OrdersDetails extends Component {
   changeShippingAddress=(e,idPedido,direccionVendedor,pedidoObjeto)=>{
     e.preventDefault()
     //NOTE: Las siguientes 2 lineas guardan la posicion desde donde llame "cancelOrder" de tal forma que al volver despues de cerrar el modal, el scroll se ubique nuevamente alli.
-    this.state.x=window.pageXOffset
-    this.state.y=window.pageYOffset
-    window.scrollTo(0,0)
+    window.scrollTo(0,0)//TODO: Revisar por que es necesario esto para poder cargar bien el modal
     this.state.idPedido=idPedido
     this.state.direccionVendedor=direccionVendedor
-    this.state.pedidoObjeto=pedidoObjeto
+    // this.state.pedidoObjeto=pedidoObjeto
     this.toggleModal('changeShippingAddress')
   }
   carryOnWithChangeShippingAddress=async(idPedido,direccionVendedor)=>{
@@ -387,24 +386,46 @@ export default class OrdersDetails extends Component {
 
   openCase=(e,idPedido)=>{
     e.preventDefault()
+    this.state.x=window.pageXOffset
+    this.state.y=window.pageYOffset
     window.scrollTo(0,0)
     this.state.idPedido=idPedido
     this.toggleModal('OpenCaseSeller')
   }
+  carryOnWithOpenCase=()=>{
+    window.scrollTo(this.state.x,this.state.y)
+    this.state.showAlert=false//NOTE: Inicianco el carryOn siempre con showAlert=false
+    this.toggleAlert('casoCreadoConExito')
+    setTimeout(() => {
+      this.toggleAlert(null) 
+    }, 6000);
+  }
 
-  showItemCaseDetails=(e,idPedido)=>{
+  showItemCaseDetails=(e,idPedido,pedidoObjeto)=>{
     e.preventDefault()
+    this.state.x=window.pageXOffset
+    this.state.y=window.pageYOffset
     window.scrollTo(0,0)
     this.state.idPedido=idPedido
+    // this.state.pedidoObjeto=pedidoObjeto
     this.toggleModal('SellerCaseDetails')
   }
 
+  handleFinishedCaseSuccess=()=>{
+    this.toggleModal(null)
+    window.scrollTo(this.state.x,this.state.y)
+    this.state.showAlert=false//NOTE: Inicianco el carryOn siempre con showAlert=false
+    this.toggleAlert('casoFinalizadoConExito')
+    setTimeout(() => {
+      this.toggleAlert(null) 
+    }, 6000);
+  }
 
   render() {
-    const {pedidoObjeto,userOrders,showModal,whatModalToShow,idPedido,tiempoCreacion,direccionVendedor,showAlert,whatAlertToShow}=this.state
-
-    
-      return (
+    const {userOrders,showModal,whatModalToShow,idPedido,tiempoCreacion,direccionVendedor,showAlert,whatAlertToShow}=this.state
+    const pedidoObjetoVector=userOrders.filter(order=>order.id===idPedido)//NOTE: Obteniendo el objetoPedido para los modales
+    const pedidoObjeto=pedidoObjetoVector[0]
+    return (
         <div className="pcControlerScreen ">
 
           <div className="row">
@@ -457,13 +478,13 @@ export default class OrdersDetails extends Component {
 
 
 
-          {(function showModal(showModal,whatModalToShow,toggleModal,applyFilterByState,carryOnWithCancelOrder,carryOnWithChangeShippingAddress) {
+          {(function showModal(showModal,whatModalToShow,toggleModal,applyFilterByState,carryOnWithCancelOrder,carryOnWithChangeShippingAddress,carryOnWithOpenCase,handleFinishedCaseSuccess) {
             if(showModal){
               switch (whatModalToShow) {
                 case 'OpenCaseSeller':
-                  return <Modal><OpenCaseSeller toggleModal={toggleModal} idPedido={idPedido}/></Modal>
+                  return <Modal><OpenCaseSeller carryOnWithOpenCase={carryOnWithOpenCase} toggleModal={toggleModal} idPedido={idPedido}/></Modal>
                 case 'SellerCaseDetails':
-                  return <Modal><SellerCaseDetails toggleModal={toggleModal} idPedido={idPedido}/></Modal>
+                  return <Modal><SellerFlowCase handleFinishedCaseSuccess={handleFinishedCaseSuccess} pedidoObjeto={pedidoObjeto}  toggleModal={toggleModal} idPedido={idPedido}/></Modal>
                 case 'filterByState':
                   return <Modal><ModalFilterStateOrders toggleModal={toggleModal} applyFilterByState={applyFilterByState}/></Modal>
                 case 'cancelOrder':
@@ -474,7 +495,7 @@ export default class OrdersDetails extends Component {
                   break;
               }
             }
-          })(showModal,whatModalToShow,this.toggleModal,this.applyFilterByState,this.carryOnWithCancelOrder,this.carryOnWithChangeShippingAddress)}
+          })(showModal,whatModalToShow,this.toggleModal,this.applyFilterByState,this.carryOnWithCancelOrder,this.carryOnWithChangeShippingAddress,this.carryOnWithOpenCase,this.handleFinishedCaseSuccess)}
 
 
           
@@ -485,11 +506,14 @@ export default class OrdersDetails extends Component {
                     return <Alert mode="alertCard-red"><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/> No es posible cancelar el pedido ya que han pasado mas de 24 hr desde su creacion.</Alert>
                 case 'noEsPosibleCambiarDireccion':
                     return <Alert mode="alertCard-red"><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/> No es posible cambiar la direccion ya que el pedido ha sido despachado.</Alert>
-                
                 case 'pedidoCanceladoConExito':
                     return <Alert mode="alertCard-green"><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/> ¡El pedido ha sido cancelado exitosamente!</Alert>
                 case 'direccionCambiadaConExito':
                     return <Alert mode="alertCard-green"><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/> ¡La direccion ha sido cambiada exitosamente!</Alert>
+                case 'casoCreadoConExito':
+                    return <Alert mode="alertCard-green"><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/> ¡Caso creado exitosamente!</Alert>
+                case 'casoFinalizadoConExito':
+                    return(<Alert mode="alertCard-green"><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/>¡Se ha finalizado el caso exitosamente!.</Alert>);    
                 default:
                   break;
               }

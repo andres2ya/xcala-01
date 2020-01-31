@@ -1,0 +1,146 @@
+.dataResumeCaseBox{
+    margin-bottom: 18px;
+}
+.labelResumeCase{
+    font-size:15px;
+    font-weight: 400;
+    color:grey;
+}
+.dataResumeCase{
+    font-size:21px;
+    font-weight: 800;
+    color:rgb(0, 0, 0);
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 120%;
+}
+.lighterDataResumeCase{
+    font-size:20px;
+    font-weight: 500;
+    color:rgb(0, 0, 0);
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 120%;
+}
+.evidenceIMG{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+
+@media only screen and (max-width: 350px){
+    .labelResumeCase{
+        font-size:13px;
+        font-weight: 400;
+        color:grey;
+    }
+    .dataResumeCase{
+        font-size:18px;
+        font-weight: 800;
+        color:rgb(0, 0, 0);
+        font-family: 'Nunito Sans', sans-serif;
+        line-height: 120%;
+    }
+    .lighterDataResumeCase{
+        font-size:17px;
+        font-weight: 500;
+        color:rgb(0, 0, 0);
+        font-family: 'Nunito Sans', sans-serif;
+        line-height: 120%;
+    }
+    .dataResumeCaseBox{
+        margin-bottom: 12px;
+    }
+}
+
+    .SellerCaseDetailsBtns{
+        margin-top:20px;
+    }
+
+    .seeCaseResume-acceptCase,.seeCaseResume-NoAcceptCase,.seeCaseResume{
+        color:white;
+        border-radius: 15px;
+        width:39vw;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .seeCaseResume-acceptCase{
+        background: rgb(34,195,109);
+        background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+        background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+        background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+    }
+
+    .seeCaseResume-NoAcceptCase{
+        border: 1px solid rgb(34,195,109);
+        color: rgb(34,195,109);
+    }
+
+    .seeCaseResume-NoAcceptCase_response{
+        color: rgb(255, 255, 255);
+        font-weight: 400;
+        border-radius: 15px;
+        width:90%;
+        text-align: center;
+        cursor: pointer;
+        background: rgb(34,195,109);
+        background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+        background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+        background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+   
+    }
+
+    .seeCaseResume{
+        background-color: #d2145a;
+        width: 80%;
+    }
+
+
+/* ---------------- */
+/* Componente full viewer */
+
+#fullImgWrapper{
+    height:250px;
+    width: 100%;
+    overflow:hidden;
+}
+
+.zoomIconsRow{
+    margin-top:-40px;
+    margin-bottom:40px;
+    margin-right: 10px;
+}
+
+.zoomIcon{
+    color:rgb(236, 236, 236);
+    font-size: 30px;
+}
+.resizeIcon{
+    color:rgb(236, 236, 236);
+    font-size: 24px;
+}
+
+#draggableEvidenceImg{
+    border-radius: 15px;
+    position: relative;
+}
+
+#draggableEvidenceImg img{
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+@media only screen and (min-width: 1024px){
+    #fullImgWrapper{
+        height:300px;
+        width: 100%;
+        overflow:hidden;
+    }
+}
+
+.evidencesThumbnails{
+    margin-top:20px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,134 @@
+.openCaseSuccessMsg{
+    margin-top: 30px;
+}
+.openCaseModalSuccessMsgTitle{
+    font-size: 25px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    color: #3d4c88;
+    line-height: 100%;
+}
+.openCaseModalSuccessMsgParagraph{
+    font-size: 15px;
+    font-weight: 400;
+    color: #3d4c88;
+    line-height: 125%;
+}
+
+.openCaseBtnSuccessMsg{
+    margin-top:30px;
+}
+.openCaseBtnSuccessMsg button{
+    min-width: 60%;
+    height: 80px;
+    border-radius: 15px;
+    background-color: white;
+    border:none;
+    font-size: 15px;
+    color:#3d4c88;
+    -webkit-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    box-shadow: 10px 10px 35px -15px rgba(0,0,0,1);
+    font-weight: 400
+}
+@media only screen and (min-width: 768px){
+    .openCaseBtnSuccessMsg button{
+        min-width: 30vw;
+    }
+}
+.openCaseBtnSuccessMsg button:active{
+    transform: scale(0.9)
+}
+.openCaseBtnSuccessMsg button:focus{
+    outline: none;
+}
+
+
+
+.labelCargarGuia{
+    color: rgb(200, 200, 200);
+    background-color: grey;
+    border-radius: 15px;
+    width: auto;
+    min-width: 120px;
+    text-align: center;
+    padding: 5px;
+}
+
+.guiaDevolucionInput{
+    width: 0.01px;
+    height: 0.01px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    visibility: hidden;
+    z-index:-1
+}
+
+
+.enviarGuiaDevolucionBtn{
+    color:white;
+    border-radius: 15px 15px 15px 15px;
+    width:80%;
+    text-align: center;
+    cursor: pointer;
+
+    background: rgb(34,195,109);
+    background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+}
+
+
+.codigoDelBono_asociado_al_caso_desactivado{
+    color: rgb(200, 200, 200);
+    background-color: grey;
+    border-radius: 15px;
+    width: auto;
+    text-align: center;
+    padding: 5px;
+}
+
+.codigoDelBono_asociado_al_caso_activado{
+    color: rgb(255, 255, 255);
+    background-color: grey;
+    border-radius: 15px;
+    width: auto;
+    text-align: center;
+    padding: 5px;
+}
+
+
+.btns_antes_cerrar_caso{
+    margin-top: 50px;
+}
+
+
+.resueltoAfavorDelProveedor-btn{
+    width: 39vw;
+    border-radius: 15px;
+    padding:5px;
+    text-align: center;
+    line-height: 1;
+}
+
+.aceptarCerrarCaso{
+    font-weight: 400;
+    color:white;
+    background: rgb(34,195,109);
+    background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+}
+
+.pedirAyudaAntesDeCerrarCaso{
+    font-weight: 400;
+    color:rgb(34,195,109);
+    border:1px solid rgb(34,195,109);
+}
+
+.resueltoAfavorDelProveedor-btn a{
+    color:rgb(34,195,109);
+}

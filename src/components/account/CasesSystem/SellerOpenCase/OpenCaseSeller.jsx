@@ -148,7 +148,7 @@ class OpenCaseSeller extends Component {
   
 
     createCaseInFirebase=(vectorURLsEvidencias)=>{
-        const {idPedido,toggleModal}=this.props
+        const {idPedido,toggleModal,carryOnWithOpenCase}=this.props
         const {selectedReason,longDescription}=this.state.openCaseData
 
         firebase.firestore().collection('pedidos').doc(idPedido)
@@ -158,11 +158,17 @@ class OpenCaseSeller extends Component {
                 selectedReason:selectedReason,
                 longDescription:longDescription,
                 evidences:vectorURLsEvidencias
-            }
+            },
+            casoResuelto:'noResuelto', //NOTE: Mas adelante, tomara valores de "resueltoAFavorVendedor" || "resueltoAFavorProveedor"
+            guiaCargada:false,
+            guiaURL:null, //NOTE: Aca se cargara el url de la imagen de la guia 
+            bonoReintegroActivado:false,
+            bonoReintegroCodigo:null //NOTE: Aca se registrara el codigo o referencia del bono o reintegro asociado. 
         })
         .then(res=>{
             this.setState({showLoaderSpinner:false})
-            toggleModal('SellerCaseDetails',true)
+            toggleModal(null)
+            carryOnWithOpenCase()
         })
         .catch(err=>{
             this.setState({showLoaderSpinner:false,gotError:true})

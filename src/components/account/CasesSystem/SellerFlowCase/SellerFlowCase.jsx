@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import SellerCaseDetails from './../SellerCaseDetails/SellerCaseDetails'
 import HeaderCaseSystem from './../../CasesSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
 import BodyFlowCase from './BodyFlowCase/BodyFlowCase'
+import firebase from "firebase/app";
+
+
+
 
 //NOTE: NO BORRAR!!!!! Este seria el componente para el vendedor, este se queda aca! 
 // export default class SellerFlowCase extends Component {
@@ -42,7 +46,7 @@ import BodyFlowCase from './BodyFlowCase/BodyFlowCase'
 //                         if(casoResuelto==='noResuelto'){
 //                             return <BodyFlowCase idPedido={idPedido} titulo={'Tu solicitud ya fue atendida y esta proxima a ser resuelta.'} parrafo={'Porfavor revisa los detalles de este pedido para conocer la resolucion del caso una vez se haya finalizado.'} mode={'esperandoResolucion'} toggleModal={toggleModal}/>
 //                         }else if(casoResuelto==='resueltoAfavorDelVendedor' && guiaCargada===false){
-//                             return <BodyFlowCase idPedido={idPedido} titulo={'El proveedor ha aceptado resolver tu solicitud. Sigue las instrucciones:'} parrafo={'Debes devovler el producto a las instalaciones del proveedor ubicadas en: ${direccionProveedor}, y cargar la guia de devolucion para continuar con el proceso.'} mode={'resueltoAfavorDelVendedor'}/>
+//                             return <BodyFlowCase idPedido={idPedido} titulo={'El proveedor ha aceptado resolver tu solicitud. Sigue las instrucciones:'} parrafo={'Debes devovler el producto a las instalaciones del proveedor ubicadas en: {/*TODO:${direccionProveedor},${barrioDireccion},${nombreProveedor},${DIproveedor},${celProveedor}*/} y cargar la guia de devolucion para continuar con el proceso.'} mode={'resueltoAfavorDelVendedor'}/>
 //                         }else if(casoResuelto==='resueltoAfavorDelVendedor' && guiaCargada===true){
 //                             return <BodyFlowCase bonoReintegroActivado={bonoReintegroActivado} bonoReintegroCodigo={bonoReintegroCodigo} idPedido={idPedido} titulo={'Pronto el proveedor creara un bono que podras usar para hacer efectiva tu solicitud.'} parrafo={'Debes estar pendiente del codigo que aparecera abajo y usarlo para cambiar el producto y/o hacer efectiva la garantia.'} mode={'esperandoBono_o_reintegro'}/>
 //                         }else if(casoResuelto==='resueltoAfavorDelProveedor'){
@@ -78,6 +82,20 @@ export default class SellerFlowCase extends Component {
     state={
         showCaseDetails:false
     }
+
+    componentDidMount=()=>{
+        //NOTE: Obteniendo usuario logeado...
+        console.log('Obteniendo usuario logeado...')
+        firebase.auth().onAuthStateChanged((user)=>{
+            if(user){
+                console.log('El usuario actual es:',user)
+                //TODO: Desde aca se accede a la info del usuario en la base de datos.
+            }else{
+                console.log('No se ha logueado ningun usuario')
+            }
+        })
+    }
+
     showCaseDetailsEvent=()=>{
         this.setState({showCaseDetails:!this.state.showCaseDetails})
     }

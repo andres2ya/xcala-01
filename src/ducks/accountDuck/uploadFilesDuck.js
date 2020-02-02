@@ -34,7 +34,7 @@ export const uploadFile=(file,userID)=>{
 export const setUserPhotoURLInProfile=(downloadURL)=>{
     return (dispatch,getState,{getFirebase,getFirestore})=>{
         const firebase=getFirebase()
-        firebase.auth().onAuthStateChanged((user)=>{//forma correcta de usar current user
+        firebase.auth().onAuthStateChanged((user)=>{//forma correcta de obtener user
             console.log(user)
             if(user){
                 const firestore=getFirestore()

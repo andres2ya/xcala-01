@@ -133,7 +133,7 @@ export default  class SellerCaseDetails extends Component {
                         <div className="row dataResumeCaseBox">
                             <div className="col-12">
                                 <div className="labelResumeCase">Estado del caso:</div>
-                                <div className="dataResumeCase">{pedidoObjeto.estado}</div>
+                                <div className="dataResumeCase">{pedidoObjeto.casoResuelto}</div>
                             </div>
                         </div>
     

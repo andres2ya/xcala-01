@@ -107,6 +107,7 @@ import Alert from './../../../../Alert/Alert'
 //     }
 
 //     finalizarCaso=async()=>{
+            //NOTE: Actualizando doc del pedido.
 //         console.log('Se va a cerrar este caso.')
 //         const {idPedido,toggleModal,handleFinishedCaseSuccess}=this.props
 //         firebase.firestore().collection('pedidos').doc(idPedido)
@@ -119,6 +120,8 @@ import Alert from './../../../../Alert/Alert'
 //             // bonoReintegroCodigo:null //NOTE: Aca se registrara el codigo o referencia del bono o reintegro asociado. 
 //         })
 //         .then(res=>{
+                //TODO: Borrar datos del storage:
+
 //             handleFinishedCaseSuccess()
 //         })
 //         .catch(err=>{

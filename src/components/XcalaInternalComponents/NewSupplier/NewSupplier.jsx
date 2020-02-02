@@ -16,6 +16,7 @@ class NewSupplier extends Component {
     }
 
     componentDidMount=()=>{
+        console.log(this.props.s)
         document.body.className='loginStyle'
     }
 
@@ -169,6 +170,7 @@ const mapStateToProps=(state)=>({
     newSupplierData:state.supplierSignUpReducer.newSupplierData,
     showPreloader:state.preloaderReducer.showPreloader,
     userRole:state.firebase.profile.role,
+    s:state
 
 })
 

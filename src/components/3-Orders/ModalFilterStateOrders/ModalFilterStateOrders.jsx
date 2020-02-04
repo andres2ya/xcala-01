@@ -50,7 +50,7 @@ export default class ModalFilterStateOrders extends Component {
                             onClick={()=>this.selectFilterByState('Pendiente')} 
                             className="col-6 filterByStateOptionBox d-flex align-items-center">
                                 <div className="circleState CSPendiente"/>
-                                <span className="stateText">En proceso</span>
+                                <span className="stateText">Pendiente</span>
                             </div>
                             <div 
                             onClick={()=>this.selectFilterByState('Despachado')} 

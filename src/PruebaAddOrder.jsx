@@ -34,6 +34,7 @@ class PruebaAddOrder extends Component {
             // idPedido:this.state.idPedido,
             idVendedor:this.props.userId,
             idProveedor:'OYufDRLH3TYPNpcEkVbtAstkMNi1',
+            idProducto:this.state.idProducto,
             tipoPago:this.state.tipoPago,
             tiempoCreacion:creationTime,
             fecha:creationDateLocalFormat,

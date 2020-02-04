@@ -13,10 +13,10 @@ export default class ChangeShippingAddressModal extends Component {
         console.log('Se desmonto el ChangeShippingAddressModal con idPedido=',this.props.idPedido)
     }
     render() {
-        const {pedidoObjeto,toggleModal,idPedido,direccionVendedor,carryOnWithChangeShippingAddress}=this.props
+        const {user,pedidoObjeto,toggleModal,idPedido,direccionVendedor,carryOnWithChangeShippingAddress}=this.props
         return (
             <div className="container modalOpenCaseInsideCard">
-                    <HeaderCaseSystem  idPedido={idPedido} subtitulo={""} parrafo={`¿Estas seguro de querer recibir este pedido en tu direccion: ${direccionVendedor} ?`} toggleModal={toggleModal}/>
+                    <HeaderCaseSystem  idPedido={idPedido} subtitulo={""} parrafo={`¿Estas seguro de querer recibir este pedido en tu direccion: ${user.direccionResidencia} ?`} toggleModal={toggleModal}/>
 
                     <div className="row">
                         <div className="col-12">

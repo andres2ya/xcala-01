@@ -32,7 +32,7 @@ export default class OrderCard extends Component {
       <div className="row">
         <div className="col-12 d-flex">
           <div className="orderDate">{'Realizado el '} {fecha}</div>
-          <div className="orderSupplier">{'Vendido por '} {idProveedor}</div>
+          <div className="orderSupplier">{'Vendido por '} {'idProveedor'}</div>
         </div>
       </div>
 

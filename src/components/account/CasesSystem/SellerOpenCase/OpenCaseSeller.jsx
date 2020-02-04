@@ -162,8 +162,8 @@ class OpenCaseSeller extends Component {
             casoResuelto:'noResuelto', //NOTE: Mas adelante, tomara valores de "resueltoAFavorVendedor" || "resueltoAFavorProveedor"
             guiaCargada:false,
             guiaURL:null, //NOTE: Aca se cargara el url de la imagen de la guia 
-            bonoReintegroActivado:false,
-            bonoReintegroCodigo:null //NOTE: Aca se registrara el codigo o referencia del bono o reintegro asociado. 
+            respuestaProveedor:null,
+            proveedorRespondio:false,
         })
         .then(res=>{
             this.setState({showLoaderSpinner:false})

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+
 import LinkWithDelay from '../../helpers/LinkWithDelay';
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -18,7 +20,7 @@ import Alert from './../Alert/Alert'
 import ChangeShippingAddressModal from "./ChangeShippingAddressModal/ChangeShippingAddressModal";
 import SellerFlowCase from "./CasesSystem/SellerFlowCase/SellerFlowCase";
 
-export default class OrdersDetails extends Component {
+class OrdersDetails extends Component {
   
   state={
     activeFilterByPay:false,
@@ -66,6 +68,17 @@ export default class OrdersDetails extends Component {
   }
 
   toggleModal=(whatModalToShow,cambiarModal)=>{
+    //NOTE: Si showModal ahora sera true, entonces se guarda la ubicacion del scroll antes de abrir el modal
+    if(!this.state.showModal===true){
+      this.state.x=window.pageXOffset
+      this.state.y=window.pageYOffset
+    }
+    this.carryOnWithToggleModal(whatModalToShow,cambiarModal)
+  }
+  carryOnWithToggleModal=(whatModalToShow,cambiarModal)=>{
+    //NOTE: Si el showModal ahora va a ser false, entonces se ubica el scroll en la posicion que se guardo antes de ser abierto!
+    if(!this.state.showModal===false){window.scrollTo(this.state.x,this.state.y)}
+    
     if(cambiarModal===true){
       this.setState({
         whatModalToShow:whatModalToShow
@@ -77,12 +90,23 @@ export default class OrdersDetails extends Component {
       })
     }
   }
-  
+
 
   
   componentDidMount=()=>{
     this.getOrders('componentDidMount')
+    //NOTE: Solo se ejecuta el getOrders al montar si el profile del usuario esta cargado
+    // if(this.props.user.isLoaded===true){
+    //   this.getOrders('componentDidMount')
+    // }
   }
+  
+  // componentDidUpdate=(prevProps)=>{
+  //   //NOTE: Ejecuta el getOrders si el profile no habia estado cargado en el montaje del componenete pero se actualizo existosasmente.
+  //   // if(prevProps.user!==this.props.user){
+  //   //   this.getOrders('componentDidMount')
+  //   // }
+  // }
   
   componentWillUnmount=()=>{
     this.unsuscribeAllListener()
@@ -143,13 +167,13 @@ export default class OrdersDetails extends Component {
 
   //NOTE: Funcion listeners que traen los pedidos desde DB
   getOrders=async(origen)=>{
-    //TODO: traer idVendedor desde el documento de cada usuario...
     //TODO: Trear pedidos paginados..... averiguar como lanza un evento cuando se llegue a la parte mas baja de la pagina para que entonces, se cargen mas pedidos
     var db=firebase.firestore()
     const {activeFilterByPay, selectedPay}=this.state
     const {activeFilterByCustomer,  selectedCustomer}=this.state
     const {activeFilterByOrderState,  selectedOrderState}=this.state
-
+    const idVendedor=this.props.uid
+    
     console.log(origen)
     if(origen!=='componentDidMount'){
       await this.unsuscribeAllListener()
@@ -157,7 +181,7 @@ export default class OrdersDetails extends Component {
 
     if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===false){
       console.log('Pedidos sin filtro:')
-      this.unsubscribePedidosSinFiltro=db.collection('pedidos').where('idVendedor','==','Andres').onSnapshot((snap)=>{
+      this.unsubscribePedidosSinFiltro=db.collection('pedidos').where('idVendedor','==',idVendedor).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           console.log('1 o mas documentos cambiaron... deberia renderizarse nuevamente el componente -> llame nuevamente al modal en el que estaba -> cambie el flujo del caso...')
@@ -170,7 +194,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===false){
       console.log('Pedidos filtrados por forma de pago:',selectedPay)
-      this.unsubscribePedidosFiltroFormaPago=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltroFormaPago=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -182,7 +206,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===false){
       console.log('Pedidos filtrados por cliente:',this.state.selectedCustomer)
-      this.unsubscribePedidosFiltroCliente=db.collection('pedidos').where('idVendedor','==','Andres').where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltroCliente=db.collection('pedidos').where('idVendedor','==',idVendedor).where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -194,7 +218,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===true){
       console.log('Pedidos filtrados por estado:',this.state.selectedOrderState)  
-      this.unsubscribePedidosFiltroEstado=db.collection('pedidos').where('idVendedor','==','Andres').where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltroEstado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -206,7 +230,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===false){
       console.log('Pedidos filtrados por tipo de pago y cliente:')
-      this.unsubscribePedidosFiltro_Pago_y_cliente=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltro_Pago_y_cliente=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -218,7 +242,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===true){
       console.log('Pedidos filtrados por tipo de pago y estado:')
-      this.unsubscribePedidosFiltro_Pago_y_estado=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltro_Pago_y_estado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -230,7 +254,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===true){
       console.log('Pedidos filtrados por cliente y estado:')
-      this.unsubscribePedidosFiltro_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==','Andres').where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltro_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -242,7 +266,7 @@ export default class OrdersDetails extends Component {
       })
     }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===true){
       console.log('Pedidos filtrados por tipo de pago, cliente y estado:')
-      this.unsubscribePedidosFiltro_Pago_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==','Andres').where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+      this.unsubscribePedidosFiltro_Pago_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
         let auxUserOrders=[]
         snap.forEach((doc)=>{
           if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
@@ -287,11 +311,11 @@ export default class OrdersDetails extends Component {
     //NOTE: Las siguientes 2 lineas guardan la posicion desde donde llame "cancelOrder" de tal forma que al volver despues de cerrar el modal, el scroll se ubique nuevamente alli.
     this.state.x=window.pageXOffset
     this.state.y=window.pageYOffset
-    window.scrollTo(0,0)
     this.state.idPedido=idPedido
     this.state.tiempoCreacion=tiempoCreacion
     // this.state.pedidoObjeto=pedidoObjeto
     this.toggleModal('cancelOrder')
+    window.scrollTo(0,0)
     //NOTE: Mostrar advertencia y pedir confirmacion acerca de cancelar este pedido
     //Dependiendo de la confirmacion en el modal de "cancelOrder" se continua o no con "carryOnWithCancelOrder"
   }
@@ -341,15 +365,19 @@ export default class OrdersDetails extends Component {
   changeShippingAddress=(e,idPedido,direccionVendedor,pedidoObjeto)=>{
     e.preventDefault()
     //NOTE: Las siguientes 2 lineas guardan la posicion desde donde llame "cancelOrder" de tal forma que al volver despues de cerrar el modal, el scroll se ubique nuevamente alli.
-    window.scrollTo(0,0)//TODO: Revisar por que es necesario esto para poder cargar bien el modal
+    this.state.x=window.pageXOffset
+    this.state.y=window.pageYOffset
     this.state.idPedido=idPedido
     this.state.direccionVendedor=direccionVendedor
     // this.state.pedidoObjeto=pedidoObjeto
     this.toggleModal('changeShippingAddress')
+    window.scrollTo(0,0)//TODO: Revisar por que es necesario esto para poder cargar bien el modal
   }
   carryOnWithChangeShippingAddress=async(idPedido,direccionVendedor)=>{
     this.state.showAlert=false//NOTE: Inicianco el carryOn siempre con showAlert=false
     var {cambiandoDireccion,mostrandoAlerta}=this.state
+    const {direccionResidencia}=this.props.user
+
     let order=this.state.userOrders.filter(userOrder=>userOrder.id===idPedido)
     let estado=order[0].estado
     let cambioLaDireccion=order[0].cambioLaDireccion
@@ -357,7 +385,7 @@ export default class OrdersDetails extends Component {
     if(estado==='Pendiente' && cambioLaDireccion==='false' && cambiandoDireccion===false){
       cambiandoDireccion=true
       await firebase.firestore().collection('pedidos').doc(idPedido)
-        .update({cambioLaDireccion:'true',direccionCliente:'Mi direccion'})//TODO: cambioLaDireccion debe ser un booleano de verdad, direccionCliente debe cambiar por la direccion del usuario vendedor: "direccionVendedor".
+        .update({cambioLaDireccion:'true',direccionCliente:direccionResidencia})//TODO: cambioLaDireccion debe ser un booleano de verdad.
         .then(res=>{
           console.log('Direccion cambiada con exito')
           this.toggleAlert('direccionCambiadaConExito')
@@ -389,9 +417,9 @@ export default class OrdersDetails extends Component {
     e.preventDefault()
     this.state.x=window.pageXOffset
     this.state.y=window.pageYOffset
-    window.scrollTo(0,0)
     this.state.idPedido=idPedido
     this.toggleModal('OpenCaseSeller')
+    window.scrollTo(0,0)
   }
   carryOnWithOpenCase=()=>{
     window.scrollTo(this.state.x,this.state.y)
@@ -406,21 +434,24 @@ export default class OrdersDetails extends Component {
     e.preventDefault()
     this.state.x=window.pageXOffset
     this.state.y=window.pageYOffset
-    window.scrollTo(0,0)
     this.state.idPedido=idPedido
     // this.state.pedidoObjeto=pedidoObjeto
     this.toggleModal('SellerCaseDetails')
+    window.scrollTo(0,0)
   }
 
   handleFinishedCaseSuccess=()=>{
     this.toggleModal(null)
-    window.scrollTo(this.state.x,this.state.y)
     this.state.showAlert=false//NOTE: Inicianco el carryOn siempre con showAlert=false
     this.toggleAlert('casoFinalizadoConExito')
     setTimeout(() => {
       this.toggleAlert(null) 
     }, 6000);
   }
+
+
+
+
 
   render() {
     const {userOrders,showModal,whatModalToShow,idPedido,tiempoCreacion,direccionVendedor,showAlert,whatAlertToShow}=this.state
@@ -479,24 +510,24 @@ export default class OrdersDetails extends Component {
 
 
 
-          {(function showModal(showModal,whatModalToShow,toggleModal,applyFilterByState,carryOnWithCancelOrder,carryOnWithChangeShippingAddress,carryOnWithOpenCase,handleFinishedCaseSuccess) {
+          {(function showModal(user,showModal,whatModalToShow,toggleModal,applyFilterByState,carryOnWithCancelOrder,carryOnWithChangeShippingAddress,carryOnWithOpenCase,handleFinishedCaseSuccess) {
             if(showModal){
               switch (whatModalToShow) {
                 case 'OpenCaseSeller':
                   return <Modal><OpenCaseSeller carryOnWithOpenCase={carryOnWithOpenCase} toggleModal={toggleModal} idPedido={idPedido}/></Modal>
                 case 'SellerCaseDetails':
-                  return <Modal><SellerFlowCase handleFinishedCaseSuccess={handleFinishedCaseSuccess} pedidoObjeto={pedidoObjeto}  toggleModal={toggleModal} idPedido={idPedido}/></Modal>
+                  return <Modal><SellerFlowCase user={user}/**TODO: user debe ser pasado pero en el componente correspondiente al del proveedor. Aca funciona como prueba... */ handleFinishedCaseSuccess={handleFinishedCaseSuccess} pedidoObjeto={pedidoObjeto}  toggleModal={toggleModal} idPedido={idPedido}/></Modal>
                 case 'filterByState':
                   return <Modal><ModalFilterStateOrders toggleModal={toggleModal} applyFilterByState={applyFilterByState}/></Modal>
                 case 'cancelOrder':
                   return <Modal><CancelOrderModal pedidoObjeto={pedidoObjeto} toggleModal={toggleModal} idPedido={idPedido} tiempoCreacion={tiempoCreacion} carryOnWithCancelOrder={carryOnWithCancelOrder}/></Modal>
                 case 'changeShippingAddress':
-                  return <Modal><ChangeShippingAddressModal pedidoObjeto={pedidoObjeto} toggleModal={toggleModal} idPedido={idPedido} direccionVendedor={direccionVendedor} carryOnWithChangeShippingAddress={carryOnWithChangeShippingAddress}/></Modal>
+                  return <Modal><ChangeShippingAddressModal user={user} pedidoObjeto={pedidoObjeto} toggleModal={toggleModal} idPedido={idPedido} direccionVendedor={direccionVendedor} carryOnWithChangeShippingAddress={carryOnWithChangeShippingAddress}/></Modal>
                 default:
                   break;
               }
             }
-          })(showModal,whatModalToShow,this.toggleModal,this.applyFilterByState,this.carryOnWithCancelOrder,this.carryOnWithChangeShippingAddress,this.carryOnWithOpenCase,this.handleFinishedCaseSuccess)}
+          })(this.props.user,showModal,whatModalToShow,this.toggleModal,this.applyFilterByState,this.carryOnWithCancelOrder,this.carryOnWithChangeShippingAddress,this.carryOnWithOpenCase,this.handleFinishedCaseSuccess)}
 
 
           
@@ -526,4 +557,12 @@ export default class OrdersDetails extends Component {
       )
   }
 };
+
+const mapStateToProps=(state)=>{
+  return{
+    user:state.firebase.profile,
+    uid:state.firebase.auth.uid
+  }
+}
+export default connect(mapStateToProps,null)(OrdersDetails)
 

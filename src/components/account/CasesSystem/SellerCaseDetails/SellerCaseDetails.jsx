@@ -100,9 +100,12 @@ export default  class SellerCaseDetails extends Component {
 
     confirmarResolucionCasoAfavorDeVendedor=()=>{
         const {idPedido,showCaseDetailsEvent}=this.props
+        const {direccionProveedor,barrioDireccionProveedor,ciudadProveedor,razonSocial,identificacionProveedor,celularProveedor}=this.props.user
             firebase.firestore().collection('pedidos').doc(idPedido)
             .update({
                 casoResuelto:'resueltoAfavorDelVendedor',
+                //NOTE: Aca es donde se pasan los datos del proveedor, cuando este, aceptar responder una solicitud de un usuario vendedor.
+                datosProveedor: {direccionProveedor,barrioDireccionProveedor,ciudadProveedor,razonSocial,identificacionProveedor,celularProveedor},
             })
             .then(res=>{
                 console.log('Caso resuelto con exito!:','resueltoAfavorDelVendedor')
@@ -117,6 +120,9 @@ export default  class SellerCaseDetails extends Component {
     
     render() {
         const {pedidoObjeto,idPedido,toggleModal,showCaseDetailsEvent}=this.props
+        let estadoCaso
+        if(pedidoObjeto.casoResuelto==='resueltoAfavorDelVendedor'){estadoCaso='Resuelto a tu favor'}else if(pedidoObjeto.casoResuelto==='resueltoAfavorDelProveedor'){estadoCaso='Resuelto sin exito'}else{estadoCaso='Sin resolver'}
+
         var userRole='Proveedor' //TODO: obviamente userRole tiene que salir de la bas de datos...
             if(this.state.showFullImgViewer===false && this.state.showFormResponseSupplier===false && this.state.showMsgToConfirmAcceptCase===false ){
                 return (
@@ -133,7 +139,7 @@ export default  class SellerCaseDetails extends Component {
                         <div className="row dataResumeCaseBox">
                             <div className="col-12">
                                 <div className="labelResumeCase">Estado del caso:</div>
-                                <div className="dataResumeCase">{pedidoObjeto.casoResuelto}</div>
+                                <div className="dataResumeCase">{estadoCaso}</div>
                             </div>
                         </div>
     
@@ -249,7 +255,7 @@ export default  class SellerCaseDetails extends Component {
                     <div className="container modalOpenCaseInsideCard">
                         <HeaderCaseSystem 
                                 idPedido={idPedido} 
-                                subtitulo={'Al aceptar resolver este caso estableceras contacto con tu cliente a traves de Xcala para llevar a buen termino la solicitud '} 
+                                subtitulo={'Al aceptar resolver este caso estableceras contacto con tu cliente a traves de Xcala para llevar a buen termino la solicitud. Esto significa que tu direccion, identificacion de la empresa, telefono de contacto y la razon social sera conocida por el para realizar la devolucion del producto.'} 
                                 parrafo={''}
                                 toggleModal={toggleModal}>
                         </HeaderCaseSystem>

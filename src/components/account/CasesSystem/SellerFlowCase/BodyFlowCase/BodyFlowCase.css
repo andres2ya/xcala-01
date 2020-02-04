@@ -1,6 +1,6 @@
-.openCaseSuccessMsg{
+/* .openCaseSuccessMsg{
     margin-top: 30px;
-}
+} */
 .openCaseModalSuccessMsgTitle{
     font-size: 25px;
     font-family: "Nunito", sans-serif;
@@ -91,8 +91,15 @@
 }
 
 .codigoDelBono_asociado_al_caso_activado{
+    font-weight: 400;
     color: rgb(255, 255, 255);
-    background-color: grey;
+
+    background: rgb(34,195,109);
+    background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
     border-radius: 15px;
     width: auto;
     text-align: center;

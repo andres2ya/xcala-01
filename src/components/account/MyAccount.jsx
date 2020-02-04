@@ -10,6 +10,7 @@ class MyAccount extends Component {
     componentDidMount=()=>{
         document.body.removeAttribute('class')
         document.body.className='myAccountStyle'
+
     }
 
     uploadPhoto=(e)=>{
@@ -26,7 +27,8 @@ class MyAccount extends Component {
             if(this.props.userRole==='adminXcala'){
                 return <Redirect to='/xcala-admin'/>
             }else if(this.props.userRole==='proveedor'){
-                return <Redirect to='/supplier-panel'/>
+                // return <Redirect to='/'/>//TODO: Quitar, esto es solo para una prueba rapida
+                return <Redirect to='/supplier-panel'/>///TODO: Habilitar, este es el correcto
             }else{
                 
 

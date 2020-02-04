@@ -2,11 +2,16 @@ import React, { Component } from 'react'
 import firebase from "firebase/app";
 import "firebase/firestore";
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 
-export default class PruebaAddOrder extends Component {
+class PruebaAddOrder extends Component {
 
     state={}
+
+    componentDidMount=()=>{
+        console.log(this.props.userId)
+    }
 
     addOrder=()=>{
         this.setState({idPedido:this.state.idPedido+1})
@@ -27,8 +32,8 @@ export default class PruebaAddOrder extends Component {
         var db=firebase.firestore();
         db.collection('pedidos').add({
             // idPedido:this.state.idPedido,
-            idVendedor:this.state.idVendedor,
-            idProveedor:this.state.idProveedor,
+            idVendedor:this.props.userId,
+            idProveedor:'OYufDRLH3TYPNpcEkVbtAstkMNi1',
             tipoPago:this.state.tipoPago,
             tiempoCreacion:creationTime,
             fecha:creationDateLocalFormat,
@@ -79,8 +84,8 @@ render() {
         <div>
                 <div className="d-block">
                     {/* <input id="idPedido" onChange={this.leerDatos} placeholder="idPedido" type="text"/> */}
-                    <input id="idVendedor" onChange={this.leerDatos} placeholder="idVendedor x" type="text"/>
-                    <input id="idProveedor" onChange={this.leerDatos} placeholder="idProveedor" type="text"/>
+                    {/* <input id="idVendedor" onChange={this.leerDatos} placeholder="idVendedor x" type="text"/> */}
+                    {/* <input id="idProveedor" onChange={this.leerDatos} placeholder="idProveedor" type="text"/> */}
                     <label htmlFor="tipoPago">Tipo de pago</label>
                     <select id="tipoPago" onChange={this.leerDatos}>
                         <option value="Pago Online">online</option>
@@ -123,3 +128,9 @@ render() {
 }
 
 }
+
+const mapStateToProps=(state)=>({
+    userId:state.firebase.auth.uid
+})
+
+export default connect(mapStateToProps,null)(PruebaAddOrder)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './CancelOrderModal.css'
 
 import numeral from 'numeral';
-import HeaderCaseSystem from './../CasesSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
+import HeaderCaseSystem from './../../4-CaseSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
 
 export default class CancelOrderModal extends Component {
     componentDidMount=()=>{

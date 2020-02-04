@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SellerCaseDetails.css'
-import HeaderCaseSystem from './../../CasesSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
+import HeaderCaseSystem from './../../4-CaseSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
 import Draggable from 'react-draggable';
 import firebase from "firebase/app";
 

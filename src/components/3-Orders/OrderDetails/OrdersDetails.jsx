@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 
-import LinkWithDelay from '../../helpers/LinkWithDelay';
+import LinkWithDelay from '../../../helpers/LinkWithDelay'
 import firebase from "firebase/app";
 import "firebase/firestore";
 // import numeral from 'numeral';
 
-import TabsSelector from "../SupplierComponents/SupplierOrders/TabsSelector/TabsSelector";
-import OrderCard from "./OrderCardComponent/OrderCard"
-import FiltersOrdersComponent from './FiltersComponent/FiltersOrdersComponent'
-import StickyFooter from "./PanHummerStickyFooter/StickyFooter";
+import TabsSelector from "../../SupplierComponents/SupplierOrders/TabsSelector/TabsSelector"
+import OrderCard from "./../OrderCardComponent/OrderCard"
+import FiltersOrdersComponent from './../FiltersComponent/FiltersOrdersComponent'
+import StickyFooter from "./../../10-LayOuts/PanHummerStickyFooter/StickyFooter"
 
-import Modal from './../Modal/Modal'
-import OpenCaseSeller from './CasesSystem/SellerOpenCase/OpenCaseSeller'
-import ModalFilterStateOrders from './ModalFilterStateOrders/ModalFilterStateOrders'
-import CancelOrderModal from "./CancelOrderModal/CancelOrderModal";
+import Modal from './../../12-Modal/Modal'
+import OpenCaseSeller from './../../4-CaseSystem/SellerOpenCase/OpenCaseSeller'
+import ModalFilterStateOrders from './../ModalFilterStateOrders/ModalFilterStateOrders'
+import CancelOrderModal from "./../CancelOrderModal/CancelOrderModal";
 
-import Alert from './../Alert/Alert'
-import ChangeShippingAddressModal from "./ChangeShippingAddressModal/ChangeShippingAddressModal";
-import SellerFlowCase from "./CasesSystem/SellerFlowCase/SellerFlowCase";
+import Alert from './../../11-Alert/Alert'
+import ChangeShippingAddressModal from "./../ChangeShippingAddressModal/ChangeShippingAddressModal"
+import SellerFlowCase from "./../../4-CaseSystem/SellerFlowCase/SellerFlowCase"
 
 class OrdersDetails extends Component {
   

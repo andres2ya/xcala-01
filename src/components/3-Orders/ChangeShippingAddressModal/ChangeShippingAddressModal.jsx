@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import './ChangeShippingAddressModal.css'
 
 import numeral from 'numeral';
-import HeaderCaseSystem from './../CasesSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
+import HeaderCaseSystem from './../../4-CaseSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
+
 
 
 export default class ChangeShippingAddressModal extends Component {

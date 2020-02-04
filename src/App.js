@@ -1,19 +1,19 @@
 import React from "react";
 import {createPortal} from "react-dom";
-import Login from './components/auth/Login/Login'
-import SignUp from './components/auth/SignUp/SignUp'
-import EmailVerification from './components/auth/EmailVerify/EmailVerification'
+import Login from './components/1-Auth/Login/Login'
+import SignUp from './components/1-Auth/SignUp/SignUp'
+import EmailVerification from './components/1-Auth/EmailVerify/EmailVerification'
 import {Route, Switch, withRouter} from "react-router-dom"
-import EmailVerify from './components/auth/EmailVerify/EmailVerify';
-import PassForgot from './components/auth/PassForgot/PassForgot';
-import PassReset from './components/auth/PassReset/PassReset';
-import EmailConfirm from './components/auth/EmailConfirm/EmailConfirm';
-import MyAccount from './components/account/MyAccount';
-import CustomEmailHandler from './components/auth/CustomEmailHandler/CustomEmailHandler';
+import EmailVerify from './components/1-Auth/EmailVerify/EmailVerify';
+import PassForgot from './components/1-Auth/PassForgot/PassForgot';
+import PassReset from './components/1-Auth/PassReset/PassReset';
+import EmailConfirm from './components/1-Auth/EmailConfirm/EmailConfirm';
+import MyAccount from './components/2-Account/MyAccount';
+import CustomEmailHandler from './components/1-Auth/CustomEmailHandler/CustomEmailHandler';
 import Spinner from './components/layout/Spinner/Spinner';
-import MainNavbar from './components/navbars/MainNavbar/MainNavbar'
-import SecondNavbar from "./components/navbars/SecondNavbar/SecondNavbar";
-import OrdersDetails from "./components/account/OrdersDetails";
+import MainNavbar from './components/13-Navbars/MainNavbar/MainNavbar'
+import SecondNavbar from "./components/13-Navbars/SecondNavbar/SecondNavbar";
+import OrdersDetails from "./components/3-Orders/OrderDetails/OrdersDetails";
 // import SpecificOrderDetails from "./components/account/SpecificOrderDetails";
 // import ModalFilterStateOrders from "./components/account/ModalFilterStateOrders/ModalFilterStateOrders";
 import ControlPanelXcala from "./components/XcalaInternalComponents/ControlPanelXcala/ControlPanelXcala";
@@ -71,9 +71,6 @@ function App(){
       <Route exact path='/supplier-orders' component={SupplierOrders}/>
     </Switch>
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
-      
-
-      
     </div>
   </div>
   );

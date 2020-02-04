@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 import {signUp,saveDataNewUser} from '../../../ducks/internalXcalaDucks/newSupplierDuck'
 import {keepSesion} from '../../../ducks/authDucks/authDuckLogin';
 import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
-import EmailVerify from '../../auth/EmailVerify/EmailVerify';
+import EmailVerify from '../../1-Auth/EmailVerify/EmailVerify';
 import logoXcala from '../../../assets/logoXcala.png';
 import Checkbox from '../../../components/layout/Checkbox/Checkbox';
 

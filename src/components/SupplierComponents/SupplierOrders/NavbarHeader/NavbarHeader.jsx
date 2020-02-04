@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import LinkWithDelay from "../../../../helpers/LinkWithDelay";
 import logoXcalaSupplier from "../../../../assets/logoXcalaSupplier.png";
-import MenuWidget from "../../../navbars/Widgets/MenuWidget/MenuWidget";
+import MenuWidget from "../../../13-Navbars/Widgets/MenuWidget/MenuWidget";
 import "./NavbarHeader.css";
 import MainContentNavHeader from "./MainContentNavHeader/MainContentNavHeader";
 // import ContentNavHeader from "./ContentNavHeader/ContentNavHeader";

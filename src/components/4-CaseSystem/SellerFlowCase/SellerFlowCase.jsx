@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SellerCaseDetails from './../SellerCaseDetails/SellerCaseDetails'
-import HeaderCaseSystem from './../../CasesSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
+import HeaderCaseSystem from './../../4-CaseSystem/SellerCaseStyleComponents/Header/HeaderCaseSystem'
 import BodyFlowCase from './BodyFlowCase/BodyFlowCase'
 
 

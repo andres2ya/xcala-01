@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import Compressor from 'compressorjs'
 import Draggable from 'react-draggable';
 
-import Alert from './../../../../Alert/Alert'
+import Alert from './../../../11-Alert/Alert'
 
 // NOTE: NO BORRAR!!! Este es el BodyFlowCase del vendedor!
 export default class BodyFlowCase extends Component {

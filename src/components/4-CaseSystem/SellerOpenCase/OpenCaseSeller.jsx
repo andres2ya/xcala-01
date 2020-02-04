@@ -4,12 +4,12 @@ import {connect} from 'react-redux';
 
 import firebase from "firebase/app";
 import Compressor from 'compressorjs'
-import {handleErrorMsg} from '../../../../ducks/errorsDuck/handleErrors'
+import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors'
 
-import Checkbox from '../../../layout/Checkbox/Checkbox'
+import Checkbox from '../../layout/Checkbox/Checkbox'
 import HeaderCaseSystem from '../SellerCaseStyleComponents/Header/HeaderCaseSystem'
 import AttachEvidence from '../SellerCaseStyleComponents/AttachEvidence/AttachEvidence'
-import SpinnerInModal from '../../../layout/SpinnerInModal/SpinnerInModal'
+import SpinnerInModal from '../../layout/SpinnerInModal/SpinnerInModal'
 
 
 

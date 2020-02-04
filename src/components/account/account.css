@@ -226,7 +226,7 @@ ORDER DETAILS */
 }
 
 /* filtro por estado y cliente ------------------------------------------------------------*/
-.filtersContainer{
+/* .filtersContainer{
     font-size: 13px;
     color: grey;
     font-weight: 500;
@@ -257,7 +257,7 @@ ORDER DETAILS */
 }
 #filterByConstumer:focus{
     outline: none;
-}
+} */
 
 
 
@@ -304,28 +304,28 @@ ORDER DETAILS */
                             border-radius: 15px;
                             z-index: 1000;
                         } */
-                                .enviadoAlProveedor{
+                                .Pendiente{
                                     background-image:linear-gradient(#eb1e79,#d2145a) ;
                                     /* color: #d2145a; */ 
                                 }
-                                .enProduccion{
+                                .Despachado{
                                     background-image:linear-gradient(#1eebcc,#146ad2) ;
                                     /* color: #146ad2 */
                                 }
-                                .listoParaDespacho{
+                                .Cancelado{
                                     background-image:linear-gradient(#e0d46a,#ddcc32) ;
                                 }
-                                .despachado{
+                                .Caso-abierto{
                                     background-image:linear-gradient(#99aa2b,#95a817) ;
                                 }
-                                .finalizado{
+                                .Entregado{
                                     background-image:linear-gradient(#75db65,#14d23a) ;
                                 }
-                                .cancelado{
+                                .Desembolsado{
                                     background-image:linear-gradient(#814559,#660b2c) ;
                                 }
                                 
-                        .orderStateCard{
+                        /* .orderStateCard{
                            margin-left:5px;
                            font-size: 12px;
                            font-weight: 400;
@@ -338,30 +338,30 @@ ORDER DETAILS */
                                     margin-right: 5px;
                                 }
 
-                                .orderStateCard>.enviadoAlProveedor{
+                                .orderStateCard>.Pendiente{
                                     background-image:linear-gradient(white,white) ;
                                     border-color:#d2145a;
                                 }
-                                .orderStateCard>.enProduccion{
+                                .orderStateCard>.Despachado{
                                     background-image:linear-gradient(white,white) ;
                                     border-color:#146ad2;
                                 }
-                                .orderStateCard>.listoParaDespacho{
+                                .orderStateCard>.Cancelado{
                                     background-image:linear-gradient(white,white) ;
                                     border-color:#ddcc32;
                                 }
-                                .orderStateCard>.despachado{
+                                .orderStateCard>.Caso-abierto{
                                     background-image:linear-gradient(white,white) ;
                                     border-color:#95a817;
                                 }
-                                .orderStateCard>.finalizado{
+                                .orderStateCard>.Entregado{
                                     background-image:linear-gradient(white,white) ;
                                     border-color:#14d23a;
                                 }
-                                .orderStateCard>.cancelado{
+                                .orderStateCard>.Desembolsado{
                                     background-image:linear-gradient(white,white) ;
                                     border-color:#660b2c;
-                                }
+                                } */
 
                 .dateCol{
                     font-size: 15px;
@@ -445,120 +445,7 @@ ORDER DETAILS */
 
 
 
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------- */
-/*
-/* MODAL FILTER BY STATE*/
 
-.modalFilterByStateInsideCard{
-    background-color: white;
-    margin-top:35vh;
-    margin-left:auto;
-    margin-right: auto;
-    width: 90%;
-    border-radius: 15px;
-    height: 220px;
-}
-
-@media only screen and (min-width: 768px){
-    .modalFilterByStateInsideCard{
-        margin-top:30vh;
-        margin-left:auto;
-        margin-right: auto;
-        width: 50%
-    }
-}
-        .modalFilterByStateContent{
-            margin-top:15px;
-            width: 100%;
-        }
-            
-            .modalTitle{
-                font-family: "Nunito", sans-serif;
-                font-weight: 700;
-                font-size: 19px;
-                color: #3d4c88;
-                line-height: 25px;
-            }
-            
-            .backOrderDetails{
-                font-size: 40px;
-                color: #6aff76;
-            }
-
-            .filterByStateOptionBox{
-                margin-bottom: 5px;
-                font-weight: 400;
-            }
-            .filterByStateOptionBox:active{
-                transform: scale(0.9);
-                font-weight: 900;
-            }
-            
-
-            .circleState{
-                height: 20px;
-                width:20px;
-                border-radius: 15px;
-                margin-right: 4px;
-            }
-                    .CSEnEspera{
-                        background-color: #d2145a;
-                    }
-                    .CSEnProduccion{
-                        background-color: #146ad2;
-                    }
-                    .CSDespachado{
-                        background-color: #95a817;
-                    }
-                    .CSEnCamino{
-                        background-color: #ddcc32;
-                    }
-                    .CSFinalizado{
-                        background-color: #14d23a;
-                    }
-                    .CSCancelado{
-                        background-color: #660b2c;
-                    }
-                    
-.removeFilter{
-    margin-top:15px;
-    color:red;
-    font-weight: 400
-}
-.removeFilter:active{
-    transform: scale(0.9);
-    font-weight: bold
-}
-
-.removeFilterIcon{
-    font-size: 25px;
-}
-
-            /* .applyFilterBtn button{
-                margin-top:10px;
-                color: #3d4c88;
-                background-color: white;
-                width:50%;
-                height: 50px;
-                border:none;
-                border-radius: 15px;
-                -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
-                -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
-                box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
-            }
-            .applyFilterBtn button:active{
-                transform: scale(0.9)
-            }
-            .applyFilterBtn button:focus{
-                outline: none;
-            }  */
 /* ------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------- */
@@ -622,27 +509,27 @@ ORDER DETAILS */
     to {border-width: 15px;}
   }
 
-.specificOrderStateCard>.enviadoAlProveedor{
+.specificOrderStateCard>.Pendiente{
     background-image:linear-gradient(white,white) ;
     border-color:#d2145a;
 }
-.specificOrderStateCard>.enProduccion{
+.specificOrderStateCard>.Despachado{
     background-image:linear-gradient(white,white) ;
     border-color:#146ad2;
 }
-.specificOrderStateCard>.listoParaDespacho{
+.specificOrderStateCard>.Cancelado{
     background-image:linear-gradient(white,white) ;
     border-color:#ddcc32;
 }
-.specificOrderStateCard>.despachado{
+.specificOrderStateCard>.Caso-abierto{
     background-image:linear-gradient(white,white) ;
     border-color:#95a817;
 }
-.specificOrderStateCard>.finalizado{
+.specificOrderStateCard>.Entregado{
     background-image:linear-gradient(white,white) ;
     border-color:#14d23a;
 }
-.specificOrderStateCard>.cancelado{
+.specificOrderStateCard>.Desembolsado{
     background-image:linear-gradient(white,white) ;
     border-color:#660b2c;
 }
@@ -879,27 +766,27 @@ to {background-color: rgb(119, 119, 119);}
   }
 
 
-.circleStatesOverAxis>.enviadoAlProveedor{
+.circleStatesOverAxis>.Pendiente{
     background-image:linear-gradient(white,white) ;
     border-color:#d2145a;
 }
-.circleStatesOverAxis>.enProduccion{
+.circleStatesOverAxis>.Despachado{
     background-image:linear-gradient(white,white) ;
     border-color:#146ad2;
 }
-.circleStatesOverAxis>.listoParaDespacho{
+.circleStatesOverAxis>.Cancelado{
     background-image:linear-gradient(white,white) ;
     border-color:#ddcc32;
 }
-.circleStatesOverAxis>.despachado{
+.circleStatesOverAxis>.Caso-abierto{
     background-image:linear-gradient(white,white) ;
     border-color:#95a817;
 }
-.circleStatesOverAxis>.finalizado{
+.circleStatesOverAxis>.Entregado{
     background-image:linear-gradient(white,white) ;
     border-color:#14d23a;
 }
-.circleStatesOverAxis>.cancelado{
+.circleStatesOverAxis>.Desembolsado{
     background-image:linear-gradient(white,white) ;
     border-color:#660b2c;
 }

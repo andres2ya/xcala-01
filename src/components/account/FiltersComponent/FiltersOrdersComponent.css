@@ -1,0 +1,80 @@
+/* filtro por estado y cliente ------------------------------------------------------------*/
+.filtersContainer{
+    font-size: 13px;
+    color: grey;
+    font-weight: 500;
+    margin-top:10px;
+    margin-bottom: 0px;
+}
+
+.col-stateFilter{
+    text-align: end;
+    margin-right: 0px;
+}
+
+        .filterBox{
+            height: 30px;
+        }
+
+                .icon-filterBox{
+                    margin-left: 10px;
+                    margin-right: 0px;
+                    text-align: end;
+                }
+
+#filterByConstumer{
+    color:grey;
+    font-weight: 500;
+    border-radius: 15px;
+    outline: none;
+}
+#filterByConstumer:focus{
+    outline: none;
+}
+
+
+.orderStateCard{
+    margin-left:5px;
+    font-size: 12px;
+    font-weight: 400;
+ }
+         .stateCircle{
+             height: 13px;
+             width: 13px;
+             border-radius: 50%;
+             border:2px solid;
+             margin-right: 5px;
+         }
+
+         .orderStateCard>.Pendiente{
+             background-image:linear-gradient(white,white) ;
+             border-color:#d2145a;
+         }
+         .orderStateCard>.Despachado{
+             background-image:linear-gradient(white,white) ;
+             border-color:#146ad2;
+         }
+         .orderStateCard>.Entregado{
+             background-image:linear-gradient(white,white) ;
+             border-color:#95a817;
+         }
+         .orderStateCard>.Desembolsado{
+             background-image:linear-gradient(white,white) ;
+             border-color:#14d23a;
+         }
+         .orderStateCard>.Reintegrado{
+            background-image:linear-gradient(white,white) ;
+            border-color:#80e794;
+        }
+         .orderStateCard>.Cancelado{
+             background-image:linear-gradient(white,white) ;
+             border-color:#660b2c;
+         }
+         .orderStateCard>.Caso-abierto{
+             background-image:linear-gradient(white,white) ;
+             border-color:#f11968;
+         }
+         .orderStateCard>.Fallido{
+            background-image:linear-gradient(white,white) ;
+            border-color:#c50000;
+        }

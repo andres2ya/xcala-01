@@ -42,9 +42,12 @@ class PruebaAddOrder extends Component {
             cantidad:1,
 
             idCliente:this.state.idCliente,
-            ciudadCliente:"Bogota",
-            direccionCliente:"Calle 45 sur #37-82",
-            telefonoCliente:"3183667033",
+            // ciudadCliente:"Bogota",
+            ciudadCliente:this.state.clienteObjeto[0].ciudad,
+            // direccionCliente:"Calle 45 sur #37-82",
+            direccionCliente:this.state.clienteObjeto[0].direccionDeEnvio,
+            // telefonoCliente:"3183667033",
+            telefonoCliente:this.state.clienteObjeto[0].telefonoContacto,
 
             idDepacho:null,
             // estadoDespacho:'Sin atender',
@@ -71,6 +74,10 @@ class PruebaAddOrder extends Component {
     
 leerDatos=(e)=>{
     e.preventDefault()
+    if(e.target.id==='idCliente'){
+        let cliente=this.props.customersUser.filter(customer=>customer.nombre===e.target.value)
+        this.setState({clienteObjeto:cliente})
+    }
     this.setState({[e.target.id]:e.target.value})
 }
 
@@ -96,7 +103,18 @@ render() {
 
                     <input id="idProducto" onChange={this.leerDatos} placeholder="idProducto" type="text"/>
                     
-                    <input id="idCliente" onChange={this.leerDatos} placeholder="idCliente" type="text"/>
+                    {/* <input id="idCliente" onChange={this.leerDatos} placeholder="idCliente" type="text"/> */}
+                    
+
+                    {this.props.customersUser?
+                        <select id='idCliente' onChange={this.leerDatos}>
+                            {this.props.customersUser.map(cliente=><option value={cliente.nombre}>{cliente.nombre}</option>)}
+                        </select>
+                        :
+                        console.log('Esperando a que se cargen clientes del vendedor')
+                    }
+
+
 
                     <input id="estado" onChange={this.leerDatos} placeholder="estado" type="text"/>
 
@@ -130,7 +148,8 @@ render() {
 }
 
 const mapStateToProps=(state)=>({
-    userId:state.firebase.auth.uid
+    userId:state.firebase.auth.uid,
+    customersUser:state.firebase.profile.clientes,
 })
 
 export default connect(mapStateToProps,null)(PruebaAddOrder)

@@ -1,0 +1,130 @@
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------- */
+/*
+/* MODAL FILTER BY STATE*/
+
+.modalFilterByStateInsideCard{
+    background-color: white;
+    margin-top:35vh;
+    margin-left:auto;
+    margin-right: auto;
+    width: 90%;
+    border-radius: 15px;
+    height: auto;
+    padding-bottom: 15px;
+}
+
+@media only screen and (min-width: 768px){
+    .modalFilterByStateInsideCard{
+        margin-top:30vh;
+        margin-left:auto;
+        margin-right: auto;
+        width: 50%
+    }
+}
+        .modalFilterByStateContent{
+            margin-top:15px;
+            width: 100%;
+        }
+            
+            .modalTitle{
+                font-family: "Nunito", sans-serif;
+                font-weight: 700;
+                font-size: 19px;
+                color: #3d4c88;
+                line-height: 25px;
+            }
+            
+            .backOrderDetails{
+                font-size: 40px;
+                color: #6aff76;
+            }
+
+            .filterByStateOptionBox{
+                margin-bottom: 5px;
+                font-weight: 400;
+            }
+            .filterByStateOptionBox:active{
+                transform: scale(0.9);
+                font-weight: 900;
+            }
+            
+
+            .circleState{
+                min-height: 20px;
+                min-width:20px;
+                border-radius: 15px;
+                margin-right: 4px;
+            }
+            @media only screen and (max-width: 320px){
+                .circleState{
+                    min-height: 18px;
+                    min-width:18px;
+                    border-radius: 15px;
+                    margin-right: 4px;
+                }
+            }
+
+                    .CSPendiente{
+                        background-color: #d2145a;
+                    }
+                    .CSDespachado{
+                        background-color: #146ad2;
+                    }
+                    .CSEntregado{
+                        background-color: #95a817;
+                    }
+                    .CSDesembolsado{
+                        background-color: #14d23a;
+                    }
+                    .CSReintegrado{
+                        background-color: #80e794;
+                    }
+                    .CSCancelado{
+                        background-color: #660b2c;
+                    }
+                    .CSCaso-abierto{
+                        background-color: #f11968;
+                    }
+                    .CSFallido{
+                        background-color: #c50000;
+                    }
+                    
+.removeFilter{
+    margin-top:15px;
+    color:red;
+    font-weight: 400
+}
+.removeFilter:active{
+    transform: scale(0.9);
+    font-weight: bold
+}
+
+.removeFilterIcon{
+    font-size: 25px;
+}
+
+            /* .applyFilterBtn button{
+                margin-top:10px;
+                color: #3d4c88;
+                background-color: white;
+                width:50%;
+                height: 50px;
+                border:none;
+                border-radius: 15px;
+                -webkit-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
+                -moz-box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
+                box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.3);
+            }
+            .applyFilterBtn button:active{
+                transform: scale(0.9)
+            }
+            .applyFilterBtn button:focus{
+                outline: none;
+            }  */

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import './ModalFilterStateOrders.css'
 
 export default class ModalFilterStateOrders extends Component {
 
     componentDidMount=()=>{
+      window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
       console.log('Se cargó el ModalFilterStateOrders con idPedido=',this.props.idPedido)
     }
     componentWillUnmount=()=>{
@@ -45,44 +47,58 @@ export default class ModalFilterStateOrders extends Component {
                       <div className="col-12">
                         <div className="row">
                             <div 
-                            onClick={()=>this.selectFilterByState('enviadoAlProveedor')} 
+                            onClick={()=>this.selectFilterByState('Pendiente')} 
                             className="col-6 filterByStateOptionBox d-flex align-items-center">
-                                <div className="circleState CSEnEspera"/>
-                                <span className="stateText">En espera</span>
+                                <div className="circleState CSPendiente"/>
+                                <span className="stateText">En proceso</span>
                             </div>
                             <div 
-                            onClick={()=>this.selectFilterByState('enProduccion')} 
-                            className="col-6 filterByStateOptionBox d-flex align-items-center">
-                                <div className="circleState CSEnProduccion"/>
-                                <span className="stateText">Produccion</span>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div 
-                            onClick={()=>this.selectFilterByState('despachado')} 
+                            onClick={()=>this.selectFilterByState('Despachado')} 
                             className="col-6 filterByStateOptionBox d-flex align-items-center">
                                 <div className="circleState CSDespachado"/>
                                 <span className="stateText">Despachado</span>
                             </div>
+                        </div>
+                        <div className="row">
                             <div 
-                            onClick={()=>this.selectFilterByState('listoParaDespacho')} 
+                            onClick={()=>this.selectFilterByState('Caso abierto')} 
                             className="col-6 filterByStateOptionBox d-flex align-items-center">
-                                <div className="circleState CSEnCamino"/>
-                                <span className="stateText">En camino</span>
+                                <div className="circleState CSCaso-abierto"/>
+                                <span className="stateText">Caso abierto</span>
+                            </div>
+                            <div 
+                            onClick={()=>this.selectFilterByState('Cancelado')} 
+                            className="col-6 filterByStateOptionBox d-flex align-items-center">
+                                <div className="circleState CSCancelado"/>
+                                <span className="stateText">Cancelado</span>
                             </div>
                         </div>
                         <div className="row">
                             <div 
-                            onClick={()=>this.selectFilterByState('finalizado')}
+                            onClick={()=>this.selectFilterByState('Entregado')}
                             className="col-6 filterByStateOptionBox d-flex align-items-center">
-                                <div className="circleState CSFinalizado"/>
-                                <span className="stateText">Finalizado</span>
+                                <div className="circleState CSEntregado"/>
+                                <span className="stateText">Entregado</span>
                             </div>
                             <div 
-                            onClick={()=>this.selectFilterByState('cancelado')}
+                            onClick={()=>this.selectFilterByState('Desembolsado')}
                             className="col-6 filterByStateOptionBox d-flex align-items-center">
-                                <div className="circleState CSCancelado"/>
-                                <span className="stateText">Cancelado</span>
+                                <div className="circleState CSDesembolsado"/>
+                                <span className="stateText">Desembolsado</span>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div 
+                            onClick={()=>this.selectFilterByState('Reintegrado')}
+                            className="col-6 filterByStateOptionBox d-flex align-items-center">
+                                <div className="circleState CSReintegrado"/>
+                                <span className="stateText">Reintegrado</span>
+                            </div>
+                            <div 
+                            onClick={()=>this.selectFilterByState('Fallido')}
+                            className="col-6 filterByStateOptionBox d-flex align-items-center">
+                                <div className="circleState CSFallido"/>
+                                <span className="stateText">Fallido</span>
                             </div>
                         </div>
                       </div>

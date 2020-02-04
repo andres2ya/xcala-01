@@ -13,7 +13,7 @@ import StickyFooter from "./PanHummerStickyFooter/StickyFooter";
 
 import Modal from './../Modal/Modal'
 import OpenCaseSeller from './CasesSystem/SellerOpenCase/OpenCaseSeller'
-import ModalFilterStateOrders from './ModalFilterStateOrders'
+import ModalFilterStateOrders from './ModalFilterStateOrders/ModalFilterStateOrders'
 import CancelOrderModal from "./CancelOrderModal/CancelOrderModal";
 
 import Alert from './../Alert/Alert'
@@ -78,7 +78,7 @@ class OrdersDetails extends Component {
   carryOnWithToggleModal=(whatModalToShow,cambiarModal)=>{
     //NOTE: Si el showModal ahora va a ser false, entonces se ubica el scroll en la posicion que se guardo antes de ser abierto!
     if(!this.state.showModal===false){window.scrollTo(this.state.x,this.state.y)}
-    
+
     if(cambiarModal===true){
       this.setState({
         whatModalToShow:whatModalToShow
@@ -154,7 +154,6 @@ class OrdersDetails extends Component {
   }
 
   applyFilterByState=async(option)=>{
-    window.scrollTo(0, 0)//Seteando el scroll en las posiciones iniciales para no afectar el modal
     if(option===undefined){
       await this.setState({selectedOrderState:undefined,activeFilterByOrderState:false})
       this.getOrders('applyFilterByState')
@@ -455,6 +454,7 @@ class OrdersDetails extends Component {
 
   render() {
     const {userOrders,showModal,whatModalToShow,idPedido,tiempoCreacion,direccionVendedor,showAlert,whatAlertToShow}=this.state
+    const {customersUser}=this.props
     const pedidoObjetoVector=userOrders.filter(order=>order.id===idPedido)//NOTE: Obteniendo el objetoPedido para los modales
     const pedidoObjeto=pedidoObjetoVector[0]
     return (
@@ -465,18 +465,21 @@ class OrdersDetails extends Component {
           </div>
           
           <TabsSelector 
-            namesTabs={['Todos','ContraEntrega','Pago Online']} //TODO: Traer clientes del usuario vendedor desde su documento en DB.
+            namesTabs={['Todos','ContraEntrega','Pago Online']} 
             onClick={this.applyFilterByPay} 
             activeTab={this.state.selectedPay}>
           </TabsSelector>
 
-
+          {customersUser?
           <FiltersOrdersComponent
-            vectorClientes={['Pepito','Alejandro']}
+            vectorClientes={customersUser}
             applyFilterByCustomer={this.applyFilterByCustomer}
             toggleModal={this.toggleModal}
             selectedOrderState={this.state.selectedOrderState}>
           </FiltersOrdersComponent>
+          :
+          console.log('Render sin clientes del usuairio vendedor... esperando que se cargen...')
+          }
                 
           {this.state.userOrders.length>0?
           userOrders.map(pedido=>
@@ -561,7 +564,8 @@ class OrdersDetails extends Component {
 const mapStateToProps=(state)=>{
   return{
     user:state.firebase.profile,
-    uid:state.firebase.auth.uid
+    uid:state.firebase.auth.uid,
+    customersUser:state.firebase.profile.clientes
   }
 }
 export default connect(mapStateToProps,null)(OrdersDetails)

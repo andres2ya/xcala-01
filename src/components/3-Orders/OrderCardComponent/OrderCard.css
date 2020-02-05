@@ -1,70 +1,186 @@
 .OrderCardContainer{
-    padding: 25px 0px 25px 0px;
-    border-bottom: 1px solid rgb(201, 201, 201,0.2);
+    padding: 15px 0px 15px 0px;
+    border-bottom: 2px solid rgb(201, 201, 201,0.2);
+}
+
+/* .orderDescriptionData{
+    margin-top: 10px;
+} */
+
+.nombreProveedor{
+    float: left;
+    padding-top:3px
+}
+.orderCardStateLabel{
+    padding: 2px 0px 2px 0px;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    float: right;
 }
 
 
-.upperLabels{
-    color: rgb(177, 177, 177);
+.imagenProducto{
+    width: auto;
+    height: auto;
+    max-height: 110px;
+    max-width: 110px;
+    object-fit: cover;
+    background-color: #eaeaea;
 }
 .rowLabelsData{
     margin-left: 15px;
+    line-height: 1;
 }
-.orderLabelData{
-    font-size: 15px;
+.nombreCliente{
+    color: rgb(112, 112, 112);
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
-.orderLabelData span{
-    font-weight: 600;
+.nombreProveedor,.fechaPedido, .nombreProducto{
+    font-size: 12px;
+    color: rgb(150, 150, 150);
+}
+
+.nombreProveedor, .nombreProducto{
+    font-weight: lighter;
 }
 
 
 
-.orderCardStateLabel{
-    padding: 2px 10px 2px 10px;
-    border-radius: 15px;
+.separadorGanancia-PrecioVenta-left,.separadorGanancia-PrecioVenta-right{
+    /* float: left; */
+    width: 12px;
+    height: auto;
+}
+.separadorGanancia-PrecioVenta-left{
+    border-right: 1px solid rgb(200, 200, 200);
+    margin-top: 10px;
+}
+.tuGananciaValor, .precioVentaValor{
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.tuGananciaLabel, .precioVentaLabel{
+    color: rgb(112, 112, 112);
+    font-size: 12px;
+    font-weight: 400;
+
+}
+
+
+.rowBotonOpcionPedido,.rowBotonOpcionPedidoCancelar{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.rowBotonOpcionPedido button{
     color: white;
+     background-image:linear-gradient(to right,#10174b,#444d84) ;
+     max-width: 350px;
+     width: 100%;
+     border-radius: 15px;
+     text-align: center;
+     padding: 4px 10px 4px 10px;
+
+     border:0px solid;
+     font-size: 14px;
 }
+
+.rowBotonOpcionPedido button:disabled{
+    background-image:linear-gradient(to right,#10174b,#444d84) ;
+    opacity: 0.5;
+    font-weight: lighter;
+}
+
+.rowBotonOpcionPedidoCancelar button:disabled{
+    background: rgb(241,0,0);
+background: -moz-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+background: -webkit-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+background: linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f10000",endColorstr="#d00071",GradientType=1);
+    opacity: 0.5;
+    font-weight: lighter;
+}
+
+.rowBotonOpcionPedido,.rowBotonOpcionPedidoCancelar button:active{
+    outline: none;
+}
+
+.rowBotonOpcionPedido button:hover{
+    zoom: 1.05;
+}
+
+.rowBotonOpcionPedidoCancelar button{
+    color: white;
+    max-width: 350px;
+    width: 100%;
+    border-radius: 15px;
+    text-align: center;
+    padding: 4px 10px 4px 10px;
+    border:0px solid;
+    font-size: 14px;
+    background: rgb(241,0,0);
+    background: -moz-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+    background: linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f10000",endColorstr="#d00071",GradientType=1);
+}
+
+
 
 .orderCard-Pendiente{
+    color: #d2145a;
     /* background-color: #d2145a; */
-    background-image:linear-gradient(#eb1e79,#d2145a) ;
+    /* background-image:linear-gradient(#eb1e79,#d2145a) ; */
 }
 .orderCard-Despachado{
+    color: #146ad2;
     /* background-color: #146ad2; */
-    background-image:linear-gradient(#1eebcc,#146ad2) ;
+    /* background-image:linear-gradient(#1eebcc,#146ad2) ; */
 }
 .orderCard-Entregado{
+    color: #95a817;
     /* background-color: #95a817; */
-    background-image:linear-gradient(#99aa2b,#95a817) ;
+    /* background-image:linear-gradient(#99aa2b,#95a817) ; */
 }
 .orderCard-Desembolsado{
+    color: #14d23a;
     /* background-color: #14d23a; */
-    background-image:linear-gradient(#75db65,#14d23a) ;
+    /* background-image:linear-gradient(#75db65,#14d23a) ; */
 }
 .orderCard-Reintegrado{
+    color: #80e794;
     /* background-color: #80e794; */
-    background-image:linear-gradient(#a3e5b0,#80e794) ;
+    /* background-image:linear-gradient(#a3e5b0,#80e794) ; */
 }
 .orderCard-Cancelado{
+    color: #660b2c;
     /* background-color: #660b2c; */
-    background-image:linear-gradient(#814559,#660b2c) ;
+    /* background-image:linear-gradient(#814559,#660b2c) ; */
 }
 .orderCard-Caso-abierto{
+    color: #f11968;
     /* background-color: #f11968; */
-    background-image:linear-gradient(#e04880,#f11968) ;
+    /* background-image:linear-gradient(#e04880,#f11968) ; */
 }
 .orderCard-Fallido{
+    color: #c50000;
     /* background-color: #c50000; */
-    background-image:linear-gradient(#c35252,#c50000) ;
+    /* background-image:linear-gradient(#c35252,#c50000) ; */
 }
 
-
-
-.uniqueButton{
-    width: 100%;
-    border:1px solid #080899;
-    border-radius: 15px;
-    color: #080899;
-    background-color: white;
-    margin: 10px 0px 10px 0px;
+.OrderCard-circleState{
+    margin-left: 5px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border:2px solid;
+    border-radius: 100%;
 }

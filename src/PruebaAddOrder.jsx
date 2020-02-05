@@ -33,6 +33,7 @@ class PruebaAddOrder extends Component {
         db.collection('pedidos').add({
             // idPedido:this.state.idPedido,
             idVendedor:this.props.userId,
+            nombreProveedor:'AFY Global SAS',
             idProveedor:'OYufDRLH3TYPNpcEkVbtAstkMNi1',
             idProducto:this.state.idProducto,
             tipoPago:this.state.tipoPago,

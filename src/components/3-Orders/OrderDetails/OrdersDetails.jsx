@@ -493,6 +493,7 @@ class OrdersDetails extends Component {
               estado={pedido.estado} 
               fecha={pedido.fecha} 
               idProveedor={pedido.idProveedor} 
+              nombreProveedor={pedido.nombreProveedor} 
               imagenProducto={pedido.imagenProducto} 
               costo={pedido.costo} 
               ganancia={pedido.ganancia} 

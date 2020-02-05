@@ -9,7 +9,6 @@ export default class OrderCard extends Component {
     const {nombreProveedor,pedidoObjeto,idProducto,idPedido,posibleCancelar,cambioLaDireccion,tipoPago,estado,fecha,idProveedor,imagenProducto,costo,ganancia,precioVenta,idCliente,direccionCliente,tiempoCreacion}=this.props
     console.log(idProducto)
     const {
-      function_trackOrder,
       function_cancelOrder,
       function_changeShippingAddress,
       function_openCase,
@@ -80,7 +79,7 @@ export default class OrderCard extends Component {
                 }
                 break;
                 
-              case 'ContraEntrega'://NOTE: Pedidos con pago contra entrega
+              case 'Contra entrega'://NOTE: Pedidos con pago contra entrega
                 if(estado==='Pendiente' && posibleCancelar==='true'){
                   return(
                     <div className="rowBotonOpcionPedidoCancelar">

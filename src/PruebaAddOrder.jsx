@@ -98,7 +98,7 @@ render() {
                     <label htmlFor="tipoPago">Tipo de pago</label>
                     <select id="tipoPago" onChange={this.leerDatos}>
                         <option value="Pago Online">online</option>
-                        <option value="ContraEntrega">contra entrega</option>
+                        <option value="Contra entrega">contra entrega</option>
                     </select>
                     {/* <input id="fecha" onChange={this.leerDatos} placeholder="Fecha" type="text"/> */}
                     

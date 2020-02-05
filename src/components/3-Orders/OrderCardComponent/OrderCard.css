@@ -32,6 +32,7 @@
 .rowLabelsData{
     margin-left: 15px;
     line-height: 1;
+    width: 250px;
 }
 .nombreCliente{
     color: rgb(112, 112, 112);
@@ -54,10 +55,10 @@
     /* float: left; */
     width: 12px;
     height: auto;
+    margin-top: 10px;
 }
 .separadorGanancia-PrecioVenta-left{
     border-right: 1px solid rgb(200, 200, 200);
-    margin-top: 10px;
 }
 .tuGananciaValor, .precioVentaValor{
     color: black;

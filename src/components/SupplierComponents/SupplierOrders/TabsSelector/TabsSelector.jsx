@@ -6,7 +6,7 @@ class TabsSelector extends Component {
     render() {
         const {namesTabs,onClick,activeTab}=this.props
         return (
-            <div className="TabsSelectorTabRow col-12 d-flex justify-content-center align-items-center">
+            <div className="TabsSelectorTabRow  d-flex justify-content-center align-items-center">
                 {namesTabs.map(nameTab=>
                     <div 
                     key={nameTab} 

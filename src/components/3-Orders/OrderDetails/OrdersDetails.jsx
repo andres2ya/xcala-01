@@ -465,8 +465,8 @@ class OrdersDetails extends Component {
           </div>
           
           <TabsSelector 
-            namesTabs={['Todos','ContraEntrega','Pago Online']} 
-            onClick={this.applyFilterByPay} 
+            namesTabs={['Todos','Contra entrega','Pago Online']} 
+            onClick={this.applyFilterByPay}
             activeTab={this.state.selectedPay}>
           </TabsSelector>
 
@@ -502,7 +502,7 @@ class OrdersDetails extends Component {
               direccionCliente={pedido.direccionCliente}
               tiempoCreacion={pedido.tiempoCreacion}
               
-              function_trackOrder={this.trackOrder}
+              
               function_cancelOrder={this.cancelOrder}
               function_changeShippingAddress={this.changeShippingAddress}
               function_openCase={this.openCase}

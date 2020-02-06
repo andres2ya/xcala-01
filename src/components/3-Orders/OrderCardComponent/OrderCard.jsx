@@ -7,7 +7,6 @@ export default class OrderCard extends Component {
   
   render() {
     const {nombreProveedor,pedidoObjeto,idProducto,idPedido,posibleCancelar,cambioLaDireccion,tipoPago,estado,fecha,idProveedor,imagenProducto,costo,ganancia,precioVenta,idCliente,direccionCliente,tiempoCreacion}=this.props
-    console.log(idProducto)
     const {
       function_cancelOrder,
       function_changeShippingAddress,

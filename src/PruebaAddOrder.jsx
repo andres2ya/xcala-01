@@ -31,14 +31,16 @@ class PruebaAddOrder extends Component {
         
         var db=firebase.firestore();
         db.collection('pedidos').add({
-            // idPedido:this.state.idPedido,
+            // idPedido:this.state.idPedido
+            OrderByDate:creationDate, //NOTE:Guardado solamente para poder filtrar por fecha
+
             idVendedor:this.props.userId,
             nombreProveedor:'AFY Global SAS',
             idProveedor:'OYufDRLH3TYPNpcEkVbtAstkMNi1',
             idProducto:this.state.idProducto,
             tipoPago:this.state.tipoPago,
             tiempoCreacion:creationTime,
-            fecha:creationDateLocalFormat,
+            fecha:creationDateLocalFormat, //NOTE:Creado para objetivos visuales
             hora:creationHourLocalFormat,
             imagenProducto:'https://www.zapatos.es/media/catalog/product/cache/image/650x650/0/0/0000200860916_01_ts.jpg',
             cantidad:1,

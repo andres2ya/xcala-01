@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import './OrderDetails.css'
 import {connect} from 'react-redux';
 
 import LinkWithDelay from '../../../helpers/LinkWithDelay'
@@ -20,7 +19,6 @@ import CancelOrderModal from "./../CancelOrderModal/CancelOrderModal";
 import Alert from './../../11-Alert/Alert'
 import ChangeShippingAddressModal from "./../ChangeShippingAddressModal/ChangeShippingAddressModal"
 import SellerFlowCase from "./../../4-CaseSystem/SellerFlowCase/SellerFlowCase"
-import SpinnerInChargeMore from './../../layout/SpinnerInChargeMore/SpinnerInChargeMore'
 
 class OrdersDetails extends Component {
   
@@ -58,8 +56,6 @@ class OrdersDetails extends Component {
     prevDocument:null, //NOTE: Usado para paginar los pedidos.
 
     listeners:[],
-    isBottom:false,
-    isDocuments:false,
   }
 
   toggleAlert=(whatAlertToShow,cambiarAlert)=>{
@@ -103,35 +99,53 @@ class OrdersDetails extends Component {
   
   componentDidMount=()=>{
     this.getOrders('componentDidMount')
-    document.addEventListener('scroll', this.trackScrolling);//NOTE: Añadiendo el listener de "scroll" al documento
+    //NOTE: Solo se ejecuta el getOrders al montar si el profile del usuario esta cargado
+    // if(this.props.user.isLoaded===true){
+    //   this.getOrders('componentDidMount')
+    // }
   }
   
+  // componentDidUpdate=(prevProps)=>{
+  //   //NOTE: Ejecuta el getOrders si el profile no habia estado cargado en el montaje del componenete pero se actualizo existosasmente.
+  //   // if(prevProps.user!==this.props.user){
+  //   //   this.getOrders('componentDidMount')
+  //   // }
+  // }
   
   componentWillUnmount=()=>{
     this.unsuscribeAllListener()
-    document.removeEventListener('scroll', this.trackScrolling);//NOTE: Elimiand el listener de "scroll" al documento
   }
 
   unsuscribeAllListener=async()=>{
-    //NOTE: Unsuscribe todos los listenes ( cada vez que se crear un listener se agrega al array "listeners" en el estado del componente, luego al querer unsuscribe them se mapea el vector y se corre la funcion asociada a cada uno)
-    this.state.listeners.map(listener=>{
-      listener()
-    })
-    //NOTE: Reiniciando vector pedidos cada vez que se filtra la vista, asi como reseteando el prevDoc y eliminarndo todos los listeneres una ves han sido unsuscribed
-    this.setState({userOrders:[],prevDocument:null,listeners:[]})
+    const listeners=[
+      // this.unsubscribePedidosSinFiltro_without_prevDocument,
+      // this.unsubscribePedidosSinFiltro_with_prevDocument,
+      this.unsubscribePedidosSinFiltro,
+      this.unsubscribePedidosFiltroFormaPago,
+      this.unsubscribePedidosFiltroCliente,
+      this.unsubscribePedidosFiltroEstado,
+      this.unsubscribePedidosFiltro_Pago_y_cliente,
+      this.unsubscribePedidosFiltro_Pago_y_estado,
+      this.unsubscribePedidosFiltro_Cliente_y_Estado,
+      this.unsubscribePedidosFiltro_Pago_Cliente_y_Estado
+    ]
+
+    //NOTE: Reiniciando vector pedidos cada vez que se filtra la vist a
+    this.setState({userOrders:[],prevDocument:null})
+    
+    //NOTE: unsuscribe el listener que existe actualmente
+    return Promise.all(listeners.map(async(listener)=>{if(listener){return Promise.resolve(listener())}}))
   }
 
 
   //NOTE: Funciones de filtro
   applyFilterByPay=async(e)=>{
-    if(e.target.id!==this.state.selectedPay){
-      if(e.target.id!=='Todos'){
-        await this.setState({selectedPay:e.target.id,activeFilterByPay:true})
-        this.getOrders('applyFilterByPay')
-      }else{
-        await this.setState({selectedPay:'Todos',activeFilterByPay:false})
-        this.getOrders('applyFilterByPay')
-      }
+    if(e.target.id!=='Todos'){
+      await this.setState({selectedPay:e.target.id,activeFilterByPay:true})
+      this.getOrders('applyFilterByPay')
+    }else{
+      await this.setState({selectedPay:'Todos',activeFilterByPay:false})
+      this.getOrders('applyFilterByPay')
     }
   }
 
@@ -146,111 +160,179 @@ class OrdersDetails extends Component {
   }
 
   applyFilterByState=async(option)=>{
-    if(option!==this.state.selectedOrderState){
-      if(option===undefined){
-        await this.setState({selectedOrderState:undefined,activeFilterByOrderState:false})
-        this.getOrders('applyFilterByState')
-      }else{
-        await this.setState({selectedOrderState:option,activeFilterByOrderState:true})
-        this.getOrders('applyFilterByState')
-      }
+    if(option===undefined){
+      await this.setState({selectedOrderState:undefined,activeFilterByOrderState:false})
+      this.getOrders('applyFilterByState')
+    }else{
+      await this.setState({selectedOrderState:option,activeFilterByOrderState:true})
+      this.getOrders('applyFilterByState')
     }
   }
 
-  
+  pruebaDesinscribirListernerSinFiltro=()=>{
+    this.state.listeners.map(listener=>{
+      listener()
+    })
+    this.setState({listeners:[]})
+  }
+
+  componentDidUpdate=()=>{
+    console.log(this.state.listeners)
+  }
+
+
   //NOTE: Funcion listeners que traen los pedidos desde DB
   getOrders=async(origen)=>{
+    //TODO: Trear pedidos paginados..... averiguar como lanza un evento cuando se llegue a la parte mas baja de la pagina para que entonces, se cargen mas pedidos
     var db=firebase.firestore()
     const {activeFilterByPay, selectedPay}=this.state
     const {activeFilterByCustomer,  selectedCustomer}=this.state
     const {activeFilterByOrderState,  selectedOrderState}=this.state
-    const idVendedor=this.props.uid
     var {prevDocument}=this.state
+
+    const idVendedor=this.props.uid
     
     console.log(origen)
     if(origen!=='componentDidMount' &&  origen!=='cargarMas'){
       await this.unsuscribeAllListener()
     }
 
-    let query_original
-    let limit=2
     if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===false){
       console.log('Pedidos sin filtro:')
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===false){
-      console.log('Pedidos filtrados por forma de pago:',selectedPay)
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===false){
-      console.log('Pedidos filtrados por cliente:',this.state.selectedCustomer)
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('idCliente','==',selectedCustomer).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===true){
-      console.log('Pedidos filtrados por estado:',this.state.selectedOrderState)  
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('estado','==',selectedOrderState).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===false){
-      console.log('Pedidos filtrados por tipo de pago y cliente:')
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===true){
-      console.log('Pedidos filtrados por tipo de pago y estado:')
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('estado','==',selectedOrderState).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===true){
-      console.log('Pedidos filtrados por cliente y estado:')
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).orderBy('OrderByDate','desc').limit(limit)
-    }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===true){
-      console.log('Pedidos filtrados por tipo de pago, cliente y estado:')
-      query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).orderBy('OrderByDate','desc').limit(limit)
-    }
-
-    let querySelected
-    let stopQuery=false
-    if(prevDocument===null || origen!=='cargarMas'){ //NOTE: Es la primera vez que se lee el query.
-      querySelected=query_original
-    }else if(prevDocument!==undefined && origen==='cargarMas'){//NOTE: Ya se ha leido el query y se ha gurdado correctamente el ultimo documento, entonces debe hacers eel mismo query con "startAfter"
-      querySelected=query_original.startAfter(prevDocument)
-    }else if(prevDocument===undefined || origen!=='cargarMas'){ //NOTE: No hay mas documentos
-      stopQuery=true
-      this.setState({isDocuments:false,isBottom:false})
-      console.log('No hay mas documentos para traer')
-    }else{
-      stopQuery=true
-      this.setState({isDocuments:false,isBottom:false})
-      console.log('Algo distinto ocurrio')
-    }
-    
-    if(stopQuery===false){
-      this.setState({isBottom:true})
-      //TODO: Remover setTimeout, esta aca solo para simular una demora en la carga de datos y permitir mostrar por mas tiempo el Spinner!
-      setTimeout(() => {
-        this.state.listeners.push(querySelected.onSnapshot((snap)=>{
-          console.log('Snap docs',snap.docs)
-          if(snap.empty){
-            console.log('snap is empty')
-            this.setState({isDocuments:false})
-          }else{
-            console.log('snap is not empty')
-            this.setState({isDocuments:true})
-          }
-          this.state.prevDocument=snap.docs[snap.docs.length-1] //NOTE: Guardando como prevDoc el ultimo de aquellos traidos en el snap.
+      const queryPedidosSinFiltro=db.collection('pedidos').where('idVendedor','==',idVendedor).orderBy('OrderByDate','desc').limit(2)
+      if(prevDocument===null){
+          // this.unsubscribePedidosSinFiltro=queryPedidosSinFiltro.onSnapshot((snap)=>{
+          this.state.listeners.push(queryPedidosSinFiltro.onSnapshot((snap)=>{
+          this.state.prevDocument=snap.docs[snap.docs.length-1]
           let auxUserOrders=[]
           snap.forEach((doc)=>{
             if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
-              this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)//NOTE: Si el atributo "posible cancelar" del pedido traido en el snap es === true, entonces se envia a la funcion calculate24hr para calcula el tiempo restante. De esta forma, al trae un doc siempre se revisa primero que pueda ser cancelado, de lo contrario se desabilita esta opcion
+              this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
             }
-            let docExist=this.state.userOrders.filter(order=>order.id===doc.data().id)//NOTE: Comprobando si el doc traido ya exite en el array de ordenes que se esta renderizando
-            let indexDocExist=this.state.userOrders.indexOf(docExist[0])//NOTE: Obteniendo el index del documento, en caso de existir sera != -1
+            let docExist=this.state.userOrders.filter(order=>order.id===doc.data().id)
+            let indexDocExist=this.state.userOrders.indexOf(docExist[0])
             if(docExist.length>0){//NOTE: Ya existe el objeto
               console.log('Ya existe el objeto')
-              this.state.userOrders.splice(indexDocExist,1,doc.data()) //NOTE: Como ya existe, entonces usando splice se reemplaza el objeto en la misma posicin en la que estaba
+              this.state.userOrders.splice(indexDocExist,1,doc.data())
             }else{//NOTE: No existe el objeto
               console.log('No existe el objeto')
-              auxUserOrders.push(doc.data()) //NOTE: Como no existe, entonces se hace push para agregarlo en ultima posicion.
+              auxUserOrders.push(doc.data())
             }
           })
-          this.setState({userOrders:[...this.state.userOrders,...auxUserOrders],isBottom:false})
-          document.addEventListener('scroll', this.trackScrolling);//NOTE: Reactivando el listener de scroll
+          this.setState({userOrders:[...this.state.userOrders,...auxUserOrders]})
         }))
-      }, 500);
+      }else if(prevDocument!==undefined){//NOTE: Ya se ha leido el query y se ha gurdado correctamente el ultimo documento, entonces debe hacers eel mismo query con "startAfter"
+        
+          // this.unsubscribePedidosSinFiltro=queryPedidosSinFiltro.startAfter(prevDocument).onSnapshot((snap)=>{
+          this.state.listeners.push(queryPedidosSinFiltro.startAfter(prevDocument).onSnapshot((snap)=>{
+          this.state.prevDocument=snap.docs[snap.docs.length-1]
+          let auxUserOrders=[]
+          snap.forEach((doc)=>{
+            if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+              this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+            }
+            let docExist=this.state.userOrders.filter(order=>order.id===doc.data().id)
+            let indexDocExist=this.state.userOrders.indexOf(docExist[0])
+            if(docExist.length>0){
+              //NOTE: Ya existe el objeto
+              console.log('Ya existe el objeto')
+              this.state.userOrders.splice(indexDocExist,1,doc.data())
+            }else{
+              //NOTE: No existe el objeto
+              console.log('No existe el objeto')
+              auxUserOrders.push(doc.data())
+            }
+          })
+          this.setState({userOrders:[...this.state.userOrders,...auxUserOrders]})
+        }))
+      }else{
+        console.log('No hay mas documentos para traer')
+      }
+    }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===false){
+      console.log('Pedidos filtrados por forma de pago:',selectedPay)
+      this.unsubscribePedidosFiltroFormaPago=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===false){
+      console.log('Pedidos filtrados por cliente:',this.state.selectedCustomer)
+      this.unsubscribePedidosFiltroCliente=db.collection('pedidos').where('idVendedor','==',idVendedor).where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por estado:',this.state.selectedOrderState)  
+      this.unsubscribePedidosFiltroEstado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===false){
+      console.log('Pedidos filtrados por tipo de pago y cliente:')
+      this.unsubscribePedidosFiltro_Pago_y_cliente=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por tipo de pago y estado:')
+      this.unsubscribePedidosFiltro_Pago_y_estado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===false && activeFilterByCustomer===true && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por cliente y estado:')
+      this.unsubscribePedidosFiltro_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
+    }else if(activeFilterByPay===true && activeFilterByCustomer===true && activeFilterByOrderState===true){
+      console.log('Pedidos filtrados por tipo de pago, cliente y estado:')
+      this.unsubscribePedidosFiltro_Pago_Cliente_y_Estado=db.collection('pedidos').where('idVendedor','==',idVendedor).where('tipoPago','==',selectedPay).where('idCliente','==',selectedCustomer).where('estado','==',selectedOrderState).onSnapshot((snap)=>{
+        let auxUserOrders=[]
+        snap.forEach((doc)=>{
+          if(doc.data().posibleCancelar==='true'){//TODO: posibleCandelar debe ser un booleano de verdad
+            this.calculateIfHaveBeenHappenedTwentyFourHours(doc.data().id,doc.data().tiempoCreacion)
+          }
+          auxUserOrders.push(doc.data())
+        })
+        this.setState({userOrders:auxUserOrders})
+      })
     }
-      
   }
 
   
@@ -425,25 +507,16 @@ class OrdersDetails extends Component {
   }
 
 
-  
-  
-  trackScrolling = () => {
-    const wrappedElement = document.getElementById('end');
-    if (wrappedElement.getBoundingClientRect().bottom-window.innerHeight<1) {
-      console.log('Se alcanzo el bottom, se lanzara getOrders("cargarMas")');
-      this.getOrders('cargarMas')
-      document.removeEventListener('scroll', this.trackScrolling);//NOTE: Desactivando el listener de scroll to bottom para que no mande varios getOrders
-    }
-  };
 
-  
+
+
   render() {
     const {userOrders,showModal,whatModalToShow,idPedido,tiempoCreacion,direccionVendedor,showAlert,whatAlertToShow}=this.state
     const {customersUser}=this.props
     const pedidoObjetoVector=userOrders.filter(order=>order.id===idPedido)//NOTE: Obteniendo el objetoPedido para los modales
     const pedidoObjeto=pedidoObjetoVector[0]
     return (
-        <div id="end" className="pcControlerScreen ">
+        <div className="pcControlerScreen ">
 
           <div className="row">
             <p className="accountTitle">Resumen de tus pedidos</p>
@@ -542,14 +615,9 @@ class OrdersDetails extends Component {
           })(showAlert,whatAlertToShow)}
           {/* <StickyFooter/> */}
 
-          {this.state.isBottom?<SpinnerInChargeMore/>:null}
-          {this.state.isDocuments?null:
-          <div className="row">
-            <div className="snapEmpty col-12 d-flex justify-content-center align-items-center">
-              No hay mas pedidos
-            </div>
-          </div>
-          }
+
+          <button onClick={()=>this.getOrders('cargarMas')}>Cargar mas</button>
+          <button onClick={this.pruebaDesinscribirListernerSinFiltro}>Desinscribir listener sin filtro</button>
         </div>
       )
   }

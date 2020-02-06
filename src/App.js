@@ -26,6 +26,7 @@ import PruebasDespachos from "./PruebasDespachos";
 import PruebasTotalPendientes from "./PruebasTotalPendientes";
 import PruebasPayU from "./PruebasPayU";
 
+import Categories from './components/5-ProductsAndCategories/Categories/Categories'
 
 function App(){
 
@@ -37,7 +38,7 @@ function App(){
           var url=window.location.pathname
           if(url==='/my-account'||url==='/order-details'||url==='/account-details'||url==='/invoice-address'||url==='/shipping-address'||url==='/all-products'){
             return <MainNavbar/>
-          }else if(url==='/all-categories'||url==='/shopping-car'||url==='/supplier-panel'||url.indexOf("order-id") > -1){
+          }else if(url==='/categories'||url==='/shopping-car'||url==='/supplier-panel'||url.indexOf("order-id") > -1){
             return <SecondNavbar/>
           }else if(url==='category-id'){
             return 'otherNavbar'
@@ -46,6 +47,12 @@ function App(){
           }
         })()
     }
+
+    <div>
+      <Switch>
+        <Route exact path="/categories" component={Categories}/>
+      </Switch>
+    </div>
     <div className="container-fluid">
     <Switch>
       <Route exact path="/" component={Login}/>
@@ -57,6 +64,7 @@ function App(){
       <Route exact path="/customemailhandler" component={CustomEmailHandler}/>
       <Route exact path="/my-account" component={MyAccount}/>
       <Route exact path="/order-details" component={OrdersDetails}/>
+      {/* <Route exact path="/categories" component={Categories}/> */}
       {/* <Route exact path="/order-id:id" component={SpecificOrderDetails}/> */}
       {/* <Route exact path="/order-id" component={SpecificOrderDetails}/> */}
       <Route exact path="/passforgot" component={PassForgot}/>

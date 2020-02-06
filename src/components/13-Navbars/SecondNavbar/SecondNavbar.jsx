@@ -23,23 +23,23 @@ class SecondNavbar extends Component {
                         <LinkWithDelay to={'/my-account'} delay={30}>
                         <img className="userPhotoSecondNavbar" src={this.props.userPhotoURLFromProfile?this.props.userPhotoURLFromProfile:userWithoutPhoto} alt="userPhoto"/>
                         </LinkWithDelay>
-                            <div className="betweenWidgetsLeftSecondNav"/>
-                            <div className="betweenWidgetsRightSecondNav"/>
-
+                        <div className="betweenWidgetsLeftSecondNav"/>
+                        <div className="betweenWidgetsRightSecondNav"/>
 
                         {userRole==='vendedor'?
-                        <div>
+                        <>
                             <Link to={'/shopping-car'}>
                                 <ShoppingCarWidget classNavIcon={'ShoppingCarWidgetSecondNavbar'} numberItemsInCar={10}/>
                             </Link>
                             <div className="betweenWidgetsLeftSecondNav"/>
-                        </div>
+                            <div className="betweenWidgetsRightSecondNav"/>
+                        </>
                         :
                         null
                         }
 
 
-                            <div className="betweenWidgetsRightSecondNav"/>
+                            
                         <MenuWidget classNavIcon={'menuWidgetSecondNav'}/>
                     </div>
                 </div>

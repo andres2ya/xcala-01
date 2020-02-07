@@ -209,3 +209,6 @@
 .icon-check-circle:before {
   content: "\34";
 }
+.icon-whatsapp:before {
+  content: "\35";
+}

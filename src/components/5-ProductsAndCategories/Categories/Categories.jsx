@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import CategorieCard from './CategorieCard/CategorieCard'
+import EllipsisLoading from './../../layout/EllipsisLoading/EllipsisLoading'
 import Hammer from 'hammerjs';
 import firebase from "firebase/app";
 import "firebase/firestore";
 
+//TODO: 1. Asegurar que la demora en la carga de una imagen de categoria no implique su no renderizada debido 
+//a que el usuario vuelva a ejecutar el slide y se carge la sigueitne categoria.
+//TODO: 2. Guardar listeners en array para que cada vez que se llame un nuevo listener se desisncriba el anterior
 
 export default class Categories extends Component {
     state={
@@ -15,24 +19,23 @@ export default class Categories extends Component {
     }
 
     componentDidMount=()=>{
-    /**Integraccion HammerJS */
-    // 1)  Seleccionando el elemento al cual se le aplicara el listener de hammer
-    var categorieDiv=document.getElementById('categorieDiv');
-    // 2)  Creando una instancia de hammer
-    var categorieDivHammer= new Hammer(categorieDiv)
-    // 3)  Bloqueando el vertical scrolling cuando se toca el elementoByid seleccionado
-    categorieDivHammer.get('pan').set({direction:Hammer.DIRECTION_ALL})
-    // 4)  Creando el listener de hammer al elemento by id
-    categorieDivHammer.on('panleft panright',(e)=>this.changeCategorie(e))
-    
-    this.getCategorie('firstCategorie')
-}
+        /**Integraccion HammerJS */
+        // 1)  Seleccionando el elemento al cual se le aplicara el listener de hammer
+        var categorieDiv=document.getElementById('categorieDiv');
+        // 2)  Creando una instancia de hammer
+        var categorieDivHammer= new Hammer(categorieDiv)
+        // 3)  Bloqueando el vertical scrolling cuando se toca el elementoByid seleccionado
+        categorieDivHammer.get('pan').set({direction:Hammer.DIRECTION_ALL})
+        // 4)  Creando el listener de hammer al elemento by id
+        categorieDivHammer.on('panleft panright',(e)=>this.changeCategorie(e))
+        
+        this.getCategorie('firstCategorie')
+    }
 
     changeCategorie=async(e)=>{
         const {panleftcategorieDiv,panrightcategorieDiv}=this.state
 
         if(e.type==='panleft' && panleftcategorieDiv===false){
-        //   console.log('Mostrando siguiente categoria')
             await this.setState({
                 panleftcategorieDiv:true,
                 panrightcategorieDiv:false,
@@ -41,8 +44,6 @@ export default class Categories extends Component {
             this.getCategorie('nextCategorie')
         }
         if(e.type==='panright' && panrightcategorieDiv===false){
-        //   console.log('Mostrando anterior categoria')
-            
             await this.setState({
                 panleftcategorieDiv:false,
                 panrightcategorieDiv:true,
@@ -50,7 +51,6 @@ export default class Categories extends Component {
             })
             this.getCategorie('prevCategorie')
         }
-        
     }
 
     getCategorie=(origen)=>{
@@ -93,7 +93,7 @@ export default class Categories extends Component {
             querySelected.onSnapshot(snap=>{
                 if(!snap.empty){
                     this.state.currentCategorieDoc=snap.docs[0]//NOTE: Guardando currentCategoriDoc para pasarlo luego en el startAfter o en endBefore
-                    console.log('nombre cat guardada como ultima en abrir:',snap.docs[0].data().nombreCategoria)
+                    console.log('nombre categoria guardada como ultima en abrir:',snap.docs[0].data().nombreCategoria)
                     let auxCategorie
                     snap.forEach(doc=>{
                         console.log(doc.id,doc.data().nombreCategoria)
@@ -102,28 +102,31 @@ export default class Categories extends Component {
                     this.setState({categorie:auxCategorie})
                     setTimeout(() => {
                         this.setState({panleftcategorieDiv:false,panrightcategorieDiv:false})
-                    }, 1000);
+                    }, 100);
                 }else{
                     console.log('snap vacio')
                     setTimeout(() => {
                         this.setState({panleftcategorieDiv:false,panrightcategorieDiv:false,stopQuery:true})
-                    }, 1000);
+                    }, 100);
                 }
             })
         }
     }
 
-    
     render() {
         const {categorie}=this.state
-        return (
-            <div id="categorieDiv">
-                {categorie?
-                <CategorieCard categorie={categorie} />
-                :
-                null
-                }
-            </div>
-        )
+        if(categorie){
+            return (
+                <div id="categorieDiv">
+                    <CategorieCard  categorie={categorie} />
+                </div>
+            )
+        }else{
+            return(
+                <div style={{minHeight:'80vh'}} className="d-flex justify-content-center align-items-center" id="categorieDiv">
+                    <EllipsisLoading/>
+                </div>
+            )
+        }
     }
 }

@@ -1,7 +1,118 @@
 .img-backgroundCategorie{
     object-fit: cover;
-    min-height: 100vh;
+    /* NOTE: 91vh DEBIDO A QUE EL NAVBAR VISIBLE EN ESTE COMPONENTE MIDE 9vh */
+    min-height: 91vh;
+    max-height: 91vh;
+
     min-width: 100%;
-    max-height: 100vh;
     max-width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+
+.overGradient-information{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 2;
+
+    min-height: 100vh;
+    max-height: 100vh;
+
+    min-width: 100vw;
+    max-width: 100vw;
+
+    font-family: "Nunito", sans-serif;
+
+
+    /* NOTE: MUy cercano!! */
+    background: rgb(255,255,255);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(178,200,253,0.3) 65%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(178,200,253,0.3) 65%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(178,200,253,0.3) 65%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#10174b",GradientType=1);
+
+    /* NOTE: Un poco mas cercano al plenado */
+    /* background: rgb(255,255,255);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#10174b",GradientType=1); */
+
+    /* NOTE: Mas cercano al planeado */
+    /* background: rgb(255,255,255);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.8) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.8) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.8) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#10174b",GradientType=1); */
+}
+
+.contentInfoCategoria{
+    /* margin-top: 450px; */
+    margin-top: 70vh;
+}
+.nombreCategoria{
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 0.8;
+    text-shadow: 0px 0px 4px #10174B;
+}
+.cantidadReferencias_y_menorPrecio{
+    color: white;
+    font-weight: normal;
+    line-height: 1;
+    margin-bottom: 17px;
+    margin-top: 5px;
+}
+.labelsCategorias div{
+    color:white;
+    font-weight: lighter;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 15px;
+    border: 1px solid white;
+    padding:2px 2px 2px 6px;
+    min-width: 145px;
+    max-width: 145px;
+    height: auto;
+    margin-right: 3px;
+}
+.buttonsCategorias div{
+    margin-left:3px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+
+    min-width: 160px;
+    height: 35px;
+    border-radius: 10px;
+}
+@media only screen and (max-width: 320px) {
+    .buttonsCategorias div{
+        min-width: 140px;
+    }
+}
+.verCategorias-CategorieCard{
+    background-color: white;
+    color: #444d84;
+}
+.compartirCategoria-CategorieCard{
+    color: white;
+    background: rgb(97,253,125);
+    background: -moz-linear-gradient(180deg, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 100%);
+    background: linear-gradient(180deg, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61fd7d",endColorstr="#2bb826",GradientType=1);
+}
+.whatsappIcon{
+    font-size: 25px;
+    padding-top: 7px;
+    padding-right: 5px;
+}
+
+
+.envioDias-CategorieCard, .compartirCategoria-CategorieCard{
+    margin-top: 6px;
 }

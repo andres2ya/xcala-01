@@ -161,14 +161,10 @@ class OrdersDetails extends Component {
   
   //NOTE: Funcion listeners que traen los pedidos desde DB
   getOrders=async(origen)=>{
-    //TODO: No ocurre estando solo con el filtro de "cliente" ni solo con el filtro de "tipoPago"
-    //TODO: No ocurre estando activos los filtros cliente y tipoPago al mismo timepo
-    //TODO: Si ocurre estando activos los filtros tipoPago y estado al mismo tiempo!
-    //TODO: Cuando esta activo el filtro cliente y el filtro estado y se crea un caso no se capta el cambio y suigue mostrando "abrir caso"
-    //TODO: Lo mismo ocurre estando activos los tres filtros
-    //TODO: Lo mismo ocurre con solo el filtro de estado
-
-    //TODO: Eso ocurre por que al cambiar el estado como en el caso de la apertura de un caso, en donde pasa de estar en "Despachado" a "Caso abierto", el listener que habia sido activado con "Despachado" ya no cobija al pedido "Caso abierto" y por lo tanto no lo actualiza! 
+    
+    //NOTE:: Cuando esta activo el filtro estado y se crea un caso no se capta el cambio y suigue mostrando "abrir caso"
+    //NOTE: Eso ocurre por que al cambiar el estado como en el caso de la apertura de un caso, en donde pasa de estar en "Despachado" a "Caso abierto", el listener que habia sido activado con "Despachado" ya no cobija al pedido "Caso abierto" y por lo tanto no lo actualiza! 
+    //NOTE: Anterior problema se soluciono mediante el cambio del estado a "Caso abierto" tan pronto como se crea un caso exitosamente. ref: SOLUCION-LISTENER-AL-CREAR-CASO
     var db=firebase.firestore()
     const {activeFilterByPay, selectedPay}=this.state
     const {activeFilterByCustomer,  selectedCustomer}=this.state
@@ -412,6 +408,7 @@ class OrdersDetails extends Component {
     window.scrollTo(this.state.x,this.state.y)
     this.state.showAlert=false//NOTE: Inicianco el carryOn siempre con showAlert=false
     this.toggleAlert('casoCreadoConExito')
+    this.applyFilterByState('Caso abierto')//NOTE: SOLUCION-LISTENER-AL-CREAR-CASO Filtra por estado con "Caso abierto" cada vez que se crea un caso para evitar problemas con el listener.
     setTimeout(() => {
       this.toggleAlert(null) 
     }, 6000);

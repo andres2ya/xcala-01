@@ -113,6 +113,7 @@ class OrdersDetails extends Component {
   }
 
   unsuscribeAllListener=async()=>{
+    console.log('Se van a desisncribir los listener')
     //NOTE: Unsuscribe todos los listenes ( cada vez que se crear un listener se agrega al array "listeners" en el estado del componente, luego al querer unsuscribe them se mapea el vector y se corre la funcion asociada a cada uno)
     this.state.listeners.map(listener=>{
       listener()
@@ -160,6 +161,14 @@ class OrdersDetails extends Component {
   
   //NOTE: Funcion listeners que traen los pedidos desde DB
   getOrders=async(origen)=>{
+    //TODO: No ocurre estando solo con el filtro de "cliente" ni solo con el filtro de "tipoPago"
+    //TODO: No ocurre estando activos los filtros cliente y tipoPago al mismo timepo
+    //TODO: Si ocurre estando activos los filtros tipoPago y estado al mismo tiempo!
+    //TODO: Cuando esta activo el filtro cliente y el filtro estado y se crea un caso no se capta el cambio y suigue mostrando "abrir caso"
+    //TODO: Lo mismo ocurre estando activos los tres filtros
+    //TODO: Lo mismo ocurre con solo el filtro de estado
+
+    //TODO: Eso ocurre por que al cambiar el estado como en el caso de la apertura de un caso, en donde pasa de estar en "Despachado" a "Caso abierto", el listener que habia sido activado con "Despachado" ya no cobija al pedido "Caso abierto" y por lo tanto no lo actualiza! 
     var db=firebase.firestore()
     const {activeFilterByPay, selectedPay}=this.state
     const {activeFilterByCustomer,  selectedCustomer}=this.state
@@ -253,6 +262,9 @@ class OrdersDetails extends Component {
       
   }
 
+  componentDidUpdate=()=>{
+    console.log(this.state.listeners)
+  }
   
   //NOTE: Funcion para comprobar el tiempo que ha pasado desde la creacion del pedido.
   //Es llamada desde getOrders siempre y cuando un pedido tenga su atributo: "posibleCancelar=true"

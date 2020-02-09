@@ -27,6 +27,7 @@ import PruebasTotalPendientes from "./PruebasTotalPendientes";
 import PruebasPayU from "./PruebasPayU";
 
 import Categories from './components/5-ProductsAndCategories/Categories/Categories'
+import CategoryProducts from "./components/5-ProductsAndCategories/Categories/CategoryProducts/CategoryProducts";
 
 function App(){
 
@@ -51,6 +52,7 @@ function App(){
     <div>
       <Switch>
         <Route exact path="/categories" component={Categories}/>
+        <Route exact path="/categories-id=:id" component={CategoryProducts}/>
       </Switch>
     </div>
     <div className="container-fluid">

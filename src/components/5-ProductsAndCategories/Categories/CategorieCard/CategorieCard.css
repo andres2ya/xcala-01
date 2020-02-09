@@ -32,20 +32,6 @@
     background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(178,200,253,0.3) 65%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
     background: linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(178,200,253,0.3) 65%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#10174b",GradientType=1);
-
-    /* NOTE: Un poco mas cercano al plenado */
-    /* background: rgb(255,255,255);
-    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
-    background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
-    background: linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.85) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#10174b",GradientType=1); */
-
-    /* NOTE: Mas cercano al planeado */
-    /* background: rgb(255,255,255);
-    background: -moz-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.8) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
-    background: -webkit-linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.8) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
-    background: linear-gradient(180deg, rgba(255,255,255,0.01) 55%, rgba(126,164,251,0.5) 70%, rgba(91,119,194,0.8) 77%, rgba(66,86,154,0.95) 85%, rgba(34,45,103,1) 93%, rgba(16,23,75,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#10174b",GradientType=1); */
 }
 
 .contentInfoCategoria{
@@ -81,36 +67,62 @@
 }
 .buttonsCategorias div{
     margin-left:3px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 600;
-
     min-width: 160px;
-    height: 35px;
-    border-radius: 10px;
+    /* text-align: center;
+    font-size: 14px;
+    font-weight: 600; */
+    /* height: 35px; */
+    /* border-radius: 10px; */
 }
 @media only screen and (max-width: 320px) {
     .buttonsCategorias div{
         min-width: 140px;
     }
 }
-.verCategorias-CategorieCard{
+/* NOTE: El siguiente quita la linea "underline" por defecto del link */
+.buttonsCategorias a{
+    text-decoration: none;
+}
+/* .verCategorias-CategorieCard{
     background-color: white;
     color: #444d84;
 }
+.verCategorias-CategorieCard:active,.compartirCategoria-CategorieCard:active{
+    transform: scale(0.95);
+}
+
 .compartirCategoria-CategorieCard{
-    color: white;
-    background: rgb(97,253,125);
-    background: -moz-linear-gradient(180deg, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 100%);
+    color: rgb(255, 255, 255);
+    background: #61fd7d;
+    background: -moz-linear-gradient(180deg, rgb(143, 255, 164) 0%, #2bb826 100%);
     background: -webkit-linear-gradient(180deg, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 100%);
     background: linear-gradient(180deg, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61fd7d",endColorstr="#2bb826",GradientType=1);
-}
-.whatsappIcon{
+} */
+
+
+/* NOTE: El siguiente es para crear en el boton "Compartir" olas al presionarlo */
+/* .ripple-compartirCategoria {
+    background-position: center;
+    transition: background 0.8s;
+  }
+  .ripple-compartirCategoria:hover {
+    background: #2bb826 radial-gradient(circle, transparent 1%, #2bb826 1%) center/15000%;
+  }
+  .ripple-compartirCategoria:active {
+    background-color: #61fd7d;
+    background-size: 100%;
+    transition: background 0s;
+  } */
+  
+
+
+
+/* .whatsappIcon{
     font-size: 25px;
     padding-top: 7px;
     padding-right: 5px;
-}
+} */
 
 
 .envioDias-CategorieCard, .compartirCategoria-CategorieCard{

@@ -4,6 +4,7 @@ import {logOut} from '../../ducks/authDucks/authDuckLogin';
 import {connect} from 'react-redux';
 import './account.css'
 import LinkWithDelay from '../../helpers/LinkWithDelay';
+import RippleButton from '../layout/RippleButton/RippleButton';
 
 class MyAccount extends Component {
 
@@ -149,7 +150,7 @@ class MyAccount extends Component {
                     </div>
                 </div>
 
-                
+                      
 
 
 

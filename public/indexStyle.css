@@ -63,3 +63,25 @@ html{
     background-color:rgb(0, 0, 0,0.8);
     z-index: 2;
 }
+
+
+/* Rippler effect pure CSS */
+/* NOTE: This is the example  */
+/* .ripple {
+    background-position: center;
+    transition: background 0.8s;
+  }
+  .ripple:hover {
+    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+  }
+  .ripple:active {
+    background-color: #6eb9f7;
+    background-size: 100%;
+    transition: background 0s;
+  } */
+
+  /* background: rgb(97,253,125);
+    background: -moz-radial-gradient(circle, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 52%) center/15000%;
+    background: -webkit-radial-gradient(circle, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 52%) center/15000%;
+    background: radial-gradient(circle, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 52%) center/15000%;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61fd7d",endColorstr="#2bb826",GradientType=1); */

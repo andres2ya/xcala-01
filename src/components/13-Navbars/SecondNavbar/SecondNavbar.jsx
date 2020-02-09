@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import MenuWidget from '../Widgets/MenuWidget/MenuWidget';
 import ShoppingCarWidget from '../Widgets/ShoppingCarWidget/ShoppingCarWidget';
 import logoXcalaSecondNavbar from "../../../assets/logoXcalaSecondNavbar.png";
+// import logoXcalaSecondNavbar from "../../../assets/logoXcalaSupplier.png"
 import userWithoutPhoto from '../../../assets/userWithoutPhoto.jpg';
 import LinkWithDelay from "../../../helpers/LinkWithDelay";
 import './SecondNavbar.css';

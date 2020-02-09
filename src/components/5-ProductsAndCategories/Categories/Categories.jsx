@@ -5,9 +5,6 @@ import Hammer from 'hammerjs';
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-//TODO: 1. Asegurar que la demora en la carga de una imagen de categoria no implique su no renderizada debido 
-//a que el usuario vuelva a ejecutar el slide y se carge la sigueitne categoria.
-//TODO: 2. Guardar listeners en array para que cada vez que se llame un nuevo listener se desisncriba el anterior
 
 export default class Categories extends Component {
     state={
@@ -16,6 +13,7 @@ export default class Categories extends Component {
         stopQuery:false,
         panleftcategorieDiv:false,
         panrightcategorieDiv:false,
+        listener:null,
     }
 
     componentDidMount=()=>{
@@ -30,6 +28,10 @@ export default class Categories extends Component {
         categorieDivHammer.on('panleft panright',(e)=>this.changeCategorie(e))
         
         this.getCategorie('firstCategorie')
+    }
+
+    componentWillUnmount=()=>{
+        this.removeListener()
     }
 
     changeCategorie=async(e)=>{
@@ -53,6 +55,14 @@ export default class Categories extends Component {
         }
     }
 
+    removeListener=()=>{
+        const {listener}=this.state
+        if(listener!==null){
+            listener()
+            this.setState({listener:null})
+        }
+    }
+
     getCategorie=(origen)=>{
         //NOTE: Para lograr hacer un prev * next con limit(1) entonces;
         // se tienen dos indices para el query que se va a usar
@@ -72,45 +82,40 @@ export default class Categories extends Component {
         //necesariamente traera el siguiente en orden ASC, que a su vez corresponde al anterior en el order DESC.
 
         let {currentCategorieDoc,stopQuery}=this.state
-        const queryCategories=firebase.firestore().collection('categorias').where('estado','==','Publicada')
-        
+        const queryCategories=firebase.firestore().collection('categorias').where('estado','==','Publicada')        
+
+        this.removeListener()//NOTE: Removiendo anterior listener
         let querySelected
         if(origen==='firstCategorie' || currentCategorieDoc===null){
-            console.log('actual')
-            console.log('actual categoria',currentCategorieDoc)
             querySelected=queryCategories.orderBy('creationDate','desc').limit(1)
         }else if(origen==='prevCategorie'){
-            console.log('previo')
-            console.log('actual categoria',currentCategorieDoc.data().nombreCategoria)
             querySelected=queryCategories.orderBy('creationDate','asc').limit(1).startAfter(currentCategorieDoc)
         }else if(origen==='nextCategorie'){
-            console.log('siguiente')
-            console.log('actual categoria',currentCategorieDoc.data().nombreCategoria)
             querySelected=queryCategories.orderBy('creationDate','desc').limit(1).startAfter(currentCategorieDoc)
         }
 
         if(stopQuery===false){
-            querySelected.onSnapshot(snap=>{
+            this.state.listener=querySelected.onSnapshot(snap=>{
                 if(!snap.empty){
                     this.state.currentCategorieDoc=snap.docs[0]//NOTE: Guardando currentCategoriDoc para pasarlo luego en el startAfter o en endBefore
-                    console.log('nombre categoria guardada como ultima en abrir:',snap.docs[0].data().nombreCategoria)
                     let auxCategorie
                     snap.forEach(doc=>{
-                        console.log(doc.id,doc.data().nombreCategoria)
                         auxCategorie=doc.data()
                     })
                     this.setState({categorie:auxCategorie})
-                    setTimeout(() => {
-                        this.setState({panleftcategorieDiv:false,panrightcategorieDiv:false})
-                    }, 100);
                 }else{
-                    console.log('snap vacio')
-                    setTimeout(() => {
-                        this.setState({panleftcategorieDiv:false,panrightcategorieDiv:false,stopQuery:true})
-                    }, 100);
+                    this.setState({panleftcategorieDiv:false,panrightcategorieDiv:false,stopQuery:true})
                 }
             })
         }
+    }
+
+    //NOTE: Funcion heredada a CategorieCard que se lanza cuando la imagen de la categoria de carga completamente. Permite desbloquear los controles de slide solo si la imagen ya ha sido mostrada.
+    loadedImg=(e)=>{
+        e.preventDefault()
+        setTimeout(() => {
+            this.setState({panleftcategorieDiv:false,panrightcategorieDiv:false})
+        }, 50);
     }
 
     render() {
@@ -118,7 +123,7 @@ export default class Categories extends Component {
         if(categorie){
             return (
                 <div id="categorieDiv">
-                    <CategorieCard  categorie={categorie} />
+                    <CategorieCard  categorie={categorie}  loadedImg={this.loadedImg}/>
                 </div>
             )
         }else{

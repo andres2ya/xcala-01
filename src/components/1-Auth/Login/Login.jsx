@@ -11,7 +11,7 @@ import '../auth.css';
 import Checkbox from '../../layout/Checkbox/Checkbox';
 import EmailVerify from '../EmailVerify/EmailVerify';
 // import {preloaderOn} from '../../layout/Spinner/Spinner';
-import {addToHomeScreen} from './../../../helpers/addToHomeScreen';
+
 
 
 class Login extends Component {
@@ -22,17 +22,9 @@ class Login extends Component {
         isRetrySendEmailVerify:false,
         newUser:loadFromLocalStorage('newUser'),
         showPreloader:true,
-        showInstallButton:false,
     }
 
     componentDidMount=()=>{
-        //NOTE: Si el deferredPrompt existe, por que fue lanzado por Google, entonces mostrar boton descargar, de lo contrario, no se mostrara.
-        //Tampoco se mostrara si deferredPrompt es undefined debido a que Google no lanzo el evento ya que el usuario ya ha instalado la App
-        console.log('Login componentDidMount => se verificara si window.XcalaWindowVaraible.deferredPrompt existe ')
-        if(window.XcalaWindowVaraible.deferredPrompt!==undefined){
-            this.setState({showInstallButton:true})
-        }
-
         document.body.className='loginStyle'
         //En el caso que entre a login desde la pantalla de confirmacion de correo verificado, 
         //entonces primero: hace signout, para luego permitir entrar a la cuenta y que el emailVerified cambie a true.
@@ -47,10 +39,6 @@ class Login extends Component {
         }
     }
 
-    addToHomeScreen = async ()=>{
-        const resUser = await addToHomeScreen()
-        console.log(resUser) //TODO: Revisar por que no esta recibiendo el valor retornado por addToHomeScreen()
-    }
 
     componentDidUpdate=(prevProps)=>{
         const {tryLogin,retry,errorBool}=this.props
@@ -99,13 +87,13 @@ class Login extends Component {
 
     render() {
         
+
         if(this.state.isRetrySendEmailVerify===true){
              return <EmailVerify newUser={this.state.newUser}/>
         }else if(this.props.isAuthWithEmailVerified){
-             return <Redirect to="/my-account"/>
+             return <Redirect to="/products"/>
         }else{
-        
-        return (
+            return (
             <div className={`auth loginScreen centerHorizontal ${this.props.showPreloader===true?'preloaderOn':null}`}>
                 <img className="authLogoCenter" src={logoXcala} alt="Xcala Colombia"/>
                 <form className="formLogin" id="seccionIngresar">
@@ -143,26 +131,6 @@ class Login extends Component {
                 <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="centerText boldText centerHorizontal" to="/passforgot" > <span className="link">Olvide mi contraseña</span> </Link>
 
-
-
-
-                {
-                this.state.showInstallButton?
-                <div>
-                    <div className="row">
-                        <div style={{textAlign:'center'}} className="col-12 f-lex justify-content-center">
-                            <p>Mejora la experiencia descargando la App de Xcala</p>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 f-lex justify-content-center">
-                            <button onClick={this.addToHomeScreen}>Descagarg App</button>
-                        </div>
-                    </div>
-                </div>
-                :
-                null   
-                }
 
 
 

@@ -29,9 +29,10 @@ import PruebasPayU from "./PruebasPayU";
 import Categories from './components/5-ProductsAndCategories/Categories/Categories'
 import CategoryProducts from "./components/5-ProductsAndCategories/Categories/CategoryProducts/CategoryProducts";
 
-
 //NOTE: react-detect-offline, es una libreria que permite renderizar un contenido cuando se esta online y otro cuando se esta offline desde el App.js y de una manera muy sencilla
 import {Offline, Online} from 'react-detect-offline'
+import OfflineComponent from "./components/OfflineComponent/OfflineComponent";
+import MainProductsPage from "./components/14-MainProductsPage/MainProductsPage";
 
 
 
@@ -61,6 +62,7 @@ function App(){
       <Switch>
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>
+        <Route exact path="/products" component={MainProductsPage}/>
       </Switch>
     </div>
     <div className="container-fluid">
@@ -94,7 +96,7 @@ function App(){
 </Online>
 
 <Offline>
-    <div>El app esta offline</div>
+    <OfflineComponent/>
 </Offline>
 </div>
   );

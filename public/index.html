@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- NOTE: Inlcuyendo el "manifest.json", archivo con la configuracion de PWA  -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- NOTE: El siguiente meta es para  iOS
+    los usuarios han podido instalar las apps web en la pantalla de inicio y las han lanzado como apps web de pantalla principal. -->
+    <meta name="viewport" content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <!--NOTE: comentado ya que lo trae desde manifest.json 
+    <meta name="apple-mobile-web-app-capable" content="yes"> -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--NOTE: comentado ya que lo trae desde manifest.json <meta name="apple-mobile-web-app-title" content="Xcala App"> -->
+    <link rel="apple-touch-icon" href='assets/XcalaLogoApp.png'>
+    <!-- NOTE: El siguiente meta es para  chrome
+    los usuarios han podido instalar las apps web en la pantalla de inicio y las han lanzado como apps web de pantalla principal. -->
+    <!--NOTE: comentados ya que lo trae desde manifest.json 
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-status-bar-style" content="black" /> -->
+    <!-- NOTE: Siguiente meta se usar para brindar al usuario un boton mas facil para instalar la app.
+    Este meta enlace el script llamado install que creamos en public/scripts/install.js-->
+    <script src="/scripts/install.js"></script>
+
+
+
+    <link rel="shortcut icon" href="assets/XcalaLogoFavicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <title>React App</title>
+    <title>Xcala colombia</title>
     <link rel="stylesheet" href="./indexStyle.css">
     <!-- FontIcons custom with Fontastic -->
     <link rel="stylesheet" href="./assets/icons/styles.css">
@@ -18,11 +39,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     
-    <!-- NOTE: Lo siguientes son para usar Rippler effect -->
-    <!-- If you want to use the buttons on the bootstrap -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- rippler CSS -->
-    <link rel="stylesheet" href="./css/rippler.min.css">
+
+    
   </head>
 
   <body>
@@ -33,6 +51,9 @@
       <div id="ownModal"></div>
       <div id="alert"></div>
       <div id="root"></div>
+      <!-- <button id="addToHomeScreenBtn">
+        Descarga XCALA en tu celular para una mejor experiencia.
+      </button> -->
     </div>
 
     <!-- JQuery -->
@@ -44,13 +65,17 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.8/js/mdb.min.js"></script>
     
-    <!-- NOTE: Los siguientes son para usar Rippler Effect -->
-    <!-- vendor js -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
 
-    <!-- rippler js -->
-    <script src="./dist/js/jquery.rippler.min.js"></script>
 
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="/__/firebase/7.8.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/7.8.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.8.0/firebase-firestore.js"></script>
 
   </body>
 

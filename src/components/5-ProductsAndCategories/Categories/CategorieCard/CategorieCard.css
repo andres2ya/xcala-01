@@ -1,13 +1,13 @@
 .img-backgroundCategorie{
     object-fit: cover;
-    /* NOTE: 91vh DEBIDO A QUE EL NAVBAR VISIBLE EN ESTE COMPONENTE MIDE 9vh */
-    min-height: 91vh;
-    max-height: 91vh;
+    /* NOTE: 93vh DEBIDO A QUE EL NAVBAR VISIBLE EN ESTE COMPONENTE MIDE 7vh */
+    min-height: 93vh;
+    max-height: 93vh;
 
     min-width: 100%;
     max-width: 100%;
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 

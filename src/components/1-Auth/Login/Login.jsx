@@ -8,22 +8,31 @@ import {sendEmailVerify} from '../../../ducks/authDucks/authDuckSignUp';
 import {handleErrorMsg} from '../../../ducks/errorsDuck/handleErrors';
 import logoXcala from '../../../assets/logoXcala.png';
 import '../auth.css';
-import Checkbox from '../../../components/layout/Checkbox/Checkbox';
+import Checkbox from '../../layout/Checkbox/Checkbox';
 import EmailVerify from '../EmailVerify/EmailVerify';
 // import {preloaderOn} from '../../layout/Spinner/Spinner';
+import {addToHomeScreen} from './../../../helpers/addToHomeScreen';
 
 
 class Login extends Component {
-    
+
     state={
         email:'', 
         password:'',
         isRetrySendEmailVerify:false,
         newUser:loadFromLocalStorage('newUser'),
-        showPreloader:true
+        showPreloader:true,
+        showInstallButton:false,
     }
 
     componentDidMount=()=>{
+        //NOTE: Si el deferredPrompt existe, por que fue lanzado por Google, entonces mostrar boton descargar, de lo contrario, no se mostrara.
+        //Tampoco se mostrara si deferredPrompt es undefined debido a que Google no lanzo el evento ya que el usuario ya ha instalado la App
+        console.log('Login componentDidMount => se verificara si window.XcalaWindowVaraible.deferredPrompt existe ')
+        if(window.XcalaWindowVaraible.deferredPrompt!==undefined){
+            this.setState({showInstallButton:true})
+        }
+
         document.body.className='loginStyle'
         //En el caso que entre a login desde la pantalla de confirmacion de correo verificado, 
         //entonces primero: hace signout, para luego permitir entrar a la cuenta y que el emailVerified cambie a true.
@@ -36,6 +45,11 @@ class Login extends Component {
                 email:this.state.newUser.emailSignUp
             })
         }
+    }
+
+    addToHomeScreen = async ()=>{
+        const resUser = await addToHomeScreen()
+        console.log(resUser) //TODO: Revisar por que no esta recibiendo el valor retornado por addToHomeScreen()
     }
 
     componentDidUpdate=(prevProps)=>{
@@ -100,7 +114,7 @@ class Login extends Component {
                         <input value={this.state.email} onChange={this.leerDatos} type="email" name="email"  placeholder="Correo de usuario" required autoComplete="off"/>
                     </div>
                     
-                    <div className="grossInputDivider centerHorizontal"/>
+                    <div id="grossInputDivider" className="grossInputDivider centerHorizontal"/>
 
                     <div className="centerVerticalAndHorizontal">
                         <i className="icon icon-locked centerVertical "></i>
@@ -128,6 +142,30 @@ class Login extends Component {
 
                 <Checkbox mode={'keepSesion'} link={null} styleBox={'box'} styleCheck={'check'} text={'Recordarme'} id={'recordarmeCheck'}/>
                 <Link className="centerText boldText centerHorizontal" to="/passforgot" > <span className="link">Olvide mi contraseña</span> </Link>
+
+
+
+
+                {
+                this.state.showInstallButton?
+                <div>
+                    <div className="row">
+                        <div style={{textAlign:'center'}} className="col-12 f-lex justify-content-center">
+                            <p>Mejora la experiencia descargando la App de Xcala</p>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 f-lex justify-content-center">
+                            <button onClick={this.addToHomeScreen}>Descagarg App</button>
+                        </div>
+                    </div>
+                </div>
+                :
+                null   
+                }
+
+
+
                 
                 <div className="registerHook" >
                     <p className="authSubtitle">¿Deseas generar ingresos extra en tu tiempo libre?</p>

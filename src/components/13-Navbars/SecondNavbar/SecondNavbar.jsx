@@ -21,9 +21,9 @@ class SecondNavbar extends Component {
                     <div className="col-8 d-flex justify-content-end align-items-center">
 
 
-                        <LinkWithDelay to={'/my-account'} delay={30}>
+                        <Link to={'/my-account'}>
                         <img className="userPhotoSecondNavbar" src={this.props.userPhotoURLFromProfile?this.props.userPhotoURLFromProfile:userWithoutPhoto} alt="userPhoto"/>
-                        </LinkWithDelay>
+                        </Link>
                         <div className="betweenWidgetsLeftSecondNav"/>
                         <div className="betweenWidgetsRightSecondNav"/>
 

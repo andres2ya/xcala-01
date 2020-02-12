@@ -29,11 +29,19 @@ import PruebasPayU from "./PruebasPayU";
 import Categories from './components/5-ProductsAndCategories/Categories/Categories'
 import CategoryProducts from "./components/5-ProductsAndCategories/Categories/CategoryProducts/CategoryProducts";
 
-function App(){
 
+//NOTE: react-detect-offline, es una libreria que permite renderizar un contenido cuando se esta online y otro cuando se esta offline desde el App.js y de una manera muy sencilla
+import {Offline, Online} from 'react-detect-offline'
+
+
+
+function App(){
+  
   return (
-    
-    <div>
+
+<div>
+<Online>
+  <div>
     {
         (function(){
           var url=window.location.pathname
@@ -83,6 +91,12 @@ function App(){
       {createPortal(<Spinner/>,document.getElementById('preloader'))}
     </div>
   </div>
+</Online>
+
+<Offline>
+    <div>El app esta offline</div>
+</Offline>
+</div>
   );
 }
 

@@ -1,4 +1,32 @@
 .snapEmpty{
     margin: 10px 0px 10px 0px;
     color:rgb(61, 24, 155);
+    text-align: center;
+}
+
+.goCategories a{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+
+.withoutOrders_view{
+    margin-top: 40px;
+    font-family: "Nunito", sans-serif;
+    font-size: 19px;
+}
+.SVG_withoutOrders{
+    padding-left: 30px;
+}
+.snapEmpty_titulo{
+    font-weight: normal;
+    line-height: 1;
+}
+.snapEmpty_parrafo{
+    font-weight: bold;
+    line-height: 1;
+
 }

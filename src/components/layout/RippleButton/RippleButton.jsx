@@ -42,8 +42,10 @@ export default class RippleButton extends Component {
         //NOTE: Si min and max width and height of the botton is not defined, then they get the same value of width and height
         let minHeightButton;styleButton.minHeight===undefined?minHeightButton=styleButton.height:minHeightButton=styleButton.minHeight
         let maxHeightButton;styleButton.maxHeight===undefined?maxHeightButton=styleButton.height:maxHeightButton=styleButton.maxHeight
-        let minWidthButton;styleButton.minWidth===undefined?minWidthButton=styleButton.minWidth:minWidthButton=styleButton.minWidth
-        let maxWidthButton;styleButton.maxWidth===undefined?maxWidthButton=styleButton.maxWidth:maxWidthButton=styleButton.maxWidth
+        let minWidthButton;styleButton.minWidth===undefined?minWidthButton=styleButton.width:minWidthButton=styleButton.minWidth
+        let maxWidthButton;styleButton.maxWidth===undefined?maxWidthButton=styleButton.width:maxWidthButton=styleButton.maxWidth
+        console.log(styleButton.maxWidth)
+        console.log(maxWidthButton)
 
 
         this.styleButton={

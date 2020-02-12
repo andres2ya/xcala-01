@@ -15,6 +15,7 @@
     "numeral": "^2.0.6",
     "react": "^16.8.6",
     "react-animations": "^1.0.0",
+    "react-detect-offline": "^2.4.0",
     "react-dom": "^16.8.6",
     "react-draggable": "^4.0.3",
     "react-redux": "^5.1.1",
@@ -30,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

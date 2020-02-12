@@ -1,0 +1,33 @@
+{
+  "lang": "es-ES",
+  "name":"Xcala",
+  "short_name": "Xcala",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "icons": [{
+      "src": "assets/XcalaLogoApp.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }, {
+      "src": "assets/XcalaLogoApp.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    }, {
+      "src": "assets/XcalaLogoApp.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }, {
+      "src": "assets/XcalaLogoApp.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
+      "src": "assets/XcalaLogoApp.png",
+      "sizes": "168x168",
+      "type": "image/png"
+    },{
+      "src": "assets/logoSplashScreenXcala.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }]
+}

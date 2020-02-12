@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './OrderDetails.css'
 import {connect} from 'react-redux';
+import withoutOrders_illustrations from './../../../assets/withOutOrders_SVG.svg'
 
 import LinkWithDelay from '../../../helpers/LinkWithDelay'
 import firebase from "firebase/app";
@@ -21,6 +22,7 @@ import Alert from './../../11-Alert/Alert'
 import ChangeShippingAddressModal from "./../ChangeShippingAddressModal/ChangeShippingAddressModal"
 import SellerFlowCase from "./../../4-CaseSystem/SellerFlowCase/SellerFlowCase"
 import SpinnerInChargeMore from './../../layout/SpinnerInChargeMore/SpinnerInChargeMore'
+import RippleButton from './../../layout/RippleButton/RippleButton'
 
 class OrdersDetails extends Component {
   
@@ -35,6 +37,7 @@ class OrdersDetails extends Component {
     selectedOrderState:undefined,
 
     userOrders:[],
+    notOrders:false,
 
     showModal:false,
     whatModalToShow:null,
@@ -60,6 +63,8 @@ class OrdersDetails extends Component {
     listeners:[],
     isBottom:false,
     isDocuments:false,
+
+    showButtonVerCategorias_when_isNotDocuments:false,
   }
 
   toggleAlert=(whatAlertToShow,cambiarAlert)=>{
@@ -119,7 +124,7 @@ class OrdersDetails extends Component {
       listener()
     })
     //NOTE: Reiniciando vector pedidos cada vez que se filtra la vista, asi como reseteando el prevDoc y eliminarndo todos los listeneres una ves han sido unsuscribed
-    this.setState({userOrders:[],prevDocument:null,listeners:[]})
+    this.setState({userOrders:[],prevDocument:null,listeners:[],notOrders:false,showButtonVerCategorias_when_isNotDocuments:false})
   }
 
 
@@ -176,11 +181,13 @@ class OrdersDetails extends Component {
     if(origen!=='componentDidMount' &&  origen!=='cargarMas'){
       await this.unsuscribeAllListener()
     }
-
+    
+    let withOutFilter=false
     let query_original
     let limit=2
     if(activeFilterByPay===false && activeFilterByCustomer===false && activeFilterByOrderState===false){
       console.log('Pedidos sin filtro:')
+      withOutFilter=true
       query_original=db.collection('pedidos').where('idVendedor','==',idVendedor).orderBy('OrderByDate','desc').limit(limit)
     }else if(activeFilterByPay===true && activeFilterByCustomer===false && activeFilterByOrderState===false){
       console.log('Pedidos filtrados por forma de pago:',selectedPay)
@@ -226,14 +233,19 @@ class OrdersDetails extends Component {
       //TODO: Remover setTimeout, esta aca solo para simular una demora en la carga de datos y permitir mostrar por mas tiempo el Spinner!
       setTimeout(() => {
         this.state.listeners.push(querySelected.onSnapshot((snap)=>{
+          if(withOutFilter===true && snap.empty===true && this.state.userOrders.length===0){
+            this.setState({notOrders:true})
+          }
+
           console.log('Snap docs',snap.docs)
           if(snap.empty){
             console.log('snap is empty')
-            this.setState({isDocuments:false})
+            this.setState({isDocuments:false,showButtonVerCategorias_when_isNotDocuments:true})
           }else{
             console.log('snap is not empty')
             this.setState({isDocuments:true})
           }
+
           this.state.prevDocument=snap.docs[snap.docs.length-1] //NOTE: Guardando como prevDoc el ultimo de aquellos traidos en el snap.
           let auxUserOrders=[]
           snap.forEach((doc)=>{
@@ -250,10 +262,11 @@ class OrdersDetails extends Component {
               auxUserOrders.push(doc.data()) //NOTE: Como no existe, entonces se hace push para agregarlo en ultima posicion.
             }
           })
+
           this.setState({userOrders:[...this.state.userOrders,...auxUserOrders],isBottom:false})
           document.addEventListener('scroll', this.trackScrolling);//NOTE: Reactivando el listener de scroll
         }))
-      }, 500);
+      }, 300);
     }
       
   }
@@ -451,7 +464,8 @@ class OrdersDetails extends Component {
     const {customersUser}=this.props
     const pedidoObjetoVector=userOrders.filter(order=>order.id===idPedido)//NOTE: Obteniendo el objetoPedido para los modales
     const pedidoObjeto=pedidoObjetoVector[0]
-    return (
+    if(this.state.notOrders===false){
+      return (
         <div id="end" className="pcControlerScreen ">
 
           <div className="row">
@@ -504,7 +518,8 @@ class OrdersDetails extends Component {
             </OrderCard>  
           )
           :
-          console.log('Render sin pedidos cargados... esperando que se carguen...')}
+          console.log('Renderizando sin pedidos... esperando que carguen...')
+          }
 
 
 
@@ -551,16 +566,70 @@ class OrdersDetails extends Component {
           })(showAlert,whatAlertToShow)}
           {/* <StickyFooter/> */}
 
-          {this.state.isBottom?<SpinnerInChargeMore/>:null}
-          {this.state.isDocuments?null:
-          <div className="row">
-            <div className="snapEmpty col-12 d-flex justify-content-center align-items-center">
-              No hay mas pedidos
+          {this.state.isBottom?
+          <SpinnerInChargeMore/>
+          :
+          null}
+
+
+          {this.state.isDocuments===false && this.state.showButtonVerCategorias_when_isNotDocuments===true ?
+          <div>
+            <div className="row">
+              <div className="snapEmpty col-12 d-flex justify-content-center align-items-center">
+                No hay mas pedidos
+              </div>
+            </div>
+            <div className="row goCategories">
+              <div className="col-12">
+                <LinkWithDelay delay={100} to={'categories'}>
+                  <RippleButton
+                      segAnimation={0.3}
+                      texto={'Ver categorias'} textoDobleLinea={false}
+                      styleButton={{background:'linear-gradient(to right,#10174b,#444d84)',borderRadius:10,height:45.2,width:'100%',margin:'0px 0px 0px 0px'}}
+                      styleTexto={{marginTop:25,maxHeight:20,fontSize:14,fontWeight:600,color:'white'}}
+                      styleRipple={{height:'100px',width:'100px',borderRadius:'100%',backgroundColor:'rgba(255, 255, 255, 0.7)',}}>
+                  </RippleButton>
+                </LinkWithDelay>
+              </div>
             </div>
           </div>
-          }
+          :
+          null}
+
+
         </div>
       )
+    }else{
+      //NOTE: Cuando no hay pedidos...
+      return(
+        <div id="end" className="withoutOrders_view">
+          <div className="row">
+            <div className="col-12 d-flex justify-content-center">
+              <img className="SVG_withoutOrders" width='300' src={withoutOrders_illustrations} alt=""/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="snapEmpty col-12">
+              <div className="snapEmpty_titulo">Aun no tienes pedidos</div>
+              <div className="snapEmpty_parrafo">Comienza a ganar dinero con Xcala</div>
+            </div>
+          </div>
+          <div className="row goCategories">
+            <div className="col-12">
+              <LinkWithDelay delay={100} to={'categories'}>
+                <RippleButton
+                  segAnimation={0.3}
+                  texto={'Ver categorias'} textoDobleLinea={false}
+                  styleButton={{background:'linear-gradient(to right,#10174b,#444d84)',borderRadius:10,height:45.2,width:'100%',margin:'0px 0px 0px 0px'}}
+                  styleTexto={{marginTop:25,maxHeight:20,fontSize:17,fontWeight:600,color:'white'}}
+                  styleRipple={{height:'100px',width:'100px',borderRadius:'100%',backgroundColor:'rgba(255, 255, 255, 0.7)',}}>
+                </RippleButton>
+              </LinkWithDelay>
+            </div>
+          </div>
+        </div>
+      )
+    }
   }
 };
 

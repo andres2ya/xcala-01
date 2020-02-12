@@ -43,7 +43,7 @@ onIMGError=()=>{
             />
           </div>
           <div className="col-5 col-carAndMenu centerVerticalAndHorizontal d-flex justify-content-end">
-              <LinkWithDelay to="/shopping-car" delay={30}><ShoppingCarWidget classNavIcon={'ShoppingCarWidgetMainNavbar'} numberItemsInCar={'10'}/></LinkWithDelay>
+              <LinkWithDelay to="/shopping-car" delay={10}><ShoppingCarWidget classNavIcon={'ShoppingCarWidgetMainNavbar'} numberItemsInCar={'10'}/></LinkWithDelay>
               <div className="betweenWidgetsLeft"/>
               <div className="betweenWidgetsRight"/>
               <MenuWidget classNavIcon={'menuWidgetMainNav'}/>
@@ -68,7 +68,7 @@ onIMGError=()=>{
         <div className="row rowSummary centerVertical">
           <div className="col-1 col-imagen centerVertical">
             <Link to="/my-account">
-              <img width="120" height="120" src={userPhotoURLFromProfile? userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt=" " />
+              <img src={userPhotoURLFromProfile? userPhotoURLFromProfile:userWithoutPhoto} className="roundImage" alt=" " />
             </Link>
             <label className="iconInputFile d-flex align-items-center justify-content-center" htmlFor="inputFile"><i className="icon-edit-pencil centerVerticalAndHorizontal"/></label>
             <input id="inputFile" className="inputFile" type="file" onChange={this.uploadPhoto}/>

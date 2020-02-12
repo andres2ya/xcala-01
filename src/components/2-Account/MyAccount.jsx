@@ -6,19 +6,22 @@ import './account.css'
 import LinkWithDelay from '../../helpers/LinkWithDelay';
 import RippleButton from '../layout/RippleButton/RippleButton';
 
-class MyAccount extends Component {
 
+class MyAccount extends Component {
+    
     componentDidMount=()=>{
         document.body.removeAttribute('class')
-        document.body.className='myAccountStyle'
-
+        document.body.className='myAccountStyle'   
     }
+
 
     uploadPhoto=(e)=>{
         const file=e.target.files[0]
         const {isAuth}=this.props
         this.props.uploadFile(file,isAuth)
     }
+
+
 
     render() {
         console.log(this.props.fire)
@@ -43,7 +46,8 @@ class MyAccount extends Component {
                 <div className="row">
                     <p className="accountTitle">Opciones de tu cuenta</p>   
                 </div>
-                <LinkWithDelay to="/order-details" delay={30}>
+
+                <LinkWithDelay to="/order-details" delay={10}>
                 <div className="menuOptionsContainer">
                     <div className="col-12 container">
                         <div className="overMenuOpcionIcon firstOverMenuOptionIcon d-flex justify-content-center align-items-center">

@@ -15,6 +15,7 @@ export default class MainProductsPage extends Component {
         if(window.XcalaWindowVaraible.deferredPrompt!==undefined){
             this.setState({showInstallButton:true})
         }
+        
     }
     addToHomeScreen = async ()=>{
         const resUser = await addToHomeScreen()

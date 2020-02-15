@@ -7,7 +7,7 @@ import logoXcala from "../../../assets/logoXcala.png";
 import userWithoutPhoto from '../../../assets/userWithoutPhoto.jpg';
 import ShoppingCarWidget from '../Widgets/ShoppingCarWidget/ShoppingCarWidget';
 import MenuWidget from '../Widgets/MenuWidget/MenuWidget';
-import {uploadFile} from '../../../ducks/accountDuck/uploadFilesDuck';
+import {uploadFile} from '../../../ducks/accountDuck-NO-USADO/uploadFilesDuck-NO-USADO';
 import LinkWithDelay from "../../../helpers/LinkWithDelay";
 
 class MainNavbar extends Component {
@@ -89,7 +89,7 @@ onIMGError=()=>{
   }
 }
 const mapStateToProps=(state)=>({
-  photoURLProfileChanged:state.uploadFileReducer.photoURLProfileChanged,
+  // photoURLProfileChanged:state.uploadFileReducer.photoURLProfileChanged,
   userPhotoURLFromProfile:state.firebase.profile.userPhotoURL,
   nombreUsuario:state.firebase.profile.nombreUsuario,
   gananciaTotal:state.firebase.profile.gananciaTotal,

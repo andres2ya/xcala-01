@@ -11,7 +11,7 @@ import "firebase/firestore";
 import TabsSelector from "../../SupplierComponents/SupplierOrders/TabsSelector/TabsSelector"
 import OrderCard from "./../OrderCardComponent/OrderCard"
 import FiltersOrdersComponent from './../FiltersComponent/FiltersOrdersComponent'
-import StickyFooter from "./../../10-LayOuts/PanHummerStickyFooter/StickyFooter"
+import StickyFooter from "./../../10-Footers/PanHummerStickyFooter/StickyFooter"
 
 import Modal from './../../12-Modal/Modal'
 import OpenCaseSeller from './../../4-CaseSystem/SellerOpenCase/OpenCaseSeller'

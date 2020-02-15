@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './SpinnerInChargeMore.css'
 
 
-export default class SpinnerInModal extends Component {
+export default class SpinnerInChargeMore extends Component {
   
   render() {
   

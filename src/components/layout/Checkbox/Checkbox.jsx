@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
 import {keepSesion} from '../../../ducks/authDucks/authDuckLogin'
 import {acceptTermsCondition} from '../../../ducks/authDucks/authDuckSignUp'
-import {acceptTyCForOpenCase} from '../../../ducks/accountDuck/openCaseDuck-NoUtilizado';
+// import {acceptTyCForOpenCase} from '../../../ducks/accountDuck-NO-USADO/openCaseDuck-NoUtilizado';
 import '../Checkbox/Checkbox.css'
 
 class Checkbox extends Component  {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import {addToHomeScreen} from './../../helpers/addToHomeScreen';
-import DownloadingComponent from '../DownloadingComponent/DownloadingComponent';
+import DownloadingComponent from '../15-DownloadingComponent/DownloadingComponent';
 
 export default class MainProductsPage extends Component {
     state={

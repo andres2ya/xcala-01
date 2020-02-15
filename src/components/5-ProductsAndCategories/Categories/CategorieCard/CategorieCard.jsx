@@ -7,7 +7,7 @@ import {truncateLongString} from './../../../../helpers/truncateLongStrings' //N
 import './CategorieCard.css'
 import RippleButton from '../../../layout/RippleButton/RippleButton';
 import {getDeviceOS} from './../../../../helpers/getDeviceOS'
-import OverImgCategory from '../../../10-LayOuts/OverImgCategory/OverImgCategory';
+import OverImgCategory from '../../../10-Footers/OverImgCategory/OverImgCategory';
 
 export default class CategorieCard extends Component {
     state={

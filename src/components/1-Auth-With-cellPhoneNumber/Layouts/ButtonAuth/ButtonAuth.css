@@ -1,0 +1,21 @@
+.ButtonAuth{
+    /* width: 100%;
+    padding: 10px 20px 10px 20px; */
+    /* font-size: 20px; */
+    color:#ffffff ;
+    font-weight: 500;
+    border-radius: 30px;
+    border: none;
+
+    background: rgb(126,164,251);
+    background: -moz-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: -webkit-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1);
+}
+.ButtonAuth:focus{
+    outline: none;
+}
+.ButtonAuth:active{
+    transform: scale(0.95);
+}

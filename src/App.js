@@ -1,7 +1,7 @@
 import React from "react";
 import {createPortal} from "react-dom";
-import Login from './components/1-Auth/Login/Login'
-import SignUp from './components/1-Auth/SignUp/SignUp'
+// import Login from './components/1-Auth/Login/Login'
+// import SignUp from './components/1-Auth/SignUp/SignUp'
 import EmailVerification from './components/1-Auth/EmailVerify/EmailVerification'
 import {Route, Switch, withRouter} from "react-router-dom"
 import EmailVerify from './components/1-Auth/EmailVerify/EmailVerify';
@@ -33,6 +33,8 @@ import CategoryProducts from "./components/5-ProductsAndCategories/Categories/Ca
 import {Offline, Online} from 'react-detect-offline'
 import OfflineComponent from "./components/OfflineComponent/OfflineComponent";
 import MainProductsPage from "./components/14-MainProductsPage/MainProductsPage";
+import SignUpContainer from "./components/1-Auth-With-cellPhoneNumber/SignUp-Container/SignUpContainer";
+import OnboardingContainer from "./components/0-Onboarding/Onboarding-Container/OnboardingContainer";
 
 
 
@@ -60,6 +62,7 @@ function App(){
 
     <div>
       <Switch>
+        <Route exact path="/" component={OnboardingContainer}/>
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>
         <Route exact path="/products" component={MainProductsPage}/>
@@ -67,7 +70,7 @@ function App(){
     </div>
     <div className="container-fluid">
     <Switch>
-      <Route exact path="/" component={Login}/>
+      {/* <Route exact path="/" component={Login}/> */}
       <Route exact path="/pruebaspayu" component={PruebasPayU}/>
       <Route exact path="/pruebas" component={Pruebas}/>
       <Route exact path="/pruebasAdd" component={PruebaAddOrder}/>
@@ -81,7 +84,8 @@ function App(){
       {/* <Route exact path="/order-id" component={SpecificOrderDetails}/> */}
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>
-      <Route exact path="/signup" component={SignUp}/>
+      {/* <Route exact path="/signup" component={SignUp}/> */}
+      <Route exact path="/signup" component={SignUpContainer}/>
       <Route exact path="/emailverify" component={EmailVerify}/>
       <Route exact path="/emailconfirm" component={EmailConfirm}/>
       <Route exact path="/emailVerification" component={EmailVerification}/>

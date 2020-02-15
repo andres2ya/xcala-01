@@ -8,7 +8,7 @@
     border: none;
 
     background: rgb(126,164,251);
-    background: -moz-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: -moz-linear-gradient(270deg, rgba(126,164,251,1) 0%, #32348b 100%);
     background: -webkit-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
     background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1);
@@ -17,5 +17,24 @@
     outline: none;
 }
 .ButtonAuth:active{
+    transform: scale(0.95);
+}
+
+
+
+.ButtonAuth-secondary{
+    /* width: 100%;
+    padding: 10px 20px 10px 20px; */
+    /* font-size: 20px; */
+    color:#7ea4fb ;
+    font-weight: 300;
+    border-radius: 30px;
+    border: 1px solid #7ea4fb;
+    background: white;
+}
+.ButtonAuth-secondary:focus{
+    outline: none;
+}
+.ButtonAuth-secondary:active{
     transform: scale(0.95);
 }

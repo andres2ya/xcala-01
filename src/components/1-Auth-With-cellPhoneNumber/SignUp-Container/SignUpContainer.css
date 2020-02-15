@@ -1,0 +1,21 @@
+.SignUpContainer{
+    height: 100vh;
+    width: 100vw;
+    background: rgb(255, 255, 255);
+}
+.SignUpContainer_loginButton{
+    padding-top: 15px;
+}
+
+.SignUpContainer_logo{
+    margin-top: 50px;
+    width: 177.54px;
+    max-height: 61.82px;
+}
+
+.SignUpContainer_titulo{
+    color: #10174b;
+    font-size: 26px;
+    font-weight: 700;
+    font-family: "Nunito", sans-serif;
+}

@@ -1,0 +1,51 @@
+.InputAuthDiv{
+    width: 100%;
+}
+.InputAuth{
+    color: #7ea4fb;
+    height: 35px;
+    /* NOTE: El siguiente width de 100% es para que al poner un margin-left y right de 5% se logre hacer coincidir con el "label" */
+    width: 100%;
+    margin: 10px 5% 10px 5%;
+    /* NOTE: El padding left de 60px coincide con el width de 50px del label + 10 px para generar un margin entre el valor del input y el borde derecho del label */
+    padding: 5px 5px 5px 60px;
+    border-radius: 50px;
+    border: none;
+
+
+
+
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+    -moz-box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+    box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+}
+.InputAuth:focus{
+    outline: none;
+}
+
+.InputAuth::placeholder{
+    opacity: 0.5;
+    font-weight: 350;
+}
+
+.InputAuthLabel{
+    position: absolute;
+    width: 50px;
+    /* NOTE: El siguiente left simula el padding que se obtiene de un elemento row aprox 15px pero este se desfasa -2px para evitar inconvenientes de no tapar bien el borde izquierdo */
+    left: 13.5px; 
+    /* NOTE: El siguiente margin-left permite hacer llegar el inicio de este "label" hasta el incio del input*/
+    margin-left: 5%;
+    height: 35px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    color: white;
+    font-weight: 400;
+    font-size: 17px;
+
+
+    background: rgb(126,164,251);
+    /* background: -moz-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: -webkit-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1); */
+}

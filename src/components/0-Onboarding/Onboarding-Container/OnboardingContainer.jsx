@@ -43,7 +43,9 @@ export default class OnboardingContainer extends Component {
 
         <div className="row OnboardingContainer_loginButton">
           <div className="col-12 d-flex justify-content-end">
-            <ButtonLogin onClick={()=>{console.log('ok')}}/>
+            <Link to="/login">
+              <ButtonLogin onClick={()=>{console.log('ok')}}/>
+            </Link>
           </div>
         </div>
 

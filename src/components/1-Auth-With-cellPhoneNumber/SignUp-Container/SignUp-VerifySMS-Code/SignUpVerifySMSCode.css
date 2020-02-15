@@ -1,0 +1,16 @@
+.SignUpVerifySMSCode_parrafo{
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #10174b;
+    font-family: "Nunito", sans-serif;
+    font-size: 19px;
+    font-weight: 370;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.SignUpVerifySMSCode_botones{
+    margin-top: 15px;
+    width: 100%;
+    font-family: "Nunito", sans-serif;
+}

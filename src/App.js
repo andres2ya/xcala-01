@@ -35,6 +35,7 @@ import OfflineComponent from "./components/OfflineComponent/OfflineComponent";
 import MainProductsPage from "./components/14-MainProductsPage/MainProductsPage";
 import SignUpContainer from "./components/1-Auth-With-cellPhoneNumber/SignUp-Container/SignUpContainer";
 import OnboardingContainer from "./components/0-Onboarding/Onboarding-Container/OnboardingContainer";
+import LoginWithCellPhone from "./components/1-Auth-With-cellPhoneNumber/LogIn/LoginWithCellPhone";
 
 
 
@@ -63,6 +64,8 @@ function App(){
     <div>
       <Switch>
         <Route exact path="/" component={OnboardingContainer}/>
+        <Route exact path="/signup" component={SignUpContainer}/>
+        <Route exact path="/login" component={LoginWithCellPhone}/>
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>
         <Route exact path="/products" component={MainProductsPage}/>
@@ -85,7 +88,6 @@ function App(){
       <Route exact path="/passforgot" component={PassForgot}/>
       <Route exact path="/passreset" component={PassReset}/>
       {/* <Route exact path="/signup" component={SignUp}/> */}
-      <Route exact path="/signup" component={SignUpContainer}/>
       <Route exact path="/emailverify" component={EmailVerify}/>
       <Route exact path="/emailconfirm" component={EmailConfirm}/>
       <Route exact path="/emailVerification" component={EmailVerification}/>

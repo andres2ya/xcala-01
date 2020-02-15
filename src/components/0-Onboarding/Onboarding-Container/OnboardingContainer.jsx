@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import './OnboardingContainer.css'
 import logoXcala from './../../../assets/logoXcala_180w_SVG.svg'
-import OverImgCategory from './../../10-Footers/OverImgCategory/OverImgCategory'
 import ButtonLogin from '../../1-Auth-With-cellPhoneNumber/Layouts/ButtonLogin/ButtonLogin';
 import ButtonAuth from '../../1-Auth-With-cellPhoneNumber/Layouts/ButtonAuth/ButtonAuth';
 import DownloadPWA from '../../10-Footers/DownloadPWA/DownloadPWA';
-
-import EllipsisDownloading from './../../layout/EllipsisDownloading/EllipsisDownloading'
 
 export default class OnboardingContainer extends Component {
   state={
@@ -26,7 +23,7 @@ export default class OnboardingContainer extends Component {
         this.setState({isDeferredPromptCharge:true})
       })
     }
-    //NOTE: 4. Listening changes in window.XcalaWindowVaraible.appInstalled
+    //NOTE: 6. Listening changes in window.XcalaWindowVaraible.appInstalled
     window.XcalaWindowVaraible.listenerAppInstalled((val)=>{
       console.log('Se escucho instalaccion del app!',val)
       this.setState({appInstalled:true})

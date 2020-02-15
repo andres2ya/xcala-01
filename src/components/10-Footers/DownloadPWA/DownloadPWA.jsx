@@ -11,6 +11,7 @@ export default class DownloadPWA extends Component {
         isDownloaded:false,
     }
     componentDidMount=()=>{
+        //NOTE: 5. Listening when app is installed succesfully
         window.onappinstalled=()=>{
             console.log('Desde onappinstalled: La aplicacion se instalo correctamente!')
             window.XcalaWindowVaraible.appInstalled=true
@@ -21,6 +22,7 @@ export default class DownloadPWA extends Component {
     }
 
     addToHomeScreen = async ()=>{
+        //NOTE: 4. Usando funcion que lanza el mensaje de google para añadir a home screen
         const resUser = await addToHomeScreen()
         console.log(resUser)
         if(resUser==='accepted'){

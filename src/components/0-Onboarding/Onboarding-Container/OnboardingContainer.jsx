@@ -13,6 +13,13 @@ export default class OnboardingContainer extends Component {
     appInstalled:window.XcalaWindowVaraible.appInstalled,
   }
   componentDidMount=()=>{
+    // // NOTE:Eliminar elemento div initialLoader con todos sus hijos
+    // let initialLoader=document.getElementsByClassName('initialLoader')
+    // console.log(initialLoader)
+    // initialLoader[0].innerHTML=''
+    // initialLoader[0].removeAttribute('class')
+  
+
     if(window.XcalaWindowVaraible.deferredPromptInternal!==null){
       console.log('deferred is charged!')
       this.setState({isDeferredPromptCharge:true})

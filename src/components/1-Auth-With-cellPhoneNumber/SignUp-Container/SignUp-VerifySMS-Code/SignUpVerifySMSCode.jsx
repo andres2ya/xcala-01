@@ -3,6 +3,7 @@ import './SignUpVerifySMSCode.css'
 import InputAuth from './../../Layouts/InputAuth/InputAuth'
 import ButtonAuth from './../../Layouts/ButtonAuth/ButtonAuth'
 import InputSMSCode from '../../Layouts/InputSMSCode/InputSMSCode'
+import {CSSTransition,TransitionGroup} from 'react-transition-group'
 
 export default class SignUpVerifySMSCode extends Component {
     render() {

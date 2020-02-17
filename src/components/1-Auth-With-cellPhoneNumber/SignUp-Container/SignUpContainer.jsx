@@ -5,7 +5,7 @@ import ButtonLogin from '../Layouts/ButtonLogin/ButtonLogin'
 import logoXcala from './../../../assets/logoXcala_180w_SVG_azul.svg'
 import SignUpForm from './SignUp-Form/SignUpForm'
 import SignUpVerifySMSCode from './SignUp-VerifySMS-Code/SignUpVerifySMSCode'
-
+import {CSSTransition,TransitionGroup} from 'react-transition-group'
 export default class SignUpContainer extends Component {
     state={
         sendCode:false
@@ -39,17 +39,33 @@ export default class SignUpContainer extends Component {
                         </div>
                     </div>
                  </div>
-
                 {sendCode?
-
+                 <CSSTransition
+                     key={1}
+                     in={true}
+                     appear={true}
+                     timeout={1000}
+                     classNames="fade"
+                 >
                     <SignUpVerifySMSCode/>
+                </CSSTransition>
                     :
-                    <SignUpForm sendCode={this.sendCode}/>       
-
+                <CSSTransition
+                     key={2}
+                     in={true}
+                     appear={true}
+                     timeout={1000}
+                     classNames="fade"
+                 >
+                    <SignUpForm sendCode={this.sendCode}/>
+                </CSSTransition>   
                 }
 
-                
 
+
+
+
+                
             </div>
         )
     }

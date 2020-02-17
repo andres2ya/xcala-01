@@ -40,9 +40,12 @@ import LoginWithCellPhone from "./components/1-Auth-With-cellPhoneNumber/LogIn/L
 
 
 function App(){
-  
-  return (
+// NOTE:Eliminar elemento div initialLoader con todos sus hijos
+let initialLoader=document.getElementById('initialLoader_id')
+initialLoader.innerHTML=''
+initialLoader.removeAttribute('class')
 
+return (
 <div>
 <Online>
   <div>

@@ -13,6 +13,7 @@
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "numeral": "^2.0.6",
+    "radium": "^0.26.0",
     "react": "^16.8.6",
     "react-animations": "^1.0.0",
     "react-detect-offline": "^2.4.0",

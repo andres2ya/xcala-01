@@ -1,10 +1,15 @@
-
   .logo {
     width: 200px;
     height: 200px;
     position: relative;
   }
-  .logo svg,
+  .logo svg{
+    width: 120px;
+    height: 120px;
+    left: 40px;
+    top:35px;
+    position: absolute;
+  }
   .logo div {
     width: 200px;
     height: 200px;

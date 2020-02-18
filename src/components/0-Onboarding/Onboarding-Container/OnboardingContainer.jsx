@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import './OnboardingContainer.css'
-import logoXcala from './../../../assets/logoXcala_180w_SVG.svg'
+import logoXcala from './../../../assets/logoXcala_180w_SVG_smaller.svg'
 import ButtonLogin from '../../1-Auth-With-cellPhoneNumber/Layouts/ButtonLogin/ButtonLogin';
 import ButtonAuth from '../../1-Auth-With-cellPhoneNumber/Layouts/ButtonAuth/ButtonAuth';
 import DownloadPWA from '../../10-Footers/DownloadPWA/DownloadPWA';
+import {CSSTransition,TransitionGroup} from 'react-transition-group'
+
 
 export default class OnboardingContainer extends Component {
   state={
@@ -13,13 +15,6 @@ export default class OnboardingContainer extends Component {
     appInstalled:window.XcalaWindowVaraible.appInstalled,
   }
   componentDidMount=()=>{
-    // // NOTE:Eliminar elemento div initialLoader con todos sus hijos
-    // let initialLoader=document.getElementsByClassName('initialLoader')
-    // console.log(initialLoader)
-    // initialLoader[0].innerHTML=''
-    // initialLoader[0].removeAttribute('class')
-  
-
     if(window.XcalaWindowVaraible.deferredPromptInternal!==null){
       console.log('deferred is charged!')
       this.setState({isDeferredPromptCharge:true})
@@ -44,10 +39,11 @@ export default class OnboardingContainer extends Component {
   }
 
   render() {
-    const {isDeferredPromptCharge,appInstalled}=this.state
+    const {isDeferredPromptCharge,appInstalled,showOnboardingContainerComponent}=this.state
     return (
       <div className="OnboardingContainer container-fluid"> 
 
+      <div className="sticky-top">
         <div className="row OnboardingContainer_loginButton">
           <div className="col-12 d-flex justify-content-end">
             <Link to="/login">
@@ -56,11 +52,13 @@ export default class OnboardingContainer extends Component {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-12 d-flex justify-content-start">
-            <img className="OnboardingContainer_logo" src={logoXcala} alt=""/>
+        <CSSTransition key={1}in={true}appear={true}timeout={1000}classNames="fade">
+          <div className="row">
+            <div className="col-12 d-flex justify-content-start">
+              <img className="OnboardingContainer_logo" src={logoXcala} alt=""/>
+            </div>
           </div>
-        </div>
+        </CSSTransition>
 
         <div className="row">
           <div className="col-12 d-flex justify-content-start">
@@ -69,8 +67,10 @@ export default class OnboardingContainer extends Component {
             </div>
           </div>
         </div>
+      </div>
         
-      {/* TODO: Implementar slider touch basado en :  https://blog.envylabs.com/build-your-own-touch-slider-with-hammerjs-af99665d2869  */}
+
+        {/* TODO: Implementar slider touch basado en :  https://blog.envylabs.com/build-your-own-touch-slider-with-hammerjs-af99665d2869  */}
         <div className="row OnboardingContainer_steps">
           <div className="col-12 d-flex justify-content-center align-items-center">
             x

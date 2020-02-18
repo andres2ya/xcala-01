@@ -4,6 +4,8 @@ import './Alert.css'
 const modalRoot=document.getElementById('alert')
 {/* <i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/> */}
 {/* <i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/> */}
+// mode="alertCard-green"
+// mode="alertCard-red"
 
 export default class Alert extends Component {
     constructor(props){

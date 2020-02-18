@@ -31,6 +31,43 @@
     font-weight: 350;
 }
 
+
+/* ---------------------- invalid input */
+
+.InputAuth_invalid{
+    color: rgba(241,0,0,1);
+    height: 35px;
+    /* NOTE: El siguiente width de 100% es para que al poner un margin-left y right de 5% se logre hacer coincidir con el "label" */
+    width: 100%;
+    margin: 10px 5% 10px 5%;
+    /* NOTE: El padding left de 60px coincide con el width de 50px del label + 10 px para generar un margin entre el valor del input y el borde derecho del label */
+    padding: 5px 5px 5px 60px;
+    border-radius: 50px;
+    border: none;
+
+
+
+
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(241,0,0,0.5);
+    -moz-box-shadow: 0px 0px 14px 2px rgba(241,0,0,0.5);
+    box-shadow: 0px 0px 14px 2px rgba(241,0,0,0.5);
+
+    /* NOTE: webkit para compatibilidad ios safari del box-shadow */
+    -webkit-appearance: none;
+}
+.InputAuth_invalid:focus{
+    outline: none;
+}
+
+.InputAuth_invalid::placeholder{
+    opacity: 0.5;
+    font-weight: 350;
+}
+
+
+
+/* ------------input label */
+
 .InputAuthLabel{
     position: absolute;
     width: 50px;

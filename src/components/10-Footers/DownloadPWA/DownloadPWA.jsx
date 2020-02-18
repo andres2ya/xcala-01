@@ -4,12 +4,25 @@ import './DownloadPWA.css'
 import {addToHomeScreen} from './../../../helpers/addToHomeScreen'
 import ButtonAuth from './../../1-Auth-With-cellPhoneNumber/Layouts/ButtonAuth/ButtonAuth'
 import EllipsisDownloading from './../../layout/EllipsisDownloading/EllipsisDownloading'
+import { fadeInUp } from 'react-animations';
+import Radium, {StyleRoot} from 'radium'
+
+const styles = {
+    fadeInUp: {
+      animation: 'x 1s',
+      animationName: Radium.keyframes(fadeInUp, 'fadeInUp'),
+      width:'100vw',
+      display:'flex',
+      justifyContent:'center'
+    }
+}
 
 export default class DownloadPWA extends Component {
     state={
         isDownloading:false,
         isDownloaded:false,
     }
+    
     componentDidMount=()=>{
         //NOTE: 5. Listening when app is installed succesfully
         window.onappinstalled=()=>{
@@ -17,7 +30,7 @@ export default class DownloadPWA extends Component {
             window.XcalaWindowVaraible.appInstalled=true
             setTimeout(() => {
                 this.setState({isDownloaded:true,isDownloading:false})
-            }, 4000);
+            }, 8000);
         }
     }
 
@@ -117,8 +130,12 @@ class Downloading_PWA extends Component {
               </div>
               <div className="row crearIconoBotonRow">
                   <div className="col-12 d-flex justify-content-center align-items-center">
-                      <a href="https://pruebas-2-xcala.firebaseapp.com/" target='_blank'>
-                        <ButtonAuth style={{width:'auto',padding: '10px 14px 10px 14px', fontSize:'17px'}} texto={'Abrir xcala App'}/>
+                      <a href="https://pruebas-2-xcala.firebaseapp.com/signup" target='_blank'>
+                        <StyleRoot>
+                            <div style={styles.fadeInUp} className="animationBox">
+                                <ButtonAuth className={'ButtonAuth_green'} style={{width:'auto',padding: '10px 14px 10px 14px', fontSize:'17px'}} texto={'Continuar'}/>
+                            </div>
+                        </StyleRoot>
                       </a>
                   </div>
               </div>

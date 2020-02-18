@@ -1,16 +1,21 @@
 html{
     height: 100%;
 }
-
-
+body{
+    height: 100%;
+}
 
 
 .initialLoader{
-    height: 100vh;
+    background-color: white;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 }
 
 /* html { height:100%; overflow:hidden; }
@@ -39,7 +44,7 @@ body { height:100%; overflow:hidden; } */
     position: relative;
 }
 
-#preloader,#root,#overlay,#ownModal{
+#preloader,#root,#overlay,#ownModal,#initialLoader_id{
     position: absolute;
     top:0;
     left:0;
@@ -53,7 +58,8 @@ body { height:100%; overflow:hidden; } */
 
 /* --------------------------------INICIO--overlay loader----------------------------------- */
 #preloader{
-    z-index: 3;
+    /* z-index: 3; */
+    z-index: 1;
 }
 
 .overlayOn{
@@ -80,24 +86,3 @@ body { height:100%; overflow:hidden; } */
     z-index: 2;
 }
 
-
-/* Rippler effect pure CSS */
-/* NOTE: This is the example  */
-/* .ripple {
-    background-position: center;
-    transition: background 0.8s;
-  }
-  .ripple:hover {
-    background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
-  }
-  .ripple:active {
-    background-color: #6eb9f7;
-    background-size: 100%;
-    transition: background 0s;
-  } */
-
-  /* background: rgb(97,253,125);
-    background: -moz-radial-gradient(circle, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 52%) center/15000%;
-    background: -webkit-radial-gradient(circle, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 52%) center/15000%;
-    background: radial-gradient(circle, rgba(97,253,125,1) 0%, rgba(43,184,38,1) 52%) center/15000%;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#61fd7d",endColorstr="#2bb826",GradientType=1); */

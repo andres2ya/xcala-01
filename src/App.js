@@ -41,10 +41,11 @@ import LoginWithCellPhone from "./components/1-Auth-With-cellPhoneNumber/LogIn/L
 
 function App(){
 // NOTE:Eliminar elemento div initialLoader con todos sus hijos
-let initialLoader=document.getElementById('initialLoader_id')
-initialLoader.innerHTML=''
-initialLoader.removeAttribute('class')
-
+setTimeout(() => {
+  let initialLoader=document.getElementById('initialLoader_id')
+    initialLoader.innerHTML=''
+    initialLoader.removeAttribute('class')
+}, 500);
 return (
 <div>
 <Online>
@@ -108,7 +109,7 @@ return (
     <OfflineComponent/>
 </Offline>
 </div>
-  );
+);
 }
 
 export default withRouter(App);

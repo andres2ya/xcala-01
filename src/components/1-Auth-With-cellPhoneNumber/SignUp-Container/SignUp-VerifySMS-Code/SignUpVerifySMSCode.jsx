@@ -3,10 +3,22 @@ import './SignUpVerifySMSCode.css'
 import InputAuth from './../../Layouts/InputAuth/InputAuth'
 import ButtonAuth from './../../Layouts/ButtonAuth/ButtonAuth'
 import InputSMSCode from '../../Layouts/InputSMSCode/InputSMSCode'
-import {CSSTransition,TransitionGroup} from 'react-transition-group'
+import { shake } from 'react-animations';
+import Radium, {StyleRoot} from 'radium'
+
+const styles = {
+    shake: {
+      animation: 'x 1s',
+      animationName: Radium.keyframes(shake, 'shake'),
+      width:'100vw',
+      display:'flex',
+      justifyContent:'center'
+    }
+}
 
 export default class SignUpVerifySMSCode extends Component {
     render() {
+        const {leerDatos,valueCode,verificarCodigoSMS,showInvalidCodeError}=this.props
         return (
             <div>
                  <div className="row">
@@ -19,7 +31,15 @@ export default class SignUpVerifySMSCode extends Component {
 
                  <div className="row">
                     <div className="col-12 d-flex justify-content-center">
-                        <InputSMSCode id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
+                        {showInvalidCodeError?
+                            <StyleRoot>
+                                <div style={styles.shake} className="animationBox">
+                                    <InputSMSCode invalid={true} value={valueCode} onChange={leerDatos} id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
+                                </div>
+                            </StyleRoot>
+                        :
+                            <InputSMSCode  value={valueCode} onChange={leerDatos} id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
+                        }
                     </div>
                  </div>
 
@@ -27,10 +47,10 @@ export default class SignUpVerifySMSCode extends Component {
                     <div className="col-12">
                         <div className="SignUpVerifySMSCode_botones">
                             <div className="d-flex justify-content-center">
-                                <ButtonAuth style={{margin:'10px 0px 10px 0px',height:'35px',width:'60%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'} onClick={()=>console.log('Conectar con API firebase, enviar codigo y presentar input de codigo')}/>
+                                <ButtonAuth style={{margin:'10px 0px 10px 0px',height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'} onClick={verificarCodigoSMS}/>
                             </div>
                             <div className="d-flex justify-content-center">
-                                <ButtonAuth secondary={true} style={{height:'35px',width:'60%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Reenviar codigo'} onClick={()=>console.log('Conectar con API firebase, enviar codigo y presentar input de codigo')}/>
+                                <ButtonAuth secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Reenviar codigo'} onClick={()=>console.log('Conectar con API firebase, enviar codigo y presentar input de codigo')}/>
                             </div>
                         </div>
                     </div>

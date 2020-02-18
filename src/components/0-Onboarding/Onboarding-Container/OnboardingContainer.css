@@ -6,7 +6,6 @@
     background: -webkit-radial-gradient(circle at top left, rgba(126,164,251,1) 15%, rgba(16,23,75,1) 55%);
     background: radial-gradient(circle at top left, rgba(126,164,251,1) 15%, rgba(16,23,75,1) 55%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#10174b",GradientType=1);
-
     /* background: rgb(126,164,251);
     background: -moz-radial-gradient(circle at top left, rgba(126,164,251,1) 15%, rgba(72,16,75,1) 55%, rgba(16,23,75,1) 10%);
     background: -webkit-radial-gradient(circle at top left, rgba(126,164,251,1) 15%, rgba(72,16,75,1) 55%, rgba(16,23,75,1) 10%);
@@ -26,7 +25,9 @@
 }
 
 .OnboardingContainer_logo{
-    width: 177.54px;
+    min-width: 177.54px;
+    max-width: 177.54px;
+    min-height: 61.82px;
     max-height: 61.82px;
 }
 

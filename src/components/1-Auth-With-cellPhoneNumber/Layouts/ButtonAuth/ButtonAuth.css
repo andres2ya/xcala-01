@@ -13,6 +13,32 @@
     background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1);
 }
+.ButtonAuth_green{
+    /* width: 100%;
+    padding: 10px 20px 10px 20px; */
+    /* font-size: 20px; */
+    color:#ffffff ;
+    font-weight: 600;
+    border-radius: 30px;
+    border: none;
+    overflow: hidden;
+
+    background: rgb(148,249,87);
+    background: -moz-linear-gradient(270deg, rgba(148,249,87,1) 0%, rgba(79,194,0,1) 100%);
+    background: -webkit-linear-gradient(270deg, rgba(148,249,87,1) 0%, rgba(79,194,0,1) 100%);
+    background: linear-gradient(270deg, rgba(148,249,87,1) 0%, rgba(79,194,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#94f957",endColorstr="#4fc200",GradientType=1);
+}
+.ButtonAuth_green:focus{
+    outline: none;
+}
+.ButtonAuth_green:active{
+    transform: scale(0.95);
+}
+
+
+
+
 .ButtonAuth:focus{
     outline: none;
 }

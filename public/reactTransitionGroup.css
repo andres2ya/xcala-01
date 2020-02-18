@@ -1,0 +1,70 @@
+.fade-appear {
+    opacity: 0;
+    z-index: 1;
+  }
+.fade-appear-active{
+    opacity: 1;
+    transition: opacity 1000ms linear;
+}
+.fade-appear-done{
+    opacity: 1;
+  }
+
+
+
+.fade-enter{
+    opacity: 0;
+    transition: opacity 1000ms linear;
+}
+
+.fade-enter-active{
+    opacity: 1;
+    transition: opacity 1000ms linear;
+}
+.fade-enter-done{
+    opacity: 1;
+}
+
+
+
+.fade-exit{
+    opacity: 1;
+    transition: opacity 1000ms linear;
+}
+
+.fade-exit-active{
+    opacity: 0;
+    transition: opacity 1000ms linear;
+}
+
+.fade-exit-done{
+    opacity: 0;
+}
+
+
+
+/* ----------------------------------------------------------------- */
+
+
+
+.dialog-enter {
+    opacity: 0.01;
+    transform: scale(1.1);
+  }
+  
+  .dialog-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 300ms;
+  }
+  
+  .dialog-exit {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .dialog-exit-active {
+    opacity: 0.01;
+    transform: scale(1.1);
+    transition: all 300ms;
+  }

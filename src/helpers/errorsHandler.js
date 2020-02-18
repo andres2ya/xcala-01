@@ -22,7 +22,16 @@ export const identifyAndReturnMsgError=(errorCode)=>{
             return 'Porfavor ingresa el motivo y una descripcion del caso.'
         case 'error al crear caso':
             return 'Algo ha salido mal al momento de crear el caso. Porfavor vuelte a intentarlo.'
+        case 'auth/invalid-phone-number':
+            return 'No has introducido un numero de telefono valido.'
+        case 'auth/invalid-verification-code':
+            return 'El codigo de verificacion no es correcto.'
+        case 'auth/missing-verification-code':
+            return 'No se ha encontrado numero de verificacion. Vuelve a ingresarlo.'
         default:
             return 'Algo ha salido mal. Porfavor vuelve a intentarlo.'
     }
 }
+
+
+

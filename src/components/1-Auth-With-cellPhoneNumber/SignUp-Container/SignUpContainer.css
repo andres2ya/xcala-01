@@ -19,3 +19,22 @@
     font-weight: 700;
     font-family: "Nunito", sans-serif;
 }
+
+.rowFormAndVerifyCode{
+    position: relative;
+    z-index: 1;
+}
+.showSpinner_signUp{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    z-index: 2;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.9;
+}

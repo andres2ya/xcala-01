@@ -28,7 +28,7 @@ export default class SignUpForm extends Component {
         SignUpContainer.style.marginBottom='0px'
     }
     render() {
-        const {leerDatos,valuePhoneNumber,valueUserName,showSignInButton,showInvalidPhone,showInvalidName}=this.props
+        const {showSpinner,leerDatos,toogleAcceptedTyC,valuePhoneNumber,valueUserName,showSignInButton,showInvalidPhone,showInvalidName}=this.props
         return (
             <div>
                 <div className="row">
@@ -73,7 +73,7 @@ export default class SignUpForm extends Component {
                         <div id="SignUpForm_botones_id" className="SignUpForm_botones">
                             <div className="d-flex justify-content-center">
                                 {showSignInButton?
-                                    <ButtonAuth id={'signIn_RecaptchaButton'} style={{transition:'opacity 500ms linear',opacity:1,height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'}/>
+                                    <ButtonAuth id={'signIn_RecaptchaButton'} style={{transition:'opacity 500ms linear',opacity:1,height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'} onClick={showSpinner}/>
                                     :
                                     <ButtonAuth id={'signIn_RecaptchaButton'} style={{transition:'opacity 500ms linear',opacity: 0,height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'}/>
                                 }
@@ -86,7 +86,7 @@ export default class SignUpForm extends Component {
                  <div className="row">
                     <div className="col-12 d-flex justify-content-center">
                         <div  className="SignUpForm_TyC">
-                         <input defaultChecked type="checkbox"/> Acepto de manera expresa e informada los Terminos & Condiciones y la Politica de tratamiento de datos personales de Xcala S.A.S
+                         <input name="acceptedTyC" onChange={toogleAcceptedTyC} defaultChecked type="checkbox"/> Acepto de manera expresa e informada los Terminos & Condiciones y la Politica de tratamiento de datos personales de Xcala S.A.S
                         </div>
                     </div>
                  </div>

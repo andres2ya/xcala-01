@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import './SignUpVerifySMSCode.css'
-import InputAuth from './../../Layouts/InputAuth/InputAuth'
 import ButtonAuth from './../../Layouts/ButtonAuth/ButtonAuth'
 import InputSMSCode from '../../Layouts/InputSMSCode/InputSMSCode'
 import { shake } from 'react-animations';
 import Radium, {StyleRoot} from 'radium'
+
 
 const styles = {
     shake: {
@@ -16,9 +16,41 @@ const styles = {
     }
 }
 
+
 export default class SignUpVerifySMSCode extends Component {
+    state={
+        idButtonResendCode:'',
+        textButtonResendCode:`60s para reenviar codigo`,
+    }
+    componentDidMount=()=>{
+        this.downCountToResend()
+    }
+
+    downCountToResend=()=>{
+        (this.updateDownCount=(n)=>{
+            if(n<60){
+                window.XcalaResendCode_setTimeOut=setTimeout(()=>{
+                    this.updateDownCount(n)
+                }, 1000);
+                let updatedDownCount=60-n
+                this.setState({textButtonResendCode:`${updatedDownCount}s para reenviar codigo`})
+                n++
+            }else{
+                this.setState({
+                    textButtonResendCode:'Reenviar codigo',
+                    idButtonResendCode:'signIn_RecaptchaButton_resend',
+                })
+                this.props.reenviarCodigo(this.downCountToResend)
+            }
+        })(0)
+    }
+
+    componentWillUnmount=()=>{
+        clearTimeout(window.XcalaResendCode_setTimeOut)
+    }
+
     render() {
-        const {leerDatos,valueCode,verificarCodigoSMS,showInvalidCodeError}=this.props
+        const {leerDatos,valueCode,verificarCodigoSMS,showInvalidCodeError,showSpinner}=this.props
         return (
             <div>
                  <div className="row">
@@ -34,11 +66,11 @@ export default class SignUpVerifySMSCode extends Component {
                         {showInvalidCodeError?
                             <StyleRoot>
                                 <div style={styles.shake} className="animationBox">
-                                    <InputSMSCode invalid={true} value={valueCode} onChange={leerDatos} id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
-                                </div>
-                            </StyleRoot>
+                                    <InputSMSCode onBlur={(e)=>e.preventDefault()} onFocus={(e)=>e.preventDefault()} invalid={true} value={valueCode} onChange={leerDatos} id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
+                                 </div>
+                            </StyleRoot> 
                         :
-                            <InputSMSCode  value={valueCode} onChange={leerDatos} id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
+                            <InputSMSCode onBlur={(e)=>e.preventDefault()} onFocus={(e)=>e.preventDefault()}  value={valueCode} onChange={leerDatos} id={'smsCode'} type={'number'} placeholder={'X-X-X-X-X-X'}/>
                         }
                     </div>
                  </div>
@@ -49,9 +81,11 @@ export default class SignUpVerifySMSCode extends Component {
                             <div className="d-flex justify-content-center">
                                 <ButtonAuth style={{margin:'10px 0px 10px 0px',height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'} onClick={verificarCodigoSMS}/>
                             </div>
+
                             <div className="d-flex justify-content-center">
-                                <ButtonAuth secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Reenviar codigo'} onClick={()=>console.log('Conectar con API firebase, enviar codigo y presentar input de codigo')}/>
+                                <ButtonAuth id={this.state.idButtonResendCode} secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={this.state.textButtonResendCode} onClick={showSpinner}/>
                             </div>
+
                         </div>
                     </div>
                  </div>

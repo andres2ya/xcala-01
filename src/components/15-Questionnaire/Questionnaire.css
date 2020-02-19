@@ -1,0 +1,24 @@
+.QuestionnaireContainer{
+    height: 100vh;
+    width: 100vw;
+}
+.QuestionnaireContainer_loginButton{
+    padding-top: 15px;
+}
+.QuestionnaireContainer_logo{
+    min-width: 177.54px;
+    max-width: 177.54px;
+    min-height: 61.82px;
+    max-height: 61.82px;
+}
+.QuestionnaireContainer_titulo{
+    margin-top: 7px;
+    color: #10174b;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: "Nunito", sans-serif;
+    line-height: 1;
+}
+.QuestionnaireContainer_titulo span{
+    font-weight: 600;
+}

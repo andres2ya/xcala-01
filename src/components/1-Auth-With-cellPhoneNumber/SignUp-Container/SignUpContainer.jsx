@@ -119,7 +119,6 @@ export default class SignUpContainer extends Component {
         }
     }
 
-
     
     //NOTE: 4.5. Opcion de reenviar codigo
     reenviarCodigo=(downCountToResend)=>{
@@ -144,21 +143,68 @@ export default class SignUpContainer extends Component {
 
     //NOTE: 5. POR ULITMO usar el metodo .confirm() del confirmationResult guardado en  window.XcalaConfirmationResult
     //para enviar el codigo de verificacion y confirmarlo.
+    // verificarCodigoSMS=(e)=>{
+    //     console.log('sendindg code')
+    //     e.preventDefault()
+    //     this.showSpinner()
+    //     let code=this.state.smsCode
+    //     if(code.length>0){
+    //         window.XcalaConfirmationResult.confirm(code)
+    //         .then(res=>{
+    //             var user=res.user;
+    //             console.log('user signed successsfully',user)
+    //             this.setState({showSpinner:false})
+    //             //TODO: Crear documento del usuario y Guardar su nombre y su role = vendedor
+    //             window.location.href='/my-account'
+    //         })
+    //         .catch(err=>{
+    //             let error=identifyAndReturnMsgError(err.code)
+    //             this.setState({showSpinner:false,showInvalidCodeError:true,msgErrorWithCode:error})
+    //         })
+    //     }else{
+    //         this.setState({showSpinner:false,showInvalidCodeError:true,msgErrorWithCode:'No has ingresado un codigo de verificacion'})
+    //     }
+    // }
     verificarCodigoSMS=(e)=>{
         console.log('sendindg code')
         e.preventDefault()
         this.showSpinner()
         let code=this.state.smsCode
         if(code.length>0){
-            window.XcalaConfirmationResult.confirm(code)
+            let credential = firebase.auth.PhoneAuthProvider.credential(window.XcalaConfirmationResult.verificationId,code)
+            console.log(credential)
+            firebase.auth().signInWithCredential(credential)
             .then(res=>{
-                var user=res.user;
-                console.log('user signed successsfully',user)
-                this.setState({showSpinner:false})
-                //TODO: Crear documento del usuario y Guardar su nombre y su role = vendedor
-                window.location.href='/my-account'
+                console.log('res',res)
+                if(res.additionalUserInfo.isNewUser===true){
+                    alert('Bienvenido nuevo usuario. Tu Id de usuario sera:'+res.user.uid)
+                    this.setState({showSpinner:false})
+                    //TODO: Crear usuario con firestore
+                    firebase.firestore().collection('users').doc(res.user.uid).set({
+                        uid:res.user.uid,
+                        phoneNumber:`+57${this.state.phoneNumber}`,
+                        userName:this.state.userName,
+                        creationDate:new Date(),
+                        role:'vendedor',
+                    })
+                    .then(res=>{
+                        console.log('usuario creado exitosamente',res)
+                        //NOTE: Redirigir a formulario opcional
+                        window.location.href=`/questionnaire${this.state.userName}`
+                    })
+                    .catch(err=>{
+                        //TODO: Manejar este caso, ya que implicaria que se creo el usuario con su numero de telefono, pero no lo he creado en el firestore.
+                        console.log('ocurrio un erro al crear el usuario en la base de datos',err)
+                    })
+                }else{
+                    alert('Bienvenido usuario ya registrado, "'+res.user.uid+'", te has logeado con exito desde la zona de registro, no cambiaremos tus datos.')
+                    this.setState({showSpinner:false})
+                    //TODO: Redirigir al main page/products
+                    window.location.href='/products'
+                }
             })
             .catch(err=>{
+                console.log(err)
                 let error=identifyAndReturnMsgError(err.code)
                 this.setState({showSpinner:false,showInvalidCodeError:true,msgErrorWithCode:error})
             })

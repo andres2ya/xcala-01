@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './MainProductsPage.css'
 
 export default class MainProductsPage extends Component {
     
@@ -6,7 +7,7 @@ export default class MainProductsPage extends Component {
 
         return (
             <div>
-                Hola desde main productsPage
+                <div className="ho">Hola desde main productsPage</div>
             </div>
         )
     }

@@ -36,6 +36,7 @@ import MainProductsPage from "./components/14-MainProductsPage/MainProductsPage"
 import SignUpContainer from "./components/1-Auth-With-cellPhoneNumber/SignUp-Container/SignUpContainer";
 import OnboardingContainer from "./components/0-Onboarding/Onboarding-Container/OnboardingContainer";
 import LoginWithCellPhone from "./components/1-Auth-With-cellPhoneNumber/LogIn/LoginWithCellPhone";
+import Questionnaire from "./components/15-Questionnaire/Questionnaire";
 
 
 
@@ -69,6 +70,7 @@ return (
       <Switch>
         <Route exact path="/" component={OnboardingContainer}/>
         <Route exact path="/signup" component={SignUpContainer}/>
+        <Route exact path="/questionnaire:userName" component={Questionnaire}/>
         <Route exact path="/login" component={LoginWithCellPhone}/>
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>

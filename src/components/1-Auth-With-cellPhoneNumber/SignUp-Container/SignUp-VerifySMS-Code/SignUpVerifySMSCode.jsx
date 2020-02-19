@@ -50,7 +50,7 @@ export default class SignUpVerifySMSCode extends Component {
     }
 
     render() {
-        const {leerDatos,valueCode,verificarCodigoSMS,showInvalidCodeError,showSpinner}=this.props
+        const {leerDatos,valueCode,verificarCodigoSMS,showInvalidCodeError,onClickReenviarCodigo}=this.props
         return (
             <div>
                  <div className="row">
@@ -83,7 +83,7 @@ export default class SignUpVerifySMSCode extends Component {
                             </div>
 
                             <div className="d-flex justify-content-center">
-                                <ButtonAuth id={this.state.idButtonResendCode} secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={this.state.textButtonResendCode} onClick={showSpinner}/>
+                                <ButtonAuth id={this.state.idButtonResendCode} secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={this.state.textButtonResendCode} onClick={onClickReenviarCodigo}/>
                             </div>
 
                         </div>

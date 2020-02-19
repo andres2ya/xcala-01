@@ -26,6 +26,8 @@ export default class SignUpContainer extends Component {
         showInvalidName:false,
         msgErrorWithName:'',
         acceptedTyC:true,
+        creatingUserText:null,
+        showResendCodeAlert:false,
     }
 
     componentDidUpdate=()=>{
@@ -49,6 +51,11 @@ export default class SignUpContainer extends Component {
             window.recaptchaWidgetId = widgetId;
             this.setState({showSignInButton:true})
         });
+    }
+
+    componentWillUnmount=()=>{
+        clearTimeout(window.XcalaResendCodeAlert_setTimeout)
+        clearTimeout(window.XcalaRedirectToProducts_setTimeout)
     }
 
 
@@ -131,7 +138,6 @@ export default class SignUpContainer extends Component {
             'size':'invisible',
             'callback': (res)=>{
                 this.onCodeSubmit(downCountToResend)
-
             }
         })
         window.XcalaRecaptchaVerifier.render().then((widgetId)=>{
@@ -139,6 +145,15 @@ export default class SignUpContainer extends Component {
         });
     }
 
+    onClickReenviarCodigo=(e)=>{
+        e.preventDefault()
+        //TODO: Agrupar en una misma funcion showSpinner con la actualizacion de showResendCodeAlert
+        this.showSpinner()
+        this.setState({showResendCodeAlert:true})
+        window.XcalaResendCodeAlert_setTimeout=setTimeout(() => {
+            this.setState({showResendCodeAlert:false})
+        }, 10000);
+    }
 
 
     //NOTE: 5. POR ULITMO usar el metodo .confirm() del confirmationResult guardado en  window.XcalaConfirmationResult
@@ -168,7 +183,10 @@ export default class SignUpContainer extends Component {
     verificarCodigoSMS=(e)=>{
         console.log('sendindg code')
         e.preventDefault()
+        //TODO: Agrupar en una misma funcion showSpinner con la actualizacion de creatinUserText
         this.showSpinner()
+        this.setState({creatingUserText:'Verificando...'})
+
         let code=this.state.smsCode
         if(code.length>0){
             let credential = firebase.auth.PhoneAuthProvider.credential(window.XcalaConfirmationResult.verificationId,code)
@@ -177,9 +195,8 @@ export default class SignUpContainer extends Component {
             .then(res=>{
                 console.log('res',res)
                 if(res.additionalUserInfo.isNewUser===true){
-                    alert('Bienvenido nuevo usuario. Tu Id de usuario sera:'+res.user.uid)
-                    this.setState({showSpinner:false})
                     //TODO: Crear usuario con firestore
+                    this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
                     firebase.firestore().collection('users').doc(res.user.uid).set({
                         uid:res.user.uid,
                         phoneNumber:`+57${this.state.phoneNumber}`,
@@ -190,6 +207,7 @@ export default class SignUpContainer extends Component {
                     .then(res=>{
                         console.log('usuario creado exitosamente',res)
                         //NOTE: Redirigir a formulario opcional
+                        // this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
                         window.location.href=`/questionnaire${this.state.userName}`
                     })
                     .catch(err=>{
@@ -197,10 +215,11 @@ export default class SignUpContainer extends Component {
                         console.log('ocurrio un erro al crear el usuario en la base de datos',err)
                     })
                 }else{
-                    alert('Bienvenido usuario ya registrado, "'+res.user.uid+'", te has logeado con exito desde la zona de registro, no cambiaremos tus datos.')
-                    this.setState({showSpinner:false})
+                    this.setState({creatingUserText:`Bienvenido, te estamos redirigiendo al Main page.`})
                     //TODO: Redirigir al main page/products
-                    window.location.href='/products'
+                    window.XcalaRedirectToProducts_setTimeout=setTimeout(() => {
+                        window.location.href='/products'
+                    }, 500);
                 }
             })
             .catch(err=>{
@@ -215,7 +234,7 @@ export default class SignUpContainer extends Component {
     
 
     render() {
-        const {showSpinner,sendCode,showInvalidCodeError,msgErrorWithCode,showInvalidPhone,msgErrorWithPhone,showInvalidName,msgErrorWithName}=this.state
+        const {showSpinner,sendCode,showInvalidCodeError,msgErrorWithCode,showInvalidPhone,msgErrorWithPhone,showInvalidName,msgErrorWithName,creatingUserText,showResendCodeAlert}=this.state
         return (
             <div id="SignUpContainer_id" className="SignUpContainer container-fluid">
 
@@ -252,7 +271,17 @@ export default class SignUpContainer extends Component {
                         {showSpinner?
                             <div className="row">
                                 <div className="showSpinner_signUp col-12 d-flex justify-content-center align-items-center">
-                                    <EllipsisDownloading/>
+                                    <div>
+                                        <div className="d-flex justify-content-center align-items-center">
+                                            <EllipsisDownloading/>
+                                        </div>
+                                        {creatingUserText?
+                                        <div className="d-flex justify-content-center align-items-center" 
+                                             style={{textAlign:'center',lineHeight:1,color:'#10174b'}}>
+                                            {creatingUserText}
+                                        </div>
+                                        :null}
+                                    </div>
                                 </div>
                             </div>
                         :
@@ -261,7 +290,7 @@ export default class SignUpContainer extends Component {
 
                         {sendCode?
                             <CSSTransition key={1}in={true}appear={true}timeout={1000}classNames="fade">
-                                <SignUpVerifySMSCode showSpinner={this.showSpinner} reenviarCodigo={this.reenviarCodigo} showInvalidCodeError={showInvalidCodeError} verificarCodigoSMS={this.verificarCodigoSMS} valueCode={this.state.smsCode} leerDatos={this.leerDatos}/>
+                                <SignUpVerifySMSCode onClickReenviarCodigo={this.onClickReenviarCodigo} reenviarCodigo={this.reenviarCodigo} showInvalidCodeError={showInvalidCodeError} verificarCodigoSMS={this.verificarCodigoSMS} valueCode={this.state.smsCode} leerDatos={this.leerDatos}/>
                             </CSSTransition>
                         :                        
                             <CSSTransition key={2}in={true}appear={true}timeout={1000}classNames="fade">
@@ -277,6 +306,8 @@ export default class SignUpContainer extends Component {
                 {showInvalidCodeError?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithCode}</Alert>:null}
                 {showInvalidPhone?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithPhone}</Alert>:null}
                 {showInvalidName?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithName}</Alert>:null}
+                
+                {showResendCodeAlert?<Alert mode={'alertCard-green'}><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/>{'Se ha reenviado el codigo de confirmacion.'}</Alert>:null}
             </div>
         )
     }

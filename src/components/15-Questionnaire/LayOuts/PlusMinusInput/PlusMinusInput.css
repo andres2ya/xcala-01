@@ -1,0 +1,51 @@
+
+.PlusMinusInput .backGround{
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+  -moz-box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+  box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+  /* NOTE: webkit para compatibilidad ios safari del box-shadow */
+  -webkit-appearance: none;
+  text-align: center;
+}
+
+.PlusMinusInput input {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  
+.PlusMinusInput input:focus {
+    /* border: none; */
+    outline: none;
+  }
+  
+ 
+.PlusMinusInput input {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    text-align:center;
+    background: #fff;
+  }
+   
+  
+.PlusMinusInput .minus{
+    border-top-left-radius:15px;
+    border-bottom-left-radius:15px;
+  }
+
+.PlusMinusInput .plus{
+    border-top-right-radius:15px;
+    border-bottom-right-radius:15px;
+  }
+
+.PlusMinusInput .minus,.PlusMinusInput .plus{
+    color: white;
+    font-weight: bold;
+    background: rgb(126,164,251);
+    background: -moz-linear-gradient(270deg, rgba(126,164,251,1) 0%, #32348b 100%);
+    background: -webkit-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1);
+}

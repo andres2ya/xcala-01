@@ -14,6 +14,7 @@ export default class OnboardingContainer extends Component {
     isDeferredPromptCharge:false,
     appInstalled:window.XcalaWindowVaraible.appInstalled,
   }
+
   componentDidMount=()=>{
     if(window.XcalaWindowVaraible.deferredPromptInternal!==null){
       console.log('deferred is charged!')
@@ -37,6 +38,13 @@ export default class OnboardingContainer extends Component {
     e.preventDefault()
     this.setState({showDownloadingFooter:!this.state.showDownloadingFooter})
   }
+
+  //TODO: Pendiente por implementar: 1. Debe dectectar el navegador, si no es chrome, entonces mostrarle una alerta 
+  //donde se le recomienda usar chrome, y si acepta, entonces ejecutrar "abrirConChrome"
+  // abrirConChrome=()=>{
+  //   let url='https://pruebas-2-xcala.firebaseapp.com/pruebashareapi'
+  //   window.open("googlechrome://navigate?url=" + url,"_system")
+  // }
 
   render() {
     const {isDeferredPromptCharge,appInstalled,showOnboardingContainerComponent}=this.state

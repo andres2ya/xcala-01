@@ -31,10 +31,7 @@ export default class SignUpContainer extends Component {
         showResendCodeAlert:false,
     }
 
-    componentDidUpdate=()=>{
-        console.log(this.state)
-    }
-
+    
 
     componentDidMount=()=>{
         //NOTE:1. Creando objecto recaptcha cuando el componente es montado. Para que funcione, el elemento con id=signIn_RecaptchaButton debe estar renderizado correctamente.
@@ -54,11 +51,12 @@ export default class SignUpContainer extends Component {
         });
     }
 
+
+
     componentWillUnmount=()=>{
         clearTimeout(window.XcalaResendCodeAlert_setTimeout)
         clearTimeout(window.XcalaRedirectToProducts_setTimeout)
     }
-
 
 
     //NOTE: 3. Se leen los datos como numero de telefono y nombre usuario
@@ -72,10 +70,13 @@ export default class SignUpContainer extends Component {
         })
     }
 
+
+
     toogleAcceptedTyC=()=>{
         this.setState({acceptedTyC:!this.state.acceptedTyC})
     }
     
+
 
     showSpinner=(e)=>{
         console.log('show spinner while recaptcha is successfully passed...')
@@ -88,12 +89,13 @@ export default class SignUpContainer extends Component {
     }
 
 
+
     //NOTE: 4. LUEGO, al presionar btn con id=signIn_RecaptchaButton, se ejecuta el callback del recaptcha
     onCodeSubmit=(downCountToResend)=>{
         if(this.state.acceptedTyC===true){
             if(this.state.phoneNumber.length>0 && this.state.userName.includes(' ') && window.XcalaSendingCode===false){
                 window.XcalaSendingCode=true
-                let phoneNumber=`+1${this.state.phoneNumber}`
+                let phoneNumber=`+57${this.state.phoneNumber}`
                 let appVerifier=window.XcalaRecaptchaVerifier
         
                 firebase.auth().signInWithPhoneNumber(phoneNumber,appVerifier)
@@ -126,6 +128,7 @@ export default class SignUpContainer extends Component {
             alert('Debes aceptar de manera expresa e informada los Terminos & Condiciones y la Politica de tratamiento de datos personales para poder crear una cuenta en Xcala')
         }
     }
+
 
     
     //NOTE: 4.5. Opcion de reenviar codigo
@@ -162,31 +165,9 @@ export default class SignUpContainer extends Component {
     }
 
 
-
-    //NOTE: 5. POR ULITMO usar el metodo .confirm() del confirmationResult guardado en  window.XcalaConfirmationResult
-    //para enviar el codigo de verificacion y confirmarlo.
-    // verificarCodigoSMS=(e)=>{
-    //     console.log('sendindg code')
-    //     e.preventDefault()
-    //     this.showSpinner()
-    //     let code=this.state.smsCode
-    //     if(code.length>0){
-    //         window.XcalaConfirmationResult.confirm(code)
-    //         .then(res=>{
-    //             var user=res.user;
-    //             console.log('user signed successsfully',user)
-    //             this.setState({showSpinner:false})
-    //             //TODO: Crear documento del usuario y Guardar su nombre y su role = vendedor
-    //             window.location.href='/my-account'
-    //         })
-    //         .catch(err=>{
-    //             let error=identifyAndReturnMsgError(err.code)
-    //             this.setState({showSpinner:false,showInvalidCodeError:true,msgErrorWithCode:error})
-    //         })
-    //     }else{
-    //         this.setState({showSpinner:false,showInvalidCodeError:true,msgErrorWithCode:'No has ingresado un codigo de verificacion'})
-    //     }
-    // }
+    //NOTE: 5. Usa el metodo firebase.auth.PhoneAuthProvider.credential(window.XcalaConfirmationResult.verificationId,code) para confirmar si el codigo es correcto y devolver informacion del usuario,
+    //por ejemplo, en este caso, si es existente o o no. Y posteriormente llama a crearUsuarioEnFirestore para crear un doc con los datos del usuario en caso que sea nuevo.
+    //al terminar, si es existente redirije a/products, si no entonces lo envia a /questionnaire.
     verificarCodigoSMS=(e)=>{
         console.log('sendindg code')
         e.preventDefault()
@@ -204,21 +185,7 @@ export default class SignUpContainer extends Component {
                     //NOTE: Crear usuario con firestore
                     this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
                     saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:false})
-                    firebase.firestore().collection('users').doc(res.user.uid).set({
-                        uid:res.user.uid,
-                        phoneNumber:`+57${this.state.phoneNumber}`,
-                        userName:this.state.userName,
-                        creationDate:new Date(),
-                        role:'vendedor',
-                        error:()=>console.log('linea para generar error')
-                    })
-                    .then(res=>{
-                        console.log('usuario creado exitosamente',res)
-                        saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:true})
-                        //NOTE: Redirigir a formulario opcional
-                        // this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
-                        window.location.href=`/questionnaire${this.state.userName}`
-                    })
+                    this.crearUsuarioEnFirestore(res.user.uid)
                 }else{
                     let successCreatedUser = loadFromLocalStorage('successCreatedUser')
                     if(successCreatedUser.successSignup===true && successCreatedUser.successFirestoreSetDoc===true){
@@ -229,8 +196,8 @@ export default class SignUpContainer extends Component {
                             window.location.href='/products'
                         }, 700);
                     }else{
-                        //TODO: Implementar esta creacion en firestore
-                        console.log('El usuario no fue creado con exito, debio ocurrir algun fallo al crear en base de datos firestore, por lo cual aca se debe terminar de crear')
+                        console.log('El usuario no fue creado con exito, debio ocurrir algun fallo al crear en base de datos firestore, por lo cual lanza nuevamente la funcion de crear en firestore')
+                        this.crearUsuarioEnFirestore(res.user.uid)
                     }
                 }
             })
@@ -243,7 +210,30 @@ export default class SignUpContainer extends Component {
             this.setState({showSpinner:false,showInvalidCodeError:true,msgErrorWithCode:'No has ingresado un codigo de verificacion'})
         }
     }
+
+
+
+    crearUsuarioEnFirestore=(uid)=>{
+        firebase.firestore().collection('users').doc(uid).set({
+            uid:uid,
+            phoneNumber:`+57${this.state.phoneNumber}`,
+            userName:this.state.userName,
+            creationDate:new Date(),
+            role:'vendedor',
+        })
+        .then(res=>{
+            console.log('usuario creado exitosamente',res)
+            saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:true})
+            //NOTE: Redirigir a formulario opcional
+            window.location.href=`/questionnaire${this.state.userName}`
+        })
+        .catch(err=>{
+            //NOTE: Solo se entra a este catch si se llama crearUsarioEnFirestore por fuera de un then. Es decir, si se llama directamente.
+            console.log('Error reportado desde creandoUsuarioEnFirestore!')
+        })
+    }
     
+
 
     render() {
         const {showSpinner,sendCode,showInvalidCodeError,msgErrorWithCode,showInvalidPhone,msgErrorWithPhone,showInvalidName,msgErrorWithName,creatingUserText,showResendCodeAlert}=this.state
@@ -318,7 +308,6 @@ export default class SignUpContainer extends Component {
                 {showInvalidCodeError?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithCode}</Alert>:null}
                 {showInvalidPhone?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithPhone}</Alert>:null}
                 {showInvalidName?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithName}</Alert>:null}
-                
                 {showResendCodeAlert?<Alert mode={'alertCard-green'}><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/>{'Se ha reenviado el codigo de confirmacion.'}</Alert>:null}
             </div>
         )

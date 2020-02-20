@@ -1,0 +1,52 @@
+.CustomizedSelect label {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0;
+  }
+.CustomizedSelect label:after {
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 0;
+    content: "▼";
+    font-size: 12px;
+    width: 40px;
+    height: 100%;
+    background-color: lightblue;
+    pointer-events: none;
+    z-index: 2;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+
+    background: rgb(126,164,251);
+    background: -moz-linear-gradient(270deg, rgba(126,164,251,1) 0%, #32348b 100%);
+    background: -webkit-linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1);
+  }
+.CustomizedSelect label select {
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0px 14px;
+    margin: 0;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+    -moz-box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+    box-shadow: 0px 0px 14px 2px rgba(126,164,251,0.5);
+
+    /* NOTE: webkit para compatibilidad ios safari del box-shadow */
+    -webkit-appearance: none;
+    text-align: center;
+  }
+  

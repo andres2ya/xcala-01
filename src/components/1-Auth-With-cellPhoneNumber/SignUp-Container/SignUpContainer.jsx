@@ -92,7 +92,7 @@ export default class SignUpContainer extends Component {
         if(this.state.acceptedTyC===true){
             if(this.state.phoneNumber.length>0 && this.state.userName.includes(' ') && window.XcalaSendingCode===false){
                 window.XcalaSendingCode=true
-                let phoneNumber=`+1${this.state.phoneNumber}`
+                let phoneNumber=`+57${this.state.phoneNumber}`
                 let appVerifier=window.XcalaRecaptchaVerifier
         
                 firebase.auth().signInWithPhoneNumber(phoneNumber,appVerifier)
@@ -221,11 +221,11 @@ export default class SignUpContainer extends Component {
                         console.log('ocurrio un erro al crear el usuario en la base de datos',err)
                     })
                 }else{
-                    this.setState({creatingUserText:`Bienvenido, te estamos redirigiendo al Main page.`})
+                    this.setState({creatingUserText:`Nos alegra tenerte de vuelta, te estamos redirigiendo al Main page.`})
                     //TODO: Redirigir al main page/products
                     window.XcalaRedirectToProducts_setTimeout=setTimeout(() => {
                         window.location.href='/products'
-                    }, 500);
+                    }, 700);
                 }
             })
             .catch(err=>{

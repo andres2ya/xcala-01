@@ -129,30 +129,37 @@ export default class SignUpContainer extends Component {
     
     //NOTE: 4.5. Opcion de reenviar codigo
     reenviarCodigo=(downCountToResend)=>{
-        console.log('resending code...')
-        window.XcalaRecaptchaVerifier=null
-        window.recaptchaWidgetId=null
-        window.XcalaSendingCode=false
-        firebase.auth().useDeviceLanguage()
-        window.XcalaRecaptchaVerifier= new firebase.auth.RecaptchaVerifier('signIn_RecaptchaButton_resend',{
-            'size':'invisible',
-            'callback': (res)=>{
-                this.onCodeSubmit(downCountToResend)
-            }
-        })
-        window.XcalaRecaptchaVerifier.render().then((widgetId)=>{
-            window.recaptchaWidgetId = widgetId;
-        });
+        if(window.XcalaRecaptchaVerifier_button_id==='signIn_RecaptchaButton_resend'){
+            // console.log('ya se monto en "signIn_RecaptchaButton_resend", por lo tanto solamente se va es a resetear')        
+            window.XcalaRecaptchaVerifier.reset(window.recaptchaWidgetId)
+            
+        }else{
+            // console.log('Es la primera vez que se pide reenviar, por lo tanto se va a montar el recaptcha en "signIn_RecaptchaButton_resend"')       
+            window.XcalaRecaptchaVerifier_button_id='signIn_RecaptchaButton_resend'
+            window.XcalaRecaptchaVerifier=null
+            window.recaptchaWidgetId=null
+            firebase.auth().useDeviceLanguage()
+            window.XcalaRecaptchaVerifier= new firebase.auth.RecaptchaVerifier('signIn_RecaptchaButton_resend',{
+                'size':'invisible',
+                'callback': (res)=>{
+                    if(window.XcalaIsPosibleToResendCode===true){
+                        this.onCodeSubmit(downCountToResend)
+                        this.showSpinner()
+                        this.setState({showResendCodeAlert:true,smsCode:''})
+                        window.XcalaResendCodeAlert_setTimeout=setTimeout(() => {
+                            this.setState({showResendCodeAlert:false})
+                        }, 10000);
+                    }else{
+                        console.log('No se puede enviar sms ya que no ha terminado la cuenta regresiva')
+                    }
+                }
+            })
+            window.XcalaRecaptchaVerifier.render().then((widgetId)=>{
+                window.recaptchaWidgetId = widgetId;
+            });
+        }
     }
 
-    onClickReenviarCodigo=()=>{
-        //TODO: Agrupar en una misma funcion showSpinner con la actualizacion de showResendCodeAlert
-        this.showSpinner()
-        this.setState({showResendCodeAlert:true,smsCode:''})
-        window.XcalaResendCodeAlert_setTimeout=setTimeout(() => {
-            this.setState({showResendCodeAlert:false})
-        }, 10000);
-    }
 
 
     //NOTE: 5. POR ULITMO usar el metodo .confirm() del confirmationResult guardado en  window.XcalaConfirmationResult
@@ -289,7 +296,7 @@ export default class SignUpContainer extends Component {
 
                         {sendCode?
                             <CSSTransition key={1}in={true}appear={true}timeout={1000}classNames="fade">
-                                <SignUpVerifySMSCode onClickReenviarCodigo={this.onClickReenviarCodigo} reenviarCodigo={this.reenviarCodigo} showInvalidCodeError={showInvalidCodeError} verificarCodigoSMS={this.verificarCodigoSMS} valueCode={this.state.smsCode} leerDatos={this.leerDatos}/>
+                                <SignUpVerifySMSCode reenviarCodigo={this.reenviarCodigo} showInvalidCodeError={showInvalidCodeError} verificarCodigoSMS={this.verificarCodigoSMS} valueCode={this.state.smsCode} leerDatos={this.leerDatos}/>
                             </CSSTransition>
                         :                        
                             <CSSTransition key={2}in={true}appear={true}timeout={1000}classNames="fade">

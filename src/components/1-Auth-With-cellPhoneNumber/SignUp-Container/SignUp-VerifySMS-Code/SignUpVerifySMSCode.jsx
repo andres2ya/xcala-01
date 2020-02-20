@@ -19,40 +19,28 @@ const styles = {
 
 export default class SignUpVerifySMSCode extends Component {
     state={
-        idButtonResendCode:'',
         textButtonResendCode:`60s para reenviar codigo`,
-        withResendCode:false,
     }
 
     componentDidMount=()=>{
         this.downCountToResend()
     }
 
-    resendCode=()=>{
-        this.setState({withResendCode:false,idButtonResendCode:''})
-        console.log('resend code')
-        if(this.state.withResendCode===true){
-            console.log('withResend is trrue')
-            this.setState({withResendCode:false})
-            this.props.onClickReenviarCodigo()
-        }
-    }
-
     downCountToResend=()=>{
         (this.updateDownCount=(n)=>{
-            if(n<10){
+            if(n<60){
+                if(n===0){window.XcalaIsPosibleToResendCode=false}//NOTE: Para solamente asignarlo la primera vez que entra y no cada segundo
                 window.XcalaResendCode_setTimeOut=setTimeout(()=>{
                     this.updateDownCount(n)
                 }, 1000);
-                let updatedDownCount=10-n
+                let updatedDownCount=60-n
                 this.setState({textButtonResendCode:`${updatedDownCount}s para reenviar codigo`})
                 n++
             }else{
                 this.setState({
                     textButtonResendCode:'Reenviar codigo',
-                    idButtonResendCode:'signIn_RecaptchaButton_resend',
-                    withResendCode:true,
                 })
+                window.XcalaIsPosibleToResendCode=true
                 this.props.reenviarCodigo(this.downCountToResend)
             }
         })(0)
@@ -95,8 +83,9 @@ export default class SignUpVerifySMSCode extends Component {
                                 <ButtonAuth style={{margin:'10px 0px 10px 0px',height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={'Continuar'} onClick={verificarCodigoSMS}/>
                             </div>
 
+                            
                             <div className="d-flex justify-content-center">
-                                <ButtonAuth id={this.state.idButtonResendCode} secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={this.state.textButtonResendCode} onClick={this.resendCode}/>
+                                <ButtonAuth id='signIn_RecaptchaButton_resend' secondary={true} style={{height:'35px',width:'90%',padding: '3px 20px 3px 20px', fontSize:'19px'}} texto={this.state.textButtonResendCode}/>
                             </div>
 
                         </div>

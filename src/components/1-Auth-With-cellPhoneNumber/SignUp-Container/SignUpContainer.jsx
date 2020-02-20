@@ -145,11 +145,10 @@ export default class SignUpContainer extends Component {
         });
     }
 
-    onClickReenviarCodigo=(e)=>{
-        e.preventDefault()
+    onClickReenviarCodigo=()=>{
         //TODO: Agrupar en una misma funcion showSpinner con la actualizacion de showResendCodeAlert
         this.showSpinner()
-        this.setState({showResendCodeAlert:true})
+        this.setState({showResendCodeAlert:true,smsCode:''})
         window.XcalaResendCodeAlert_setTimeout=setTimeout(() => {
             this.setState({showResendCodeAlert:false})
         }, 10000);

@@ -10,6 +10,7 @@ import {CSSTransition} from 'react-transition-group'
 import Alert from './../../11-Alert/Alert'
 import EllipsisDownloading from './../../layout/EllipsisDownloading/EllipsisDownloading'
 import {identifyAndReturnMsgError} from './../../../helpers/errorsHandler'
+import {saveInLocalStorage,loadFromLocalStorage,removeFromLocalStorage} from './../../../helpers/localStorage'
 
 export default class SignUpContainer extends Component {
     state={
@@ -92,7 +93,7 @@ export default class SignUpContainer extends Component {
         if(this.state.acceptedTyC===true){
             if(this.state.phoneNumber.length>0 && this.state.userName.includes(' ') && window.XcalaSendingCode===false){
                 window.XcalaSendingCode=true
-                let phoneNumber=`+57${this.state.phoneNumber}`
+                let phoneNumber=`+1${this.state.phoneNumber}`
                 let appVerifier=window.XcalaRecaptchaVerifier
         
                 firebase.auth().signInWithPhoneNumber(phoneNumber,appVerifier)
@@ -189,7 +190,6 @@ export default class SignUpContainer extends Component {
     verificarCodigoSMS=(e)=>{
         console.log('sendindg code')
         e.preventDefault()
-        //TODO: Agrupar en una misma funcion showSpinner con la actualizacion de creatinUserText
         this.showSpinner()
         this.setState({creatingUserText:'Verificando...'})
 
@@ -201,31 +201,37 @@ export default class SignUpContainer extends Component {
             .then(res=>{
                 console.log('res',res)
                 if(res.additionalUserInfo.isNewUser===true){
-                    //TODO: Crear usuario con firestore
+                    //NOTE: Crear usuario con firestore
                     this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
+                    saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:false})
                     firebase.firestore().collection('users').doc(res.user.uid).set({
                         uid:res.user.uid,
                         phoneNumber:`+57${this.state.phoneNumber}`,
                         userName:this.state.userName,
                         creationDate:new Date(),
                         role:'vendedor',
+                        error:()=>console.log('linea para generar error')
                     })
                     .then(res=>{
                         console.log('usuario creado exitosamente',res)
+                        saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:true})
                         //NOTE: Redirigir a formulario opcional
                         // this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
                         window.location.href=`/questionnaire${this.state.userName}`
                     })
-                    .catch(err=>{
-                        //TODO: Manejar este caso, ya que implicaria que se creo el usuario con su numero de telefono, pero no lo he creado en el firestore.
-                        console.log('ocurrio un erro al crear el usuario en la base de datos',err)
-                    })
                 }else{
-                    this.setState({creatingUserText:`Nos alegra tenerte de vuelta, te estamos redirigiendo al Main page.`})
-                    //TODO: Redirigir al main page/products
-                    window.XcalaRedirectToProducts_setTimeout=setTimeout(() => {
-                        window.location.href='/products'
-                    }, 700);
+                    let successCreatedUser = loadFromLocalStorage('successCreatedUser')
+                    if(successCreatedUser.successSignup===true && successCreatedUser.successFirestoreSetDoc===true){
+                        console.log('Cuando se hizo el signup el usuario fue creado con total exito')
+                        // NOTE: Redirigir al main page/products
+                        this.setState({creatingUserText:`Nos alegra tenerte de vuelta, te estamos redirigiendo al Main page.`})
+                        window.XcalaRedirectToProducts_setTimeout=setTimeout(() => {
+                            window.location.href='/products'
+                        }, 700);
+                    }else{
+                        //TODO: Implementar esta creacion en firestore
+                        console.log('El usuario no fue creado con exito, debio ocurrir algun fallo al crear en base de datos firestore, por lo cual aca se debe terminar de crear')
+                    }
                 }
             })
             .catch(err=>{

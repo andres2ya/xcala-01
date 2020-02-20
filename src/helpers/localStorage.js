@@ -20,3 +20,12 @@ export const saveInLocalStorage =(key,data)=>{
     }
 }
 
+export const removeFromLocalStorage=(key)=>{
+    try{
+        localStorage.removeItem(key)
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+

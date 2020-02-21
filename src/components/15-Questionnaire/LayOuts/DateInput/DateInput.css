@@ -1,9 +1,10 @@
-.CustomizedSelect label {
+.DateInput label{
     position: relative;
     display: inline-block;
     margin-bottom: 0;
-  }
-.CustomizedSelect label:after {
+}
+
+.DateInput label:after {
     position: absolute;
     display: flex;
     right: 0;
@@ -28,7 +29,7 @@
     background: linear-gradient(270deg, rgba(126,164,251,1) 0%, rgba(50,52,139,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#7ea4fb",endColorstr="#32348b",GradientType=1); */
   }
-.CustomizedSelect label select {
+  .DateInput label input {
     position: relative;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -50,4 +51,9 @@
     text-align: center;
     color: rgba(16, 23, 75, 0.651);
   }
-  
+
+.DateInput label input::-webkit-inner-spin-button,
+.DateInput label input::-webkit-calendar-picker-indicator {
+     opacity:0;   
+    -webkit-appearance: none;
+ }

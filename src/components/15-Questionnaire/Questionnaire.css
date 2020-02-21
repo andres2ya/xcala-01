@@ -2,9 +2,22 @@
     height: 100vh;
     width: 100vw;
 }
-.QuestionnaireContainer_loginButton{
-    padding-top: 15px;
+
+@media only screen and (min-width: 375px){
+    .QuestionnaireContainer{
+        width: 90vw;
+    }
 }
+
+.QuestionnaireContainer_sticky-top{
+    background-color: white;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+/* .QuestionnaireContainer_loginButton{
+    padding-top: 15px;
+} */
+
 .QuestionnaireContainer_logo{
     min-width: 177.54px;
     max-width: 177.54px;
@@ -21,4 +34,22 @@
 }
 .QuestionnaireContainer_titulo span{
     font-weight: 600;
+}
+
+.QuestionnaireContainer_Age_City_y_gender_Questions{
+    margin-top: 30px;
+}
+
+.QuestionnaireContainer_numberChildren{
+    margin-top: 30px;
+}
+
+.QuestionnaireContainer_label{
+    color: #10174bcc;
+    height:40px;
+    margin:8px 0px 8px 0px;
+    line-height:1;
+    font-weight:400;
+    font-size: 17px;
+    margin-right:-30px
 }

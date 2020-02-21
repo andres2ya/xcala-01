@@ -33,6 +33,7 @@ export default class PlusMinusInput extends Component {
         const {max}=this.state
         if(e.target.value<=max){
             this.setState({value:parseInt(e.target.value)})
+            this.props.getValue(e.target.value)
         }
     }
 
@@ -44,12 +45,6 @@ export default class PlusMinusInput extends Component {
         }
     }
 
-    componentDidUpdate=(prevProps,prevState)=>{
-        const {value}=this.state
-        if(prevState.value!==value){
-            this.props.getValue(value)
-        }
-    }
 
     render() {
         return (

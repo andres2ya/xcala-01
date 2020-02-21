@@ -16,10 +16,15 @@ export default class BoxOption extends Component {
     render() {
         return (
             <div className="BoxOption d-flex justify-content-center align-items-center">
-                <div id={this.props.option} style={this.props.style} className={`${this.state.active?'boxx_active':'boxx'} d-flex justify-content-center align-items-center`} onClick={this.active}>
+                <div 
+                id={this.props.option} 
+                style={this.props.style} 
+                // className={`${this.state.active?'boxx_active':'boxx'} d-flex justify-content-center align-items-center`} 
+                className={`${this.props.classNameActive} d-flex justify-content-center align-items-center`} 
+                onClick={this.active}>
                     {this.props.option}
                 </div>
-            </div>
+            </div>   
         )
     }
 }

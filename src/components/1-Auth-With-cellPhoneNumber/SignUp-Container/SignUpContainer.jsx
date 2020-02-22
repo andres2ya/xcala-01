@@ -193,7 +193,8 @@ export default class SignUpContainer extends Component {
                         // NOTE: Redirigir al main page/products
                         this.setState({creatingUserText:`Nos alegra tenerte de vuelta, te estamos redirigiendo al Main page.`})
                         window.XcalaRedirectToProducts_setTimeout=setTimeout(() => {
-                            window.location.href='/products'
+                            // window.location.href='/products'
+                            window.location.href=`/success${this.state.userName}`
                         }, 700);
                     }else{
                         console.log('El usuario no fue creado con exito, debio ocurrir algun fallo al crear en base de datos firestore, por lo cual lanza nuevamente la funcion de crear en firestore')
@@ -225,7 +226,8 @@ export default class SignUpContainer extends Component {
             console.log('usuario creado exitosamente',res)
             saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:true})
             //NOTE: Redirigir a formulario opcional
-            window.location.href=`/questionnaire${this.state.userName}`
+            // window.location.href=`/questionnaire${this.state.userName}`
+            window.location.href=`/success${this.state.userName}`
         })
         .catch(err=>{
             //NOTE: Solo se entra a este catch si se llama crearUsarioEnFirestore por fuera de un then. Es decir, si se llama directamente.

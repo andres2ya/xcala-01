@@ -1,0 +1,37 @@
+.SuccessScreenContainer{
+    height: 100vh;
+    color: white;
+    background: rgb(34,195,109);
+    background: -moz-linear-gradient( rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: -webkit-linear-gradient( rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: linear-gradient( rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+}
+
+.shadowAnimatedCheck{
+    margin-top: -18px;
+    height: 5px;
+    width: 70px;
+    background-color: rgb(7, 92, 46);
+    border-radius: 100%;
+    opacity: 0.25;
+    filter: blur(1.5px);
+    -webkit-filter: blur(1.5px);
+}
+
+.SuccessScreenContainer_AnimateCheck{
+    padding-top: 100px;
+}
+
+.SuccessScreenContainer_MsgSuccess{
+    line-height: 1;
+    font-size: 20px;
+    text-align: center;
+}
+
+.SuccessScreenContainer_MsgSuccess_userName{
+    font-weight: 500;
+    font-size: 25px;
+}
+
+

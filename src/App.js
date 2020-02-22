@@ -37,6 +37,7 @@ import SignUpContainer from "./components/1-Auth-With-cellPhoneNumber/SignUp-Con
 import OnboardingContainer from "./components/0-Onboarding/Onboarding-Container/OnboardingContainer";
 import LoginWithCellPhone from "./components/1-Auth-With-cellPhoneNumber/LogIn/LoginWithCellPhone";
 import Questionnaire from "./components/15-Questionnaire/Questionnaire";
+import SuccessScreen from "./components/16-SuccessScreen/SuccessScreen";
 
 
 
@@ -71,6 +72,7 @@ return (
         <Route exact path="/" component={OnboardingContainer}/>
         <Route exact path="/signup" component={SignUpContainer}/>
         <Route exact path="/questionnaire:userName" component={Questionnaire}/>
+        <Route exact path="/success:userName" component={SuccessScreen}/>
         <Route exact path="/login" component={LoginWithCellPhone}/>
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>

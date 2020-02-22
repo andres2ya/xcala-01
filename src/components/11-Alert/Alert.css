@@ -27,17 +27,17 @@
 
 .alertCard-red{
     background: rgb(241,0,0);
-background: -moz-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
-background: -webkit-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
-background: linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f10000",endColorstr="#d00071",GradientType=1);
+    background: -moz-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+    background: linear-gradient(90deg, rgba(241,0,0,1) 24%, rgba(208,0,113,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f10000",endColorstr="#d00071",GradientType=1);
 }
 
 .alertCard-green{
     background: rgb(34,195,109);
-background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
-background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
-background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+    background: -moz-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    background: linear-gradient(90deg, rgba(34,195,109,1) 0%, rgba(45,253,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
 }
 /* https://cssgradient.io/ */

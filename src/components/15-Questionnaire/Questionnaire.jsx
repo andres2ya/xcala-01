@@ -110,9 +110,6 @@ export default class Questionnaire extends Component {
                         <ButtonAuth secondary={true} style={{marginBottom:'30px',height:'35px',width:'100%',padding:'5px 15px 5px 15px'}} texto={'Omitir'}/>
                     </div>
                 </div>
-
-
-
             </div>
         )
     }

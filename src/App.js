@@ -72,7 +72,6 @@ return (
         <Route exact path="/" component={OnboardingContainer}/>
         <Route exact path="/signup" component={SignUpContainer}/>
         <Route exact path="/questionnaire:userName" component={Questionnaire}/>
-        <Route exact path="/success:userName" component={SuccessScreen}/>
         <Route exact path="/login" component={LoginWithCellPhone}/>
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import firebase from "firebase/app";
 import './SignUpContainer.css'
 import ButtonLogin from '../Layouts/ButtonLogin/ButtonLogin'
@@ -11,6 +11,10 @@ import Alert from './../../11-Alert/Alert'
 import EllipsisDownloading from './../../layout/EllipsisDownloading/EllipsisDownloading'
 import {identifyAndReturnMsgError} from './../../../helpers/errorsHandler'
 import {saveInLocalStorage,loadFromLocalStorage,removeFromLocalStorage} from './../../../helpers/localStorage'
+import SuccessScreen from '../../16-SuccessScreen/SuccessScreen';
+import Modal from '../../12-Modal/Modal';
+import ModalSuccessScreen from '../../16-SuccessScreen/ModalSuccessScreen/ModalSuccessScreen';
+import Questionnaire from '../../15-Questionnaire/Questionnaire';
 
 export default class SignUpContainer extends Component {
     state={
@@ -29,6 +33,7 @@ export default class SignUpContainer extends Component {
         acceptedTyC:true,
         creatingUserText:null,
         showResendCodeAlert:false,
+        loginSuccess:false,
     }
 
     
@@ -95,7 +100,7 @@ export default class SignUpContainer extends Component {
         if(this.state.acceptedTyC===true){
             if(this.state.phoneNumber.length>0 && this.state.userName.includes(' ') && window.XcalaSendingCode===false){
                 window.XcalaSendingCode=true
-                let phoneNumber=`+57${this.state.phoneNumber}`
+                let phoneNumber=`+1${this.state.phoneNumber}`
                 let appVerifier=window.XcalaRecaptchaVerifier
         
                 firebase.auth().signInWithPhoneNumber(phoneNumber,appVerifier)
@@ -183,7 +188,7 @@ export default class SignUpContainer extends Component {
                 console.log('res',res)
                 if(res.additionalUserInfo.isNewUser===true){
                     //NOTE: Crear usuario con firestore
-                    this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
+                    // this.setState({creatingUserText:`${this.state.userName}, tu cuenta ha sido creada con exito!`})
                     saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:false})
                     this.crearUsuarioEnFirestore(res.user.uid)
                 }else{
@@ -194,7 +199,8 @@ export default class SignUpContainer extends Component {
                         this.setState({creatingUserText:`Nos alegra tenerte de vuelta, te estamos redirigiendo al Main page.`})
                         window.XcalaRedirectToProducts_setTimeout=setTimeout(() => {
                             // window.location.href='/products'
-                            window.location.href=`/success${this.state.userName}`
+                            // window.location.href=`/success${this.state.userName}`
+                            this.setState({loginSuccess:true})
                         }, 700);
                     }else{
                         console.log('El usuario no fue creado con exito, debio ocurrir algun fallo al crear en base de datos firestore, por lo cual lanza nuevamente la funcion de crear en firestore')
@@ -227,7 +233,8 @@ export default class SignUpContainer extends Component {
             saveInLocalStorage('successCreatedUser',{successSignup:true,successFirestoreSetDoc:true})
             //NOTE: Redirigir a formulario opcional
             // window.location.href=`/questionnaire${this.state.userName}`
-            window.location.href=`/success${this.state.userName}`
+            // window.location.href=`/success${this.state.userName}`
+            this.setState({loginSuccess:true})
         })
         .catch(err=>{
             //NOTE: Solo se entra a este catch si se llama crearUsarioEnFirestore por fuera de un then. Es decir, si se llama directamente.
@@ -237,8 +244,22 @@ export default class SignUpContainer extends Component {
     
 
 
+
+
+
+
+
+
+
+
+
     render() {
-        const {showSpinner,sendCode,showInvalidCodeError,msgErrorWithCode,showInvalidPhone,msgErrorWithPhone,showInvalidName,msgErrorWithName,creatingUserText,showResendCodeAlert}=this.state
+        const {loginSuccess,userName,showSpinner,sendCode,showInvalidCodeError,msgErrorWithCode,showInvalidPhone,msgErrorWithPhone,showInvalidName,msgErrorWithName,creatingUserText,showResendCodeAlert}=this.state
+        
+        if(loginSuccess===true){
+        // return <Questionnaire userName={userName}/>
+        return <Redirect to={`/questionnaire${userName}`}></Redirect>
+        }
         return (
             <div id="SignUpContainer_id" className="SignUpContainer container-fluid">
 
@@ -311,6 +332,8 @@ export default class SignUpContainer extends Component {
                 {showInvalidPhone?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithPhone}</Alert>:null}
                 {showInvalidName?<Alert mode={'alertCard-red'}><i style={{marginRight:20,fontSize:30}} className="icon-cancel-circled"/>{msgErrorWithName}</Alert>:null}
                 {showResendCodeAlert?<Alert mode={'alertCard-green'}><i style={{marginRight:20,fontSize:30}} className="icon-check-circle"/>{'Se ha reenviado el codigo de confirmacion.'}</Alert>:null}
+            
+                
             </div>
         )
     }

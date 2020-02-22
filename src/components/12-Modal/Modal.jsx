@@ -11,7 +11,14 @@ export default class Modal extends Component {
 
     componentDidMount=()=>{
         console.log('Se cargó el modal')
+        const {background,center}=this.props
         document.getElementById('ownModal').className='ownModal'
+        if(background){
+            document.getElementById('ownModal').setAttribute("style", `background-color: ${background};`);
+        }
+        if(center){
+            document.getElementById('ownModal').setAttribute("style", `background-color: ${background};display:flex;justify-content:center;align-items:center`);
+        }
         document.body.className='overFlowYHidden'
 
         modalRoot.appendChild(this.element)

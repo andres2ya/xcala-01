@@ -1,0 +1,62 @@
+.ModalSuccessScreen{
+    position: relative;
+    height: 200px;
+    width: 80vw;
+    color: white;
+    border-radius: 15px;
+    background: #2dfd41;
+    background: -moz-linear-gradient( rgba(45,253,65,1) 0%, rgba(34,195,109,1) 100%);
+    background: -webkit-linear-gradient( rgba(45,253,65,1) 0%, rgba(34,195,109,1) 100%);
+    background: linear-gradient( rgba(45,253,65,1) 0%, rgba(34,195,109,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22c36d",endColorstr="#2dfd41",GradientType=1);
+
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(45,253,65,0.5);
+    -moz-box-shadow: 0px 0px 30px 0px rgba(45,253,65,0.5);
+    box-shadow: 0px 0px 30px 0px rgba(45,253,65,0.5);
+}
+
+.ModalSuccessScreen_body{
+    height: 150px;
+}
+
+.ModalSuccessScreen_whiteButton{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right: 0;
+    background-color: white;
+    color:rgba(34,195,109,1);
+    font-weight: 400;
+    padding: 5px;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    height: 50px;
+}
+
+.shadowAnimatedCheck{
+    margin-top: -18px;
+    height: 5px;
+    width: 70px;
+    background-color: rgb(7, 92, 46);
+    border-radius: 100%;
+    opacity: 0.25;
+    filter: blur(1.5px);
+    -webkit-filter: blur(1.5px);
+}
+
+.ModalSuccessScreen_AnimateCheck{
+    padding-top: 5px;
+    transform: scale(0.8);
+}
+
+.ModalSuccessScreen_MsgSuccess{
+    margin-top: -20px;
+    line-height: 1;
+    font-size: 16px;
+    text-align: center;
+}
+
+.ModalSuccessScreen_MsgSuccess_userName{
+    font-weight: 500;
+    font-size: 20px;
+}

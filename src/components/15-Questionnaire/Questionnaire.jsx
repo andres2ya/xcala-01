@@ -8,6 +8,9 @@ import ButtonAuth from './../1-Auth-With-cellPhoneNumber/Layouts/ButtonAuth/Butt
 import CustomizedSelect from './LayOuts/CustomizedSelect/CustomizedSelect'
 import BoxOption from './LayOuts/BoxOption/BoxOption'
 import DateInput from './LayOuts/DateInput/DateInput'
+import Modal from './../12-Modal/Modal'
+import ModalSuccessScreen from './../16-SuccessScreen/ModalSuccessScreen/ModalSuccessScreen'
+
 
 // NOTE: Elements:
 // <PlusMinusInput style={{backGround:{margin:'3px'},quantityInput:{height:'40px',width:'70px'},minus:{height:'40px',width:'40px'},plus:{height:'40px',width:'40px'}}} getValue={(value)=>this.setState({edad:value})} id='edadInput' min={18} max={150}/>
@@ -19,6 +22,7 @@ import DateInput from './LayOuts/DateInput/DateInput'
 
 export default class Questionnaire extends Component {
     state={
+        showModalSuccess:true,
         userName:this.props.match.params.userName,
         edad:18,
         ciudad:'Bogota',
@@ -30,6 +34,12 @@ export default class Questionnaire extends Component {
 
     componentDidUpdate=()=>{
         console.log(this.state)
+    }
+
+    empezar=(e)=>{
+        e.preventDefault()
+        e.stopPropagation()
+        this.setState({showModalSuccess:false})
     }
 
     render() {
@@ -110,6 +120,10 @@ export default class Questionnaire extends Component {
                         <ButtonAuth secondary={true} style={{marginBottom:'30px',height:'35px',width:'100%',padding:'5px 15px 5px 15px'}} texto={'Omitir'}/>
                     </div>
                 </div>
+
+
+
+                {this.state.showModalSuccess?<Modal center={true} background={'rgb(255, 255, 255,0.95)'}><ModalSuccessScreen empezar={this.empezar} userName={this.state.userName}/></Modal>:null}
             </div>
         )
     }

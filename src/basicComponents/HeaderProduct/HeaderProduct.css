@@ -16,7 +16,7 @@
     text-align: center;
 }
 
-.HeaderProduct_circleSupplierName{
+/* .HeaderProduct_circleSupplierName{
     height: 40px;
     width: 40px;
     background-color: #93278f;
@@ -24,7 +24,7 @@
     font-weight: bold;
     font-size: 20px;
     border-radius: 50%;
-}
+} */
 
 .HeaderProduct_soldBy{
     color: black;

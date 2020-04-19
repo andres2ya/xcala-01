@@ -1,0 +1,18 @@
+.FooterButtons_secundary button{
+    border: none;
+    background-color:white;
+    color: rgb(41, 171, 226);
+    border-radius: 50px;
+    border: 1px solid rgb(41, 171, 226);
+    text-align: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 7px;
+}
+.FooterButtons_secundary button:active{
+    transform: scale(0.98);
+}
+.FooterButtons_secundary button:focus{
+    outline: none;
+}

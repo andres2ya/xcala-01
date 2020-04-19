@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './HeaderProduct.css'
 import ShippingCarWidget from '../shippingCarWidget/ShippingCarWidget'
 import FavoriteWidget from '../FavoriteWidget/FavoriteWidget'
+import TwoWordsCircle from '../TwoWordsCircle/TwoWordsCircle'
 
 
 export default class HeaderProduct extends Component {
@@ -22,11 +23,13 @@ export default class HeaderProduct extends Component {
                             <i className="icon-left-open-big"/>
                         </div>
 
-                        <div style={{marginRight:'25px'}}>
+                        {/* <div style={{marginRight:'25px'}}>
                             <div className="HeaderProduct_circleSupplierName d-flex justify-content-center align-items-center">
                                 {this.state.supplierTwoWords}
                             </div>
-                        </div>
+                        </div> */}
+
+                        <TwoWordsCircle style={{marginRight:'25px',backgroundColor:'#93278f',color:'white'}} TwoWords={this.state.supplierTwoWords}/>
 
                         <div>
                             <div className="row HeaderProduct_soldBy">

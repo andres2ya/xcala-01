@@ -19,6 +19,19 @@ import CalculationTable from './CalculationTable/CalculationTable'
 import ProfitWidget from './ProfitWidget/ProfitWidget'
 import FinalPriceWidget from './FinalPriceWidget/FinalPriceWidget'
 import OptionsWithText from './OptionsWithText/OptionsWithText'
+import CustomerCard from './CustomerCard/CustomerCard'
+import FooterButton_TextOnly from './FooterButtons/FooterButton_TextOnly/FooterButton_TextOnly'
+import FooterButton_check from './FooterButtons/FooterButton_check/FooterButton_check'
+import FooterButton_list from './FooterButtons/FooterButton_list/FooterButton_list'
+import FooterButton_Primary from './FooterButtons/FooterButton_Primary/FooterButton_Primary'
+import FooterButtons_secundary from './FooterButtons/FooterButtons_secundary/FooterButtons_secundary'
+import FooterButton_tertiary from './FooterButtons/FooterButton_tertiary/FooterButton_tertiary'
+import PaymentMethod from './PaymentMethod/PaymentMethod'
+import InputForm from './InputForm/InputForm'
+import FooterSharingWithPrice from './FooterSharingWithPrice/FooterSharingWithPrice'
+import ProductCardInCalculator from './ProductCardInCalculator/ProductCardInCalculator'
+import NextIncome from './NextIncome/NextIncome'
+import ProfitSummary from './ProfitSummary/ProfitSummary'
 
 export default class BasicComponents extends Component {
 
@@ -294,7 +307,84 @@ export default class BasicComponents extends Component {
                 ]}
                 />
 
+                <CustomerCard
+                isSelected={false}
+                showDetails={false}
+                customerName={'Camilo Mejia'}
+                city={'Bogota'}
+                phone={'3183667033'}
+                addressFirstLine={'Carrera 68D #24B-48'}
+                addressSecondLine={'Conjunto Lausana - APTO 707'}
+                addressPostalCode={'11050408'}
+                />
+
+                <FooterButton_TextOnly
+                text={'Texto para probar el boton footer only text por ahi de dos lineas supongo...'}
+                />
+
+                <FooterButton_check
+                text={'Texto para probar el boton de tipo check con dos lineas aproximadanemtne...'}
+                funtionCheck={()=>alert('checked or no checked')}
+                />
+                <FooterButton_list
+                nameList={'Frutas'}
+                items={['Peras','Manzanas','etc']}
+                />
                 
+                <FooterButton_Primary
+                onClick={()=>alert('click')}
+                text={'Boton primario'}
+                />
+
+                <FooterButtons_secundary
+                onClick={()=>alert('click')}
+                text={'Boton secudario'}
+                />
+                <FooterButton_tertiary
+                onClick={()=>alert('click')}
+                text={'Boton tertiary'}
+                />
+
+                <PaymentMethod
+                paymentMethodSelected={'Contra entrega'}
+                />
+
+                <InputForm
+                onChange={()=>alert('Changing...')}
+                placeholder={'Nombre completo de etc'}
+                value={'Andres'}
+                type={'text'}
+                />
+                <InputForm
+                onChange={()=>alert('Changing...')}
+                placeholder={'Nombre completo de etc'}
+                value={''}
+                type={'text'}
+                />
+                {/* <FooterSharingWithPrice
+                finalPrice={'$69.000'}
+                shipping={'Sin envio'}
+                /> */}
+                <ProductCardInCalculator
+                mainImg={'https://decerditoss.com/wp-content/uploads/2020/03/6-3.jpg'}
+                productName={'Juguetes Superplay texto adicional'}
+                />
+
+                <NextIncome
+                style={{box:{backgroundColor:'#00d866'}}}
+                text={'Tu proximo desembolso'}
+                date={'El 15 de abril'}
+                value={'$85.000'}
+                />
+
+                <ProfitSummary
+                title={'Resumen'}
+                items={[
+                    {text:'Ganancia sin recaudar',description:'Ganancia de pedidos que aun no han sido entregados a tu cliente.',value:'$0'},
+                    {text:'Ganancia sin desembolsar',description:'Ganancia de pedidos que aun no han sido entregados a tu cliente.',value:'$85.000'},
+                    {text:'Ganancia pagada',description:'Ganancia de pedidos que aun no han sido entregados a tu cliente.',value:'$85.000'},
+                ]}
+                />
 
             </div>
         )

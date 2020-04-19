@@ -224,3 +224,6 @@
 .icon-shoppingcaricon:before {
   content: "\39";
 }
+.icon-pencilonly:before {
+  content: "\21";
+}

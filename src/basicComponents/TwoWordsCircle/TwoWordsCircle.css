@@ -1,0 +1,7 @@
+.TwoWordsCircle{
+    height: 40px;
+    width: 40px;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 50%;
+}

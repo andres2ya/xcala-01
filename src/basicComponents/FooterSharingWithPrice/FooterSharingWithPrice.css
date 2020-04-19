@@ -1,0 +1,26 @@
+.FooterSharingWithPrice{
+    padding: 10px;
+    height: 60px;
+    color: white;
+    line-height: 1;
+    background:-moz-linear-gradient(90deg, #00d334 0%, #2bb826 100%);
+    background:-webkit-linear-gradient(90deg, #00d334 0%, rgba(43,184,38,1) 100%);
+    background:linear-gradient(90deg, #00d334 0%, rgba(43,184,38,1) 100%);
+}
+.FooterSharingWithPrice i{
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+.FooterSharingWithPrice_label{
+    font-weight: 300;
+}
+.FooterSharingWithPrice_price{
+    font-weight: bold;
+    font-size: 20px;
+}
+.FooterSharingWithPrice_price span{
+    font-weight: bold;
+    font-size: 15px;
+}

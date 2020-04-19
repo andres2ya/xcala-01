@@ -1,0 +1,20 @@
+.InputForm input{
+    color: rgb(41, 171, 226);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 4px 10px 4px 10px;
+    background-color:white;
+    border-radius: 50px;
+    border: 1px solid rgb(41, 171, 226);
+    width: 100%;
+}
+.InputForm input:focus{
+    outline: none;
+}
+.InputForm input::placeholder{
+    color: rgb(41, 171, 226);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 4px 10px 4px 0px;
+    opacity: 0.5;
+}

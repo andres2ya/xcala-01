@@ -1,0 +1,17 @@
+.FooterButton_Primary button{
+    border: none;
+    background-color:rgb(41, 171, 226);
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 7px;
+}
+.FooterButton_Primary button:active{
+    transform: scale(0.98);
+}
+.FooterButton_Primary button:focus{
+    outline: none;
+}

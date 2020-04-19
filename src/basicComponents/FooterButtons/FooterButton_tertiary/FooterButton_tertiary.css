@@ -1,0 +1,16 @@
+.FooterButton_tertiary button{
+    border: none;
+    color: rgb(41, 171, 226);
+    background-color: transparent;
+    text-align: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 7px;
+}
+.FooterButton_tertiary button:active{
+    transform: scale(0.98);
+}
+.FooterButton_tertiary button:focus{
+    outline: none;
+}

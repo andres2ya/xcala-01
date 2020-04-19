@@ -1,0 +1,18 @@
+.ProductCardInCalculator_img{
+    max-height: 300px;
+    height: 65vw;
+    max-width: 300px;
+    width: 65vw;
+    object-fit: cover;
+    border-radius: 15px;
+    /* border: 1px solid black; */
+}
+.ProductCardInCalculator_name{
+    margin-top: 15px;
+    color: #10174b;
+    font-weight: 500;
+    font-size: 17px;
+    text-align: center;
+    width: 70%;
+    line-height: 1;
+}

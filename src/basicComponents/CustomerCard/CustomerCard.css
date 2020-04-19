@@ -1,0 +1,47 @@
+.CustomerCard_box{
+    background-color: #f2f2f2;
+    padding: 7px 10px 7px 10px;
+}
+.CustomerCard_TwoWordCircle{
+    margin-right: 25px;
+}
+.CustomerCard_customerName{
+    font-size: 17px;
+    font-weight: 450;
+    line-height: 1;
+}
+.CustomerCard_city{
+    font-size: 13px;
+    line-height: 1;
+}
+.CustomerCard_icon{
+    margin-left: auto;
+    font-size: 20px;
+}
+.CustomerCard_icon i{
+    font-size: 22px;
+    margin-right: 10px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.CustomerCard_boxDown{
+    border-radius: 0px 0px 25px 25px;
+    background-color: white;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 5px 0px 5px 10px;
+}
+.CustomerCard_phone{
+    margin-right: 10px;
+}
+.CustomerCard_address{
+    padding-left: 10px;
+}
+
+.CustomerCard_shadow{
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    border-radius: 25px 25px 25px 25px;
+}

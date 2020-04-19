@@ -1,0 +1,113 @@
+.ProductInListCard{
+    margin-bottom: 25px;
+}
+
+.ProductInListCard_productName{
+    margin-top: 15px;
+    margin-bottom: 8px;
+color:#10174b ;
+/* font-size: 17px; */
+font-weight: 500;
+line-height: 1;
+}
+.ProductInListCard_recentCustomer{
+color: #4e4e4e;
+font-size: 17px;
+font-weight: bold;   
+line-height: 1;
+
+}
+
+.ProductInListCard_recentFinalPrice{
+    margin-right: 3px;
+
+    color:#29abe2 ;
+    font-size: 17px;
+    font-weight: bold;
+line-height: 1;
+
+}
+
+.ProductInListCard_recentFinalPrice_label{
+    
+    color:#29abe2 ;
+    font-size: 12px;
+    font-weight: 500;
+line-height: 1;
+}
+
+.ProductInListCard_suggestedPrice{
+    margin-right: 3px;
+
+    color:#4e4e4e ;
+    font-size: 17px;
+    font-weight: bold;
+line-height: 1;
+}
+
+.ProductInListCard_suggestedPrice_label{
+    color:#959595 ;
+    font-size: 12px;
+    font-weight: 500;
+line-height: 1; 
+}
+
+.ProductInListCard_suggestedProfit{
+    margin-right: 3px;
+    margin-top: 5px;
+
+    color:#00ef7f ;
+    font-size: 14px;
+    font-weight: bold;
+line-height: 1;
+}
+
+.ProductInListCard_suggestedProfit_label{
+    color:#00b55a ;
+    font-size: 12px;
+    font-weight: 500;
+line-height: 1; 
+}
+
+.ProductInListCard_promo{
+    color:#ed1e79 ;
+    font-size: 13px;
+    font-weight: bold;
+line-height: 1;
+}
+
+
+.ProductInListCard_oldPrice{
+    color:#959595;
+    font-size: 12px;
+    font-weight: 500;
+line-height: 1; 
+}
+
+.ProductInListCard_oldPrice span{
+    color:#cccccc;
+    font-size: 12px;
+    font-weight: 500;
+line-height: 1;
+text-decoration: line-through;
+}
+
+.ProductInListCard_calculatorButton{
+    margin-top: 5px;
+    color:#29abe2;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid #29abe2;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.ProductInListCard_calculatorButton:focus{
+    outline: none;
+}
+
+.ProductInListCard_calculatorButton:active{
+    transform: scale(0.98);
+}

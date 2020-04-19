@@ -1,0 +1,21 @@
+.FinalPriceWidget_box{
+    border-radius: 15px;
+    padding: 4px 15px 4px 15px;
+}
+.FinalPriceWidget_text{
+    font-size: 14px;
+    font-weight: 500;
+    width: 65%;
+    color: white;
+}
+.FinalPriceWidget_value{
+    font-size: 17px;
+    font-weight: bold;
+    width: 35%;
+    color: white;
+}
+
+.FinalPriceWidget_finalLittleText{
+    font-size: 12px;
+    font-weight: 500;
+}

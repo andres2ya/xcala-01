@@ -1,0 +1,33 @@
+.HeaderPrincipal{
+    background-color: white;
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+.HeaderPrincipal_sideMenuIcon{
+    margin-right: 30px;
+}
+
+.HeaderPrinciapl_hiNameUser{
+    color: #1b1464;
+    font-weight: bold;
+    line-height: 1 ;
+    font-size: 20px;
+}
+
+.HeaderPrinciapl_profitUser{
+    color: #29abe2;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 20px;
+}
+
+.HeaderPrinciapl_profitUser span{
+    margin-left: 5px;
+    font-size: 13px;
+    font-weight:300;
+}
+
+.HeaderPrincipal_floatRigthIcon{
+    margin-left: auto;
+}

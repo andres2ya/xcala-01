@@ -1,0 +1,29 @@
+.CategoriesHorizontalScrolling_wrapper{
+    width: 100vw;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.CategoriesHorizontalScrolling_wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.CategoriesHorizontalScrolling_categoryCard{
+margin-right: 18px;
+}
+
+.CategoriesHorizontalScrolling_categoryCard img{
+border-radius: 10px;
+width: 70px;
+height: 70px;
+background-size: contain;
+}
+
+.CategoriesHorizontalScrolling_categoryCard p{
+text-align: center;
+font-size: 14px;
+font-weight: normal;
+margin-top: 5px;
+}

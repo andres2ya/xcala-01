@@ -1,0 +1,49 @@
+.sticky-footer{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
+.FooterProductPage{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+}
+.FooterProductPage_col{
+    height: 100%;
+}
+.FooterProductPage-A{
+    width: 20vw;
+    height: 100%;
+}
+
+.FooterProductPage-B{
+    width: 40vw;
+    height: 100%;
+    color: white;
+    font-weight: normal;
+    line-height: 1;
+    background:-moz-linear-gradient(90deg, #444d84 0%, #10174b 100%);
+    background:-webkit-linear-gradient(90deg, #444d84 0%, #10174b 100%);
+    background:linear-gradient(90deg, #444d84 0%, #10174b 100%);
+}
+
+.FooterProductPage-C{
+    width: 40vw;
+    height: 100%;
+    color: white;
+    font-weight: normal;
+    line-height: 1;
+    background:-moz-linear-gradient(90deg, #00d334 0%, #2bb826 100%);
+    background:-webkit-linear-gradient(90deg, #00d334 0%, rgba(43,184,38,1) 100%);
+    background:linear-gradient(90deg, #00d334 0%, rgba(43,184,38,1) 100%);
+}
+
+.FooterProductPage_icon{
+    font-size: 22px;
+    line-height: 0;
+}

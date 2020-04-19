@@ -1,0 +1,37 @@
+.HeaderSecundary{
+    padding-top:10px;
+    padding-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+    box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+}
+
+.HeaderSecundary_backRowIcon{
+    font-size:30px;
+    margin-right: 30px;
+    line-height: 0;
+    color: #1b1464;
+    text-align: center;
+}
+
+
+.HeaderSecundary_title{
+    color: black;
+    font-weight:500;
+    line-height: 1 ;
+    font-size: 20px;
+}
+
+.HeaderSecundary_titleDescription{
+    font-size: 15px;
+    line-height: 1;
+    font-weight:400;
+    color: black;
+    opacity: 50%;
+}
+
+.HeaderSecundary_iconsFloatRight{
+    margin-left: auto;
+}

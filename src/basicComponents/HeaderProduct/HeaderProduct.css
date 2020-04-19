@@ -1,0 +1,47 @@
+.HeaderProduct{
+    padding-top:10px;
+    padding-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+    box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+}
+
+.HeaderProduct_backRowIcon{
+    font-size:30px;
+    margin-right: 5px;
+    line-height: 0;
+    color: #1b1464;
+    text-align: center;
+}
+
+.HeaderProduct_circleSupplierName{
+    height: 40px;
+    width: 40px;
+    background-color: #93278f;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+.HeaderProduct_soldBy{
+    color: black;
+    font-weight:500;
+    line-height: 1 ;
+    font-size: 20px;
+}
+
+.HeaderProduct_supplierName{
+    font-size: 15px;
+    line-height: 1;
+    font-weight:400;
+    color: black;
+    opacity: 50%;
+}
+
+.HeaderProduct_iconsFloatRight{
+    margin-left: auto;
+}
+

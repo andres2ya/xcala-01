@@ -1,0 +1,46 @@
+.ProfitWidget_text{
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+.ProfitWidget_value{
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+}
+.ProfitWidget_value input{
+    background-color: transparent;    
+    border: none;
+    width: 100%;
+    color: white;
+    text-decoration: underline;
+    margin-right: 5px;
+    font-weight: bold;
+    text-align: start;
+}
+.ProfitWidget_value input:focus{
+    outline: none;
+}
+.ProfitWidget_value i{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 7px;
+}
+
+.ProfitWidget_finalLittleText{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.ProfitWidget_boxLeft{
+    border-radius: 15px;
+    width: 60%;
+    padding: 4px 0px 4px 15px;
+
+}
+.ProfitWidget_boxRight{
+    border-radius: 15px;
+    width: 40%;
+    padding: 4px 0px 4px 3.5%;
+}

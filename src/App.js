@@ -38,6 +38,7 @@ import OnboardingContainer from "./components/0-Onboarding/Onboarding-Container/
 import LoginWithCellPhone from "./components/1-Auth-With-cellPhoneNumber/LogIn/LoginWithCellPhone";
 import Questionnaire from "./components/15-Questionnaire/Questionnaire";
 import SuccessScreen from "./components/16-SuccessScreen/SuccessScreen";
+import BasicComponents from "./basicComponents/BasicComponents";
 
 
 
@@ -76,6 +77,7 @@ return (
         <Route exact path="/categories" component={Categories}/>
         <Route exact path="/categories-id=:id" component={CategoryProducts}/>
         <Route exact path="/products" component={MainProductsPage}/>
+        <Route exact path="/basicComponents" component={BasicComponents}/>
       </Switch>
     </div>
     <div className="container-fluid">

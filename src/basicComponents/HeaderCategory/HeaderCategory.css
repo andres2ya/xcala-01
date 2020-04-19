@@ -1,0 +1,33 @@
+.HeaderCategory{
+    background-size: cover;
+    padding-top:10px;
+    padding-bottom: 10px;
+    height: 100px;
+}
+
+.HeaderCategory_backRowIcon{
+    font-size:30px;
+    margin-right: 30px;
+    line-height: 0;
+    color: white;
+}
+
+.HeaderCategory_categoryName{
+    color: white;
+    font-weight:bold;
+    line-height: 1 ;
+    font-size: 25px;
+}
+
+.HeaderCategory_categoryDescription{
+    font-size: 13px;
+    line-height: 1;
+    font-weight:400;
+    color: white;
+}
+
+.HeaderCategory_iconsFloatRight{
+    margin-left: auto;
+}
+
+

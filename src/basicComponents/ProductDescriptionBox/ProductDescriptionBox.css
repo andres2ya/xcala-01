@@ -1,0 +1,25 @@
+.ProductDescriptionBox_productName{
+    color:#1b1464;
+    font-weight:bold;
+    line-height: 1 ;
+    font-size: 25px;
+}
+.ProductDescriptionBox_shareIcon{
+    margin-left: auto;
+    color:#1b1464;
+    font-size: 25px;
+    line-height: 1 ;
+}
+.ProductDescriptionBox_sku{
+    color: #cccccc;
+    font-size: 13px;
+    font-weight:normal;
+    margin-bottom: 5px;
+}
+.ProductDescriptionBox_sku span{
+    font-weight:300;
+}
+.ProductDescriptionBox_description{
+    color:#4559a3;
+    font-size: 15px;
+}

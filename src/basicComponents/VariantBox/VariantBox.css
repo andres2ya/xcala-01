@@ -1,0 +1,16 @@
+.VariantBox_variantName{
+    color:#1b1464;
+    font-weight:bold;
+    line-height: 1 ;
+    font-size: 25px;
+}
+.VariantBox_variantFormat{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.VariantBox_label{
+    color:#1b1464;
+    font-weight:normal;
+    line-height: 1 ;
+    font-size: 13px;
+}

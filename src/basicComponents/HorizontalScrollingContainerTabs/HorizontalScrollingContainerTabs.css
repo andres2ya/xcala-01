@@ -1,0 +1,39 @@
+.HorizontalScrollingContainerTabs_wrapper{
+    width: 100vw;
+    height: 34px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+    box-shadow: 0px 2px 7px 0px rgba(232,232,232,1);
+}
+
+.HorizontalScrollingContainerTabs_wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.HorizontalScrollingContainerTabs_tab{
+    display: inline-block;
+    height: 28px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 20px;
+    color: #b3b3b3;
+    font-size: 15px;
+    text-align: center;
+}
+.HorizontalScrollingContainerTabs_tab_active{
+    display: inline-block;
+    height: 28px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: 20px;
+    color: #10174b;
+    font-weight: bold;
+    font-size: 15px;
+    border-bottom: 2px solid #10174b;
+    text-align: center;
+}

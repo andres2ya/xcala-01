@@ -1,0 +1,19 @@
+.SliderPrincipal{
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 120px;
+}
+.SliderPrincipal_carrusel{
+    border-radius: 10px;
+}
+
+.SliderPrincipal_slide{
+    height: 120px;
+    object-fit: cover;
+}
+.SliderPrincipal_pointIndicators{
+    height:15px;
+}
+.SliderPrincipal_arrowButton{
+    transform: scale(1.5);
+}

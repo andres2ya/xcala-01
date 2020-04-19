@@ -1,0 +1,14 @@
+.shippingCarIcon_label{
+    height: 20px;
+    min-width: 20px;
+    border-radius: 20px;
+    padding:5px;
+    background-color: #ed1e79;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+}
+
+#shippingCarIcon{
+    margin-right: -20px;
+}

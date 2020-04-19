@@ -1,0 +1,17 @@
+.ProductBenefitsListBox_title{
+    color:#1b1464;
+    font-weight:bold;
+    line-height: 1 ;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+.ProductBenefitsListBox_shareIcon{
+    margin-left: auto;
+    color:#1b1464;
+    font-size: 25px;
+    line-height: 1 ;
+}
+.ProductBenefitsListBox_list{
+    color:#4559a3;
+    font-size: 15px;
+}

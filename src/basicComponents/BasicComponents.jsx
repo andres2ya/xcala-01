@@ -32,6 +32,11 @@ import FooterSharingWithPrice from './FooterSharingWithPrice/FooterSharingWithPr
 import ProductCardInCalculator from './ProductCardInCalculator/ProductCardInCalculator'
 import NextIncome from './NextIncome/NextIncome'
 import ProfitSummary from './ProfitSummary/ProfitSummary'
+import DonutProgressBar from './DonutProgressBar/DonutProgressBar'
+import MiniWidgetsToDonut from './MiniWidgetsToDonut/MiniWidgetsToDonut'
+import CalculationFinalPrice from './CalculationFinalPrice/CalculationFinalPrice'
+import AccountOptionBox from './AccountOptionBox/AccountOptionBox'
+import NequiForm from './NequiForm/NequiForm'
 
 export default class BasicComponents extends Component {
 
@@ -350,12 +355,35 @@ export default class BasicComponents extends Component {
                 />
 
                 <InputForm
+                color={'blue'}//'blue' or 'red' or 'green' or 'grey'
                 onChange={()=>alert('Changing...')}
                 placeholder={'Nombre completo de etc'}
                 value={'Andres'}
                 type={'text'}
                 />
                 <InputForm
+                color={'blue'}//'blue' or 'red' or 'green' or 'grey'
+                onChange={()=>alert('Changing...')}
+                placeholder={'Nombre completo de etc'}
+                value={''}
+                type={'text'}
+                />
+                <InputForm
+                color={'red'}//'blue' or 'red' or 'green' or 'grey'
+                onChange={()=>alert('Changing...')}
+                placeholder={'Nombre completo de etc'}
+                value={''}
+                type={'text'}
+                />
+                <InputForm
+                color={'green'}//'blue' or 'red' or 'green' or 'grey'
+                onChange={()=>alert('Changing...')}
+                placeholder={'Nombre completo de etc'}
+                value={''}
+                type={'text'}
+                />
+                <InputForm
+                color={'grey'}//'blue' or 'red' or 'green' or 'grey'
                 onChange={()=>alert('Changing...')}
                 placeholder={'Nombre completo de etc'}
                 value={''}
@@ -386,6 +414,110 @@ export default class BasicComponents extends Component {
                 ]}
                 />
 
+                <DonutProgressBar
+                idDonutProgressBar={'DonutProgressBarOne'}
+                userImg={'https://i.insider.com/5cb8b133b8342c1b45130629?width=1100&format=jpeg&auto=webp'}
+                percent={45}
+                isDonut={true}
+                />
+
+                <MiniWidgetsToDonut
+                mode={'textWidgets'}//'onlyText or textWidgets or onlyWidgets
+                text={'$6.000.000'}//¡Hola Leidy! //mutuamente excluyente con value
+                value={''}//mutuamente excluyente con text
+                label={'Meta global'}
+                level={'Pro'}//Inicial or Intermedio or Pro
+                points={''}//mutuamente excluyente con percent
+                percent={'45'}//mutuamente excluyente con points
+                tail={'%'}//pts or %
+                icon={'icon-pencilonly'}//icon-pencilonly
+                />
+
+                <CalculationFinalPrice
+                mode={'simple'}
+                number={1}
+                active={true}
+                icon={''}//icon-pencilonly
+                label={'Precio base'}
+                styleLabel={{color:'#959595'}}//verde oscuro= #00b55a or gris=  #959595 or azul= #29abe2
+                
+                value={'$ 49.000'}
+                styleBox={{backgroundColor:''}}
+
+                options={['A','B','C','D']}
+                optionSelectedDefault={'Seleccionar ciudad'}
+                getSelectedOption={(e)=>alert('select: '+e.target.value)}
+
+                inputDefaultValue={'$ 20.000'}
+                getInputValue={(e)=>alert('select: '+e.target.value)}
+                />
+                <CalculationFinalPrice
+                mode={'select'}
+                number={2}
+                active={true}
+                icon={''}//icon-pencilonly
+                label={'+ Costo de envio'}
+                styleLabel={{color:'#959595'}}//verde oscuro= #00b55a or gris=  #959595 or azul= #29abe2
+                
+                value={'$ 69.000'}
+                styleBox={{backgroundColor:''}}
+
+                options={['BOGOTA $11.500','BARRANQUILLA $24.000','CARTAGENA $35.000','CALI $9.900']}
+                optionSelectedDefault={'Seleccionar ciudad'}
+                getSelectedOption={(e)=>alert('select: '+e.target.value)}
+
+                inputDefaultValue={'$ 20.000'}
+                getInputValue={(e)=>alert('select: '+e.target.value)}
+                />
+                <CalculationFinalPrice
+                mode={'input'}
+                number={3}
+                active={true}
+                icon={'icon-pencilonly'}//icon-pencilonly
+                label={'+ Tu ganancia sugerida'}
+                styleLabel={{color:'#00b55a'}}//verde oscuro= #00b55a or gris=  #959595 or azul= #29abe2
+                
+                value={'$ 69.000'}
+                styleBox={{backgroundColor:''}}
+
+                options={['BOGOTA $11.500','BARRANQUILLA "24.000','CARTAGENA DE INDIAS $35.000','CALI $9.900']}
+                optionSelectedDefault={'Seleccionar ciudad'}
+                getSelectedOption={(e)=>alert('select: '+e.target.value)}
+
+                inputDefaultValue={'$ 20.000'}
+                getInputValue={(e)=>alert('select: '+e.target.value)}
+                />
+                <CalculationFinalPrice
+                mode={'box'}
+                number={1}
+                active={true}
+                icon={''}//icon-pencilonly
+                label={'= Precio de venta'}
+                styleLabel={{color:'#29abe2'}}//verde oscuro= #00b55a or gris=  #959595 or azul= #29abe2
+                
+                value={'$ 69.000'}
+                styleBox={{backgroundColor:''}}
+
+                options={['A','B','C','D']}
+                optionSelectedDefault={'Seleccionar ciudad'}
+                getSelectedOption={(e)=>alert('select: '+e.target.value)}
+
+                inputDefaultValue={'$ 20.000'}
+                getInputValue={(e)=>alert('select: '+e.target.value)}
+                />
+
+                <AccountOptionBox
+                withRightCircle={false}
+                number={'10'}
+                backgroundCircleColor={'#00d866'}
+                icon={'icon-pencilonly'}
+                text={'Mis ganancias'}
+                url={'google.com.co'}
+                />
+
+                <NequiForm
+                url={'google.com.co'}
+                />
             </div>
         )
     }

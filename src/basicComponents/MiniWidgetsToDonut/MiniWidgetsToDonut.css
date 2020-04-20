@@ -1,0 +1,73 @@
+.MiniWidgetsToDonut_text_and_label{
+    margin-top: 5px;
+}
+.MiniWidgetsToDonut_text{
+    color: #1b1464;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.MiniWidgetsToDonut_label{
+    color: #1b1464;
+    font-size: 14px;
+    line-height: 0.8;
+    font-weight: normal;
+}
+
+.MiniWidgetsToDonut_widgets{
+    margin-top: 8px;
+}
+.MiniWidgetsToDonut_level{
+    font-size: 12px;
+    font-weight: normal;
+    padding-right: 6px;
+    border-right: 1px solid rgb(200, 200, 200);
+}
+.MiniWidgetsToDonut_level span{
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    margin-right: 3px;
+}
+.MiniWidgetsToDonut_level_Inicial{
+    color: #fd9230;
+}
+.MiniWidgetsToDonut_level_Inicial span{
+    background:-moz-linear-gradient(90deg, #cf5f09 0%, #fd9230 100%);
+    background:-webkit-linear-gradient(90deg, #cf5f09 0%, #fd9230 100%);
+    background:linear-gradient(90deg, #cf5f09 0%, #fd9230 100%);
+}
+.MiniWidgetsToDonut_level_Intermedio{
+    color: #662d91;
+}
+.MiniWidgetsToDonut_level_Intermedio span{
+    background:-moz-linear-gradient(90deg, #662d91 0%, #93278f 100%);
+    background:-webkit-linear-gradient(90deg, #662d91 0%, #93278f 100%);
+    background:linear-gradient(90deg, #662d91 0%, #93278f 100%);
+}
+
+.MiniWidgetsToDonut_level_Pro{
+    color: #8cc63f;
+}
+.MiniWidgetsToDonut_level_Pro span{
+    background:-moz-linear-gradient(90deg, #8cc63f 0%, #39b54a 100%);
+    background:-webkit-linear-gradient(90deg, #8cc63f 0%, #39b54a 100%);
+    background:linear-gradient(90deg, #8cc63f 0%, #39b54a 100%); 
+}
+
+.MiniWidgetsToDonut_points_or_percent{
+    font-size: 12px;
+    font-weight: normal;
+    color: white;
+    background-color: #1b1464;
+    padding: 0px 6px 0px 6px;
+    border-radius: 15px;
+    margin-left: 6px;
+}
+
+.MiniWidgetsToDonut_icon{
+    color: #29abe2;
+    font-size: 20px;
+    margin-left: 10px;
+}

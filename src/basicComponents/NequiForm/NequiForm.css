@@ -1,0 +1,12 @@
+.NequiForm_lineOne{
+    margin-top: 25px;
+    color: #959595;
+    font-size: 17px;
+    font-weight: normal;
+}
+.NequiForm_lineTwo{
+    color: #959595;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: underline;
+}

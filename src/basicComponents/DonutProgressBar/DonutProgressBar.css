@@ -1,0 +1,68 @@
+  .DonutProgressBar_donut-size {
+    font-size: 8em;
+  }
+  
+  .DonutProgressBar_pie-wrapper {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    margin: 0px auto;
+  }
+  .DonutProgressBar_pie-wrapper .DonutProgressBar_pie {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 1em, 1em, 0.5em);
+  }
+  .DonutProgressBar_pie-wrapper .DonutProgressBar_half-circle {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    border: 0.1em solid #29abe2;
+    border-radius: 50%;
+    clip: rect(0em, 0.5em, 1em, 0em);
+  }
+  .DonutProgressBar_pie-wrapper .DonutProgressBar_right-side {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  .DonutProgressBar_pie-wrapper .DonutProgressBar_label {
+    position: absolute;
+    top: 0.52em;
+    right: 0.4em;
+    bottom: 0.4em;
+    left: 0.4em;
+    display: block;
+    background: none;
+    border-radius: 50%;
+    color: grey;
+    font-size: 0.25em;
+    line-height: 2.6em;
+    text-align: center;
+    cursor: default;
+    z-index: 2;
+  }
+  .DonutProgressBar_pie-wrapper .DonutProgressBar_smaller {
+    padding-bottom: 20px;
+    color: #BDC3C7;
+    font-size: 0.45em;
+    vertical-align: super;
+  }
+  .DonutProgressBar_pie-wrapper .DonutProgressBar_shadow {
+    width: 100%;
+    height: 100%;
+    border: 0.1em solid #f2f2f2;
+    border-radius: 50%;
+  }
+
+  .DonutProgressBar_img{
+      width: 3em;
+      height: 3em;
+      border-radius: 50%;
+      padding: 0.06em;
+      object-fit: cover;
+  }

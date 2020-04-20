@@ -1,0 +1,65 @@
+.CalculationFinalPrice_number{
+    width: 15%;
+    /* border: 1px solid black; */
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+}
+.CalculationFinalPrice_value_label{
+    width: 85%;
+}
+.CalculationFinalPrice_value{
+    color: #4e4e4e;
+    line-height: 1;
+    font-weight:bold;
+    font-size: 20px;
+}
+.CalculationFinalPrice_label{
+    line-height: 1;
+    font-weight:normal;
+    font-size: 14px;
+}
+.CalculationFinalPrice_icon{
+    margin-left: auto;
+}
+
+
+
+/* ------------------- */
+
+
+
+.CalculationFinalPrice_select{
+    min-width: 100%;
+    border: none;
+    color: #4e4e4e;
+    line-height: 1;
+    font-weight:bold;
+    font-size: 20px;
+    padding: 0px;
+    /* width: 80%; */
+}
+.CalculationFinalPrice_select{
+    outline: none;
+}
+
+.CalculationFinalPrice_input input{
+    border: none;
+    color: #00ef7f;
+    line-height: 1;
+    font-weight:bold;
+    font-size: 20px;
+    padding: 0px;
+    width: 80%;
+}
+.CalculationFinalPrice_input input:focus{
+    outline: none;
+}
+
+
+.CalculationFinalPrice_box{
+    background-color: #29abe2;
+    color: white;
+    padding: 4px 20px 4px 0px;
+    border-radius: 10px;
+}

@@ -5,55 +5,47 @@ import ProductImgWidgets from '../ProductImgWidgets/ProductImgWidgets'
 
 
 export default class ProductInListCard extends Component {
-    state={
-        productName:this.props.productName,
-        isRecent:this.props.isRecent,
-        withPromo:this.props.withPromo,
-        promo:this.props.promo,
-        mainImg:this.props.mainImg,
-        suggestedPrice:this.props.suggestedPrice,
-        suggestedProfit:this.props.suggestedProfit,
-        recentCustomer:this.props.recentCustomer,
-        recentFinalPrice:this.props.recentFinalPrice,
-        isFavorite:this.props.isFavorite,
-    }
+
     render() {
+        const {productName,isRecent,withPromo,promo,oldPrice,suggestedPrice,suggestedProfit,recentCustomer,recentFinalPrice,
+            styleImg,mainImg,isFavorite,showUpWidget,upWidget,showDownWidget,downWidget}=this.props
         return (
             <div className="container-fluid ProductInListCard">
                 <div className="row">
                     {/* <div className="col-12"> */}
-                    <ProductImgWidgets 
-                    mainImg={this.state.mainImg} 
-                    isFavorite={this.state.isFavorite}
-                    showUpWidget={true}
-                    upWidget={'favorite'}//checkbox or favorite
-                    showDownWidget={false}
-                    downWidget={''}
+                    <ProductImgWidgets
+                    styleImg={styleImg}
+                    mainImg={mainImg} 
+                    isFavorite={isFavorite}
+                    showUpWidget={showUpWidget}
+                    upWidget={upWidget}//checkbox or favorite
+                    showDownWidget={showDownWidget}
+                    downWidget={downWidget}
                     />
                     {/* </div> */}
                 </div>
                 <div className="row">
                     <div className="col-12 ProductInListCard_productName ">
-                        {this.state.productName}
+                        {productName}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
                         {
-                            this.state.isRecent?
-                                <div className="ProductInListCard_recentCustomer">{this.state.recentCustomer}</div>
+                            isRecent?
+                                <div className="ProductInListCard_recentCustomer">{recentCustomer}</div>
                             :
-                                this.state.withPromo?
+                                withPromo?
                                     <div>
                                         <div className="d-flex">
-                                            <div className="d-flex align-items-end ProductInListCard_suggestedPrice">{this.state.suggestedPrice}</div>
-                                            <div className="d-flex align-items-center ProductInListCard_promo">28% OFF</div>
+                                            <div className="d-flex align-items-end ProductInListCard_suggestedPrice">{suggestedPrice}</div>
+                                            <div className="d-flex align-items-center ProductInListCard_promo">{promo}</div>
                                         </div>
-                                        <div className="d-flex align-items-end ProductInListCard_oldPrice"><span>$69.000</span>Precio</div>
+                                        <div className="d-flex align-items-end ProductInListCard_oldPrice"><span>{oldPrice}</span>Precio</div>
                                     </div>
                                 :
                                     <div className="d-flex">
-                                        <div className="d-flex align-items-end ProductInListCard_suggestedPrice">{this.state.suggestedPrice}</div>
+                                        <div className="d-flex align-items-end ProductInListCard_suggestedPrice">{suggestedPrice}</div>
                                         <div className="d-flex align-items-end ProductInListCard_suggestedPrice_label">Precio</div>
                                     </div>
                         }
@@ -62,15 +54,15 @@ export default class ProductInListCard extends Component {
                 <div className="row">
                     <div className="col-12">
                         {
-                            this.state.isRecent?
+                            isRecent?
                                 <div className="d-flex">
-                                    <div className="d-flex align-items-end ProductInListCard_recentFinalPrice">{this.state.recentFinalPrice}</div>
+                                    <div className="d-flex align-items-end ProductInListCard_recentFinalPrice">{recentFinalPrice}</div>
                                     <div className="d-flex align-items-end ProductInListCard_recentFinalPrice_label">Precio final</div>
                                 </div>
                             :
                                 <div className="d-flex">
                                     <div className="d-flex align-items-end ProductInListCard_suggestedProfit">
-                                        {this.state.suggestedProfit}
+                                        {suggestedProfit}
                                     </div>
                                     <div className="d-flex align-items-end ProductInListCard_suggestedProfit_label">
                                         Ganancia
@@ -81,7 +73,7 @@ export default class ProductInListCard extends Component {
                 </div>
                 <div className="row">
                     {
-                        this.state.isRecent?
+                        isRecent?
                             null
                         :
                             <div className="col-12">

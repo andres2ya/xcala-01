@@ -48,7 +48,7 @@ export default class ProductImgWidgets extends Component {
                                                     switch (downWidget) {
                                                         case 'share_and_car':
                                                             return(
-                                                            <div>
+                                                            <div className="d-flex">
                                                                 <div className="ProductImgWidgets_coverWidgets_downOne">
                                                                     <img height="32" src={whatsappIconShare} alt=""/> 
                                                                 </div>

@@ -46,6 +46,7 @@ import InfoProgressCard from './InfoProgressCard/InfoProgressCard'
 import MainFooterIcons from './MainFooterIcons/MainFooterIcons'
 import SliderSingleProduct from './SliderSingleProduct/SliderSingleProduct'
 import ProductHorizontalCard from './ProductHorizontalCard/ProductHorizontalCard'
+import ProductShoppingCar from './ProductShoppingCar/ProductShoppingCar'
 
 export default class BasicComponents extends Component {
 
@@ -140,86 +141,84 @@ export default class BasicComponents extends Component {
                     <div className="row">
                         <div className="col-6 d-flex justify-content-center">
                             <ProductInListCard
-                            productName={'Juguetes Sup'}
-                            isRecent={false}
-                            withPromo={false}
-                            promo={0.28}
+                            styleImg={{width:'35vw',height:'35vw'}}
                             mainImg={'https://decerditoss.com/wp-content/uploads/2020/03/6-3.jpg'}
-                            suggestedPrice={'$49.000'}
-                            suggestedProfit={'$20.000'}
-                            recentCustomer={'Nieves Bohorquez'}
-                            recentFinalPrice={'$73.000'}
                             isFavorite={false}
-                            />
-                        </div>
-                        <div className="col-6 d-flex justify-content-center">
-                            <ProductInListCard
-                            productName={'Juguetes Sup'}
-                            isRecent={false}
-                            withPromo={true}
-                            promo={0.28}
-                            mainImg={'https://www.dhresource.com/0x0/f2/albu/g10/M00/32/7D/rBVaWV1fnYuAM2qWAABorF5kl40246.jpg'}
-                            suggestedPrice={'$49.000'}
-                            suggestedProfit={'$20.000'}
-                            recentCustomer={'Nieves Bohorquez'}
-                            recentFinalPrice={'$73.000'}
-                            isFavorite={false}
-                            />
-                        </div>
-                        <div className="col-6 d-flex justify-content-center">
-                            <ProductInListCard
+                            showUpWidget={true}
+                            upWidget={'favorite'}//checkbox or favorite
+                            showDownWidget={true}
+                            downWidget={'share_and_car'}//share_and_car or checkbox
+
                             productName={'Juguetes Sup'}
                             isRecent={false}
                             withPromo={false}
                             promo={0.28}
+                            oldPrice={'$oldprice'}
+                            suggestedPrice={'$49.000'}
+                            suggestedProfit={'$20.000'}
+                            recentCustomer={'Nieves Bohorquez'}
+                            recentFinalPrice={'$73.000'}
+                            />
+                        </div>
+                        <div className="col-6 d-flex justify-content-center">
+                            <ProductInListCard
+                            styleImg={{width:'35vw',height:'35vw'}}
                             mainImg={'https://decerditoss.com/wp-content/uploads/2020/03/6-3.jpg'}
-                            suggestedPrice={'$49.000'}
-                            suggestedProfit={'$20.000'}
-                            recentCustomer={'Nieves Bohorquez'}
-                            recentFinalPrice={'$73.000'}
                             isFavorite={false}
-                            />
-                        </div>
-                        <div className="col-6 d-flex justify-content-center">
-                            <ProductInListCard
+                            showUpWidget={true}
+                            upWidget={'favorite'}//checkbox or favorite
+                            showDownWidget={true}
+                            downWidget={'share_and_car'}//share_and_car or checkbox
+
                             productName={'Juguetes Sup'}
                             isRecent={false}
                             withPromo={false}
                             promo={0.28}
+                            oldPrice={'$oldprice'}
+                            suggestedPrice={'$49.000'}
+                            suggestedProfit={'$20.000'}
+                            recentCustomer={'Nieves Bohorquez'}
+                            recentFinalPrice={'$73.000'}
+                            />
+                        </div>                        <div className="col-6 d-flex justify-content-center">
+                            <ProductInListCard
+                            styleImg={{width:'35vw',height:'35vw'}}
                             mainImg={'https://decerditoss.com/wp-content/uploads/2020/03/6-3.jpg'}
-                            suggestedPrice={'$49.000'}
-                            suggestedProfit={'$20.000'}
-                            recentCustomer={'Nieves Bohorquez'}
-                            recentFinalPrice={'$73.000'}
                             isFavorite={false}
-                            />
-                        </div>
-                        <div className="col-6 d-flex justify-content-center">
-                            <ProductInListCard
-                            productName={'Juguetes Sup'}
-                            isRecent={false}
-                            withPromo={true}
-                            promo={0.28}
-                            mainImg={'https://www.dhresource.com/0x0/f2/albu/g10/M00/32/7D/rBVaWV1fnYuAM2qWAABorF5kl40246.jpg'}
-                            suggestedPrice={'$49.000'}
-                            suggestedProfit={'$20.000'}
-                            recentCustomer={'Nieves Bohorquez'}
-                            recentFinalPrice={'$73.000'}
-                            isFavorite={false}
-                            />
-                        </div>
-                        <div className="col-6 d-flex justify-content-center">
-                            <ProductInListCard
+                            showUpWidget={true}
+                            upWidget={'favorite'}//checkbox or favorite
+                            showDownWidget={true}
+                            downWidget={'share_and_car'}//share_and_car or checkbox
+
                             productName={'Juguetes Sup'}
                             isRecent={false}
                             withPromo={false}
                             promo={0.28}
-                            mainImg={'https://www.dhresource.com/0x0/f2/albu/g10/M00/32/7D/rBVaWV1fnYuAM2qWAABorF5kl40246.jpg'}
+                            oldPrice={'$oldprice'}
                             suggestedPrice={'$49.000'}
                             suggestedProfit={'$20.000'}
                             recentCustomer={'Nieves Bohorquez'}
                             recentFinalPrice={'$73.000'}
+                            />
+                        </div>                        <div className="col-6 d-flex justify-content-center">
+                            <ProductInListCard
+                            styleImg={{width:'35vw',height:'35vw'}}
+                            mainImg={'https://decerditoss.com/wp-content/uploads/2020/03/6-3.jpg'}
                             isFavorite={false}
+                            showUpWidget={true}
+                            upWidget={'favorite'}//checkbox or favorite
+                            showDownWidget={true}
+                            downWidget={'share_and_car'}//share_and_car or checkbox
+
+                            productName={'Juguetes Sup'}
+                            isRecent={false}
+                            withPromo={false}
+                            promo={0.28}
+                            oldPrice={'$oldprice'}
+                            suggestedPrice={'$49.000'}
+                            suggestedProfit={'$20.000'}
+                            recentCustomer={'Nieves Bohorquez'}
+                            recentFinalPrice={'$73.000'}
                             />
                         </div>
                     </div>
@@ -619,21 +618,45 @@ export default class BasicComponents extends Component {
 
                 <ProductHorizontalCard
                 styleImg={{width:'32vw',height:'32vw'}}
-                mainImg={'https://files.genial.guru/files/news/part_51/512160/419660-23603010-03finished-0-1509442137-1509442149-2000-1-1509442149-650-04f9ebaa03-1511556706.jpg'}
+                mainImg={'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR0pUkTBKT6cODw06MZQZHdKQLczrOtvpdO0IL71Fm_nVbeGB0d&usqp=CAU'}
                 isFavorite={true}
-                showUpWidget={true}
-                upWidget={'checkbox'}//checkbox or favorite
-                showDownWidget={false}
-                downWidget={''}
                 showUpWidget={false}// true or false
-                upWidget={'checkbox'}//checkbox or favorite
+                upWidget={'favorite'}//checkbox or favorite
+                showDownWidget={false}// true or false
+                downWidget={''}//share_and_car
+
+                showDeleteWidget={false}
+                footerImgSpace={'empty'}//empty or guideNumber
+                guideNumber={'782klsl'}
+                middleSpace={'empty'}// empty or 
+                footerSpace={'pricePlusQuantity'}//empy or pricePlusQuantity or pricePlusInput
+                price={'$49.000'}
+                quantity={1}
+                getValue={(value)=>alert(value)}
+                />
+
+                <ProductShoppingCar
+                downCards={[
+                    {text:'Se enviara a Nieves Bohorquez en Bucaramanga',icon:'icon-pencilonly',url:'google.com.co'},
+                    {text:'Precio de venta $128.000',icon:'icon-pencilonly',url:'google.com.co'},
+                ]}
+
+                styleImg={{width:'32vw',height:'32vw'}}
+                mainImg={'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR0pUkTBKT6cODw06MZQZHdKQLczrOtvpdO0IL71Fm_nVbeGB0d&usqp=CAU'}
+                isFavorite={true}
+                showUpWidget={false}// true or false
+                upWidget={'favorite'}//checkbox or favorite
                 showDownWidget={false}// true or false
                 downWidget={''}//share_and_car
 
                 showDeleteWidget={true}
-                footerImgSpace={''}
-                middleSpace={''}
-                footerSpace={''}
+                footerImgSpace={'empty'}//empty or guideNumber
+                guideNumber={'782klsl'}
+                middleSpace={'empty'}// empty or 
+                footerSpace={'pricePlusQuantity'}//empy or pricePlusQuantity or pricePlusInput
+                price={'$49.000'}
+                quantity={1}
+                getValue={(value)=>alert(value)}
                 />
                 
 

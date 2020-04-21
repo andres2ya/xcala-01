@@ -94,3 +94,22 @@
         transform: scale(0.85);
     }
 }
+.ProductHorizontalCard_price{
+    margin-right: 5px;
+    color: #4e4e4e;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+.ProductHorizontalCard_quantity{
+    color: white;
+    background-color:rgb(0, 123, 255);
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

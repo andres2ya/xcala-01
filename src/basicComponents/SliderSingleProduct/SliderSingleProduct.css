@@ -1,0 +1,20 @@
+/* .SliderSingleProduct{
+    padding-left: 15px;
+    padding-right: 15px;
+    height: ;
+} */
+/* .SliderSingleProduct_carrusel{
+    border-radius: 10px;
+} */
+
+.SliderSingleProduct_slide{
+    height: 100vw;
+    width: 100vw;
+    object-fit: cover;
+}
+.SliderSingleProduct_pointIndicators{
+    height:15px;
+}
+.SliderSingleProduct_arrowButton{
+    transform: scale(1.5);
+}

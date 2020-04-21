@@ -34,7 +34,7 @@ export default class MiniWidgetsToDonut extends Component {
 }
 
 
-class MiniWidgetsToDonut_text_and_label extends Component {
+export class MiniWidgetsToDonut_text_and_label extends Component {
   render() {
     const {text,value,label,icon}=this.props
     return (
@@ -49,13 +49,12 @@ class MiniWidgetsToDonut_text_and_label extends Component {
             </div>
             {icon?<div className="MiniWidgetsToDonut_icon"><i className={icon}/></div>:null}
         </div>
-        
     );
   }
 }
 
 
-class MiniWidgetsToDonut_widgets extends Component {
+export class MiniWidgetsToDonut_widgets extends Component {
   render() {
     const {level,points,percent,tail}=this.props
     return (

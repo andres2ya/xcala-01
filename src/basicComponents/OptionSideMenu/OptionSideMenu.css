@@ -1,0 +1,42 @@
+.OptionSideMenu{
+    background-color: transparent;
+    padding: 7px 5px 7px 5px;
+    border-bottom: 1px solid black;
+}
+.OptionSideMenu_circle_icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 5px;
+    color: black;
+    margin-right: 5px;
+}
+.OptionSideMenu_circle_icon i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.OptionSideMenu_text{
+    color: black;
+    font-size: 17px;
+    font-weight: normal;
+}
+.OptionSideMenu_arrow{
+    margin-left: auto;
+    color: black;
+    font-size: 17px;
+    font-weight: normal;
+    margin-right: 5px;
+}
+.OptionSideMenu_number{
+    margin-left: auto;
+    color: white;
+    font-size: 17px;
+    font-weight: normal;
+    margin-right: 5px;
+    background-color:#1b1464;
+    border-radius: 50px;
+    width:25px;
+    height:25px;
+    text-align: center;
+}

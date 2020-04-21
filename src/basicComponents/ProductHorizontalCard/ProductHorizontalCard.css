@@ -1,0 +1,96 @@
+.ProductHorizontalCard{
+    position: relative;
+    border-radius: 15px;
+    /* padding: 15px 15px 15px 15px; */
+    background-color: white;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    z-index: 0;
+}
+.ProductHorizontalCard_img_imgFotter{
+    margin-right: 10px;
+}
+.ProductHorizontalCard_right_top_circle{
+    margin-left: auto;
+    min-width: 35px;
+    min-height: 35px;
+    max-width: 35px;
+    max-height: 35px;
+    background-color: #ed1e79;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    margin-top: -15px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.ProductHorizontalCard_right_top_circle i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 2px;
+}
+.ProductHorizontalCard_img{
+    transform: scale(0.85);
+}
+.ProductHorizontalCard_productInfo{
+    padding: 10px 5px 10px 0px;
+    width: 100%;
+}
+.ProductHorizontalCard_name_iconRight_sku{
+    height: 50%;
+    width: 100%;
+}
+.ProductHorizontalCard_name{
+    color: #10174b;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1;
+}
+.ProductHorizontalCard_sku{
+    color: #999999;
+    font-size: 13px;
+    line-height: 1;
+}
+.ProductHorizontalCard_middleSpace{
+    height: 25%;
+    display: flex;
+    align-items: center;
+}
+.ProductHorizontalCard_footerSpace{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    height: 25%;
+    font-size: 17px;
+}
+
+@media only screen and (min-width: 425px){
+    .ProductHorizontalCard_name{
+        /* font-size: 25px; */
+        font-size: 5vw;
+    }
+    .ProductHorizontalCard_sku{
+        /* font-size: 20px; */
+        font-size: 3vw;
+    }
+    .ProductHorizontalCard_middleSpace{
+        /* font-size: 25px; */
+        font-size: 5vw;
+
+    }
+    .ProductHorizontalCard_footerSpace{
+        /* font-size: 25px; */
+        font-size: 5vw;
+
+    }
+    .ProductHorizontalCard_img{
+        transform: scale(0.85);
+    }
+}

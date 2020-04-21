@@ -22,7 +22,14 @@ export default class ProductInListCard extends Component {
             <div className="container-fluid ProductInListCard">
                 <div className="row">
                     {/* <div className="col-12"> */}
-                    <ProductImgWidgets mainImg={this.state.mainImg} isFavorite={this.state.isFavorite}/>
+                    <ProductImgWidgets 
+                    mainImg={this.state.mainImg} 
+                    isFavorite={this.state.isFavorite}
+                    showUpWidget={true}
+                    upWidget={'favorite'}//checkbox or favorite
+                    showDownWidget={false}
+                    downWidget={''}
+                    />
                     {/* </div> */}
                 </div>
                 <div className="row">

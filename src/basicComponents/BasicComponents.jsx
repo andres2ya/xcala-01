@@ -37,20 +37,36 @@ import MiniWidgetsToDonut from './MiniWidgetsToDonut/MiniWidgetsToDonut'
 import CalculationFinalPrice from './CalculationFinalPrice/CalculationFinalPrice'
 import AccountOptionBox from './AccountOptionBox/AccountOptionBox'
 import NequiForm from './NequiForm/NequiForm'
+import Modal from './../components/12-Modal/Modal'
+import SideMenu from './SideMenu/SideMenu'
+import QuickAccessIcons from './QuickAccessIcons/QuickAccessIcons'
+import AdsCard from './AdsCard/AdsCard'
+import ProgressCard from './ProgressCard/ProgressCard'
+import InfoProgressCard from './InfoProgressCard/InfoProgressCard'
+import MainFooterIcons from './MainFooterIcons/MainFooterIcons'
+import SliderSingleProduct from './SliderSingleProduct/SliderSingleProduct'
+import ProductHorizontalCard from './ProductHorizontalCard/ProductHorizontalCard'
 
 export default class BasicComponents extends Component {
 
-    //NOTE: Estado y funcion acompañante de "HorizontalScrollingContainerTabs"
     state={
-        selectedTab:null
+        openModal:false
     }
-    selectTab=(e,idTab)=>{
-        e.preventDefault()
-        this.setState({selectedTab:idTab})
-    }
+
+    //NOTE: Estado y funcion acompañante de "HorizontalScrollingContainerTabs"
+    // state={
+    //     selectedTab:null
+    // }
+    // selectTab=(e,idTab)=>{
+    //     e.preventDefault()
+    //     this.setState({selectedTab:idTab})
+    // }
     //NOTE: Estado y funcion acompañante de "HorizontalScrollingContainerTabs"
 
-
+    toggle=()=>{
+        this.setState({openModal:!this.state.openModal})
+        window.scrollTo(0,0)
+    }
     render() {
         return (
             <div>
@@ -518,6 +534,110 @@ export default class BasicComponents extends Component {
                 <NequiForm
                 url={'google.com.co'}
                 />
+
+                <button onClick={this.toggle}>Open modal</button>
+                {this.state.openModal?
+                <Modal center={false} background={'rgb(34, 17, 74,0.95)'}>
+                    <SideMenu toggle={this.toggle}/>
+                </Modal>
+                :null}
+
+                <QuickAccessIcons
+                icons={
+                [{url:'google.com.co',icon:'icon-customericon-1',label:'Tus cliente'},
+                {url:'google.com.co',icon:'icon-goalicon',label:'Tu meta'},
+                {url:'google.com.co',icon:'icon-nequiquickicon',label:'Tu NEQUI'}]}
+                />
+
+                <AdsCard
+                backgroundColor={'green'}//'green' or 'orange' or 'violet' or 'blue' or 'red'
+                text={'Gana el 50% '}
+                span={'de tu meta mensual'}
+                url={'google.com.co'}
+                />
+
+                <ProgressCard
+                text={''}
+                value={'$0.0'}
+                label={'Tu ganancia este mes'}
+                progressBarTitle={'Primera venta'}
+                percent={95}
+                />
+
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="d-flex justify-content-center">
+                            <InfoProgressCard
+                            isEmpty={true}
+                            isRatio={true}
+                            title={'Ventas este mes'}
+                            value={''}
+                            upValue={'0'}
+                            downValue={'40'}
+                            percent={50}
+                            icon={'icon-plus'}
+                            url={'google.com.co'}
+                            />
+                            <div style={{width:'15px'}}></div>
+                            <InfoProgressCard
+                            isEmpty={false}
+                            isRatio={true}
+                            title={'Ventas este mes'}
+                            value={''}
+                            upValue={0}
+                            downValue={50}
+                            percent={50}
+                            icon={'icon-plus'}
+                            url={'google.com.co'}
+                            />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* <MainFooterIcons
+                icons={[
+                {url:'google.com.co',icon:'icon-customericon-1',label:'Productos'},
+                {url:'google.com.co',icon:'icon-goalicon',label:'Pedidos'},
+                {url:'google.com.co',icon:'icon-nequiquickicon',label:'Favoritos'},
+                {url:'google.com.co',icon:'icon-customericon-1',label:'Ganancias'},
+                {url:'google.com.co',icon:'icon-nequiquickicon',label:'Cuenta'},
+                ]}
+                iconSelected={'Pedidos'}
+                /> */}
+
+                <SliderSingleProduct
+                images={
+                [
+                    {nombre:'1',url:'google.com.co',img:'https://files.genial.guru/files/news/part_51/512160/419660-23603010-03finished-0-1509442137-1509442149-2000-1-1509442149-650-04f9ebaa03-1511556706.jpg'},
+                    {nombre:'2',url:'google.com.co',img:'https://img.imagenescool.com/ic/frases/frases_126.jpg'},
+                    {nombre:'3',url:'google.com.co',img:'https://files.genial.guru/files/news/part_51/512160/419660-23603010-03finished-0-1509442137-1509442149-2000-1-1509442149-650-04f9ebaa03-1511556706.jpg'},
+                ]
+                }
+                />
+
+                <ProductHorizontalCard
+                styleImg={{width:'32vw',height:'32vw'}}
+                mainImg={'https://files.genial.guru/files/news/part_51/512160/419660-23603010-03finished-0-1509442137-1509442149-2000-1-1509442149-650-04f9ebaa03-1511556706.jpg'}
+                isFavorite={true}
+                showUpWidget={true}
+                upWidget={'checkbox'}//checkbox or favorite
+                showDownWidget={false}
+                downWidget={''}
+                showUpWidget={false}// true or false
+                upWidget={'checkbox'}//checkbox or favorite
+                showDownWidget={false}// true or false
+                downWidget={''}//share_and_car
+
+                showDeleteWidget={true}
+                footerImgSpace={''}
+                middleSpace={''}
+                footerSpace={''}
+                />
+                
+
+
             </div>
         )
     }

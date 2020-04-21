@@ -1,0 +1,33 @@
+.ProgressCard_text_and_label{
+    margin-top: 5px;
+}
+.ProgressCard_text{
+    color: #1b1464;
+    font-weight: normal;
+    font-size: 35px;
+    line-height: 1;
+}
+
+.ProgressCard_label{
+    color: #1b1464;
+    font-size: 15px;
+    line-height: 0.8;
+    font-weight: normal;
+}
+
+.ProgressCard_widgets{
+    margin-top: 8px;
+}
+
+.ProgressCard_bar{
+    width: 80%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ProgressCard_title{
+    color: #1b1464;
+    font-size: 15px;
+    line-height: 0.8;
+    font-weight: bold;
+}

@@ -227,3 +227,18 @@
 .icon-pencilonly:before {
   content: "\21";
 }
+.icon-customericon:before {
+  content: "\22";
+}
+.icon-customericon-1:before {
+  content: "\23";
+}
+.icon-goalicon:before {
+  content: "\24";
+}
+.icon-nequiquickicon:before {
+  content: "\25";
+}
+.icon-trash-o:before {
+  content: "\26";
+}

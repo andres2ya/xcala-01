@@ -1,0 +1,53 @@
+.AdsCard{
+    border-radius: 15px;
+    padding: 15px 5px 15px 5px;
+    background-color: white;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+}
+.AdsCard_text{
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1;
+}
+.AdsCard_text span{
+    font-weight: 300;
+}
+.AdsCard_green{
+    background: rgb(140,198,63);
+    background: -moz-linear-gradient(90deg, rgba(140,198,63,1) 0%, rgba(57,181,74,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(140,198,63,1) 0%, rgba(57,181,74,1) 100%);
+    background: linear-gradient(90deg, rgba(140,198,63,1) 0%, rgba(57,181,74,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8cc63f",endColorstr="#39b54a",GradientType=1);
+}
+.AdsCard_orange{
+    background: rgb(207,95,9);
+    background: -moz-linear-gradient(90deg, rgba(207,95,9,1) 0%, rgba(253,146,48,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(207,95,9,1) 0%, rgba(253,146,48,1) 100%);
+    background: linear-gradient(90deg, rgba(207,95,9,1) 0%, rgba(253,146,48,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cf5f09",endColorstr="#fd9230",GradientType=1);
+}
+.AdsCard_violet{
+    background: rgb(102,45,145);
+    background: -moz-linear-gradient(90deg, rgba(102,45,145,1) 0%, rgba(147,39,143,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(102,45,145,1) 0%, rgba(147,39,143,1) 100%);
+    background: linear-gradient(90deg, rgba(102,45,145,1) 0%, rgba(147,39,143,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#662d91",endColorstr="#93278f",GradientType=1);
+}
+.AdsCard_red{
+    background: rgb(238,55,116);
+    background: -moz-linear-gradient(90deg, rgba(238,55,116,1) 0%, rgba(255,6,102,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(238,55,116,1) 0%, rgba(255,6,102,1) 100%);
+    background: linear-gradient(90deg, rgba(238,55,116,1) 0%, rgba(255,6,102,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee3774",endColorstr="#ff0666",GradientType=1);
+}
+.AdsCard_blue{
+    background: rgb(41,171,226);
+    background: -moz-linear-gradient(90deg, rgba(41,171,226,1) 0%, rgba(46,49,146,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(41,171,226,1) 0%, rgba(46,49,146,1) 100%);
+    background: linear-gradient(90deg, rgba(41,171,226,1) 0%, rgba(46,49,146,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#29abe2",endColorstr="#2e3192",GradientType=1);
+}

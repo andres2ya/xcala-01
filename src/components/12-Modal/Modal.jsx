@@ -27,6 +27,7 @@ export default class Modal extends Component {
     componentWillUnmount=()=>{
         console.log('Se desmonto el modal')
         document.getElementById('ownModal').removeAttribute('class')
+        document.getElementById('ownModal').removeAttribute('style')//***
         document.body.removeAttribute('class')
         document.body.className='myAccountStyle'
         

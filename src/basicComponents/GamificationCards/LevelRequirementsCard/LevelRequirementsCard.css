@@ -1,0 +1,33 @@
+.LevelRequirementsCard{
+    border-radius: 15px;
+    padding: 7.5px 10px 7.5px 10px;
+    line-height: 1;
+    background-color: white;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+}
+.LevelRequirementsCard_card{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+.LevelRequirementsCard_img{
+    height: 40px;
+    width: 40px;
+}
+.LevelRequirementsCard_info{
+    margin-left: 15px;
+}
+.LevelRequirementsCard_name{
+    font-weight: bold;
+    color: black;
+    margin-bottom: 3px;
+}
+.LevelRequirementsCard_description{
+    font-weight: 300;
+    color: rgb(149, 149, 149);
+    font-size: 13px;
+}

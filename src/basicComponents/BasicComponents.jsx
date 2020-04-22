@@ -47,6 +47,14 @@ import MainFooterIcons from './MainFooterIcons/MainFooterIcons'
 import SliderSingleProduct from './SliderSingleProduct/SliderSingleProduct'
 import ProductHorizontalCard from './ProductHorizontalCard/ProductHorizontalCard'
 import ProductShoppingCar from './ProductShoppingCar/ProductShoppingCar'
+import PowerGamificationCard from './GamificationCards/PowerGamificationCard/PowerGamificationCard'
+import MissionGamificationCard from './GamificationCards/MissionGamificationCard/MissionGamificationCard'
+import FriendsCard from './GamificationCards/FriendsCard/FriendsCard'
+import LevelCard from './GamificationCards/LevelCard/LevelCard'
+import LevelRequirementsCard from './GamificationCards/LevelRequirementsCard/LevelRequirementsCard'
+import GoalPlan from './GoalPlan/GoalPlan'
+import WeekGoalPlan from './WeekGoalPlan/WeekGoalPlan'
+import ProgressMonthGoal from './WeekGoalPlan/ProgressMonthGoal/ProgressMonthGoal'
 
 export default class BasicComponents extends Component {
 
@@ -659,7 +667,69 @@ export default class BasicComponents extends Component {
                 getValue={(value)=>alert(value)}
                 />
                 
+                <PowerGamificationCard
+                powerImg={'https://2.bp.blogspot.com/-T_V9KrLSzhg/UyGQGH732jI/AAAAAAAATlQ/kRcR7spyZ2k/s1600/neil-dg-tyson-cosmos.jpg'}
+                firstLineName={'Nombre corto y'}
+                secondLineName={'explicativo'}
+                />
 
+                <MissionGamificationCard
+                missionImg={'https://mx.web.img3.acsta.net/r_640_360/newsv7/18/01/14/16/25/1812737.jpg'}
+                text={'Nombre de la mision ombre de la mision creo.'}
+                callToAction={'Ver mas'}
+                styleFooter={{backgroundColor:'black',color:'white'}}
+                styleCTA={{backgroundColor:'white',color:'black'}}
+                />
+
+                <FriendsCard
+                firstName={'Andres'}
+                lastName={'Yaya'}
+                styleTwoWords={{backgroundColor:'#cccccc',color:'white'}}
+                twoWords={'RF'}
+                friendImg={'https://www.elcolombiano.com/documents/10157/0/677x365/49c0/580d365/none/11101/OKKX/image_content_35367898_20200311080124.jpg'}
+                />
+                
+                <LevelCard
+                level={'Intermedio'}
+                text={'Lograr tu meta mensual y 1000 puntos'}
+                benefits={'10 beneficios >'}
+                url={'google.com.co'}
+                />
+
+                <LevelRequirementsCard
+                requirements={[
+                    {filled:true,name:'Nombre del item',description:'Descripcion corta pero clara del item que se entienda bien'},
+                    {filled:false,name:'Nombre del item',description:'Descripcion corta pero clara del item que se entienda bien'},
+                    {filled:true,name:'Nombre del item',description:'Descripcion corta pero clara del item que se entienda bien'},
+                ]}
+                />
+
+                <GoalPlan
+                upLabel={'4 Metas mensuales de'}
+                upValue={'$ 1.500.000'}
+                upValueLabel={'cada una'}
+                downLabel={'Con objetivos semanales de'}
+                downValue={'$ 375.000'}
+                downValueLabel={'cada uno'}
+                />
+
+                <WeekGoalPlan
+                upLabel={'¿Cuantas ventas vas a lograr esta semana?'}
+                downValueLeft={'10'}
+                downValueLabelLeft={'Numero ventas'}
+                downValueRight={'= $ 0.0'}
+                downValueLabelRight={'Ganancia objetivo'}
+                />
+
+                <ProgressMonthGoal
+                title={'Progreso meta mensual'}
+                labelBar={'$ 1.500.000'}
+                items={[
+                    {isBar:true,percent:'33',styleBar:{width: '33%',height:'7.5px',backgroundColor:'rgb(0, 123, 255)'},styleIndicator:{backgroundColor:'rgb(0, 123, 255)'},value:'$ 300.000',label:'Avance este mes'},
+                    {isBar:true,percent:'33',styleBar:{width: '33%',height:'7.5px',backgroundColor:'#00ef7f'},styleIndicator:{backgroundColor:'#00ef7f'},value:'$ 500.000',label:'Ganancia objetivo esta semana'},
+                    {isBar:false,styleIndicator:{backgroundColor:'grey'},value:'$ 700.000',label:'Restante este mes'},
+                ]}
+                />
 
             </div>
         )

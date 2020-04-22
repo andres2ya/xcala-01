@@ -1,0 +1,44 @@
+.LevelCard{
+    border-radius: 15px;
+    padding: 7.5px 10px 7.5px 10px;
+    line-height: 1;
+    color: white;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+}
+.LevelCard_Inicial{
+    background:-moz-linear-gradient(90deg, #cf5f09 0%, #fd9230 100%);
+    background:-webkit-linear-gradient(90deg, #cf5f09 0%, #fd9230 100%);
+    background:linear-gradient(90deg, #cf5f09 0%, #fd9230 100%);
+}
+.LevelCard_Intermedio{
+    background:-moz-linear-gradient(90deg, #662d91 0%, #93278f 100%);
+    background:-webkit-linear-gradient(90deg, #662d91 0%, #93278f 100%);
+    background:linear-gradient(90deg, #662d91 0%, #93278f 100%);
+}
+.LevelCard_Pro{
+    background:-moz-linear-gradient(90deg, #8cc63f 0%, #39b54a 100%);
+    background:-webkit-linear-gradient(90deg, #8cc63f 0%, #39b54a 100%);
+    background:linear-gradient(90deg, #8cc63f 0%, #39b54a 100%); 
+}
+
+.LevelCard_level{
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.LevelCard_text{
+    font-size: 17px;
+    margin-bottom: 10px;
+
+}
+
+.LevelCard_benefits{
+    border-top: 1px solid white;
+    font-weight: 500;
+    min-width: 100%;
+    padding-top: 5px;
+}

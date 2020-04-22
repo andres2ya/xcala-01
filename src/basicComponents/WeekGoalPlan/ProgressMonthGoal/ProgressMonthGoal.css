@@ -1,0 +1,38 @@
+.ProgressMonthGoal{
+    border-radius: 15px;
+    padding: 15px 10px 15px 10px;
+    line-height: 1;
+    background-color: white;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+}
+.ProgressMonthGoal_title{
+    color: black;
+    line-height: 1;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.ProgressMonthGoal_labelBar{
+    color: black;
+    line-height: 1;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 30px; 
+}
+.ProgressMonthGoal_indicator_span{
+    height: 8px;
+    width: 16px;
+    border-radius: 8px;
+    margin-right: 5px;
+}
+.ProgressMonthGoal_indicator_spanText{
+    font-size: 13px;
+}
+.ProgressMonthGoal_labelIndicator{
+    color: black;
+    font-size: 13px;
+    margin-left: 10px;
+}

@@ -1,0 +1,30 @@
+.MissionGamificationCard{
+    border-radius: 15px 15px 15px 15px;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+}
+.MissionGamificationCard_img img{
+    object-fit: cover;
+    height: 350px;
+    width: 100%;
+    border-radius: 15px 15px 0px 0px;
+}
+.MissionGamificationCard_footer{
+    height: 60px;
+    font-weight: bold;
+    border-radius: 0px 0px 15px 15px;
+    padding: 7.5px 15px 7.5px 15px;
+    line-height: 1.1;
+    font-size: 15px;
+}
+.MissionGamificationCard_text{
+   width: 70%; 
+}
+.MissionGamificationCard_CTA{
+   width: 30%; 
+    border-radius: 15px;
+    padding: 4px 4px 4px 4px;
+    margin-left: 15px;
+    text-align: center;
+}

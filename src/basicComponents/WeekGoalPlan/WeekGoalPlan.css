@@ -1,0 +1,101 @@
+.WeekGoalPlan{
+    border-radius: 15px;
+    /* padding: 15px 0px 15px 0px; */
+    line-height: 1;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.15);
+}
+.WeekGoalPlan_up{
+    background-color: white;
+    color: black;
+    line-height: 1;
+    border-radius: 15px 15px 0px 0px;
+    padding:15px 10px 15px 10px;
+
+}
+.WeekGoalPlan_up_label{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+.WeekGoalPlan_down{
+    background-color: white;
+    line-height: 1;
+    border-radius: 0px 0px 15px 15px;
+    height: 100%;
+
+}
+
+.WeekGoalPlan_down_value_left{
+    background-color: rgb(0, 123, 255);
+    color: white;
+    width: 40%;
+    border-radius: 0px 0px 0px 15px;
+    padding:5px 10px 5px 10px;
+    
+}
+.WeekGoalPlan_down_value_left input{
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+.WeekGoalPlan_down_value_left input:focus{
+    outline: none;
+}
+.WeekGoalPlan_down_value_label_left{
+    color: white;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+
+.WeekGoalPlan_down_value_right{
+    background-color: white;
+    color: #00ef7f;
+    text-align: center;
+    font-size: 25px;
+    width: 60%;
+    font-weight: bold;
+    height: 100%;
+    border-radius: 0px 0px 15px 0px;
+    padding:5px 5px 5px 5px;
+}
+
+.WeekGoalPlan_down_value_label_right{
+    color: #00ef7f;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+
+
+
+
+
+
+.GoalPlan_down_label{
+    width: 50%;
+    font-size: 18px;
+}
+.GoalPlan_down_value{
+    color: #4e4e4e;
+    margin-left: auto;
+    width: 50%;
+    font-size: 17px;
+    font-weight: 500;
+}
+.GoalPlan_down_value_label{
+    color: #4e4e4e;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 300;
+}
